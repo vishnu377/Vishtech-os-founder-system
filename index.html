@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishtech OS — Founder Command Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+:root{
+  --bg:#07080a;--bg2:#0d0f12;--bg3:#13161b;--bg4:#1a1d24;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#e8e9ea;--muted:#6b7280;--muted2:#9ca3af;
+  --blue:#3b82f6;--blue-d:rgba(59,130,246,0.12);--blue-b:rgba(59,130,246,0.28);
+  --green:#10b981;--green-d:rgba(16,185,129,0.12);--green-b:rgba(16,185,129,0.28);
+  --amber:#f59e0b;--amber-d:rgba(245,158,11,0.12);--amber-b:rgba(245,158,11,0.28);
+  --red:#ef4444;--red-d:rgba(239,68,68,0.1);--red-b:rgba(239,68,68,0.25);
+  --purple:#a78bfa;--purple-d:rgba(167,139,250,0.1);--purple-b:rgba(167,139,250,0.25);
+  --teal:#14b8a6;--teal-d:rgba(20,184,166,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;}
+
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:200;overflow-y:auto;}
+.sb-brand{padding:20px 18px 16px;border-bottom:1px solid var(--border);}
+.sb-logo{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.sb-dot{width:8px;height:8px;background:var(--blue);border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.sb-name{font-size:13px;font-weight:700;letter-spacing:0.5px;}
+.sb-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+.sb-date{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:6px;}
+.sb-section{padding:14px 12px 6px;font-size:10px;font-weight:600;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 14px;margin:1px 6px;border-radius:7px;cursor:pointer;transition:all 0.15s;border:none;background:none;width:calc(100% - 12px);text-align:left;font-family:'Inter',sans-serif;font-size:13px;color:var(--muted2);}
+.sb-item:hover{background:var(--bg3);color:var(--text);}
+.sb-item.active{background:var(--blue-d);color:var(--blue);border:1px solid var(--blue-b);}
+.sb-item .icon{font-size:15px;width:20px;text-align:center;flex-shrink:0;}
+.sb-status{margin:auto 0 0;padding:14px;border-top:1px solid var(--border);}
+.ss-label{font-size:10px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.ss-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.ss-key{font-size:11px;color:var(--muted2);}
+.ss-val{font-size:11px;font-weight:600;font-family:'JetBrains Mono',monospace;}
+.ss-val.green{color:var(--green);}
+.ss-val.amber{color:var(--amber);}
+.ss-val.red{color:var(--red);}
+
+/* MAIN */
+.main{margin-left:220px;min-height:100vh;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(7,8,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.tb-title{font-size:15px;font-weight:600;color:var(--text);}
+.tb-right{display:flex;gap:8px;align-items:center;}
+.btn{padding:7px 14px;border-radius:7px;font-size:12px;font-weight:500;border:1px solid var(--border2);background:var(--bg3);color:var(--muted2);cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif;}
+.btn:hover{color:var(--text);border-color:var(--border2);}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+.btn.primary:hover{opacity:0.9;}
+
+.page{display:none;padding:28px;animation:fadeIn 0.2s;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* GRID SYSTEM */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:14px;}
+.card.blue{border-color:var(--blue-b);background:var(--blue-d);}
+.card.green{border-color:var(--green-b);background:var(--green-d);}
+.card.amber{border-color:var(--amber-b);background:var(--amber-d);}
+.card.red{border-color:var(--red-b);background:var(--red-d);}
+.card.purple{border-color:var(--purple-b);background:var(--purple-d);}
+.card-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.card-desc{font-size:12px;color:var(--muted2);line-height:1.6;}
+
+/* TAGS */
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;letter-spacing:0.3px;}
+.tag.blue{background:var(--blue-d);color:var(--blue);border:1px solid var(--blue-b);}
+.tag.green{background:var(--green-d);color:var(--green);border:1px solid var(--green-b);}
+.tag.amber{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
+.tag.red{background:var(--red-d);color:var(--red);border:1px solid var(--red-b);}
+.tag.purple{background:var(--purple-d);color:var(--purple);border:1px solid var(--purple-b);}
+
+/* SECTION LABEL */
+.slabel{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;margin-top:4px;}
+
+/* STAT CARDS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.sc-label{font-size:10px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+.sc-val{font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text);}
+.sc-val.green{color:var(--green);}
+.sc-val.amber{color:var(--amber);}
+.sc-val.blue{color:var(--blue);}
+.sc-change{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:6px;}
+.cl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:opacity 0.2s;}
+.cl-item.done{opacity:0.45;}
+.cl-check{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:11px;transition:all 0.15s;}
+.cl-item.done .cl-check{background:var(--green);border-color:var(--green);color:#fff;}
+.cl-text{font-size:13px;color:var(--muted2);line-height:1.4;flex:1;}
+.cl-text strong{color:var(--text);}
+.cl-tag{font-size:10px;flex-shrink:0;margin-top:2px;}
+
+/* PHASE TIMELINE */
+.phases{position:relative;padding-left:26px;}
+.phases::before{content:'';position:absolute;left:7px;top:10px;bottom:10px;width:1px;background:var(--border2);}
+.phase-block{margin-bottom:22px;position:relative;}
+.phase-dot{position:absolute;left:-23px;top:5px;width:14px;height:14px;border-radius:50%;border:2px solid var(--bg);}
+.phase-dot.done{background:var(--green);}
+.phase-dot.now{background:var(--blue);box-shadow:0 0 0 4px var(--blue-d);}
+.phase-dot.soon{background:var(--amber);}
+.phase-dot.later{background:var(--muted);}
+.phase-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.phase-title{font-size:14px;font-weight:600;color:var(--text);}
+.phase-time{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+
+/* TABLE */
+.vtable{width:100%;border-collapse:collapse;}
+.vtable th{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;padding:10px 14px;border-bottom:1px solid var(--border);text-align:left;}
+.vtable td{font-size:13px;color:var(--muted2);padding:11px 14px;border-bottom:1px solid var(--border);}
+.vtable td:first-child{color:var(--text);font-weight:500;}
+.vtable tr:last-child td{border-bottom:none;}
+.vtable td.green{color:var(--green);font-weight:600;}
+.vtable td.amber{color:var(--amber);}
+.vtable td.red{color:var(--red);}
+
+/* NICHE GRID */
+.niche-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+.niche-btn{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 12px;cursor:pointer;transition:all 0.15s;text-align:center;font-family:'Inter',sans-serif;}
+.niche-btn:hover{border-color:var(--border2);background:var(--bg3);}
+.niche-btn.sel{border-color:var(--blue-b);background:var(--blue-d);}
+.nb-icon{font-size:22px;display:block;margin-bottom:6px;}
+.nb-name{font-size:12px;font-weight:500;color:var(--text);display:block;}
+.nb-range{font-size:10px;color:var(--green);display:block;margin-top:2px;}
+
+.niche-detail{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:20px;display:none;}
+.niche-detail.show{display:block;animation:fadeIn 0.2s;}
+.nd-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.nd-icon{font-size:32px;}
+.nd-title{font-size:16px;font-weight:700;color:var(--text);}
+.nd-range{font-size:12px;color:var(--green);margin-top:2px;}
+.nd-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.nd-section-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.pain-item{display:flex;gap:8px;margin-bottom:7px;font-size:12px;color:var(--muted2);line-height:1.4;}
+.pain-x{color:var(--red);flex-shrink:0;font-weight:700;}
+.sol-item{display:flex;gap:8px;margin-bottom:7px;font-size:12px;color:var(--muted2);line-height:1.4;}
+.sol-chk{color:var(--green);flex-shrink:0;}
+.pkg-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+.pkg-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;}
+.pkg-box.best{border-color:var(--blue-b);}
+.pkg-box-name{font-size:10px;color:var(--muted);margin-bottom:3px;}
+.pkg-box-price{font-size:18px;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;}
+.pkg-box-title{font-size:11px;color:var(--text);margin-top:3px;font-weight:500;}
+.pkg-box-feats{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.7;text-align:left;}
+.kw-section{margin-top:14px;}
+.kw-chip{display:inline-block;background:var(--purple-d);color:var(--purple);border:1px solid var(--purple-b);border-radius:100px;padding:3px 10px;font-size:11px;margin:3px 3px 0 0;font-weight:600;}
+
+/* DECISION MATRIX */
+.dm-list{display:flex;flex-direction:column;gap:8px;}
+.dm-row{display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;}
+.dm-q{font-size:13px;color:var(--text);flex:1;}
+.dm-a{font-size:12px;font-weight:700;flex-shrink:0;min-width:60px;text-align:right;}
+.dm-a.yes{color:var(--green);}
+.dm-a.no{color:var(--red);}
+.dm-a.wait{color:var(--amber);}
+
+/* QR FLOW */
+.qr-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-bottom:20px;}
+.qf-step{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 12px;text-align:center;position:relative;}
+.qf-step:not(:last-child)::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;z-index:1;}
+.qf-icon{font-size:22px;margin-bottom:7px;}
+.qf-title{font-size:11px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.qf-desc{font-size:10px;color:var(--muted);line-height:1.4;}
+
+/* WEEKLY */
+.week-row{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:20px;}
+.day-box{background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:12px 8px;text-align:center;}
+.day-box.today{border-color:var(--blue-b);background:var(--blue-d);}
+.day-name{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:1px;margin-bottom:7px;}
+.day-focus{font-size:11px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.day-tasks{font-size:10px;color:var(--muted);line-height:1.5;}
+
+.time-blocks{display:flex;flex-direction:column;gap:6px;}
+.tb-row{display:flex;gap:14px;align-items:stretch;}
+.tb-time{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;width:76px;flex-shrink:0;padding-top:11px;}
+.tb-content{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;}
+.tb-title{font-size:13px;font-weight:500;color:var(--text);}
+.tb-desc{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* REVENUE CALC */
+.calc-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;}
+.calc-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.calc-label{font-size:13px;color:var(--muted2);min-width:180px;}
+.calc-val{font-size:13px;font-weight:600;color:var(--text);min-width:80px;text-align:right;font-family:'JetBrains Mono',monospace;}
+input[type=range]{flex:1;accent-color:var(--blue);}
+.calc-result{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);}
+.cr-box{background:var(--bg3);border-radius:8px;padding:12px;text-align:center;}
+.cr-label{font-size:10px;color:var(--muted);margin-bottom:4px;}
+.cr-val{font-size:20px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.cr-val.green{color:var(--green);}
+
+/* NOTES */
+.notes-area{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;color:var(--text);font-family:'Inter',sans-serif;font-size:13px;line-height:1.7;resize:vertical;min-height:200px;outline:none;}
+.notes-area:focus{border-color:var(--blue-b);}
+.notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.note-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.note-title{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:10px;}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-logo">
+      <div class="sb-dot"></div>
+      <span class="sb-name">Vishtech OS</span>
+    </div>
+    <div class="sb-sub">Founder Command Center</div>
+    <div class="sb-date" id="sb-date">Loading...</div>
+  </div>
+
+  <div class="sb-section">Core</div>
+  <button class="sb-item active" onclick="nav('dashboard',this)"><span class="icon">🏠</span>Dashboard</button>
+  <button class="sb-item" onclick="nav('mission',this)"><span class="icon">🎯</span>Mission & Goals</button>
+  <button class="sb-item" onclick="nav('decisions',this)"><span class="icon">⚡</span>Quick Decisions</button>
+
+  <div class="sb-section">Business</div>
+  <button class="sb-item" onclick="nav('cash',this)"><span class="icon">💸</span>Cash Flow</button>
+  <button class="sb-item" onclick="nav('agency',this)"><span class="icon">🏢</span>Agency Roadmap</button>
+  <button class="sb-item" onclick="nav('niches',this)"><span class="icon">🎯</span>12 Niches System</button>
+  <button class="sb-item" onclick="nav('qr',this)"><span class="icon">📲</span>QR Product</button>
+
+  <div class="sb-section">Operations</div>
+  <button class="sb-item" onclick="nav('weekly',this)"><span class="icon">📅</span>Weekly System</button>
+  <button class="sb-item" onclick="nav('team',this)"><span class="icon">👥</span>Team & Sales</button>
+  <button class="sb-item" onclick="nav('marketing',this)"><span class="icon">📢</span>Marketing Plan</button>
+  <button class="sb-item" onclick="nav('notes',this)"><span class="icon">📝</span>My Notes</button>
+
+  <div class="sb-status">
+    <div class="ss-label">Live Status</div>
+    <div class="ss-row"><span class="ss-key">Mode</span><span class="ss-val amber">Building</span></div>
+    <div class="ss-row"><span class="ss-key">QR Clients</span><span class="ss-val" id="qr-count">0 / 10</span></div>
+    <div class="ss-row"><span class="ss-key">Demos Ready</span><span class="ss-val" id="demo-count">0 / 12</span></div>
+    <div class="ss-row"><span class="ss-key">MRR</span><span class="ss-val green" id="mrr-val">₹0</span></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+<div class="topbar">
+  <span class="tb-title" id="page-title">Dashboard</span>
+  <div class="tb-right">
+    <span style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace" id="top-date"></span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DASHBOARD ═══════════════════════════════ -->
+<div class="page active" id="page-dashboard">
+<div style="max-width:900px;margin:0 auto;">
+
+  <div style="margin-bottom:22px;">
+    <div style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:6px;">Namaste, Vishtech 👋</div>
+    <div style="font-size:14px;color:var(--muted2);">Tera empire build ho raha hai. Ek din mein ek step. Focus rakh.</div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="sc-label">Today's Focus</div>
+      <div class="sc-val blue" style="font-size:16px;margin-top:4px;" id="today-focus">QR Demo</div>
+      <div class="sc-change">Top priority</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">QR Clients</div>
+      <div class="sc-val amber" id="dash-qr">0</div>
+      <div class="sc-change">Goal: 10</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">Agency Projects</div>
+      <div class="sc-val green" id="dash-proj">1</div>
+      <div class="sc-change">Ongoing</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-label">Monthly MRR</div>
+      <div class="sc-val green" id="dash-mrr">₹0</div>
+      <div class="sc-change">Growing...</div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:14px;">
+    <div>
+      <div class="slabel">Aaj ke 3 Tasks — Sirf Yeh Teen</div>
+      <div class="checklist" id="today-tasks">
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-check"></div>
+          <div class="cl-text"><strong>QR System demo</strong> — Sales ko bhejo 5 local businesses mein</div>
+          <span class="tag amber cl-tag">Priority 1</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-check"></div>
+          <div class="cl-text"><strong>Clinic demo page</strong> — Live URL ready karo aaj</div>
+          <span class="tag blue cl-tag">Agency</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-check"></div>
+          <div class="cl-text"><strong>Instagram post</strong> — Clinic niche carousel daalo</div>
+          <span class="tag green cl-tag">Marketing</span>
+        </div>
+      </div>
+
+      <div class="slabel" style="margin-top:18px;">North Star — Hamesha yaad rakho</div>
+      <div class="card blue">
+        <div class="card-title" style="color:var(--blue);font-size:16px;">"Service → Cash → Product → Empire"</div>
+        <div class="card-desc" style="margin-top:6px;">Agency se cash aata hai → QR system build hota hai → QR se MRR aata hai → Vishtech ek SaaS company banta hai. Yeh sequence mat todna kabhi.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="slabel">Weekly Progress</div>
+      <div class="card" style="margin-bottom:10px;">
+        <div class="card-desc" style="margin-bottom:12px;">Har task tick karo — progress save hoga.</div>
+        <div class="checklist">
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"></div>
+            <div class="cl-text">QR demo — 5 businesses visit kiye</div>
+            <span class="tag amber cl-tag">QR</span>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"></div>
+            <div class="cl-text">Instagram — 3 posts is hafte</div>
+            <span class="tag green cl-tag">Mkt</span>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"></div>
+            <div class="cl-text">1 niche demo page complete</div>
+            <span class="tag blue cl-tag">Agency</span>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"></div>
+            <div class="cl-text">Google My Business — post + photo</div>
+            <span class="tag green cl-tag">SEO</span>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"></div>
+            <div class="cl-text">Team sync — frontend + backend review</div>
+            <span class="tag purple cl-tag">Team</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slabel">Rule #1 — Jab confuse ho</div>
+      <div class="card amber">
+        <div class="card-desc" style="color:var(--amber);">⚡ Sirf <strong style="color:var(--text);">yeh teen</strong> cheezein matter karti hain abhi:<br><br>1. QR system ke 10 clients<br>2. Agency demo pages live karo<br>3. Roz ek Instagram post<br><br>Baaki sab — LATER.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ MISSION ═══════════════════════════════ -->
+<div class="page" id="page-mission">
+<div style="max-width:900px;margin:0 auto;">
+
+  <div class="slabel">Vision — 5 Saal Ka Plan</div>
+  <div class="card blue" style="margin-bottom:20px;">
+    <div style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:10px;">Vishtech = India ka Niche SaaS Leader</div>
+    <div class="card-desc" style="font-size:13px;">Aaj ek banda college ke baad agency chala raha hai. 5 saal mein: ek product company jiske 3 SaaS products hain, 50-member team hai, aur ₹1Cr+ ARR hai. Yeh possible hai — sirf sequence sahi chahiye.</div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:20px;">
+    <div>
+      <div class="slabel">2 Business Modes</div>
+      <div class="card green" style="margin-bottom:10px;">
+        <div style="font-size:18px;margin-bottom:6px;">🏢</div>
+        <div class="card-title">Mode 1 — Agency (Active Now)</div>
+        <div class="card-desc">Clinics, schools, hotels — niche-specific websites + systems. Fast cash. Har ₹10K agency se milta hai woh QR system mein jaata hai.</div>
+        <div style="margin-top:8px;"><span class="tag green">● ACTIVE</span></div>
+      </div>
+      <div class="card purple">
+        <div style="font-size:18px;margin-bottom:6px;">📲</div>
+        <div class="card-title">Mode 2 — QR Loyalty Product (Launching)</div>
+        <div class="card-desc">Local businesses ke liye monthly subscription QR system. Customer data + retention + WhatsApp marketing. Passive MRR.</div>
+        <div style="margin-top:8px;"><span class="tag amber">◐ LAUNCHING</span> <span class="tag purple" style="margin-left:4px;">🔒 SECRET</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="slabel">Founder Rules — Laminate karke wall pe lagao</div>
+      <div class="checklist" style="gap:7px;">
+        <div class="cl-item" style="cursor:default;pointer-events:none;">
+          <span style="font-size:15px;">🎯</span>
+          <div class="cl-text"><strong>Ek cheez pe focus.</strong> QR ke 10 clients — yeh sab se pehle.</div>
+        </div>
+        <div class="cl-item" style="cursor:default;pointer-events:none;">
+          <span style="font-size:15px;">🚫</span>
+          <div class="cl-text"><strong>IndiaMart = NEVER.</strong> ₹60K deke ₹30K mila. Woh chapter band.</div>
+        </div>
+        <div class="cl-item" style="cursor:default;pointer-events:none;">
+          <span style="font-size:15px;">💰</span>
+          <div class="cl-text"><strong>50% advance mandatory.</strong> Bina advance ke kaam shuru nahi.</div>
+        </div>
+        <div class="cl-item" style="cursor:default;pointer-events:none;">
+          <span style="font-size:15px;">🔒</span>
+          <div class="cl-text"><strong>QR idea secret hai.</strong> Jab tak 10 clients nahi — public mat karo.</div>
+        </div>
+        <div class="cl-item" style="cursor:default;pointer-events:none;">
+          <span style="font-size:15px;">⚡</span>
+          <div class="cl-text"><strong>Job = last resort.</strong> 60 din QR pe do pehle.</div>
+        </div>
+        <div class="cl-item" style="cursor:default;pointer-events:none;">
+          <span style="font-size:15px;">📵</span>
+          <div class="cl-text"><strong>Subah 2 ghante no-phone.</strong> Deep work protected.</div>
+        </div>
+        <div class="cl-item" style="cursor:default;pointer-events:none;">
+          <span style="font-size:15px;">📋</span>
+          <div class="cl-text"><strong>Raat ko 3 tasks likhna.</strong> Kal ki clarity aaj banegi.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">5-Year Milestones</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="vtable">
+      <thead><tr><th>Timeline</th><th>Milestone</th><th>Revenue Target</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Month 1-2</td><td>QR system 10 clients + 3 niche demos live</td><td class="amber">₹20-35K/mo</td><td><span class="tag amber">Now</span></td></tr>
+        <tr><td>Month 3-4</td><td>Paid ads start + 5 agency clients/month</td><td class="amber">₹50-70K/mo</td><td><span class="tag blue">Soon</span></td></tr>
+        <tr><td>Month 6</td><td>QR = 50 subscribers + Agency ₹1L/mo</td><td class="green">₹1.2L/mo</td><td><span class="tag" style="background:var(--bg3);color:var(--muted);">Later</span></td></tr>
+        <tr><td>Year 2</td><td>QR = 200+ subscribers, team 5 log</td><td class="green">₹3-5L/mo</td><td><span class="tag" style="background:var(--bg3);color:var(--muted);">Future</span></td></tr>
+        <tr><td>Year 5</td><td>Vishtech SaaS — 3 products, ₹1Cr+ ARR</td><td class="green">₹8L+/mo</td><td><span class="tag purple">Dream</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ DECISIONS ═══════════════════════════════ -->
+<div class="page" id="page-decisions">
+<div style="max-width:900px;margin:0 auto;">
+  <div class="slabel">Jab bhi confuse ho — yahan aao. Answers ready hain.</div>
+
+  <div class="dm-list">
+    <div class="dm-row"><span class="dm-q">❓ IndiaMart renewal lena chahiye?</span><span class="dm-a no">NAHI. KABHI NAHI.</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Job karna chahiye abhi?</span><span class="dm-a wait">60 din wait — QR ke 5 clients pehle lo</span></div>
+    <div class="dm-row"><span class="dm-q">❓ QR system idea publicly announce karna?</span><span class="dm-a no">Nahi — jab tak 10 paying clients nahi</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Bina advance ke client ka kaam shuru karna?</span><span class="dm-a no">Nahi. 50% upfront. Non-negotiable.</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Paid ads chalane chahiye abhi?</span><span class="dm-a wait">Nahi — pehle 3 demo pages live karo</span></div>
+    <div class="dm-row"><span class="dm-q">❓ YouTube ads shuru karna chahiye?</span><span class="dm-a no">Nahi — Month 5+ mein sochna</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Client price kam karne ko bol raha hai?</span><span class="dm-a no">Demo dikhao. Value prove karo. Price mat ghataao.</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Naya service add karni chahiye?</span><span class="dm-a no">Nahi — pehle 12 niches ke demos complete karo</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Roz Instagram post karna chahiye?</span><span class="dm-a yes">Haan. Niche rotate karo. Demo link bio mein.</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Sales wale ko pehle kya sikhaun?</span><span class="dm-a yes">QR demo script — woh easy pitch hai</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Freelancer hire karna chahiye?</span><span class="dm-a wait">Jab MRR ₹50K ho tab sochna</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Agency ya QR product — kya zyada important?</span><span class="dm-a yes">QR = future. Agency = fuel. Dono chalao saath.</span></div>
+    <div class="dm-row"><span class="dm-q">❓ Overwhelm ho raha hai — kya karu?</span><span class="dm-a yes">Sirf aaj ke 3 tasks. Baaki sab kal.</span></div>
+  </div>
+
+  <div class="card blue" style="margin-top:16px;text-align:center;">
+    <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;">Stuck? Ek kaam karo abhi.</div>
+    <div class="card-desc">QR system ka demo — apne phone pe — kisi bhi dhabe/salon ke owner ko dikhao. Ek "haan" se sab change ho jaata hai.</div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ CASH FLOW ═══════════════════════════════ -->
+<div class="page" id="page-cash">
+<div style="max-width:900px;margin:0 auto;">
+
+  <div class="card red" style="margin-bottom:20px;">
+    <div class="card-title" style="color:var(--red);font-size:16px;">⚠️ Abhi ki Reality — Honest</div>
+    <div class="card-desc" style="color:#fca5a5;margin-top:6px;">Ek ongoing project. Cash tight. Team hai par revenue consistent nahi. <strong style="color:var(--text);">Yeh normal hai — every startup ke pehle 12-18 mahine aise hote hain.</strong> Panic nahi, system banao.</div>
+  </div>
+
+  <div class="slabel">Job karna chahiye? — Final Verdict</div>
+  <div class="grid2" style="margin-bottom:14px;">
+    <div class="card">
+      <div class="card-title" style="color:var(--green);">✅ Job ke fayde</div>
+      <div style="margin-top:8px;display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:12px;color:var(--muted2);">+ Fixed ₹15-20K/month guaranteed</div>
+        <div style="font-size:12px;color:var(--muted2);">+ Survival stress khatam</div>
+        <div style="font-size:12px;color:var(--muted2);">+ Mental bandwidth thoda free hoga</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red);">❌ Job ke nuksan</div>
+      <div style="margin-top:8px;display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:12px;color:var(--muted2);">− 9-6 = agency time zero</div>
+        <div style="font-size:12px;color:var(--muted2);">− QR launch rukegi</div>
+        <div style="font-size:12px;color:var(--muted2);">− Clients follow-up impossible</div>
+      </div>
+    </div>
+  </div>
+  <div class="card green" style="margin-bottom:20px;">
+    <div class="card-title" style="color:var(--green);">✅ Verdict — Job mat karo. Yeh karo instead:</div>
+    <div class="card-desc" style="margin-top:8px;line-height:1.8;">
+      QR system ke <strong style="color:var(--text);">10 local clients</strong> at ₹999/mo = ₹9,990 MRR<br>
+      Agency <strong style="color:var(--text);">2 projects/month</strong> at ₹10-15K = ₹20-30K<br>
+      <strong style="color:var(--green);">Total: ₹30-40K/month</strong> — job se zyada, aur business bhi grow kar raha hai<br><br>
+      <strong style="color:var(--text);">60-din ultimatum apne aap ko do.</strong> Agar nahi hua — IT company mein developer role lo, Delhivery/Mart nahi.
+    </div>
+  </div>
+
+  <div class="slabel">Revenue Calculator</div>
+  <div class="calc-wrap" style="margin-bottom:20px;">
+    <div class="calc-row">
+      <span class="calc-label">Agency clients/month</span>
+      <input type="range" min="1" max="20" value="3" step="1" id="c-agency" oninput="calcR()">
+      <span class="calc-val" id="cv-agency">3</span>
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">Avg project value (₹)</span>
+      <input type="range" min="5000" max="50000" value="12000" step="1000" id="c-val" oninput="calcR()">
+      <span class="calc-val" id="cv-val">₹12,000</span>
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">QR subscribers</span>
+      <input type="range" min="0" max="100" value="0" step="1" id="c-qr" oninput="calcR()">
+      <span class="calc-val" id="cv-qr">0</span>
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">QR avg plan (₹/mo)</span>
+      <input type="range" min="499" max="1999" value="999" step="500" id="c-plan" oninput="calcR()">
+      <span class="calc-val" id="cv-plan">₹999</span>
+    </div>
+    <div class="calc-result">
+      <div class="cr-box"><div class="cr-label">Monthly Revenue</div><div class="cr-val green" id="cr-monthly">₹36,000</div></div>
+      <div class="cr-box"><div class="cr-label">Annual Revenue</div><div class="cr-val" id="cr-annual">₹4,32,000</div></div>
+      <div class="cr-box"><div class="cr-label">Per Day</div><div class="cr-val" id="cr-day">₹1,200</div></div>
+    </div>
+  </div>
+
+  <div class="slabel">Month-wise Income Targets</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="vtable">
+      <thead><tr><th>Source</th><th>Month 1-2</th><th>Month 3-4</th><th>Month 6+</th></tr></thead>
+      <tbody>
+        <tr><td>Agency Projects</td><td class="amber">₹15-25K</td><td class="amber">₹35-50K</td><td class="green">₹60-80K</td></tr>
+        <tr><td>QR Subscriptions</td><td class="amber">₹5-10K</td><td class="amber">₹15-25K</td><td class="green">₹40-60K</td></tr>
+        <tr><td>Hosting/AMC Upsell</td><td>₹2-3K</td><td>₹5-8K</td><td class="green">₹10-15K</td></tr>
+        <tr><td style="font-weight:700;">TOTAL TARGET</td><td class="amber">₹22-38K</td><td class="amber">₹55-83K</td><td class="green">₹1.1-1.55L</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ AGENCY ROADMAP ═══════════════════════════════ -->
+<div class="page" id="page-agency">
+<div style="max-width:900px;margin:0 auto;">
+
+  <div class="slabel">Agency Phase Roadmap</div>
+  <div class="phases">
+
+    <div class="phase-block">
+      <div class="phase-dot done"></div>
+      <div class="phase-head">
+        <span class="phase-title">Phase 0 — Foundation</span>
+        <span class="tag green">Done ✓</span>
+        <span class="phase-time">2024</span>
+      </div>
+      <div class="checklist">
+        <div class="cl-item done" onclick="toggleCheck(this)"><div class="cl-check">✓</div><div class="cl-text">Company — Vishtech Software Services registered</div></div>
+        <div class="cl-item done" onclick="toggleCheck(this)"><div class="cl-check">✓</div><div class="cl-text">Website live — vishtechsoftware.com</div></div>
+        <div class="cl-item done" onclick="toggleCheck(this)"><div class="cl-check">✓</div><div class="cl-text">Team — Frontend dev + Backend dev + Sales person</div></div>
+        <div class="cl-item done" onclick="toggleCheck(this)"><div class="cl-check">✓</div><div class="cl-text">IndiaMart band kiya — sahi decision tha</div></div>
+        <div class="cl-item done" onclick="toggleCheck(this)"><div class="cl-check">✓</div><div class="cl-text">Instagram account — @vishtechsoftwareservices</div></div>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-dot now"></div>
+      <div class="phase-head">
+        <span class="phase-title">Phase 1 — Demo Arsenal</span>
+        <span class="tag blue">ABHI KARO</span>
+        <span class="phase-time">Week 1-3</span>
+      </div>
+      <div class="checklist">
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>Clinic demo page</strong> — vishtechsoftware.com/demo/clinic — fully clickable live demo</div><span class="tag red cl-tag">Day 1</span></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>School/Coaching demo</strong> — admission form, fee portal, parent app preview</div><span class="tag red cl-tag">Day 2</span></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>Hotel demo</strong> — room listing, direct booking, availability calendar</div><span class="tag amber cl-tag">Day 3</span></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>Restaurant demo</strong> — QR menu + online order system</div><span class="tag amber cl-tag">Day 4</span></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Website update — "Solutions" section add karo, 12 niches with demo links</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">3 case studies — realistic before/after data + results</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Remaining 8 niche demos complete karo</div></div>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-dot soon"></div>
+      <div class="phase-head">
+        <span class="phase-title">Phase 2 — Organic Marketing</span>
+        <span class="tag amber">Month 1-2</span>
+        <span class="phase-time">Ongoing</span>
+      </div>
+      <div class="checklist">
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Instagram — har niche ke liye carousel posts. Demo link bio mein always.</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Google My Business — optimize, weekly photos + posts + review requests</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">WhatsApp broadcast list — 100+ local business owners ka number collect karo</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Jaipur Facebook business groups — join + value share karo</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Demo screen recording reels — 30 sec, har niche ke liye ek reel</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Cold WhatsApp outreach — local doctors/schools ko personalized message</div></div>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-dot later"></div>
+      <div class="phase-head">
+        <span class="phase-title">Phase 3 — Paid Ads</span>
+        <span class="tag red">Month 3+ (Demos ready hone ke baad)</span>
+      </div>
+      <div class="checklist">
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Facebook/Instagram ads — Clinic targeting, ₹200/day, Rajasthan location</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Google Search ads — "clinic website jaipur", "school software rajasthan"</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Retargeting — website visitors ko dobara target karo</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Landing pages per niche — ads wahan bhejo, not homepage</div></div>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-dot later"></div>
+      <div class="phase-head">
+        <span class="phase-title">Phase 4 — Scale & Hire</span>
+        <span class="tag purple">Month 6+</span>
+      </div>
+      <div class="checklist">
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Dedicated sales person hire — QR + agency pitching full time</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">12 niche master templates — 3-day delivery guaranteed</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">QR system 50+ subscribers — ₹50K+ MRR milestone</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Agency revenue ₹1L+/month consistent</div></div>
+        <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text">Vishtech Product roadmap — next SaaS plan karo</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ NICHES ═══════════════════════════════ -->
+<div class="page" id="page-niches">
+<div style="max-width:900px;margin:0 auto;">
+  <div class="slabel">Click any niche — poora system dikhai dega</div>
+  <div class="niche-grid" id="niche-grid"></div>
+  <div class="niche-detail" id="niche-detail"></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════ QR PRODUCT ═══════════════════════════════ -->
+<div class="page" id="page-qr">
+<div style="max-width:900px;margin:0 auto;">
+
+  <div class="card purple" style="text-align:center;margin-bottom:20px;">
+    <div style="font-size:26px;font-weight:800;color:var(--text);margin-bottom:6px;">📲 QR Loyalty System</div>
+    <div class="card-desc">Local businesses ka customer retention + repeat business tool. Monthly SaaS subscription. Aapka secret weapon.</div>
+    <div style="margin-top:10px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+      <span class="tag purple">🔒 STILL SECRET</span>
+      <span class="tag amber">⚡ LAUNCH PRIORITY #1</span>
+      <span class="tag green">♻️ RECURRING REVENUE</span>
+    </div>
+  </div>
+
+  <div class="slabel">How It Works — Customer Journey</div>
+  <div class="qr-flow" style="margin-bottom:20px;">
+    <div class="qf-step"><div class="qf-icon">🏪</div><div class="qf-title">Customer aata hai</div><div class="qf-desc">Dhaba, salon, gym koi bhi</div></div>
+    <div class="qf-step"><div class="qf-icon">📱</div><div class="qf-title">QR scan karta hai</div><div class="qf-desc">Counter pe rakha QR</div></div>
+    <div class="qf-step"><div class="qf-icon">📝</div><div class="qf-title">Data capture</div><div class="qf-desc">Name, phone, visit recorded</div></div>
+    <div class="qf-step"><div class="qf-icon">🎁</div><div class="qf-title">Points milte hain</div><div class="qf-desc">Wapas aane ka reason</div></div>
+    <div class="qf-step"><div class="qf-icon">📲</div><div class="qf-title">Business contacts them</div><div class="qf-desc">WhatsApp offers, birthday</div></div>
+  </div>
+
+  <div class="slabel">Pricing Plans</div>
+  <div class="grid3" style="margin-bottom:20px;">
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Starter</div>
+      <div style="font-size:28px;font-weight:700;color:var(--text);font-family:'JetBrains Mono',monospace;">₹499</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;">/month</div>
+      <div style="font-size:12px;color:var(--muted2);line-height:1.8;">✓ 1 QR code<br>✓ Customer data capture<br>✓ Basic analytics<br>✓ 200 customers max</div>
+    </div>
+    <div style="background:var(--blue-d);border:1px solid var(--blue-b);border-radius:12px;padding:20px;">
+      <div style="font-size:10px;color:var(--blue);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Growth ⭐ Most Popular</div>
+      <div style="font-size:28px;font-weight:700;color:var(--text);font-family:'JetBrains Mono',monospace;">₹999</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;">/month</div>
+      <div style="font-size:12px;color:var(--muted2);line-height:1.8;">✓ 3 QR codes<br>✓ WhatsApp broadcast<br>✓ Loyalty points system<br>✓ Birthday auto-message<br>✓ Monthly report</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Pro</div>
+      <div style="font-size:28px;font-weight:700;color:var(--text);font-family:'JetBrains Mono',monospace;">₹1,999</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;">/month</div>
+      <div style="font-size:12px;color:var(--muted2);line-height:1.8;">✓ Unlimited QR codes<br>✓ Multi-branch support<br>✓ Custom branding<br>✓ Campaign scheduler<br>✓ Priority support</div>
+    </div>
+  </div>
+
+  <div class="slabel">First 10 Clients — Kahan jaana hai</div>
+  <div class="grid2" style="margin-bottom:20px;">
+    <div class="checklist">
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>🍕 Dhaba / Restaurant</strong> — Khatipura, Vaishali Nagar mein target karo</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>💄 Salon / Parlour</strong> — Ladies salons best — monthly visit, loyal customers</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>🏋️ Gym / Fitness</strong> — Membership renewal = perfect use case</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>🏪 Medical Store</strong> — Daily customers, high loyalty need</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>☕ Cafe / Juice Bar</strong> — Young crowd, QR comfortable hai</div></div>
+    </div>
+    <div class="checklist">
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>🧺 Laundry</strong> — Weekly repeat service, perfect</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>📚 Stationary Shop</strong> — School area mein, high footfall</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>🥗 Tiffin Service</strong> — Monthly subscription already — upsell easy</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>💈 Barbershop</strong> — Weekly visits, easy to pitch</div></div>
+      <div class="cl-item" onclick="toggleCheck(this)"><div class="cl-check"></div><div class="cl-text"><strong>🛒 Kirana Store</strong> — BigBasket competition = huge pain point</div></div>
+    </div>
+  </div>
+
+  <div class="card amber">
+    <div class="card-title">🎯 Sales Script — Yeh bolo jab demo dikhao</div>
+    <div class="card-desc" style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;color:var(--amber);">
+      "Bhai sahab, aapke yahan roz kitne customers aate hain?"<br>
+      (Woh bolega — "50-100")<br>
+      "Unme se kitno ka phone number hai aapke paas?"<br>
+      (Woh bolega — "Kuch nahi ya bahut kam")<br>
+      "Yeh system dekho — customer QR scan karta hai, unka number save ho jaata hai. Phir aap festival pe WhatsApp karo, woh wapas aate hain. 3 mahine free try karo — koi risk nahi."
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ WEEKLY SYSTEM ═══════════════════════════════ -->
+<div class="page" id="page-weekly">
+<div style="max-width:900px;margin:0 auto;">
+
+  <div class="slabel">Har Hafte Ka System — Follow karo, confuse mat hona</div>
+  <div class="week-row" id="week-row"></div>
+
+  <div class="slabel">Daily Time Blocks — Akele sab handle karne ka formula</div>
+  <div class="time-blocks" style="margin-bottom:20px;">
+    <div class="tb-row">
+      <div class="tb-time">6–8 AM</div>
+      <div class="tb-content">
+        <div class="tb-title">🧠 Deep Work — QR Build / Agency Code</div>
+        <div class="tb-desc">Sabse important kaam sabse pehle. Phone band. No calls. No WhatsApp.</div>
+      </div>
+    </div>
+    <div class="tb-row">
+      <div class="tb-time">8–10 AM</div>
+      <div class="tb-content">
+        <div class="tb-title">📲 Client Communication + Leads Follow-up</div>
+        <div class="tb-desc">WhatsApp replies, email, lead follow-ups. Sab ek saath karo.</div>
+      </div>
+    </div>
+    <div class="tb-row">
+      <div class="tb-time">10–1 PM</div>
+      <div class="tb-content">
+        <div class="tb-title">💻 Team Sync + Development</div>
+        <div class="tb-desc">Frontend/backend ke saath sync. Code review. Demos build karo.</div>
+      </div>
+    </div>
+    <div class="tb-row">
+      <div class="tb-time">2–4 PM</div>
+      <div class="tb-content">
+        <div class="tb-title">📞 Sales Calls + QR Demos</div>
+        <div class="tb-desc">QR demos on field ya phone pe. Agency pitches. Sales review.</div>
+      </div>
+    </div>
+    <div class="tb-row">
+      <div class="tb-time">4–6 PM</div>
+      <div class="tb-content">
+        <div class="tb-title">🎨 Marketing — Posts, Content, Reels</div>
+        <div class="tb-desc">Ek Instagram post daily. Caption + hashtags. Schedule karo.</div>
+      </div>
+    </div>
+    <div class="tb-row">
+      <div class="tb-time">9–10 PM</div>
+      <div class="tb-content">
+        <div class="tb-title">📋 Daily Review + Kal ke 3 Tasks</div>
+        <div class="tb-desc">Kya hua kya nahi. Kal ke TOP 3 tasks likh do — mandatory.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card amber">
+    <div class="card-title">⚠️ Jab Overwhelm Aaye — Yeh Karo</div>
+    <div class="card-desc" style="margin-top:8px;line-height:1.9;">
+      🎯 Sirf aaj ke <strong style="color:var(--text);">3 tasks</strong> — baaki sab kal<br>
+      🚫 Meetings/calls sirf <strong style="color:var(--text);">2-4 PM</strong> mein<br>
+      📵 Subah 2 ghante <strong style="color:var(--text);">no-phone</strong> — deep work protected<br>
+      ✍️ Raat ko <strong style="color:var(--text);">3 tasks likh ke so</strong> — kal clarity rahegi
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ TEAM ═══════════════════════════════ -->
+<div class="page" id="page-team">
+<div style="max-width:900px;margin:0 auto;">
+
+  <div class="slabel">Current Team</div>
+  <div class="grid3" style="margin-bottom:20px;">
+    <div class="card">
+      <div style="font-size:28px;margin-bottom:8px;">👨‍💻</div>
+      <div class="card-title">You — Founder</div>
+      <div class="card-desc">Strategy + Product + Clients + Marketing. Sab kuch abhi.</div>
+      <div style="margin-top:8px;"><span class="tag blue">CEO + CTO + CMO</span></div>
+    </div>
+    <div class="card">
+      <div style="font-size:28px;margin-bottom:8px;">🎨</div>
+      <div class="card-title">Frontend Developer</div>
+      <div class="card-desc">UI/UX, HTML/CSS/React. Demo pages build karo unse.</div>
+      <div style="margin-top:8px;"><span class="tag green">Active</span></div>
+    </div>
+    <div class="card">
+      <div style="font-size:28px;margin-bottom:8px;">⚙️</div>
+      <div class="card-title">Backend Developer</div>
+      <div class="card-desc">APIs, database, QR system backend. Critical resource.</div>
+      <div style="margin-top:8px;"><span class="tag green">Active</span></div>
+    </div>
+  </div>
+
+  <div class="slabel">Sales Person — Sabse Important Hire</div>
+  <div class="card amber" style="margin-bottom:14px;">
+    <div class="card-title">🤝 Sales Person ko yeh sikhao — Priority Order</div>
+    <div class="card-desc" style="margin-top:8px;line-height:1.9;">
+      <strong style="color:var(--text);">Week 1:</strong> QR demo script sikhao. Phone pe live demo dikhana.<br>
+      <strong style="color:var(--text);">Week 2:</strong> Field mein bhejo — roz 10 shops visit. Lead sheet banaao.<br>
+      <strong style="color:var(--text);">Week 3:</strong> Agency pitch sikhao — clinic/school demo link dikhana.<br>
+      <strong style="color:var(--text);">Month 2:</strong> Wo independently pitch karega. Commission: 15-20% per sale.
+    </div>
+  </div>
+
+  <div class="slabel">Sales Person Ka Daily Target</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="vtable">
+      <thead><tr><th>Activity</th><th>Daily Target</th><th>Weekly Target</th><th>Monthly Goal</th></tr></thead>
+      <tbody>
+        <tr><td>QR Demo visits</td><td>5-7 shops</td><td>30-40 shops</td><td>2-3 paid clients</td></tr>
+        <tr><td>Agency lead calls</td><td>3-5 calls</td><td>15-20 calls</td><td>1-2 projects</td></tr>
+        <tr><td>Follow-ups</td><td>All pending</td><td>All pending</td><td>50% conversion</td></tr>
+        <tr><td style="color:var(--green);">Commission</td><td style="color:var(--green);">—</td><td style="color:var(--green);">—</td><td class="green">15-20% per deal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ MARKETING ═══════════════════════════════ -->
+<div class="page" id="page-marketing">
+<div style="max-width:900px;margin:0 auto;">
+
+  <div class="slabel">Marketing Priority — Kya pehle, kya baad mein</div>
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:20px;">
+    <table class="vtable">
+      <thead><tr><th>Channel</th><th>Cost</th><th>Start When</th><th>Expected Result</th></tr></thead>
+      <tbody>
+        <tr><td>Instagram Organic</td><td class="green">FREE</td><td class="green">ABHI</td><td>3-5 leads/month</td></tr>
+        <tr><td>Google My Business</td><td class="green">FREE</td><td class="green">ABHI</td><td>2-4 leads/month</td></tr>
+        <tr><td>WhatsApp Broadcast</td><td class="green">FREE</td><td class="green">ABHI</td><td>2-3 leads/month</td></tr>
+        <tr><td>Facebook/Insta Ads</td><td class="amber">₹6K/mo</td><td class="amber">Month 2-3</td><td>15-20 leads/month</td></tr>
+        <tr><td>Google Search Ads</td><td class="amber">₹8-10K/mo</td><td class="amber">Month 3</td><td>10-15 high-intent leads</td></tr>
+        <tr><td>YouTube Ads</td><td class="red">₹15K+/mo</td><td class="red">Month 5+</td><td>Brand awareness</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slabel">Instagram Content Calendar — Niche Rotation</div>
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:20px;">
+    <table class="vtable">
+      <thead><tr><th>Day</th><th>Niche</th><th>Post Type</th><th>DM Keyword</th></tr></thead>
+      <tbody>
+        <tr><td>Monday</td><td>🏥 Clinic/Doctor</td><td>Pain point carousel</td><td class="blue">CLINIC</td></tr>
+        <tr><td>Tuesday</td><td>🏫 School/Coaching</td><td>Solution showcase</td><td class="blue">SCHOOL</td></tr>
+        <tr><td>Wednesday</td><td>🏨 Hotel/Restaurant</td><td>Demo preview reel</td><td class="blue">HOTEL</td></tr>
+        <tr><td>Thursday</td><td>🏗️ Builder/Real Estate</td><td>Pain point carousel</td><td class="blue">PROPERTY</td></tr>
+        <tr><td>Friday</td><td>💄 Salon/Gym/Retail</td><td>Package pricing post</td><td class="blue">SALON</td></tr>
+        <tr><td>Saturday</td><td>Results/Testimonial</td><td>Case study / before-after</td><td class="blue">RESULT</td></tr>
+        <tr><td>Sunday</td><td>QR System (soft)</td><td>"Did you know" reel</td><td class="blue">QR</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slabel">Google Ads — Jab start karo tab yeh keywords</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">🔍 High Intent Keywords</div>
+      <div class="card-desc" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:2;margin-top:8px;">
+        "clinic website jaipur"<br>
+        "doctor website design rajasthan"<br>
+        "school software jaipur"<br>
+        "hotel booking website india"<br>
+        "restaurant website jaipur"<br>
+        "web development company jaipur"
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 Ad Copy Formula</div>
+      <div class="card-desc" style="margin-top:8px;line-height:1.8;">
+        <strong style="color:var(--text);">Headline:</strong> "Clinic Website ₹4,999 | 7 Days Ready"<br>
+        <strong style="color:var(--text);">Desc 1:</strong> "Online appointment + Google ranking + WhatsApp"<br>
+        <strong style="color:var(--text);">Desc 2:</strong> "Free demo • No advance • Jaipur based team"<br>
+        <strong style="color:var(--text);">Landing:</strong> vishtechsoftware.com/demo/clinic
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ NOTES ═══════════════════════════════ -->
+<div class="page" id="page-notes">
+<div style="max-width:900px;margin:0 auto;">
+
+  <div class="slabel">Aapke Personal Notes — Yahan sab likho</div>
+  <div class="notes-grid" style="margin-bottom:14px;">
+    <div class="note-box">
+      <div class="note-title">📞 Active Leads</div>
+      <textarea class="notes-area" id="note-leads" placeholder="Name, phone, niche, status...&#10;&#10;1. ___&#10;2. ___&#10;3. ___" style="min-height:160px;"></textarea>
+    </div>
+    <div class="note-box">
+      <div class="note-title">💡 Ideas — Capture karo</div>
+      <textarea class="notes-area" id="note-ideas" placeholder="Jo bhi idea aaye — yahan likho..." style="min-height:160px;"></textarea>
+    </div>
+  </div>
+  <div class="note-box" style="margin-bottom:14px;">
+    <div class="note-title">🎯 This Month's Goals</div>
+    <textarea class="notes-area" id="note-goals" placeholder="QR clients: ___&#10;Agency projects: ___&#10;Revenue target: ___&#10;Demo pages to complete: ___" style="min-height:120px;"></textarea>
+  </div>
+  <div class="note-box">
+    <div class="note-title">📋 Kal Ke 3 Tasks — Raat ko likho</div>
+    <textarea class="notes-area" id="note-tomorrow" placeholder="1. ___&#10;2. ___&#10;3. ___" style="min-height:100px;"></textarea>
+  </div>
+  <div style="text-align:right;margin-top:8px;">
+    <button class="btn primary" onclick="saveNotes()">💾 Save Notes</button>
+    <span style="font-size:11px;color:var(--muted);margin-left:10px;" id="save-status"></span>
+  </div>
+
+</div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// DATE
+const now = new Date();
+const dateStr = now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+document.getElementById('sb-date').textContent = dateStr;
+document.getElementById('top-date').textContent = now.toLocaleDateString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric'});
+
+// WEEK
+const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const focus = ['Plan Week','QR Build + Deep Work','Client Deliveries','Sales Demos + QR','Content + Marketing','Review + Follow-ups','Rest + Next Week Prep'];
+const tasks = ['Weekly goals set','Deep work 3hrs','Agency code','Field visits 5 shops','Instagram 2 posts','Leads follow-up','Rest'];
+const todayDow = now.getDay();
+const wr = document.getElementById('week-row');
+days.forEach((d,i)=>{
+  const box = document.createElement('div');
+  box.className = 'day-box' + (i===todayDow?' today':'');
+  box.innerHTML = `<div class="day-name">${d}</div><div class="day-focus">${focus[i]}</div><div class="day-tasks">${tasks[i]}</div>`;
+  wr.appendChild(box);
+});
+
+// NAV
+function nav(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  const titles = {dashboard:'Dashboard',mission:'Mission & Goals',decisions:'Quick Decisions',cash:'Cash Flow',agency:'Agency Roadmap',niches:'12 Niches System',qr:'QR Product',weekly:'Weekly System',team:'Team & Sales',marketing:'Marketing Plan',notes:'My Notes'};
+  document.getElementById('page-title').textContent = titles[id]||id;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// TOGGLE CHECK
+function toggleCheck(el){
+  el.classList.toggle('done');
+  const ch = el.querySelector('.cl-check');
+  ch.textContent = el.classList.contains('done') ? '✓' : '';
+}
+
+// CALC
+function calcR(){
+  const a = parseInt(document.getElementById('c-agency').value);
+  const v = parseInt(document.getElementById('c-val').value);
+  const q = parseInt(document.getElementById('c-qr').value);
+  const p = parseInt(document.getElementById('c-plan').value);
+  document.getElementById('cv-agency').textContent = a;
+  document.getElementById('cv-val').textContent = '₹'+v.toLocaleString('en-IN');
+  document.getElementById('cv-qr').textContent = q;
+  document.getElementById('cv-plan').textContent = '₹'+p.toLocaleString('en-IN');
+  const monthly = (a*v)+(q*p);
+  document.getElementById('cr-monthly').textContent = '₹'+monthly.toLocaleString('en-IN');
+  document.getElementById('cr-annual').textContent = '₹'+(monthly*12).toLocaleString('en-IN');
+  document.getElementById('cr-day').textContent = '₹'+Math.round(monthly/30).toLocaleString('en-IN');
+  document.getElementById('dash-mrr').textContent = '₹'+(q*p).toLocaleString('en-IN');
+  document.getElementById('mrr-val').textContent = '₹'+(q*p).toLocaleString('en-IN');
+}
+
+// NICHES
+const niches = [
+  {icon:'🏥',name:'Clinic / Doctor',range:'₹8K–₹20K',pains:['Phone pe appointment chaos — roz missed calls','Google pe clinic dhundhne pe nahi milti','No-show patients — schedule barbad','New patients sirf word-of-mouth se'],sols:['Online appointment booking 24/7','Google Maps + SEO optimization','Auto WhatsApp reminder — no-show 80% kam','Digital patient records + analytics'],pkgs:[{n:'Digital Card',p:'₹4,999',f:'Website + GMaps + WhatsApp'},{n:'Smart System ⭐',p:'₹11,999',f:'Booking + Reminders + Records',best:true},{n:'Full Clinic OS',p:'₹18,999',f:'Complete digital transformation'}],kw:['CLINIC','DOCTOR','APPOINTMENT']},
+  {icon:'🏫',name:'School / Coaching',range:'₹10K–₹25K',pains:['Admission inquiries phone pe — staff overwhelmed','Fee collection manual — errors hote hain','Parents ko notices manually bhejte hain','Online presence zero'],sols:['Online admission form + CRM','Fee portal — UPI, auto receipt','Parent communication system','SEO + social presence'],pkgs:[{n:'Digital Brochure',p:'₹6,999',f:'Website + Inquiry form'},{n:'Smart School ⭐',p:'₹14,999',f:'Admission + Fee + Parents',best:true},{n:'Full ERP',p:'₹24,999',f:'Complete school management'}],kw:['SCHOOL','COACHING','ADMISSION']},
+  {icon:'🏨',name:'Hotel / Resort',range:'₹12K–₹35K',pains:['OTA commission 20-30% revenue jaata hai','No direct booking system','Room availability manually manage','Bad reviews handle nahi hote'],sols:['Direct booking — zero commission','Real-time availability calendar','Auto confirmation + voucher','Google Reviews automation'],pkgs:[{n:'Hotel Website',p:'₹8,999',f:'Site + photos + contact'},{n:'Booking System ⭐',p:'₹18,999',f:'Direct booking + availability',best:true},{n:'Hotel CMS',p:'₹32,999',f:'Full management system'}],kw:['HOTEL','BOOKING','RESORT']},
+  {icon:'🍕',name:'Restaurant / Dhaba',range:'₹6K–₹18K',pains:['Swiggy/Zomato 25-35% commission','No direct order system','Menu update expensive','Table booking chaos'],sols:['Direct online ordering — no commission','QR digital menu — free to update','Table booking system','Google Business optimization'],pkgs:[{n:'Digital Menu',p:'₹4,999',f:'QR menu + contact'},{n:'Order System ⭐',p:'₹9,999',f:'Online order + delivery',best:true},{n:'Full Restaurant OS',p:'₹16,999',f:'Complete restaurant tech'}],kw:['RESTAURANT','MENU','ORDER']},
+  {icon:'🏗️',name:'Builder / Real Estate',range:'₹15K–₹50K',pains:['Properties WhatsApp pe — unprofessional','No lead capture system','Project showcase karna mushkil','Competitors ki branded site hai'],sols:['Property listing website + lead form','CRM — follow-up track karo','Project gallery with 3D/video','SEO — "flats in jaipur" type searches'],pkgs:[{n:'Property Site',p:'₹10,999',f:'Listings + photos + inquiry'},{n:'Lead System ⭐',p:'₹22,999',f:'CRM + EMI calc + lead capture',best:true},{n:'Full Real Estate CRM',p:'₹45,999',f:'Complete property management'}],kw:['PROPERTY','BUILDER','REALESTATE']},
+  {icon:'💍',name:'Wedding Planner',range:'₹8K–₹20K',pains:['Portfolio WhatsApp pe — unprofessional','Inquiry follow-up track nahi hota','Packages clearly present nahi','Competitor ki stunning site hai'],sols:['Portfolio website — photos + videos','Inquiry + budget calculator','Package showcase clearly listed','Instagram auto-integration'],pkgs:[{n:'Portfolio Site',p:'₹5,999',f:'Gallery + inquiry form'},{n:'Inquiry System ⭐',p:'₹11,999',f:'Inquiry + packages + CRM',best:true},{n:'Wedding CRM',p:'₹18,999',f:'Full event management'}],kw:['WEDDING','PLANNER','SHAADI']},
+  {icon:'🏋️',name:'Gym / Fitness',range:'₹6K–₹15K',pains:['Membership register mein — error prone','Attendance manually track','New member leads nahi','Fee reminder manually call'],sols:['Digital membership management','Online trial class booking','Fee reminder automation','Batch + trainer schedule'],pkgs:[{n:'Gym Website',p:'₹4,999',f:'Site + inquiry'},{n:'Member System ⭐',p:'₹9,999',f:'Membership + reminders + schedule',best:true},{n:'Full Gym OS',p:'₹14,999',f:'Complete gym management'}],kw:['GYM','FITNESS','MEMBERSHIP']},
+  {icon:'💄',name:'Salon / Beauty',range:'₹5K–₹12K',pains:['Appointments phone pe — double booking','No-show clients — slot waste','Services + pricing unclear','Staff schedule confusion'],sols:['Online slot booking real-time','Auto reminder — no-show near zero','Service menu with pricing','Staff management + client history'],pkgs:[{n:'Salon Card',p:'₹3,999',f:'Site + service menu'},{n:'Booking System ⭐',p:'₹7,999',f:'Online booking + reminders',best:true},{n:'Salon CRM',p:'₹12,999',f:'Full salon management'}],kw:['SALON','BEAUTY','BOOKING']},
+  {icon:'🚗',name:'Car Dealer / Garage',range:'₹8K–₹22K',pains:['Car stock WhatsApp pe — not trusted','No enquiry system','Service booking miss hoti hai','No EMI calculator'],sols:['Car listing website — specs + price','Service appointment booking','EMI calculator tool','Lead capture — test drive form'],pkgs:[{n:'Dealer Site',p:'₹6,999',f:'Inventory + WhatsApp'},{n:'Inventory+Lead ⭐',p:'₹13,999',f:'Listings + EMI + leads',best:true},{n:'Full Dealer CRM',p:'₹21,999',f:'Complete dealership system'}],kw:['CAR','DEALER','GARAGE']},
+  {icon:'🏪',name:'Retail / Kirana',range:'₹5K–₹15K',pains:['BigBasket/Zepto competition — customers ja rahe','No home delivery system','Product catalogue share karna mushkil','Loyal customers ko offers nahi bhej sakte'],sols:['E-commerce — home delivery + COD','WhatsApp order catalogue','Product management with stock','Loyalty + offer notifications'],pkgs:[{n:'Catalogue Site',p:'₹4,999',f:'Digital menu + WhatsApp'},{n:'Order System ⭐',p:'₹9,999',f:'E-commerce + delivery',best:true},{n:'Full E-commerce',p:'₹14,999',f:'Complete online store'}],kw:['SHOP','STORE','KIRANA']},
+  {icon:'⚖️',name:'CA / Lawyer',range:'₹10K–₹30K',pains:['No online presence — referral only','Document collection messy','Appointment scheduling manual','Expertise showcase karna mushkil'],sols:['Professional website + services','Secure document upload portal','Consultation booking system','Blog — Google authority build'],pkgs:[{n:'Pro Website',p:'₹7,999',f:'Site + services + contact'},{n:'Client Portal ⭐',p:'₹16,999',f:'Document + booking + blog',best:true},{n:'Full Firm CRM',p:'₹28,999',f:'Complete firm management'}],kw:['CA','LAWYER','LEGAL']},
+  {icon:'🏠',name:'Interior / Architect',range:'₹12K–₹35K',pains:['Portfolio PDF/WhatsApp — unprofessional','No lead qualification system','Pricing explain karna har baar','Before/after showcase nahi hoti'],sols:['Visual portfolio — 3D + before/after','Cost estimator tool — pre-qualify leads','Package showcase clearly listed','Case studies + SEO blog'],pkgs:[{n:'Portfolio Site',p:'₹8,999',f:'Gallery + inquiry'},{n:'Lead+Portfolio ⭐',p:'₹18,999',f:'Estimator + leads + portfolio',best:true},{n:'Full Interior CRM',p:'₹32,999',f:'Complete business system'}],kw:['INTERIOR','DESIGN','ARCHITECT']}
+];
+
+let selNiche = -1;
+const ng = document.getElementById('niche-grid');
+const nd = document.getElementById('niche-detail');
+niches.forEach((n,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'niche-btn';
+  btn.innerHTML = `<span class="nb-icon">${n.icon}</span><span class="nb-name">${n.name}</span><span class="nb-range">${n.range}</span>`;
+  btn.onclick = ()=>{
+    document.querySelectorAll('.niche-btn').forEach(b=>b.classList.remove('sel'));
+    btn.classList.add('sel');
+    renderNiche(n);
+    nd.classList.add('show');
+    nd.scrollIntoView({behavior:'smooth',block:'nearest'});
+  };
+  ng.appendChild(btn);
+});
+
+function renderNiche(n){
+  nd.innerHTML = `
+    <div class="nd-header">
+      <span class="nd-icon">${n.icon}</span>
+      <div><div class="nd-title">${n.name}</div><div class="nd-range">Package range: ${n.range}</div></div>
+    </div>
+    <div class="nd-grid">
+      <div>
+        <div class="nd-section-label">❌ 4 Pain Points</div>
+        ${n.pains.map(p=>`<div class="pain-item"><span class="pain-x">✗</span><span>${p}</span></div>`).join('')}
+      </div>
+      <div>
+        <div class="nd-section-label">✅ Aapka Solution</div>
+        ${n.sols.map(s=>`<div class="sol-item"><span class="sol-chk">✓</span><span>${s}</span></div>`).join('')}
+      </div>
+    </div>
+    <div class="pkg-row">
+      ${n.pkgs.map(p=>`
+        <div class="pkg-box${p.best?' best':''}">
+          <div class="pkg-box-name">${p.best?'⭐ Most Popular':''}</div>
+          <div class="pkg-box-price">${p.p}</div>
+          <div class="pkg-box-title">${p.n}</div>
+          <div class="pkg-box-feats">${p.f}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="kw-section">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">📲 DM Keywords</div>
+      ${n.kw.map(k=>`<span class="kw-chip">"${k}" type karke DM karo</span>`).join('')}
+    </div>
+  `;
+}
+
+// NOTES SAVE
+function saveNotes(){
+  ['leads','ideas','goals','tomorrow'].forEach(k=>{
+    localStorage.setItem('vt-note-'+k, document.getElementById('note-'+k).value);
+  });
+  const s = document.getElementById('save-status');
+  s.textContent = '✓ Saved ' + new Date().toLocaleTimeString();
+  setTimeout(()=>s.textContent='',3000);
+}
+function loadNotes(){
+  ['leads','ideas','goals','tomorrow'].forEach(k=>{
+    const v = localStorage.getItem('vt-note-'+k);
+    if(v) document.getElementById('note-'+k).value = v;
+  });
+}
+loadNotes();
+</script>
+</body>
+</html>
