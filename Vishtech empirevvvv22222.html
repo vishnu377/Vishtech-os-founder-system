@@ -184,9 +184,8 @@ input[type=range]{flex:1;accent-color:var(--blue);}
 <button onclick="window.location.href='index.html'">
     Click to Go to Page 1
 </button>
-
-<button onclick="window.location.href='index.html'">
-    Click to Go to Page 3
+<button onclick="window.location.href='Vishtech empire complete system.html'">
+    Click to Go to Page 2
 </button>
   <div class="sb-sec">5 Businesses</div>
   <button class="sb-btn" onclick="nav('job',this)"><span class="ic">💼</span>Deal Share Mart (Bridge)</button>
@@ -883,3 +882,281 @@ loadN();
 </script>
 </body>
 </html>
+<!-- INJECTED PAGES -->
+<script>
+// Add new nav items and pages after DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+
+// Add nav items to sidebar
+const opsSection = document.querySelector('.sb-btn[onclick*="daily"]').previousElementSibling;
+const newNavHTML = `
+  <div class="sb-sec">Products & Growth</div>
+  <button class="sb-btn" onclick="nav('tools',this)"><span class="ic">🛠️</span>AI Tools Plan</button>
+  <button class="sb-btn" onclick="nav('insta',this)"><span class="ic">📸</span>Instagram Growth</button>
+  <button class="sb-btn" onclick="nav('software',this)"><span class="ic">💻</span>GST/Billing SaaS</button>
+  <button class="sb-btn" onclick="nav('jobfix',this)"><span class="ic">💼</span>Job — Fixed Plan</button>
+`;
+opsSection.insertAdjacentHTML('beforebegin', newNavHTML);
+
+// Add page titles
+Object.assign(titles, {
+  tools: 'AI Tools — 4 Month Launch Plan',
+  insta: 'Instagram Growth System',
+  software: 'GST + Billing SaaS',
+  jobfix: 'Deal Share Mart — Corrected Plan'
+});
+
+// Add pages to main
+const main = document.querySelector('.main');
+
+main.insertAdjacentHTML('beforeend', `
+
+<!-- JOB FIXED PAGE -->
+<div class="page" id="p-jobfix">
+  <div class="card green">
+    <div class="card-title" style="color:var(--green);font-size:18px;">💼 Deal Share Mart — Corrected Plan</div>
+    <div class="card-desc" style="margin-top:6px;">Developer job nahi — Deal Share Mart billing job. 6AM-3PM. ₹15K fixed. 9 ghante free for empire building.</div>
+  </div>
+
+  <div class="card red" style="margin-bottom:14px;">
+    <div class="card-title" style="color:var(--red);">❌ Pichli file mein galti — FIX KIYA</div>
+    <div class="card-desc" style="color:#fca5a5;">
+      Pehle maine "IT company developer job" likha tha — woh GALAT tha.<br><br>
+      <strong style="color:var(--text);">Sahi plan:</strong> Deal Share Mart → Billing + Customer Profile job → 6AM-3PM → ₹15K/month → 3PM ke baad poora time tera.
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:14px;">
+    <div>
+      <div class="slabel">Kyun Deal Share Mart — Final Answer</div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <table class="vt">
+          <thead><tr><th>Factor</th><th style="color:var(--green)">Deal Share Mart ✅</th><th style="color:var(--red)">IT Job ❌</th></tr></thead>
+          <tbody>
+            <tr><td>Timing</td><td class="green">6AM–3PM</td><td class="red">7AM–9PM+</td></tr>
+            <tr><td>Weekends</td><td class="green">Off</td><td class="red">Sometimes office</td></tr>
+            <tr><td>Mental load</td><td class="green">Low</td><td class="red">High — coding stress</td></tr>
+            <tr><td>Time for business</td><td class="green">9 hrs/day free</td><td class="red">0–2 hrs/day</td></tr>
+            <tr><td>Salary</td><td class="amber">₹15K</td><td class="amber">₹18–25K</td></tr>
+            <tr><td>Billing/CRM sikhna</td><td class="green">Haan — useful</td><td>NA</td></tr>
+            <tr><td>Career in DSM</td><td class="green">Manager bhi bn skte</td><td class="red">Irrelevant</td></tr>
+            <tr><td>Empire impact</td><td class="green">HIGH ✅</td><td class="red">ZERO ❌</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="slabel">3PM ke baad ka schedule</div>
+      <div class="sched" style="gap:7px;">
+        <div class="sched-row"><div class="sched-time">3–5 PM</div><div class="sched-box" style="background:var(--pd);border-color:var(--pb);"><div class="sched-title">📱 QR Field Demos</div><div class="sched-desc">Sales wala + khud — 5-7 shops daily</div></div></div>
+        <div class="sched-row"><div class="sched-time">5–7 PM</div><div class="sched-box" style="background:var(--bd);border-color:var(--bb);"><div class="sched-title">🛠️ Tool Build / Agency</div><div class="sched-desc">AI tools ya client delivery</div></div></div>
+        <div class="sched-row"><div class="sched-time">7–9 PM</div><div class="sched-box" style="background:var(--gd);border-color:var(--gb);"><div class="sched-title">📸 Instagram Content</div><div class="sched-desc">5 pages ke liye content</div></div></div>
+        <div class="sched-row"><div class="sched-time">9–10 PM</div><div class="sched-box" style="background:var(--bg3);border-color:var(--border);"><div class="sched-title">📋 3 Tasks kal ke</div><div class="sched-desc">Mandatory. Likhna hi hai.</div></div></div>
+      </div>
+
+      <div class="slabel" style="margin-top:14px;">Exit Conditions — Kab resign</div>
+      <div class="cl">
+        <div class="ci" style="cursor:default;pointer-events:none;"><div class="ci-box" style="color:var(--green);font-size:11px;">→</div><div class="ci-text">QR system <strong>₹20K/month × 2 mahine consistent</strong> → resign</div></div>
+        <div class="ci" style="cursor:default;pointer-events:none;"><div class="ci-box" style="color:var(--green);font-size:11px;">→</div><div class="ci-text">Cab + QR combined <strong>₹35K/month</strong> → resign</div></div>
+        <div class="ci" style="cursor:default;pointer-events:none;"><div class="ci-box" style="color:var(--green);font-size:11px;">→</div><div class="ci-text">AI tool ya agency se <strong>bada corporate client</strong> → resign</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INSTAGRAM PAGE -->
+<div class="page" id="p-insta">
+  <div class="card purple">
+    <div class="card-title" style="color:var(--purple);font-size:18px;">📸 Instagram — 5 Pages Growth System</div>
+    <div class="card-desc" style="margin-top:6px;">Personal brand + business pages. Ek audience — 100 products bech sakte ho. Aaj ke zamane mein followers = customers = revenue.</div>
+  </div>
+
+  <div class="slabel">5 Pages Strategy — Har ek alag audience</div>
+  <div class="g2" style="margin-bottom:16px;">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card blue" style="margin-bottom:0;">
+        <div class="card-title">👤 Page 1 — Personal Brand (MOST IMPORTANT)</div>
+        <div class="card-desc" style="margin-top:6px;"><strong style="color:var(--text);">@vishnuXentrepreneur</strong> (ya tera naam)<br>Content: Founder journey, failures, wins, behind the scenes. <strong style="color:var(--text);">Yeh sabse zyada follow hoga.</strong> Log company se nahi, founder se connect karte hain.<br><br>Post type: Reels — "24 saal mein yeh sab try kiya", "Agency se QR product tak"</div>
+      </div>
+      <div class="card green" style="margin-bottom:0;">
+        <div class="card-title">🏢 Page 2 — Vishtech Software (@vishtechsoftwareservices)</div>
+        <div class="card-desc" style="margin-top:6px;">Already hai. Niche carousel posts — Clinic, School, Hotel. Demo links. Pain point content.</div>
+      </div>
+      <div class="card amber" style="margin-bottom:0;">
+        <div class="card-title">📱 Page 3 — QR System Product Page</div>
+        <div class="card-desc" style="margin-top:6px;"><strong style="color:var(--text);">Jab 10 clients ho jaayein tab launch karo.</strong> Tab tak secret. Content: "How QR loyalty works", customer testimonials, before/after.</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card teal" style="margin-bottom:0;">
+        <div class="card-title">🛠️ Page 4 — AI Tools / Tech Tips</div>
+        <div class="card-desc" style="margin-top:6px;"><strong style="color:var(--text);">@vishtech.tools</strong> — Jab pehla tool launch karo tab. Content: Tool demos, "problem solved in 10 seconds", productivity tips. <strong style="color:var(--text);">Fastest growing niche abhi.</strong></div>
+      </div>
+      <div class="card orange" style="margin-bottom:0;">
+        <div class="card-title">🥜 Page 5 — Dry Fruits / Lifestyle</div>
+        <div class="card-desc" style="margin-top:6px;">Jab dry fruits launch karo tab. Premium gifting angle. Festival packs. Murlipura se direct.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">Growth Strategy — Abhi kya karo</div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;">
+    <table class="vt">
+      <thead><tr><th>Page</th><th>Post/Day</th><th>Content Type</th><th>Growth Target</th></tr></thead>
+      <tbody>
+        <tr><td>Personal Brand</td><td class="green">1 reel/day</td><td>Founder story, journey reels</td><td class="green">10K in 3 months</td></tr>
+        <tr><td>Vishtech Software</td><td class="amber">1 post/day</td><td>Niche pain point carousels</td><td class="amber">5K in 3 months</td></tr>
+        <tr><td>QR Product</td><td>Hold — secret</td><td>Launch when 10 clients</td><td>Later</td></tr>
+        <tr><td>AI Tools</td><td>When tool launches</td><td>Demo reels, before/after</td><td>Later</td></tr>
+        <tr><td>Dry Fruits</td><td>When business starts</td><td>Premium product content</td><td>Later</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card amber">
+    <div class="card-title">⚡ Personal Brand Reel Ideas — Jo Viral Hote Hain</div>
+    <div class="card-desc" style="margin-top:8px;line-height:2;">
+      🎬 "College ke baad job nahi ki — yeh kiya" (hook + story)<br>
+      🎬 "₹60K IndiaMart ko diya, ₹30K mila — yeh galti mat karna"<br>
+      🎬 "24 saal mein 5 businesses — crazy hai ya smart?"<br>
+      🎬 "Jaipur mein QR system se local shops ka data collect kaise kiya"<br>
+      🎬 "Mere 3 developers hain, main akele 10 businesses plan kar raha hoon"<br>
+      🎬 "Agency se SaaS tak — mera roadmap"
+    </div>
+  </div>
+</div>
+
+<!-- AI TOOLS PAGE -->
+<div class="page" id="p-tools">
+  <div class="card teal">
+    <div class="card-title" style="color:var(--teal);font-size:18px;">🛠️ AI Tools — 4 Month Launch Plan</div>
+    <div class="card-desc" style="margin-top:6px;">Chhote chhote tools — real problems solve karo — free mein launch karo — users badho — ads + subscription se income karo. Sabse fast cashflow route in 2026.</div>
+  </div>
+
+  <div class="card red" style="margin-bottom:16px;">
+    <div class="card-title" style="color:var(--red);">⚠️ Honest Reality — Pehle Sun</div>
+    <div class="card-desc" style="color:#fca5a5;">
+      "4 mahine mein 20 tools" — yeh nahi hoga quality ke saath. <strong style="color:var(--text);">4 mahine mein 4-5 achhe tools</strong> — yeh realistic hai aur yahi kaam karega. <strong style="color:var(--text);">Ek tool accha ban gaya toh ek hi kaafi hai.</strong> Quantity nahi, traction chahiye.
+    </div>
+  </div>
+
+  <div class="slabel">Top 20 Tool Ideas — Tier wise (Vishnu ke liye best)</div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;">
+    <table class="vt">
+      <thead><tr><th>#</th><th>Tool Name</th><th>Problem Solve</th><th>Model</th><th>Build Time</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--green);font-weight:700;">1</td><td style="color:var(--text);font-weight:600;">Invoice Generator India</td><td>GST invoice banao 30 sec mein — logo, HSN code, auto calc</td><td class="green">Free + ₹199/mo Pro</td><td class="green">2-3 weeks</td><td><span class="tag green">BUILD FIRST</span></td></tr>
+        <tr><td style="color:var(--green);font-weight:700;">2</td><td style="color:var(--text);font-weight:600;">Resume Builder (Hindi+Eng)</td><td>ATS-friendly resume — Hindi medium students ke liye bhi</td><td class="green">Free + ₹99 download</td><td class="green">2 weeks</td><td><span class="tag green">BUILD 2nd</span></td></tr>
+        <tr><td style="color:var(--green);font-weight:700;">3</td><td style="color:var(--text);font-weight:600;">WhatsApp Bulk Message Tool</td><td>Local businesses ke liye — customer list upload, message send</td><td class="amber">₹499/mo</td><td class="amber">3-4 weeks</td><td><span class="tag blue">HIGH VALUE</span></td></tr>
+        <tr><td style="color:var(--green);font-weight:700;">4</td><td style="color:var(--text);font-weight:600;">AI Image to Text (OCR)</td><td>Photo khincho — text extract ho — Hindi + English</td><td class="green">Free + ads</td><td class="green">1-2 weeks</td><td><span class="tag green">FAST BUILD</span></td></tr>
+        <tr><td style="color:var(--green);font-weight:700;">5</td><td style="color:var(--text);font-weight:600;">PDF Toolkit India</td><td>PDF merge, split, compress, password — all in one Hindi UI</td><td class="green">Free + ads + ₹99/mo</td><td class="green">2 weeks</td><td><span class="tag green">BUILD 3rd</span></td></tr>
+        <tr><td>6</td><td>AI Business Name Generator</td><td>Startup/shop ka naam + domain availability check</td><td>Free + ads</td><td class="green">1 week</td><td><span class="tag amber">QUICK WIN</span></td></tr>
+        <tr><td>7</td><td>GST Calculator + Checker</td><td>GST number verify + calculate — CA/traders ke liye</td><td>Free + ads</td><td class="green">1 week</td><td><span class="tag amber">QUICK WIN</span></td></tr>
+        <tr><td>8</td><td>Instagram Caption AI</td><td>Product photo → auto caption Hindi/English generate</td><td>Free 10/day + ₹199/mo</td><td class="amber">2 weeks</td><td><span class="tag blue">TRENDING</span></td></tr>
+        <tr><td>9</td><td>Loan EMI Calculator Pro</td><td>Multiple loans compare, prepayment calc, amortization</td><td>Free + ads</td><td class="green">1 week</td><td><span class="tag amber">QUICK WIN</span></td></tr>
+        <tr><td>10</td><td>AI Contract Generator</td><td>Freelancer/agency ke liye — client agreement 2 min mein</td><td>Free 3 + ₹299/mo</td><td class="amber">3 weeks</td><td><span class="tag blue">HIGH VALUE</span></td></tr>
+        <tr><td>11</td><td>Salary Slip Generator</td><td>Small businesses ke liye — employee salary slip PDF</td><td>Free + ₹149/mo</td><td class="green">1 week</td><td><span class="tag amber">EASY</span></td></tr>
+        <tr><td>12</td><td>QR Code Generator Pro</td><td>Dynamic QR — track scans, edit URL, analytics</td><td>Free + ₹299/mo</td><td class="amber">2 weeks</td><td><span class="tag blue">SYNERGY</span></td></tr>
+        <tr><td>13</td><td>AI Product Description</td><td>E-commerce sellers ke liye — image → product description</td><td>Free 5/day + ₹199/mo</td><td class="amber">2 weeks</td><td><span class="tag blue">TRENDING</span></td></tr>
+        <tr><td>14</td><td>Rent Agreement Generator</td><td>Jaipur/India rent agreement — stamp duty calc, PDF</td><td>Free + ₹199/download</td><td class="green">1-2 weeks</td><td><span class="tag amber">HIGH SEARCH</span></td></tr>
+        <tr><td>15</td><td>Business Card Maker</td><td>Digital + printable business card — QR bhi add ho</td><td>Free + ₹99 download</td><td class="green">1 week</td><td><span class="tag amber">EASY</span></td></tr>
+        <tr><td>16</td><td>ITR Calculator Simple</td><td>Old vs New tax regime compare — kitna tax banega</td><td>Free + ads</td><td class="green">1 week</td><td><span class="tag amber">HIGH SEARCH</span></td></tr>
+        <tr><td>17</td><td>AI Blog Writer Hindi</td><td>Hindi mein SEO blog — local businesses ke liye</td><td>Free 2/day + ₹299/mo</td><td class="amber">2-3 weeks</td><td><span class="tag muted">LATER</span></td></tr>
+        <tr><td>18</td><td>Packaging Label Designer</td><td>Dry fruits/food product labels — print ready PDF</td><td>Free + ₹149/mo</td><td class="amber">2 weeks</td><td><span class="tag muted">LATER</span></td></tr>
+        <tr><td>19</td><td>Social Media Scheduler</td><td>5 pages ke posts schedule karo — free Buffer alternative</td><td>Free + ₹399/mo</td><td class="red">4-6 weeks</td><td><span class="tag muted">COMPLEX</span></td></tr>
+        <tr><td>20</td><td>AI Voice to Text Hindi</td><td>Hindi voice recording → text → WhatsApp message</td><td>Free + ads</td><td class="amber">3 weeks</td><td><span class="tag muted">LATER</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slabel">4 Month Build Plan — Realistic Sequence</div>
+  <div class="g2" style="margin-bottom:14px;">
+    <div>
+      <div class="card green" style="margin-bottom:10px;">
+        <div class="card-title" style="color:var(--green);">Month 1 — Invoice Generator + PDF Toolkit</div>
+        <div class="card-desc" style="margin-top:6px;line-height:1.8;">
+          <strong style="color:var(--text);">Week 1-2:</strong> Invoice Generator launch — ProductHunt, Reddit India, Twitter<br>
+          <strong style="color:var(--text);">Week 3-4:</strong> PDF Toolkit launch — SEO pe focus<br>
+          <strong style="color:var(--text);">Revenue:</strong> Ads + ₹199 Pro plan<br>
+          <strong style="color:var(--text);">Target:</strong> 500 users month 1
+        </div>
+      </div>
+      <div class="card blue" style="margin-bottom:10px;">
+        <div class="card-title" style="color:var(--blue);">Month 2 — Resume Builder + GST Calculator</div>
+        <div class="card-desc" style="margin-top:6px;line-height:1.8;">
+          Hindi medium students target. GST calculator free — high Google search.<br>
+          <strong style="color:var(--text);">Target:</strong> 2000+ users combined
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card amber" style="margin-bottom:10px;">
+        <div class="card-title" style="color:var(--amber);">Month 3 — WhatsApp Tool + Instagram Caption AI</div>
+        <div class="card-desc" style="margin-top:6px;line-height:1.8;">
+          WhatsApp tool = paid from day 1 — ₹499/mo.<br>
+          Instagram Caption = viral potential.<br>
+          <strong style="color:var(--text);">First real subscription revenue</strong>
+        </div>
+      </div>
+      <div class="card purple" style="margin-bottom:10px;">
+        <div class="card-title" style="color:var(--purple);">Month 4 — QR Code Pro + ITR Calculator</div>
+        <div class="card-desc" style="margin-top:6px;line-height:1.8;">
+          QR tool = direct synergy with QR business.<br>
+          ITR calc = huge March-July search volume.<br>
+          <strong style="color:var(--text);">Target:</strong> ₹15-25K/month tools revenue
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card amber">
+    <div class="card-title">🚀 Launch Formula — Har Tool Ke Liye</div>
+    <div class="card-desc" style="margin-top:8px;line-height:2;">
+      1️⃣ Build karo — simple, fast, mobile-friendly<br>
+      2️⃣ Free launch — ProductHunt + Reddit r/india + r/entrepreneur<br>
+      3️⃣ Instagram reel — "Problem X 30 sec mein solve" — demo dikhao<br>
+      4️⃣ Google AdSense lagao — free users = ad revenue<br>
+      5️⃣ Power users ko Pro plan offer karo<br>
+      6️⃣ SEO — "invoice generator india", "GST calculator" — high volume keywords
+    </div>
+  </div>
+</div>
+
+<!-- GST SOFTWARE PAGE -->
+<div class="page" id="p-software">
+  <div class="card blue">
+    <div class="card-title" style="color:var(--blue);font-size:18px;">💻 GST + Billing + ITR SaaS</div>
+    <div class="card-desc" style="margin-top:6px;">Subscription model software — Tally ka affordable alternative. Small businesses, CAs, traders. ₹299-999/month.</div>
+  </div>
+
+  <div class="card amber" style="margin-bottom:14px;">
+    <div class="card-title">⚠️ Yeh Phase 2 hai — Phase 1 pehle</div>
+    <div class="card-desc" style="color:#fde68a;margin-top:6px;">GST/ITR software complex hai — government APIs, compliance updates, CA partnership chahiye. Galat bana diya toh legal issue. <strong style="color:var(--text);">Pehle simple tools se start karo — Invoice Generator → GST Calculator → phir full billing software.</strong> Yeh Month 6-8 ka kaam hai.</div>
+  </div>
+
+  <div class="slabel">Roadmap — Simple se Complex</div>
+  <div class="tl" style="padding-left:20px;">
+    <div class="tl-item"><div class="tl-left"><div class="tl-dot now"></div><div class="tl-line"></div></div><div class="tl-right" style="padding-bottom:14px;"><div class="tl-head"><span class="tl-title" style="font-size:13px;">Invoice Generator Tool</span><span class="tag green">Month 1 — ABHI</span></div><div style="font-size:12px;color:var(--muted2);">Free GST invoice banao → users collect karo → feedback lo</div></div></div>
+    <div class="tl-item"><div class="tl-left"><div class="tl-dot soon"></div><div class="tl-line"></div></div><div class="tl-right" style="padding-bottom:14px;"><div class="tl-head"><span class="tl-title" style="font-size:13px;">Basic Billing Software</span><span class="tag amber">Month 4-5</span></div><div style="font-size:12px;color:var(--muted2);">Invoice + inventory + customer records — ₹299/month</div></div></div>
+    <div class="tl-item"><div class="tl-left"><div class="tl-dot future"></div><div class="tl-line"></div></div><div class="tl-right" style="padding-bottom:14px;"><div class="tl-head"><span class="tl-title" style="font-size:13px;">GST Filing Integration</span><span class="tag muted">Month 8-10</span></div><div style="font-size:12px;color:var(--muted2);">GSTIN API integration — file returns directly — ₹599/month</div></div></div>
+    <div class="tl-item"><div class="tl-left"><div class="tl-dot dream"></div></div><div class="tl-right"><div class="tl-head"><span class="tl-title" style="font-size:13px;">Full ITR + GST + Billing Suite</span><span class="tag purple">Year 2</span></div><div style="font-size:12px;color:var(--muted2);">Complete accounting — ₹999/month — Tally ka competitor</div></div></div>
+  </div>
+
+  <div class="slabel" style="margin-top:14px;">Big Clients Strategy — Enterprise / Factory</div>
+  <div class="card green">
+    <div class="card-title">🏭 Large Enterprise + Factory Ecosystem</div>
+    <div class="card-desc" style="margin-top:8px;line-height:1.8;">
+      Tera yeh observation sahi hai — normal website projects AI se ho rahe hain. <strong style="color:var(--text);">Lekin bade clients — factories, hospitals, school chains — unhe poora ecosystem chahiye:</strong><br><br>
+      ✓ ERP system — inventory, HR, payroll, billing<br>
+      ✓ Custom mobile apps — workers ke liye<br>
+      ✓ Integration — Tally, GST, bank APIs<br>
+      ✓ Training + support contract<br><br>
+      <strong style="color:var(--text);">Yeh ₹2-10 lakh projects hain.</strong> Ek project = 6 mahine ki salary. Lekin iske liye team strong chahiye + case studies.<br><br>
+      Path: Simple tools → Billing SaaS users → Unse enterprise leads lo
+    </div>
+  </div>
+</div>
+`);
+
+});
+</script>
