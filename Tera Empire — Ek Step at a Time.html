@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishtech Empire — Final Master Plan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+:root{
+  --bg:#07080a;--bg2:#0d0f12;--bg3:#13161b;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#f0f1f3;--muted:#6b7280;--muted2:#9ca3af;
+  --blue:#3b82f6;--bd:rgba(59,130,246,0.12);--bb:rgba(59,130,246,0.28);
+  --green:#10b981;--gd:rgba(16,185,129,0.12);--gb:rgba(16,185,129,0.28);
+  --amber:#f59e0b;--ad:rgba(245,158,11,0.12);--ab:rgba(245,158,11,0.28);
+  --red:#ef4444;--rd:rgba(239,68,68,0.1);--rb:rgba(239,68,68,0.25);
+  --purple:#a78bfa;--pd:rgba(167,139,250,0.1);--pb:rgba(167,139,250,0.25);
+  --teal:#14b8a6;--td:rgba(20,184,166,0.1);--tb:rgba(20,184,166,0.28);
+  --orange:#f97316;--od:rgba(249,115,22,0.1);--ob:rgba(249,115,22,0.28);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;font-size:14px;}
+
+/* SIDEBAR */
+.sb{position:fixed;left:0;top:0;bottom:0;width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:200;overflow-y:auto;}
+.sb-top{padding:16px;border-bottom:1px solid var(--border);}
+.sb-logo{display:flex;align-items:center;gap:8px;margin-bottom:2px;}
+.sb-dot{width:8px;height:8px;background:var(--blue);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.sb-name{font-size:13px;font-weight:800;color:var(--text);}
+.sb-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+.sb-sec{padding:10px 14px 4px;font-size:9px;font-weight:700;color:var(--muted);letter-spacing:1.8px;text-transform:uppercase;}
+.sb-btn{display:flex;align-items:center;gap:8px;padding:8px 14px;margin:1px 6px;border-radius:7px;cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;font-size:12px;color:var(--muted2);transition:all 0.15s;width:calc(100% - 12px);text-align:left;}
+.sb-btn:hover{background:var(--bg3);color:var(--text);}
+.sb-btn.on{background:var(--bd);color:var(--blue);border:1px solid var(--bb);}
+.sb-btn .ic{font-size:14px;width:18px;text-align:center;flex-shrink:0;}
+.sb-footer{margin-top:auto;padding:12px;border-top:1px solid var(--border);}
+.sf-row{display:flex;justify-content:space-between;margin-bottom:4px;}
+.sf-k{font-size:11px;color:var(--muted2);}
+.sf-v{font-size:11px;font-weight:600;font-family:'JetBrains Mono',monospace;}
+
+/* MAIN */
+.main{margin-left:220px;min-height:100vh;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(7,8,10,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 24px;height:50px;display:flex;align-items:center;justify-content:space-between;}
+.tb-title{font-size:14px;font-weight:600;}
+.page{display:none;padding:24px 24px 80px;animation:fi 0.2s;}
+.page.on{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* COMPONENTS */
+.slabel{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;margin-top:2px;}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:10px;}
+.card.blue{border-color:var(--bb);background:var(--bd);}
+.card.green{border-color:var(--gb);background:var(--gd);}
+.card.amber{border-color:var(--ab);background:var(--ad);}
+.card.red{border-color:var(--rb);background:var(--rd);}
+.card.purple{border-color:var(--pb);background:var(--pd);}
+.card.teal{border-color:var(--tb);background:var(--td);}
+.card.orange{border-color:var(--ob);background:var(--od);}
+.card-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.card-desc{font-size:12px;color:var(--muted2);line-height:1.65;}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;}
+.tag.blue{background:var(--bd);color:var(--blue);border:1px solid var(--bb);}
+.tag.green{background:var(--gd);color:var(--green);border:1px solid var(--gb);}
+.tag.amber{background:var(--ad);color:var(--amber);border:1px solid var(--ab);}
+.tag.red{background:var(--rd);color:var(--red);border:1px solid var(--rb);}
+.tag.purple{background:var(--pd);color:var(--purple);border:1px solid var(--pb);}
+.tag.teal{background:var(--td);color:var(--teal);border:1px solid var(--tb);}
+.tag.muted{background:var(--bg3);color:var(--muted);border:1px solid var(--border);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+
+/* TABLE */
+.vt{width:100%;border-collapse:collapse;}
+.vt th{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;padding:9px 12px;border-bottom:1px solid var(--border);text-align:left;}
+.vt td{font-size:12px;color:var(--muted2);padding:9px 12px;border-bottom:1px solid var(--border);}
+.vt td:first-child{color:var(--text);font-weight:500;}
+.vt tr:last-child td{border-bottom:none;}
+
+/* CHECKLIST */
+.cl{display:flex;flex-direction:column;gap:5px;}
+.ci{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:opacity 0.2s;}
+.ci.done{opacity:0.4;}
+.ci-box{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;margin-top:1px;}
+.ci.done .ci-box{background:var(--green);border-color:var(--green);color:#fff;}
+.ci-text{font-size:12px;color:var(--muted2);line-height:1.4;flex:1;}
+.ci-text strong{color:var(--text);}
+
+/* SEQUENCE FLOW */
+.seq-flow{display:flex;align-items:center;gap:0;overflow-x:auto;padding:4px 0 12px;margin-bottom:16px;}
+.seq-item{text-align:center;min-width:100px;padding:0 6px;flex-shrink:0;}
+.seq-item:not(:last-child)::after{content:'→';font-size:18px;color:var(--muted);margin:0 2px;}
+.seq-icon{font-size:24px;display:block;margin-bottom:4px;}
+.seq-time{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;}
+.seq-name{font-size:11px;font-weight:500;color:var(--text);}
+.seq-sub{font-size:10px;color:var(--muted);margin-top:1px;}
+
+/* DSM CAREER LADDER */
+.ladder{display:flex;flex-direction:column;gap:0;position:relative;padding-left:28px;}
+.ladder::before{content:'';position:absolute;left:8px;top:20px;bottom:20px;width:2px;background:linear-gradient(180deg,var(--amber),var(--green),var(--blue),var(--purple));}
+.ladder-item{margin-bottom:0;position:relative;}
+.ladder-dot{position:absolute;left:-24px;top:16px;width:16px;height:16px;border-radius:50%;border:2px solid var(--bg);z-index:1;}
+.ladder-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;}
+.ladder-card:hover{border-color:var(--border2);}
+.lc-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.lc-title{font-size:14px;font-weight:600;color:var(--text);}
+.lc-time{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.lc-salary{font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.lc-desc{font-size:12px;color:var(--muted2);line-height:1.6;margin-top:6px;}
+.lc-skills{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
+
+/* INCOME CALC */
+.calc-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px;}
+.calc-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.calc-lbl{font-size:12px;color:var(--muted2);min-width:160px;}
+.calc-val{font-size:12px;font-weight:600;color:var(--text);min-width:80px;text-align:right;font-family:'JetBrains Mono',monospace;}
+input[type=range]{flex:1;accent-color:var(--blue);}
+.calc-res{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+.cr{background:var(--bg3);border-radius:8px;padding:10px;text-align:center;}
+.cr-lbl{font-size:9px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.cr-val{font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+
+/* DAILY */
+.sched{display:flex;flex-direction:column;gap:5px;}
+.sched-row{display:flex;gap:12px;}
+.sched-time{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;width:72px;flex-shrink:0;padding-top:10px;}
+.sched-box{flex:1;border-radius:8px;padding:9px 12px;border:1px solid;}
+.sb-title{font-size:12px;font-weight:500;color:var(--text);}
+.sb-desc{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* RULES */
+.rule{display:flex;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);margin-bottom:6px;}
+.rule-ic{font-size:15px;flex-shrink:0;}
+.rule-text{font-size:12px;color:var(--muted2);}
+.rule-text strong{color:var(--text);}
+
+/* NOTES */
+.nta{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Inter',sans-serif;font-size:13px;line-height:1.7;resize:vertical;min-height:120px;outline:none;}
+.nta:focus{border-color:var(--bb);}
+
+/* DM */
+.dm{display:flex;flex-direction:column;gap:6px;}
+.dm-row{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;}
+.dm-q{font-size:12px;color:var(--text);flex:1;}
+.dm-a{font-size:11px;font-weight:700;flex-shrink:0;text-align:right;max-width:160px;}
+.dm-a.yes{color:var(--green);}
+.dm-a.no{color:var(--red);}
+.dm-a.wait{color:var(--amber);}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:10px;}
+</style>
+</head>
+<body>
+
+<div class="sb">
+  <div class="sb-top">
+    <div class="sb-logo"><div class="sb-dot"></div><span class="sb-name">VISHTECH EMPIRE</span></div>
+    <div class="sb-sub">Founder OS — Final Plan</div>
+    <div style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:5px;" id="sb-date">—</div>
+  </div>
+
+  <div class="sb-sec">Command</div>
+  <button class="sb-btn on" onclick="nav('home',this)"><span class="ic">🏠</span>Dashboard</button>
+  <button class="sb-btn" onclick="nav('sequence',this)"><span class="ic">🗺️</span>Master Sequence</button>
+  <button class="sb-btn" onclick="nav('decisions',this)"><span class="ic">⚡</span>Quick Decisions</button>
+  <button class="sb-btn" onclick="nav('income',this)"><span class="ic">📊</span>Income Calculator</button>
+
+<button onclick="window.location.href='index.html'">
+    Click to Go to Page 1
+</button>
+  <button onclick="window.location.href='Vishtech empire complete system.html'">
+    Click to Go to Page 2
+</button>
+<button onclick="window.location.href='Vishtech empirevvvv22222.html '">
+    Click to Go to Page 3
+</button>
+
+<button onclick="window.location.href='Tera Empire — Ek Step at a Time.html'">
+    Click to Go to Page 4
+</button>
+  <div class="sb-sec">8 Steps</div>
+  <button class="sb-btn" onclick="nav('dsm',this)"><span class="ic">💼</span>1. Deal Share Mart</button>
+  <button class="sb-btn" onclick="nav('cab',this)"><span class="ic">🚗</span>2. Cab Business</button>
+  <button class="sb-btn" onclick="nav('qr',this)"><span class="ic">📱</span>3. QR System</button>
+  <button class="sb-btn" onclick="nav('agency',this)"><span class="ic">🏢</span>4. Agency</button>
+  <button class="sb-btn" onclick="nav('tools',this)"><span class="ic">🛠️</span>5. AI Tools</button>
+  <button class="sb-btn" onclick="nav('cars',this)"><span class="ic">🚘</span>6. VishTech Cars</button>
+  <button class="sb-btn" onclick="nav('dryfruits',this)"><span class="ic">🥜</span>7. Dry Fruits</button>
+  <button class="sb-btn" onclick="nav('clothing',this)"><span class="ic">👗</span>8. Clothing Store</button>
+
+  <div class="sb-sec">Daily</div>
+  <button class="sb-btn" onclick="nav('daily',this)"><span class="ic">⏰</span>Daily Routine</button>
+  <button class="sb-btn" onclick="nav('notes',this)"><span class="ic">📝</span>Notes</button>
+
+  <div class="sb-footer">
+    <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Live Status</div>
+    <div class="sf-row"><span class="sf-k">Phase</span><span class="sf-v" style="color:var(--amber);">1 — Apply DSM</span></div>
+    <div class="sf-row"><span class="sf-k">QR Clients</span><span class="sf-v" id="sb-qr">0/10</span></div>
+    <div class="sf-row"><span class="sf-k">Total MRR</span><span class="sf-v" style="color:var(--green);" id="sb-mrr">₹0</span></div>
+  </div>
+</div>
+
+<div class="main">
+<div class="topbar">
+  <span class="tb-title" id="pg-title">Dashboard</span>
+  <span style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;" id="top-date">—</span>
+</div>
+
+<!-- ══ DASHBOARD ══ -->
+<div class="page on" id="p-home">
+  <div style="margin-bottom:20px;">
+    <div style="font-size:24px;font-weight:900;margin-bottom:4px;">Tera Empire — Ek Step at a Time 🔥</div>
+    <div style="font-size:13px;color:var(--muted2);">B.Tech CS+AI | 24 yrs | Jaipur | Zero to Empire</div>
+  </div>
+
+  <div style="background:var(--bd);border:1px solid var(--bb);border-radius:12px;padding:16px 18px;margin-bottom:16px;text-align:center;">
+    <div style="font-size:11px;color:var(--blue);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">North Star</div>
+    <div style="font-size:17px;font-weight:700;color:var(--text);">"Service → Cash → Product → Empire"</div>
+    <div style="font-size:12px;color:var(--muted2);margin-top:4px;">DSM Job → Cab → QR → Agency → AI Tools → Cars → Dry Fruits → Clothing</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;">
+    <div class="card" style="text-align:center;padding:12px;">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Phase</div>
+      <div style="font-size:14px;font-weight:700;color:var(--amber);">Apply DSM</div>
+    </div>
+    <div class="card" style="text-align:center;padding:12px;">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">QR Clients</div>
+      <div style="font-size:20px;font-weight:700;font-family:'JetBrains Mono',monospace;" id="d-qr">0</div>
+    </div>
+    <div class="card" style="text-align:center;padding:12px;">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">MRR</div>
+      <div style="font-size:20px;font-weight:700;color:var(--green);font-family:'JetBrains Mono',monospace;" id="d-mrr">₹0</div>
+    </div>
+    <div class="card" style="text-align:center;padding:12px;">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Next Unlock</div>
+      <div style="font-size:14px;font-weight:700;color:var(--teal);">Cab</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:12px;">
+    <div>
+      <div class="slabel">Aaj ke 3 Tasks</div>
+      <div class="cl">
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Deal Share Mart call karo</strong> — vacancy poochho, apply karo</div><span class="tag red" style="flex-shrink:0;margin-top:2px;">ABHI</span></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>QR demo</strong> — 2 interested clients ko call karo, trial setup date fix karo</div><span class="tag amber" style="flex-shrink:0;margin-top:2px;">TODAY</span></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Instagram reel</strong> — QR system ka 30 sec screen recording post karo</div><span class="tag blue" style="flex-shrink:0;margin-top:2px;">EVE</span></div>
+      </div>
+
+      <div class="slabel" style="margin-top:14px;">8-Step Sequence</div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;overflow-x:auto;">
+        <div style="display:flex;align-items:center;gap:6px;min-width:600px;">
+          <div style="text-align:center;min-width:65px;"><div style="font-size:18px;">💼</div><div style="font-size:9px;color:var(--amber);font-weight:700;">NOW</div><div style="font-size:10px;color:var(--text);">DSM Job</div></div>
+          <div style="color:var(--muted);font-size:14px;">→</div>
+          <div style="text-align:center;min-width:65px;"><div style="font-size:18px;">🚗</div><div style="font-size:9px;color:var(--teal);font-weight:700;">M1-2</div><div style="font-size:10px;color:var(--text);">Cab</div></div>
+          <div style="color:var(--muted);font-size:14px;">→</div>
+          <div style="text-align:center;min-width:65px;"><div style="font-size:18px;">📱</div><div style="font-size:9px;color:var(--blue);font-weight:700;">M1-3</div><div style="font-size:10px;color:var(--text);">QR 10+</div></div>
+          <div style="color:var(--muted);font-size:14px;">→</div>
+          <div style="text-align:center;min-width:65px;"><div style="font-size:18px;">🏢</div><div style="font-size:9px;color:var(--blue);font-weight:700;">M1-4</div><div style="font-size:10px;color:var(--text);">Agency</div></div>
+          <div style="color:var(--muted);font-size:14px;">→</div>
+          <div style="text-align:center;min-width:65px;"><div style="font-size:18px;">🛠️</div><div style="font-size:9px;color:var(--muted);font-weight:700;">M4-6</div><div style="font-size:10px;color:var(--muted);">AI Tools</div></div>
+          <div style="color:var(--muted);font-size:14px;">→</div>
+          <div style="text-align:center;min-width:65px;"><div style="font-size:18px;">🚘</div><div style="font-size:9px;color:var(--muted);font-weight:700;">M6+</div><div style="font-size:10px;color:var(--muted);">Cars</div></div>
+          <div style="color:var(--muted);font-size:14px;">→</div>
+          <div style="text-align:center;min-width:65px;"><div style="font-size:18px;">🥜</div><div style="font-size:9px;color:var(--muted);font-weight:700;">Y1+</div><div style="font-size:10px;color:var(--muted);">Dry Fruits</div></div>
+          <div style="color:var(--muted);font-size:14px;">→</div>
+          <div style="text-align:center;min-width:65px;"><div style="font-size:18px;">👗</div><div style="font-size:9px;color:var(--muted);font-weight:700;">Y2+</div><div style="font-size:10px;color:var(--muted);">Clothing</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="slabel">Founder Rules — Kabhi Mat Bhoolna</div>
+      <div class="rule"><span class="rule-ic">🎯</span><span class="rule-text"><strong>Sequence mat todna.</strong> Ek complete, phir agla.</span></div>
+      <div class="rule"><span class="rule-ic">💰</span><span class="rule-text"><strong>50% advance mandatory.</strong> Zero exceptions.</span></div>
+      <div class="rule"><span class="rule-ic">🔒</span><span class="rule-text"><strong>QR idea secret.</strong> 10 clients ke baad public.</span></div>
+      <div class="rule"><span class="rule-ic">🚫</span><span class="rule-text"><strong>IndiaMart = NEVER.</strong> Chapter band.</span></div>
+      <div class="rule"><span class="rule-ic">📋</span><span class="rule-text"><strong>Raat ko 3 tasks likhna.</strong> Mandatory.</span></div>
+      <div class="rule"><span class="rule-ic">⚡</span><span class="rule-text"><strong>Overwhelm aaye</strong> — sirf aaj ke 3 tasks. Baaki kal.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SEQUENCE ══ -->
+<div class="page" id="p-sequence">
+  <div class="slabel">Complete 8-Step Empire Sequence</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="vt">
+      <thead><tr><th>Step</th><th>Business</th><th>Timeline</th><th>Income</th><th>Condition</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>💼 Deal Share Mart Job</td><td style="color:var(--red);font-weight:600;">ABHI — Aaj Apply</td><td style="color:var(--amber);">₹15K/month fixed</td><td>Cash flow solve karo</td></tr>
+        <tr><td>2</td><td>🚗 Cab (Driver se)</td><td style="color:var(--teal);">Month 1-2 (₹1L save hone pe)</td><td style="color:var(--teal);">₹17-25K net/month</td><td>Job stable + ₹1L saved</td></tr>
+        <tr><td>3</td><td>📱 QR System 10 clients</td><td style="color:var(--blue);">Month 1-3 (3PM ke baad)</td><td style="color:var(--blue);">₹10-30K MRR</td><td>Daily field marketing</td></tr>
+        <tr><td>4</td><td>🏢 Agency 1-2 projects/month</td><td style="color:var(--blue);">Month 1-4 (parallel)</td><td style="color:var(--blue);">₹10-20K/month</td><td>Demo pages live karo</td></tr>
+        <tr><td>5</td><td>🛠️ AI Tools launch</td><td style="color:var(--muted);">Month 4-6</td><td style="color:var(--muted);">₹5-20K/month (6M baad)</td><td>QR stable hone ke baad</td></tr>
+        <tr><td>6</td><td>🚘 VishTech Cars monetize</td><td style="color:var(--muted);">Month 6+</td><td style="color:var(--muted);">₹3-15K/month AdSense</td><td>Tools + content add karo</td></tr>
+        <tr><td>7</td><td>🥜 Dry Fruits</td><td style="color:var(--muted);">Year 1+ (Month 8-10)</td><td style="color:var(--muted);">₹20-50K/month</td><td>QR ₹40K+ stable</td></tr>
+        <tr><td>8</td><td>👗 Clothing Store Murlipura</td><td style="color:var(--muted);">Year 2+</td><td style="color:var(--muted);">₹50K+/month</td><td>Dry fruits profitable 6M</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ DECISIONS ══ -->
+<div class="page" id="p-decisions">
+  <div class="slabel">Confuse Ho Toh Yahan Aao — Instant Answers</div>
+  <div class="dm">
+    <div class="dm-row"><span class="dm-q">Deal Share Mart job leni chahiye?</span><span class="dm-a yes">HAAN — Aaj apply karo</span></div>
+    <div class="dm-row"><span class="dm-q">IT/Coding job leni chahiye?</span><span class="dm-a no">Nahi — 8AM-7PM = business zero</span></div>
+    <div class="dm-row"><span class="dm-q">DSM job kab chhodna hai?</span><span class="dm-a wait">QR ₹20K/month × 2 mahine</span></div>
+    <div class="dm-row"><span class="dm-q">IndiaMart dobara?</span><span class="dm-a no">NAHI. KABHI NAHI.</span></div>
+    <div class="dm-row"><span class="dm-q">Bina advance ke kaam karna?</span><span class="dm-a no">Nahi. 50% upfront always.</span></div>
+    <div class="dm-row"><span class="dm-q">QR idea announce karna?</span><span class="dm-a no">Nahi — 10 clients ke baad</span></div>
+    <div class="dm-row"><span class="dm-q">Cab kab lena?</span><span class="dm-a wait">₹1L save hone ke baad</span></div>
+    <div class="dm-row"><span class="dm-q">AI tools kab launch karna?</span><span class="dm-a wait">Month 4-6 — QR stable hone ke baad</span></div>
+    <div class="dm-row"><span class="dm-q">Dry fruits kab shuru karna?</span><span class="dm-a wait">QR ₹40K+ MRR + Cab chal raha ho</span></div>
+    <div class="dm-row"><span class="dm-q">Paid ads kab chalana?</span><span class="dm-a wait">3 demo pages live hone ke baad</span></div>
+    <div class="dm-row"><span class="dm-q">Overwhelm ho raha hai?</span><span class="dm-a yes">Sirf aaj ke 3 tasks. Baaki kal.</span></div>
+    <div class="dm-row"><span class="dm-q">Naya idea aa raha hai?</span><span class="dm-a wait">Notes mein likho — sequence follow karo</span></div>
+  </div>
+</div>
+
+<!-- ══ INCOME CALC ══ -->
+<div class="page" id="p-income">
+  <div class="slabel">Revenue Calculator</div>
+  <div class="calc-wrap">
+    <div class="calc-row"><span class="calc-lbl">QR Clients</span><input type="range" min="0" max="100" value="0" id="r-qr" oninput="calcI()"><span class="calc-val" id="v-qr">0</span></div>
+    <div class="calc-row"><span class="calc-lbl">QR Avg Plan (₹/mo)</span><input type="range" min="999" max="3499" value="999" step="500" id="r-plan" oninput="calcI()"><span class="calc-val" id="v-plan">₹999</span></div>
+    <div class="calc-row"><span class="calc-lbl">Agency Projects/month</span><input type="range" min="0" max="10" value="1" id="r-ag" oninput="calcI()"><span class="calc-val" id="v-ag">1</span></div>
+    <div class="calc-row"><span class="calc-lbl">Agency Avg Value (₹)</span><input type="range" min="5000" max="50000" value="10000" step="1000" id="r-agv" oninput="calcI()"><span class="calc-val" id="v-agv">₹10,000</span></div>
+    <div class="calc-row"><span class="calc-lbl">Cabs Running</span><input type="range" min="0" max="5" value="0" id="r-cab" oninput="calcI()"><span class="calc-val" id="v-cab">0</span></div>
+    <div class="calc-res">
+      <div class="cr"><div class="cr-lbl">DSM Job</div><div class="cr-val" style="color:var(--amber);">₹15K</div></div>
+      <div class="cr"><div class="cr-lbl">QR MRR</div><div class="cr-val" style="color:var(--blue);" id="cr-qr">₹0</div></div>
+      <div class="cr"><div class="cr-lbl">Agency</div><div class="cr-val" style="color:var(--green);" id="cr-ag">₹10K</div></div>
+      <div class="cr"><div class="cr-lbl">TOTAL</div><div class="cr-val" id="cr-total">₹25K</div></div>
+    </div>
+  </div>
+
+  <div class="slabel">Month-wise Projection</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="vt">
+      <thead><tr><th>Month</th><th>DSM Job</th><th>QR</th><th>Agency</th><th>Cab</th><th style="color:var(--green);">Total</th></tr></thead>
+      <tbody>
+        <tr><td>June 26</td><td class="amber" style="color:var(--amber);">₹15K</td><td>₹5K</td><td>₹10K</td><td>—</td><td style="color:var(--green);font-weight:600;">₹30K</td></tr>
+        <tr><td>July 26</td><td style="color:var(--amber);">₹15K</td><td>₹15K</td><td>₹15K</td><td>₹20K</td><td style="color:var(--green);font-weight:600;">₹65K</td></tr>
+        <tr><td>Aug 26</td><td style="color:var(--amber);">₹15K</td><td>₹25K</td><td>₹20K</td><td>₹22K</td><td style="color:var(--green);font-weight:600;">₹82K</td></tr>
+        <tr><td>Oct 26</td><td style="color:var(--red);">Resign</td><td>₹50K</td><td>₹35K</td><td>₹25K</td><td style="color:var(--green);font-weight:600;">₹1.1L</td></tr>
+        <tr><td>Dec 26</td><td>—</td><td>₹1L</td><td>₹50K</td><td>₹45K (2c)</td><td style="color:var(--green);font-weight:600;">₹1.95L</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ DSM JOB ══ -->
+<div class="page" id="p-dsm">
+  <div class="card amber">
+    <div class="card-title" style="color:var(--amber);font-size:17px;">💼 Deal Share Mart — Bridge + Career Path</div>
+    <div class="card-desc" style="margin-top:4px;">Yeh job sirf bridge nahi hai — agar business slow ho toh yahan bhi growth path hai. Dono direction mein ready raho.</div>
+  </div>
+
+  <div class="g2" style="margin-bottom:14px;">
+    <div>
+      <div class="slabel">Kyun DSM — Final Comparison</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="vt">
+          <thead><tr><th>Factor</th><th style="color:var(--green);">DSM ✅</th><th style="color:var(--red);">IT Job ❌</th></tr></thead>
+          <tbody>
+            <tr><td>Timing</td><td style="color:var(--green);">6AM–3PM</td><td style="color:var(--red);">8AM–7PM+</td></tr>
+            <tr><td>Weekends</td><td style="color:var(--green);">Off</td><td style="color:var(--red);">Sometimes on</td></tr>
+            <tr><td>Mental load</td><td style="color:var(--green);">Low</td><td style="color:var(--red);">High</td></tr>
+            <tr><td>Business time</td><td style="color:var(--green);">7 hrs free</td><td style="color:var(--red);">0–2 hrs</td></tr>
+            <tr><td>Salary start</td><td style="color:var(--amber);">₹15K</td><td style="color:var(--amber);">₹12–18K</td></tr>
+            <tr><td>Growth</td><td style="color:var(--green);">Manager path</td><td style="color:var(--muted);">Code only</td></tr>
+            <tr><td>IT dept option</td><td style="color:var(--green);">Haan possible</td><td style="color:var(--red);">NA</td></tr>
+            <tr><td>Empire impact</td><td style="color:var(--green);">HIGH ✅</td><td style="color:var(--red);">ZERO ❌</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <div class="slabel">3PM ke Baad Daily Schedule</div>
+      <div class="sched">
+        <div class="sched-row"><div class="sched-time">3–5 PM</div><div class="sched-box" style="background:var(--pd);border-color:var(--pb);"><div class="sb-title">📱 QR Field Marketing</div><div class="sb-desc">Vaishali, Mansarovar — door to door. 5-7 shops daily.</div></div></div>
+        <div class="sched-row"><div class="sched-time">5–7 PM</div><div class="sched-box" style="background:var(--bd);border-color:var(--bb);"><div class="sb-title">🏢 Agency Work</div><div class="sb-desc">Demo pages, client delivery, team sync.</div></div></div>
+        <div class="sched-row"><div class="sched-time">7–9 PM</div><div class="sched-box" style="background:var(--gd);border-color:var(--gb);"><div class="sb-title">📸 Marketing</div><div class="sb-desc">Instagram reel, WhatsApp broadcast, GMB.</div></div></div>
+        <div class="sched-row"><div class="sched-time">9–10 PM</div><div class="sched-box" style="background:var(--bg3);border-color:var(--border);"><div class="sb-title">📋 3 Tasks Kal Ke</div><div class="sb-desc">Likhna mandatory. Warna subah confusion.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">DSM Career Ladder — Agar Long Term Job Bhi Chal Jaaye</div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;">
+    <div style="font-size:12px;color:var(--muted2);margin-bottom:14px;line-height:1.6;">Tera tech background + business mindset = DSM mein sabse zyada value. Yeh career path realistic hai agar business slow rahe ya stable income chahiye ho.</div>
+
+    <div class="ladder">
+      <div class="ladder-item">
+        <div class="ladder-dot" style="background:var(--amber);"></div>
+        <div class="ladder-card">
+          <div class="lc-head">
+            <div style="font-size:20px;">💼</div>
+            <div style="flex:1;">
+              <div class="lc-title">Billing + Customer Profile Executive</div>
+              <div class="lc-time">Day 1 — Month 6</div>
+            </div>
+            <div class="lc-salary" style="color:var(--amber);">₹15K</div>
+          </div>
+          <div class="lc-desc">Billing software handle karo, customer profiles manage karo. Teri coding background se yeh sab zyada fast seekhega tu. Sabse zyada tech-comfortable employee banega team mein.</div>
+          <div class="lc-skills">
+            <span class="tag amber">Billing System</span>
+            <span class="tag blue">Customer CRM</span>
+            <span class="tag muted">Inventory Basics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ladder-item">
+        <div class="ladder-dot" style="background:var(--green);"></div>
+        <div class="ladder-card">
+          <div class="lc-head">
+            <div style="font-size:20px;">📊</div>
+            <div style="flex:1;">
+              <div class="lc-title">Senior Executive / Team Lead</div>
+              <div class="lc-time">Month 6 — Year 1.5</div>
+            </div>
+            <div class="lc-salary" style="color:var(--green);">₹20–25K</div>
+          </div>
+          <div class="lc-desc">Tune 6 mahine mein billing + software + customer system sab samjha. Manager tujhe team lead banayega. Teri tech skills + business understanding = rare combination DSM mein.</div>
+          <div class="lc-skills">
+            <span class="tag green">Team Management</span>
+            <span class="tag blue">Process Optimization</span>
+            <span class="tag amber">Reporting</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ladder-item">
+        <div class="ladder-dot" style="background:var(--blue);"></div>
+        <div class="ladder-card">
+          <div class="lc-head">
+            <div style="font-size:20px;">💻</div>
+            <div style="flex:1;">
+              <div class="lc-title">IT / Tech Department</div>
+              <div class="lc-time">Year 1.5 — Year 3 (Optional Path)</div>
+            </div>
+            <div class="lc-salary" style="color:var(--blue);">₹30–45K</div>
+          </div>
+          <div class="lc-desc">DSM ke internal IT department mein shift karo. Billing software maintain karo, internal tools banao, tech upgrades handle karo. Yahan teri B.Tech CS+AI degree ka full use hoga.</div>
+          <div class="lc-skills">
+            <span class="tag blue">Internal Software</span>
+            <span class="tag green">ERP Systems</span>
+            <span class="tag purple">Tech Upgrades</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ladder-item">
+        <div class="ladder-dot" style="background:var(--purple);"></div>
+        <div class="ladder-card">
+          <div class="lc-head">
+            <div style="font-size:20px;">🏛️</div>
+            <div style="flex:1;">
+              <div class="lc-title">Operations / IT Manager</div>
+              <div class="lc-time">Year 3+ (If business slow)</div>
+            </div>
+            <div class="lc-salary" style="color:var(--purple);">₹50–80K</div>
+          </div>
+          <div class="lc-desc">Agar business slow raha — yeh backup plan hai. DSM ka Operations ya IT Manager banna possible hai 3 saal mein. ₹50-80K salary, brand name, stability. Lekin yeh backup hai — primary goal business hai.</div>
+          <div class="lc-skills">
+            <span class="tag purple">Strategy</span>
+            <span class="tag blue">IT Leadership</span>
+            <span class="tag green">Operations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card amber" style="margin-top:12px;margin-bottom:0;">
+      <div class="card-title">⚡ Important — DSM Job ka Real Purpose</div>
+      <div class="card-desc" style="color:#fde68a;margin-top:4px;line-height:1.8;">
+        DSM job ka primary goal = <strong style="color:var(--text);">bridge income</strong> — 4-6 mahine.<br>
+        Resign condition = <strong style="color:var(--text);">QR ₹20K/month consistent × 2 mahine</strong><br>
+        Career path = <strong style="color:var(--text);">backup only</strong> — agar business slow rahe.<br>
+        But good news = agar kabhi zarurat padi toh growth path clearly exist karta hai wahan.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CAB ══ -->
+<div class="page" id="p-cab">
+  <div class="card teal">
+    <div class="card-title" style="color:var(--teal);font-size:17px;">🚗 Cab Business — Passive Income Asset</div>
+    <div class="card-desc">Tu nahi chalayega — driver chalayega. Ola/Uber. Net ₹17-25K/month per cab.</div>
+  </div>
+  <div class="g2">
+    <div>
+      <div class="slabel">Financial Model — 1 Cab</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="vt">
+          <thead><tr><th>Item</th><th>Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Car (Dzire/WagonR 2022-23)</td><td>₹4–5L</td></tr>
+            <tr><td>Down Payment</td><td style="color:var(--amber);">₹1L (save karo)</td></tr>
+            <tr><td>Loan EMI (3L @ 12%)</td><td style="color:var(--red);">₹9,963/mo</td></tr>
+            <tr><td>Driver Salary</td><td style="color:var(--red);">₹12,000/mo</td></tr>
+            <tr><td>Fuel + Insurance</td><td style="color:var(--red);">₹6,000/mo</td></tr>
+            <tr><td>Avg Revenue (Ola/Uber)</td><td style="color:var(--green);">₹50–55K/mo</td></tr>
+            <tr><td style="font-weight:700;">Net Profit</td><td style="color:var(--green);font-weight:700;">₹22–27K/mo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="slabel">Unlock Condition + Fleet Plan</div>
+      <div class="card amber" style="margin-bottom:8px;">
+        <div class="card-title">Condition: ₹1L Save Karo Pehle</div>
+        <div class="card-desc" style="color:#fde68a;margin-top:4px;">DSM ₹5K/month save × 4M = ₹20K. Agency 2 projects = ₹30K. QR 10 clients × 2M = ₹20K. Total ≈ ₹70K in 2-3 mahine. Realistic.</div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="vt">
+          <thead><tr><th>Timeline</th><th>Cabs</th><th>Net/month</th></tr></thead>
+          <tbody>
+            <tr><td>Month 2-3</td><td>1 cab</td><td style="color:var(--teal);">₹22K net</td></tr>
+            <tr><td>Month 5-6</td><td>2 cabs</td><td style="color:var(--teal);">₹44K net</td></tr>
+            <tr><td>Year 1.5</td><td>5 cabs</td><td style="color:var(--green);">₹1.1L net</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ QR ══ -->
+<div class="page" id="p-qr">
+  <div class="card blue">
+    <div class="card-title" style="color:var(--blue);font-size:17px;">📱 QR Loyalty System — Main Product</div>
+    <div class="card-desc">Local businesses ka customer retention system. ₹999-1999/month. Zomato/Starbucks wala system local shops ko de raha hai — value 200% proven.</div>
+  </div>
+  <div class="g2" style="margin-bottom:12px;">
+    <div>
+      <div class="slabel">Pricing</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="vt">
+          <thead><tr><th>Plan</th><th>Price/mo</th><th>Target</th></tr></thead>
+          <tbody>
+            <tr><td>Basic</td><td style="color:var(--amber);">₹999</td><td>Kirana, small shops</td></tr>
+            <tr><td>Growth ⭐</td><td style="color:var(--blue);">₹1,999</td><td>Cafe, salon, gym</td></tr>
+            <tr><td>Pro</td><td style="color:var(--green);">₹3,499</td><td>Restaurant, chain</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="slabel" style="margin-top:12px;">Sales Script</div>
+      <div class="card amber">
+        <div class="card-desc" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:2;color:#fde68a;">
+          "Bhai, customers aate hain wapas?"<br>
+          "Unka number hai aapke paas?"<br>
+          "Yeh dekho — scan karo, data save, offer bhejo, woh aate hain. 20 din free try karo."
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="slabel">First 10 Clients — Target (Jaipur)</div>
+      <div class="cl">
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Client 1+2</strong> — Already interested. Trial setup karo this week.</div><span class="tag green" style="flex-shrink:0;">READY</span></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Dhaba/Restaurant</strong> — Vaishali Nagar, Khatipura</div></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Salon/Parlour</strong> — Mansarovar, C-scheme</div></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Gym</strong> — Vaishali, Pratap Nagar</div></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Medical Store</strong> — Any area near you</div></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Cafe/Juice Bar</strong> — MI Road, Malviya Nagar</div></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Barbershop</strong> — Vaishali, Mansarovar</div></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Kirana Store</strong> — Any locality</div></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Laundry/Tiffin</strong> — Near colleges</div></div>
+        <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Any local business</strong> — Door to door</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ AGENCY ══ -->
+<div class="page" id="p-agency">
+  <div class="card green">
+    <div class="card-title" style="color:var(--green);font-size:17px;">🏢 Vishtech Agency — Niche System</div>
+    <div class="card-desc">12 niches. Master templates. 3-4 din delivery. 50% advance always.</div>
+  </div>
+  <div class="slabel">Priority — Demo Pages Pehle</div>
+  <div class="cl" style="margin-bottom:12px;">
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Clinic demo</strong> — vishtechsoftware.com/demo/clinic</div><span class="tag red" style="flex-shrink:0;">Day 1</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>School demo</strong> — vishtechsoftware.com/demo/school</div><span class="tag amber" style="flex-shrink:0;">Day 2</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Hotel demo</strong> — vishtechsoftware.com/demo/hotel</div><span class="tag amber" style="flex-shrink:0;">Day 3</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Restaurant demo</strong> — vishtechsoftware.com/demo/restaurant</div><span class="tag blue" style="flex-shrink:0;">Week 2</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>8 remaining niches</strong> — Builder, Gym, Salon, Car, CA, Interior...</div><span class="tag blue" style="flex-shrink:0;">Week 3-4</span></div>
+  </div>
+</div>
+
+<!-- ══ TOOLS ══ -->
+<div class="page" id="p-tools">
+  <div class="card teal">
+    <div class="card-title" style="color:var(--teal);font-size:17px;">🛠️ AI Tools — Month 4-6</div>
+    <div class="card-desc">Abhi nahi. QR stable hone ke baad. Fast cashflow ka route nahi — 6 mahine ka game hai.</div>
+  </div>
+  <div class="slabel">Build Order (Month 4-6)</div>
+  <div class="cl">
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Invoice Generator India</strong> — 2 weeks, high search, AdSense ready</div><span class="tag teal" style="flex-shrink:0;">M4</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Bijli Bill Calculator</strong> — Already built ✓, add to VishTech Cars</div><span class="tag green" style="flex-shrink:0;">DONE</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>GST Calculator</strong> — 1 day, very high traffic</div><span class="tag teal" style="flex-shrink:0;">M4</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>DL Mock Test Hindi</strong> — 2 weeks, Cars site pe perfect</div><span class="tag teal" style="flex-shrink:0;">M5</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Court Case Status Tracker</strong> — 2-3 weeks, massive traffic</div><span class="tag blue" style="flex-shrink:0;">M6</span></div>
+  </div>
+</div>
+
+<!-- ══ CARS ══ -->
+<div class="page" id="p-cars">
+  <div class="card orange">
+    <div class="card-title" style="color:var(--orange);font-size:17px;">🚘 VishTech Cars — Monetize</div>
+    <div class="card-desc">Already 27K impressions. AdSense + Tools add karo. 6 mahine mein ₹5-15K/month.</div>
+  </div>
+  <div class="cl">
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Number Plate Checker</strong> — Already built ✓, add karo</div><span class="tag green" style="flex-shrink:0;">DONE</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Bijli Calculator</strong> — Already built ✓, add karo</div><span class="tag green" style="flex-shrink:0;">DONE</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>AdSense apply karo</strong> — Site pe 20+ pages hain, eligible ho</div><span class="tag amber" style="flex-shrink:0;">THIS WEEK</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Toll Calculator</strong> — Build karo Month 4 mein</div><span class="tag muted" style="flex-shrink:0;">M4</span></div>
+    <div class="ci" onclick="tc(this)"><div class="ci-box"></div><div class="ci-text"><strong>Used Car Value Estimator</strong> — High traffic</div><span class="tag muted" style="flex-shrink:0;">M5</span></div>
+  </div>
+</div>
+
+<!-- ══ DRY FRUITS ══ -->
+<div class="page" id="p-dryfruits">
+  <div class="card orange">
+    <div class="card-title" style="color:var(--orange);font-size:17px;">🥜 Dry Fruits — Year 1+ (Month 8-10)</div>
+    <div class="card-desc">Dhani Thana Ji Gali → apni branding → online store → Murlipura dukan. Abhi nahi — QR ₹40K+ stable hone ke baad.</div>
+  </div>
+  <div class="card red">
+    <div class="card-title" style="color:var(--red);">⚠️ Abhi Mat Socho</div>
+    <div class="card-desc" style="color:#fca5a5;">Yeh plan mein hai, list mein hai — jaayega nahi. Lekin abhi sochna = distraction. Month 7 mein open karo yeh page.</div>
+  </div>
+</div>
+
+<!-- ══ CLOTHING ══ -->
+<div class="page" id="p-clothing">
+  <div class="card purple">
+    <div class="card-title" style="color:var(--purple);font-size:17px;">👗 Clothing Store — Year 2+ (2028)</div>
+    <div class="card-desc">Dry fruits ki dukan ke agle mein — Murlipura. QR loyalty system apni dukan mein bhi lagao.</div>
+  </div>
+  <div class="card red">
+    <div class="card-title" style="color:var(--red);">⚠️ Abhi Mat Socho</div>
+    <div class="card-desc" style="color:#fca5a5;">2028 ka plan hai. List mein hai. Abhi yeh page band karo aur DSM apply karo.</div>
+  </div>
+</div>
+
+<!-- ══ DAILY ══ -->
+<div class="page" id="p-daily">
+  <div class="slabel">Daily Routine — DSM Job Phase</div>
+  <div class="sched" style="margin-bottom:16px;">
+    <div class="sched-row"><div class="sched-time">5–6 AM</div><div class="sched-box" style="background:var(--bg3);border-color:var(--border);"><div class="sb-title">🌅 Uthna + Ready</div><div class="sb-desc">No phone. Ready for DSM.</div></div></div>
+    <div class="sched-row"><div class="sched-time">6 AM–3 PM</div><div class="sched-box" style="background:var(--ad);border-color:var(--ab);"><div class="sb-title">💼 Deal Share Mart</div><div class="sb-desc">Billing + CRM. Low mental load. Seedha 3 baje niklo.</div></div></div>
+    <div class="sched-row"><div class="sched-time">3–5 PM</div><div class="sched-box" style="background:var(--pd);border-color:var(--pb);"><div class="sb-title">📱 QR Field Marketing</div><div class="sb-desc">Door to door — Vaishali, Mansarovar, Khatipura.</div></div></div>
+    <div class="sched-row"><div class="sched-time">5–7 PM</div><div class="sched-box" style="background:var(--bd);border-color:var(--bb);"><div class="sb-title">🏢 Agency Work</div><div class="sb-desc">Demo pages, client delivery, team.</div></div></div>
+    <div class="sched-row"><div class="sched-time">7–9 PM</div><div class="sched-box" style="background:var(--gd);border-color:var(--gb);"><div class="sb-title">📸 Marketing</div><div class="sb-desc">Instagram reel, WhatsApp, GMB post.</div></div></div>
+    <div class="sched-row"><div class="sched-time">9–10 PM</div><div class="sched-box" style="background:var(--bg3);border-color:var(--border);"><div class="sb-title">📋 3 Tasks Kal Ke — MANDATORY</div><div class="sb-desc">Likhna hai. Warna subah confusion hogi.</div></div></div>
+    <div class="sched-row"><div class="sched-time">10 PM+</div><div class="sched-box" style="background:var(--bg3);border-color:var(--border);"><div class="sb-title">😴 So Ja</div><div class="sb-desc">5 baje uthna hai. Rest critical hai.</div></div></div>
+  </div>
+  <div class="card amber">
+    <div class="card-title">⚠️ Overwhelm Rules</div>
+    <div class="card-desc" style="margin-top:4px;line-height:2;">🎯 Sirf <strong style="color:var(--text);">aaj ke 3 tasks</strong><br>🚫 Calls sirf <strong style="color:var(--text);">3-5 PM window</strong><br>📵 Job pe <strong style="color:var(--text);">business calls nahi</strong><br>✍️ <strong style="color:var(--text);">Raat ko 3 tasks likh ke so</strong></div>
+  </div>
+</div>
+
+<!-- ══ NOTES ══ -->
+<div class="page" id="p-notes">
+  <div class="g2" style="margin-bottom:10px;">
+    <div><div class="slabel">📞 Active Leads</div><textarea class="nta" id="n-leads" placeholder="Name | Niche | Phone | Status&#10;1.&#10;2.&#10;3."></textarea></div>
+    <div><div class="slabel">💡 Ideas</div><textarea class="nta" id="n-ideas" placeholder="Jo bhi idea aaye — capture karo..."></textarea></div>
+  </div>
+  <div class="g2" style="margin-bottom:10px;">
+    <div><div class="slabel">🎯 This Month Goals</div><textarea class="nta" id="n-goals" placeholder="QR clients: ___&#10;Agency: ___&#10;Revenue: ___&#10;Save: ___" style="min-height:100px;"></textarea></div>
+    <div><div class="slabel">📋 Kal Ke 3 Tasks</div><textarea class="nta" id="n-tom" placeholder="1.&#10;2.&#10;3." style="min-height:100px;"></textarea></div>
+  </div>
+  <div style="text-align:right;">
+    <button onclick="saveN()" style="background:var(--blue);border:none;color:#fff;padding:9px 18px;border-radius:8px;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;">💾 Save</button>
+    <span style="font-size:11px;color:var(--muted);margin-left:10px;" id="n-st"></span>
+  </div>
+</div>
+
+</div>
+
+<script>
+const now = new Date();
+const ds = now.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+document.getElementById('sb-date').textContent = ds;
+document.getElementById('top-date').textContent = now.toLocaleDateString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric'});
+
+const titles={home:'Dashboard',sequence:'Master Sequence',decisions:'Quick Decisions',income:'Income Calculator',dsm:'Deal Share Mart',cab:'Cab Business',qr:'QR System',agency:'Agency',tools:'AI Tools',cars:'VishTech Cars',dryfruits:'Dry Fruits',clothing:'Clothing Store',daily:'Daily Routine',notes:'Notes'};
+
+function nav(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+id).classList.add('on');
+  if(btn)btn.classList.add('on');
+  document.getElementById('pg-title').textContent=titles[id]||id;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function tc(el){
+  el.classList.toggle('done');
+  el.querySelector('.ci-box').textContent=el.classList.contains('done')?'✓':'';
+}
+
+function calcI(){
+  const qr=parseInt(document.getElementById('r-qr').value);
+  const plan=parseInt(document.getElementById('r-plan').value);
+  const ag=parseInt(document.getElementById('r-ag').value);
+  const agv=parseInt(document.getElementById('r-agv').value);
+  const cab=parseInt(document.getElementById('r-cab').value);
+  document.getElementById('v-qr').textContent=qr;
+  document.getElementById('v-plan').textContent='₹'+plan.toLocaleString('en-IN');
+  document.getElementById('v-ag').textContent=ag;
+  document.getElementById('v-agv').textContent='₹'+agv.toLocaleString('en-IN');
+  document.getElementById('v-cab').textContent=cab;
+  const qrI=qr*plan, agI=ag*agv, cabI=cab*22000;
+  const total=15000+qrI+agI+cabI;
+  document.getElementById('cr-qr').textContent='₹'+(qrI).toLocaleString('en-IN');
+  document.getElementById('cr-ag').textContent='₹'+(agI).toLocaleString('en-IN');
+  document.getElementById('cr-total').textContent='₹'+total.toLocaleString('en-IN');
+  document.getElementById('d-qr').textContent=qr;
+  document.getElementById('d-mrr').textContent='₹'+(qrI+agI).toLocaleString('en-IN');
+  document.getElementById('sb-qr').textContent=qr+'/100';
+  document.getElementById('sb-mrr').textContent='₹'+total.toLocaleString('en-IN');
+}
+calcI();
+
+function saveN(){
+  ['leads','ideas','goals','tom'].forEach(k=>{
+    localStorage.setItem('ve-'+k,document.getElementById('n-'+k).value);
+  });
+  const s=document.getElementById('n-st');
+  s.textContent='✓ Saved '+new Date().toLocaleTimeString();
+  setTimeout(()=>s.textContent='',3000);
+}
+['leads','ideas','goals','tom'].forEach(k=>{
+  const v=localStorage.getItem('ve-'+k);
+  if(v)document.getElementById('n-'+k).value=v;
+});
+</script>
+</body>
+</html>
