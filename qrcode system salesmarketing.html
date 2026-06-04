@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vistech QR Repeat Revenue — Complete Sales System</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#07080d;--bg2:#0d0f18;--bg3:#131520;--surface:#181b27;--surface2:#1e2130;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);
+--text:#eaebf2;--text2:#8b8fa8;--text3:#474b60;
+--orange:#ff6b2b;--orange2:#ff8c5a;--orangeD:rgba(255,107,43,0.08);
+--green:#20c997;--greenD:rgba(32,201,151,0.08);
+--red:#f03e3e;--redD:rgba(240,62,62,0.07);
+--amber:#f59f00;--amberD:rgba(245,159,0,0.08);
+--blue:#339af0;--blueD:rgba(51,154,240,0.08);
+--purple:#845ef7;--purpleD:rgba(132,94,247,0.08);
+--teal:#20c997;--pink:#f06595;
+--font-head:'Clash Display',sans-serif;
+--font-body:'Satoshi',sans-serif;
+--font-mono:'JetBrains Mono',monospace;
+--r:8px;--r2:14px;--r3:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--orange);border-radius:4px}
+
+/* TOP BAR */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:200;height:48px;background:rgba(7,8,13,0.94);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 16px}
+.logo{font-family:var(--font-head);font-size:14px;font-weight:600;white-space:nowrap;letter-spacing:-0.2px}
+.logo-qr{color:var(--orange);margin-right:2px}
+.logo-sub{color:var(--text3);font-size:11px;font-weight:400;font-family:var(--font-mono)}
+.nav-row{display:flex;gap:3px;overflow-x:auto;flex:1;scrollbar-width:none;padding:3px 0}
+.nav-row::-webkit-scrollbar{display:none}
+.nb{font-family:var(--font-body);font-size:10.5px;padding:4px 10px;border:1px solid var(--border);border-radius:16px;cursor:pointer;background:transparent;color:var(--text2);white-space:nowrap;transition:all .18s;font-weight:400}
+.nb:hover{color:var(--text);border-color:var(--border2)}
+.nb.on{background:var(--orange);color:#fff;border-color:var(--orange);font-weight:500}
+
+/* MAIN */
+.wrap{margin-top:48px;padding:22px 16px 40px;max-width:960px;margin-left:auto;margin-right:auto}
+.page{display:none;animation:fi .28s ease}.page.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION HEAD */
+.sh{margin-bottom:20px}
+.sh-dot{width:32px;height:3px;border-radius:2px;margin-bottom:8px}
+.sh h1{font-family:var(--font-head);font-size:22px;font-weight:600;letter-spacing:-0.3px;line-height:1.2;margin-bottom:4px}
+.sh p{font-size:12.5px;color:var(--text2);line-height:1.6}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:12px}
+.card-sm{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px}
+.ct{font-family:var(--font-head);font-size:13px;font-weight:600;margin-bottom:10px;letter-spacing:-0.1px}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px}
+
+/* BADGES */
+.bdg{display:inline-block;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:12px;font-family:var(--font-mono);letter-spacing:0.2px}
+.bo{background:rgba(255,107,43,0.12);color:#ff8c5a;border:1px solid rgba(255,107,43,0.2)}
+.bg{background:var(--greenD);color:var(--green);border:1px solid rgba(32,201,151,0.2)}
+.br{background:var(--redD);color:#f07070;border:1px solid rgba(240,62,62,0.2)}
+.ba{background:var(--amberD);color:var(--amber);border:1px solid rgba(245,159,0,0.2)}
+.bb{background:var(--blueD);color:var(--blue);border:1px solid rgba(51,154,240,0.2)}
+.bp{background:var(--purpleD);color:var(--purple);border:1px solid rgba(132,94,247,0.2)}
+.bt{background:rgba(32,201,151,0.08);color:var(--teal);border:1px solid rgba(32,201,151,0.15)}
+.bpk{background:rgba(240,101,149,0.08);color:var(--pink);border:1px solid rgba(240,101,149,0.15)}
+
+/* METRIC */
+.met{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px;text-align:center}
+.mn{font-family:var(--font-head);font-size:24px;font-weight:600;line-height:1}
+.ml{font-size:10px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.4px}
+
+/* STEP ROWS */
+.sr{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.sn{width:20px;height:20px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:600;flex-shrink:0;color:#fff;font-family:var(--font-mono)}
+.sc{font-size:12px;line-height:1.65;color:var(--text);flex:1}
+
+/* DIVIDER */
+.dv{height:1px;background:var(--border);margin:11px 0}
+
+/* HIGHLIGHT BOXES */
+.hl{background:rgba(255,107,43,0.06);border:1px solid rgba(255,107,43,0.18);border-radius:var(--r);padding:12px;margin-bottom:11px}
+.hl p{font-size:12px;color:#ffb899;line-height:1.6}
+.warn{background:var(--redD);border:1px solid rgba(240,62,62,0.2);border-radius:var(--r);padding:11px;margin-bottom:10px}
+.warn p{font-size:12px;color:#f08080;line-height:1.5}
+.succ{background:var(--greenD);border:1px solid rgba(32,201,151,0.2);border-radius:var(--r);padding:11px;margin-bottom:10px}
+.succ p{font-size:12px;color:var(--green);line-height:1.5}
+
+/* SCRIPT BOX */
+.scr{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:9px;font-size:11.5px;line-height:1.8;font-family:var(--font-mono);color:var(--text)}
+.scr-role{font-size:9px;font-weight:600;color:var(--orange2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+
+/* FUNNEL */
+.fi{border-left:3px solid;padding:9px 12px;margin-bottom:7px;border-radius:0 var(--r) var(--r) 0;background:var(--surface)}
+.fi-t{font-size:12.5px;font-weight:600;font-family:var(--font-head)}
+.fi-d{font-size:11.5px;color:var(--text2);margin-top:3px;line-height:1.5}
+
+/* TABLE */
+.vt{width:100%;border-collapse:collapse;font-size:11.5px}
+.vt th{background:var(--surface2);color:var(--text2);padding:7px 10px;text-align:left;font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.3px}
+.vt td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text);line-height:1.5}
+.vt tr:last-child td{border-bottom:none}
+.vt tr:hover td{background:rgba(255,255,255,.015)}
+
+/* RATIO BAR */
+.rb-wrap{margin-bottom:11px}
+.rb-label{display:flex;justify-content:space-between;margin-bottom:4px;font-size:11.5px}
+.rb{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.rb-fill{height:100%;border-radius:3px}
+
+/* SCENARIO */
+.sc-wrap{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:10px}
+.sc-head{padding:10px 13px;display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--surface);transition:background .15s}
+.sc-head:hover{background:var(--surface2)}
+.sc-body{padding:12px 13px;display:none;background:var(--bg2);border-top:1px solid var(--border)}
+.sc-body.open{display:block}
+.sc-ico{font-size:15px}
+.sc-tit{font-size:12px;font-weight:600;flex:1;font-family:var(--font-head)}
+
+/* BEHAVIOR */
+.beh{background:var(--surface2);border-radius:var(--r);padding:11px;margin-bottom:7px}
+.beh-type{font-size:9px;font-weight:600;color:var(--orange2);margin-bottom:3px;text-transform:uppercase;letter-spacing:.3px;font-family:var(--font-mono)}
+.beh-title{font-size:12.5px;font-weight:600;margin-bottom:3px}
+.beh-txt{font-size:11.5px;color:var(--text2);line-height:1.55}
+
+/* TIMELINE */
+.tl{position:relative;padding-left:20px}
+.tl::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--border2)}
+.tl-i{position:relative;margin-bottom:13px}
+.tl-dot{position:absolute;left:-17px;top:3px;width:10px;height:10px;border-radius:50%;border:2px solid var(--orange);background:var(--bg)}
+.tl-d{font-size:9.5px;font-family:var(--font-mono);color:var(--orange2);margin-bottom:2px}
+.tl-t{font-size:12.5px;font-weight:600;font-family:var(--font-head)}
+.tl-p{font-size:11.5px;color:var(--text2);margin-top:2px;line-height:1.5}
+
+/* PLAN TOGGLE */
+.pt{display:flex;gap:7px;margin-bottom:16px}
+.pb{padding:6px 20px;border:1px solid var(--border);border-radius:16px;cursor:pointer;font-size:12px;background:transparent;color:var(--text2);font-family:var(--font-body);transition:all .18s}
+.pb.on{background:var(--orange);color:#fff;border-color:var(--orange)}
+.pc{display:none}.pc.on{display:block}
+
+/* INDUSTRY GRID */
+.ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;margin-bottom:13px}
+.ic{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px;cursor:pointer;transition:all .18s;text-align:center}
+.ic:hover{border-color:var(--border2);background:var(--surface2)}
+.ic.sel{border-color:var(--orange);background:rgba(255,107,43,0.07)}
+.ic-ico{font-size:19px;margin-bottom:4px}
+.ic-n{font-size:10px;font-weight:600;font-family:var(--font-head)}
+.ic-d{font-size:9px;color:var(--text3);margin-top:1px;font-family:var(--font-mono)}
+.id-det{display:none;margin-top:12px}.id-det.on{display:block;animation:fi .25s ease}
+
+/* RULE */
+.rl{display:flex;gap:10px;margin-bottom:8px;padding:9px;background:var(--surface2);border-radius:var(--r)}
+.rl-n{font-family:var(--font-mono);font-size:9.5px;color:var(--orange2);font-weight:600;min-width:24px}
+.rl-t{font-size:11.5px;line-height:1.55;color:var(--text)}
+
+/* PRICING */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.pc2{border:1px solid var(--border);border-radius:var(--r2);padding:13px;text-align:center}
+.pc2.feat{border:2px solid var(--orange);background:rgba(255,107,43,0.05)}
+.pa{font-family:var(--font-head);font-size:20px;font-weight:600;margin:6px 0}
+.pn{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;font-family:var(--font-mono)}
+
+/* OBJ */
+.obj{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:8px}
+.obj-q{font-size:12.5px;font-weight:600;color:var(--red);margin-bottom:6px}
+.obj-a{font-size:11.5px;line-height:1.7;color:var(--text)}
+
+/* COPY BTN */
+.cpbtn{display:inline-block;padding:4px 10px;background:rgba(255,107,43,0.12);border:1px solid rgba(255,107,43,0.25);border-radius:5px;cursor:pointer;font-size:10px;color:var(--orange2);margin-top:6px;font-family:var(--font-body)}
+.cpbtn:hover{background:rgba(255,107,43,0.2)}
+
+@media(max-width:600px){.pgrid{grid-template-columns:1fr}.g3,.g4{grid-template-columns:repeat(2,1fr)}.wrap{padding:18px 12px 32px}.sh h1{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="logo"><span class="logo-qr">▦</span>QR Repeat Revenue <span class="logo-sub">by Vistech</span></div>
+  <div class="nav-row">
+    <button class="nb on" onclick="nav('home',this)">Home</button>
+    <button class="nb" onclick="nav('why',this)">Why QR Wins</button>
+    <button class="nb" onclick="nav('niche',this)">Niche Priority</button>
+    <button class="nb" onclick="nav('industries',this)">20+ Industries</button>
+    <button class="nb" onclick="nav('pitch',this)">Pitch System</button>
+    <button class="nb" onclick="nav('scripts',this)">Scripts</button>
+    <button class="nb" onclick="nav('objections',this)">Objections</button>
+    <button class="nb" onclick="nav('funnel',this)">Funnel</button>
+    <button class="nb" onclick="nav('pricing',this)">Pricing</button>
+    <button class="nb" onclick="nav('psychology',this)">Psychology</button>
+    <button class="nb" onclick="nav('behavior',this)">Client Behavior</button>
+    <button class="nb" onclick="nav('setup',this)">Setup Guide</button>
+    <button class="nb" onclick="nav('plans',this)">Plan A &amp; B</button>
+    <button class="nb" onclick="nav('scenarios',this)">Scenarios</button>
+    <button class="nb" onclick="nav('rules',this)">Master Rules</button>
+    <button class="nb" onclick="nav('retention',this)">Retention</button>
+  </div>
+</div>
+<div class="wrap">
+<button onclick="window.location.href='index.html'">
+    Click to Go to Page 1
+</button>
+<!-- HOME -->
+<div id="page-home" class="page on">
+<div class="sh"><div class="sh-dot" style="background:var(--orange)"></div><h1>QR Repeat Revenue System</h1><p>Har shopkeeper, har industry — ₹2,000/month guaranteed recurring income per client. Real problem, real solution, real cash flow.</p></div>
+<div class="g4" style="margin-bottom:18px">
+<div class="met"><div class="mn" style="color:var(--orange)">₹2K</div><div class="ml">Per Client/Month</div></div>
+<div class="met"><div class="mn" style="color:var(--green)">50</div><div class="ml">Clients = ₹1L/mo</div></div>
+<div class="met"><div class="mn" style="color:var(--amber)">3 Days</div><div class="ml">Setup Time</div></div>
+<div class="met"><div class="mn" style="color:var(--blue)">20+</div><div class="ml">Industries</div></div>
+<div class="met"><div class="mn" style="color:var(--purple)">90%</div><div class="ml">Renewal Rate</div></div>
+<div class="met"><div class="mn" style="color:var(--teal)">Zero</div><div class="ml">Zomato/OTA Fee</div></div>
+</div>
+<div class="hl"><p><strong>QR System kya hai:</strong> Ek QR code jo dukaan/restaurant/salon mein lagta hai → customer scan karta hai → digital menu/catalog/loyalty/booking dikhta hai → customer dobara aata hai kyunki unhe reward milta hai. Business owner ko ₹2K/month deta hai tumhe kyunki wo Zomato ka 30% commission bacha raha hota hai ya footfall badh raha hota hai.</p></div>
+<div class="card"><div class="ct">Ye System Kyun Sabse Zyada Important Hai — Website Service Se Bhi Zyada</div>
+<div class="g2">
+<div style="font-size:12px">
+<div style="margin-bottom:8px"><span class="bdg ba">Website Service</span><div style="color:var(--text2);margin-top:4px;line-height:1.6">One-time payment ₹15-25K. Deliver karo, client jaao. Monthly recurring income zero. Har month nayi sales karni padti hai.</div></div>
+</div>
+<div style="font-size:12px">
+<div style="margin-bottom:8px"><span class="bdg bo">QR Repeat System</span><div style="color:var(--orange2);margin-top:4px;line-height:1.6">₹2K/month recurring. 50 clients = ₹1L/month guaranteed, har month, automatically. Ek baar sell karo — baar baar income aati hai. <strong>This is your real business model.</strong></div></div>
+</div>
+</div></div>
+<div class="card"><div class="ct">Pehle 90 Days Ka Target</div>
+<div class="tl">
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Day 1-7</div><div class="tl-t">System Setup + First 5 Clients</div><div class="tl-p">QR system ready, demo QR print karo, pehli gali mein jao, 5 dukaan owners ko pitch karo. ₹10K/month start.</div></div>
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Week 2-4</div><div class="tl-t">20 Clients — ₹40K/month</div><div class="tl-p">Referral engine start karo. Ek dukaan mein lagao, wahi mohalle ki doosri dukaan dhundho. Word of mouth fastest here.</div></div>
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Month 2</div><div class="tl-t">50 Clients — ₹1L/month</div><div class="tl-p">Sales team (1 field agent commission-only), niche expand, restaurant + salon + gym target.</div></div>
+<div class="tl-i" style="margin-bottom:0"><div class="tl-dot"></div><div class="tl-d">Month 3-6</div><div class="tl-t">150-200 Clients — ₹3-4L/month stable</div><div class="tl-p">Full city coverage, 5 field agents, multiple niches, upsell premium QR features. Real recurring cash flow machine.</div></div>
+</div></div>
+<div class="card"><div class="ct">Aaj Ka Action Plan — Pehle Din</div>
+<div class="sr"><div class="sn">1</div><div class="sc">Demo QR code print karo — cardboard pe laminate karo. Isko lekar ghar ke paas ki 3 dukaanon pe jao aaj.</div></div>
+<div class="sr"><div class="sn">2</div><div class="sc">Script yaad karo: <em>"Bhaiya, ek minute mein dikhaata hoon — ye QR customer lagaataar wapas kaise laata hai."</em></div></div>
+<div class="sr"><div class="sn">3</div><div class="sc">Phone mein demo page open rakho — vishtechsoftware.com/demo/qr ya offline mockup. Live dikhao.</div></div>
+<div class="sr"><div class="sn">4</div><div class="sc">Pehle 5 clients — FREE 1 month offer karo. Social proof collect karo. Phir ₹2K standard price.</div></div>
+<div class="sr"><div class="sn">5</div><div class="sc">Day 1 evening: WhatsApp pe un 3 dukaanon ke contacts save karo + Instagram pe "QR for local business" niche content start karo.</div></div>
+</div>
+</div>
+
+<!-- WHY QR WINS -->
+<div id="page-why" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--green)"></div><h1>Why QR Repeat Revenue Wins</h1><p>Har business owner ko ye samjhao — kyun QR unki real problem solve karta hai</p></div>
+<div class="card"><div class="ct">The ₹30 Crore Problem in India — Jo QR Solve Karta Hai</div>
+<div class="g2">
+<div>
+<div class="beh" style="margin-bottom:8px"><div class="beh-type">Problem 1 — Restaurant/Dhaba</div><div class="beh-title">Zomato Commission 30%</div><div class="beh-txt">₹1,000 ka order → ₹300 Zomato ko. 100 orders/day = ₹30,000/day commission. ₹9L/month platform ko jaata hai. Owner ke haath mein ₹21L. QR system: Direct order, zero commission. Owner ko ₹30L milega.</div></div>
+<div class="beh" style="margin-bottom:8px"><div class="beh-type">Problem 2 — Retail/Kirana</div><div class="beh-title">Customer Return Rate Zero</div><div class="beh-txt">Kirana ke 1000 customers — 600 kabhi dobara nahi aate. QR loyalty card: "10 purchases = free item" → 600 customers wapas aaye = ₹60,000 extra revenue directly. Owner ko samjhao: "Apna Zomato/Starbucks loyalty program."</div></div>
+</div>
+<div>
+<div class="beh" style="margin-bottom:8px"><div class="beh-type">Problem 3 — Salon/Beauty</div><div class="beh-title">Appointment Chaos + No Repeat</div><div class="beh-txt">Walk-in karti hai, cut hoti hai, jati hai — kabhi dobara bolke nahi aati. QR se: Appointment book, reminder auto, "Next visit mein 10% off" → 40% customers repeat visit karte hain. Owner ka monthly 40% revenue increase.</div></div>
+<div class="beh" style="margin-bottom:8px"><div class="beh-type">Problem 4 — Hotel/PG</div><div class="beh-title">OTA 20-25% Commission</div><div class="beh-txt">₹2,000/night room → ₹400-500 OYO ko. QR direct booking card room mein: Same customer dobara aaye toh direct book kare — zero commission. 20 bookings/month saved = ₹8,000-10,000 monthly savings for owner.</div></div>
+</div>
+</div></div>
+<div class="g2">
+<div class="card"><div class="ct">QR System Kya Kya Karta Hai</div>
+<div class="sr"><div class="sn">1</div><div class="sc"><strong>Digital Menu/Catalog:</strong> Paper menu band, QR se menu. Update karo remotely, ₹0 printing.</div></div>
+<div class="sr"><div class="sn">2</div><div class="sc"><strong>Loyalty Points:</strong> Customer scans → points milte hain → wapas aate hain next purchase ke liye.</div></div>
+<div class="sr"><div class="sn">3</div><div class="sc"><strong>Direct WhatsApp Order:</strong> Scan → WhatsApp order owner ko directly. No platform, no commission.</div></div>
+<div class="sr"><div class="sn">4</div><div class="sc"><strong>Review Collection:</strong> Scan → Google review prompt. 5-star reviews automatically increase new customers.</div></div>
+<div class="sr"><div class="sn">5</div><div class="sc"><strong>Repeat Reminder:</strong> Customer info collect karo → WhatsApp broadcast → "Aaj aaoge toh 15% off."</div></div>
+<div class="sr"><div class="sn">6</div><div class="sc"><strong>Referral Program:</strong> "Friend ko refer karo → tum dono ko discount." Word of mouth automated.</div></div>
+</div>
+<div class="card"><div class="ct">ROI Calculation — Har Business Type</div>
+<div style="overflow-x:auto"><table class="vt">
+<tr><th>Business</th><th>Monthly Loss Before</th><th>QR Monthly Save</th><th>QR Cost</th><th>ROI</th></tr>
+<tr><td>Restaurant 50 orders/day</td><td style="color:var(--red)">₹45,000 commission</td><td style="color:var(--green)">₹30,000+</td><td>₹2,000</td><td style="color:var(--green)">15x</td></tr>
+<tr><td>Kirana (500 customers)</td><td style="color:var(--red)">₹20,000 lost repeat</td><td style="color:var(--green)">₹15,000+</td><td>₹2,000</td><td style="color:var(--green)">7.5x</td></tr>
+<tr><td>Salon (100 clients/mo)</td><td style="color:var(--red)">₹18,000 no-repeat</td><td style="color:var(--green)">₹12,000+</td><td>₹2,000</td><td style="color:var(--green)">6x</td></tr>
+<tr><td>Hotel (20 rooms)</td><td style="color:var(--red)">₹10,000 OTA</td><td style="color:var(--green)">₹8,000+</td><td>₹2,000</td><td style="color:var(--green)">4x</td></tr>
+</table></div>
+</div>
+</div>
+<div class="hl"><p><strong>Sales Secret:</strong> Kabhi mat bolo "software kharid lo." Hamesha bolo: "Main aapko ₹30,000/month bachane ka system dikha raha hoon — cost sirf ₹2,000/month hai." Wo ₹2K to ₹30K saved ka ratio = instant yes.</p></div>
+</div>
+
+<!-- NICHE PRIORITY -->
+<div id="page-niche" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--amber)"></div><h1>Niche Priority — Pehle Kahan Jao</h1><p>QR system ke liye sabse jaldi deal close hone wale businesses — data-backed order</p></div>
+<div class="card"><div class="ct">Niche Scoring Criteria — QR ke liye</div>
+<div style="overflow-x:auto"><table class="vt">
+<tr><th>Criteria</th><th>Matlab</th><th>QR ke liye kyun zaroori</th></tr>
+<tr><td><strong style="color:var(--orange)">Repeat Customer Need</strong></td><td>Business kitna repeat customers chahta hai?</td><td>QR ka core value = repeat. Zyada need = fast close.</td></tr>
+<tr><td><strong style="color:var(--red)">Commission Pain</strong></td><td>Abhi platform ko kitna deta hai?</td><td>Commission bachane ka angle = strongest pitch</td></tr>
+<tr><td><strong style="color:var(--green)">Decision Speed</strong></td><td>Ek owner decide karta hai?</td><td>Committee = delay. Single owner = same day yes</td></tr>
+<tr><td><strong style="color:var(--blue)">Monthly Budget</strong></td><td>₹2K afford kar sakta hai?</td><td>Footfall-heavy business = yes. Low margin = no</td></tr>
+<tr><td><strong style="color:var(--amber)">Walk-in Volume</strong></td><td>Roz kitne customers aate hain?</td><td>Zyada walk-ins = zyada QR scans = zyada proof</td></tr>
+</table></div></div>
+<div class="card"><div class="ct">Priority Ranking Table</div>
+<div style="overflow-x:auto"><table class="vt">
+<tr><th>#</th><th>Industry</th><th>Repeat</th><th>Commission</th><th>Speed</th><th>Budget</th><th>Volume</th><th>Score</th><th>Start</th></tr>
+<tr style="background:rgba(255,107,43,0.04)"><td><span class="bdg bo">1</span></td><td><strong>Restaurant/Dhaba/QSR</strong></td><td style="color:var(--green)">10</td><td style="color:var(--green)">10</td><td style="color:var(--green)">9</td><td style="color:var(--green)">8</td><td style="color:var(--green)">10</td><td><strong style="color:var(--orange)">47/50</strong></td><td>Day 1</td></tr>
+<tr><td><span class="bdg bg">2</span></td><td><strong>Kirana/Grocery/Supermart</strong></td><td style="color:var(--green)">9</td><td style="color:var(--amber)">5</td><td style="color:var(--green)">9</td><td style="color:var(--green)">8</td><td style="color:var(--green)">10</td><td><strong style="color:var(--green)">41/50</strong></td><td>Day 1</td></tr>
+<tr><td><span class="bdg ba">3</span></td><td><strong>Salon/Parlour/Spa</strong></td><td style="color:var(--green)">9</td><td style="color:var(--amber)">6</td><td style="color:var(--green)">9</td><td style="color:var(--amber)">7</td><td style="color:var(--amber)">8</td><td><strong style="color:var(--amber)">39/50</strong></td><td>Week 1</td></tr>
+<tr><td><span class="bdg bb">4</span></td><td><strong>Medical/Clinic/Pharmacy</strong></td><td style="color:var(--amber)">8</td><td style="color:var(--amber)">6</td><td style="color:var(--green)">8</td><td style="color:var(--green)">9</td><td style="color:var(--amber)">7</td><td><strong style="color:var(--blue)">38/50</strong></td><td>Week 1</td></tr>
+<tr><td><span class="bdg bt">5</span></td><td><strong>Gym/Fitness Center</strong></td><td style="color:var(--green)">9</td><td style="color:var(--amber)">5</td><td style="color:var(--green)">9</td><td style="color:var(--amber)">7</td><td style="color:var(--amber)">7</td><td><strong style="color:var(--teal)">37/50</strong></td><td>Week 2</td></tr>
+<tr><td><span class="bdg bp">6</span></td><td><strong>Hotel/PG/Guest House</strong></td><td style="color:var(--amber)">7</td><td style="color:var(--green)">9</td><td style="color:var(--green)">8</td><td style="color:var(--amber)">7</td><td style="color:var(--amber)">6</td><td><strong style="color:var(--purple)">37/50</strong></td><td>Week 2</td></tr>
+<tr><td><span class="bdg bpk">7</span></td><td><strong>Bakery/Sweet Shop/Café</strong></td><td style="color:var(--green)">9</td><td style="color:var(--amber)">6</td><td style="color:var(--green)">10</td><td style="color:var(--amber)">7</td><td style="color:var(--green)">9</td><td><strong>41/50</strong></td><td>Day 1</td></tr>
+<tr><td><span class="bdg bo">8</span></td><td><strong>Vegetable/Fruit Vendor</strong></td><td style="color:var(--green)">10</td><td style="color:var(--amber)">4</td><td style="color:var(--green)">10</td><td style="color:var(--amber)">6</td><td style="color:var(--green)">10</td><td><strong>40/50</strong></td><td>Week 1</td></tr>
+</table></div></div>
+<div class="hl"><p><strong>Strategy:</strong> Day 1 — Restaurant + Kirana + Bakery. Ye teen niches mein sabse fast yes milta hai, sabse zyada walk-in volume hai, aur ROI immediately visible hai. Ek gali mein jao — ek restaurant, ek kirana, ek salon. Teeno ek din mein close hone chahiye agar pitch sahi ho.</p></div>
+<div class="card"><div class="ct">Geography Strategy — Jaipur Ke Liye</div>
+<div class="sr"><div class="sn">1</div><div class="sc"><strong>Pehle apni gali/mohalla:</strong> Personal rapport already hai. "Bhaiya main software wala hoon" — trust instant. Pehle 10 clients yahan se.</div></div>
+<div class="sr"><div class="sn">2</div><div class="sc"><strong>Market cluster approach:</strong> Jaipur ke busy markets — Sindhi Camp, Johari Bazar, MI Road, Vaishali Nagar, Mansarovar. Ek market mein 20+ restaurants/shops = 1 din mein 5-6 demos possible.</div></div>
+<div class="sr"><div class="sn">3</div><div class="sc"><strong>Industrial/Commercial areas:</strong> RIICO, Sitapura, Malviya Nagar — B2B offices + canteen contracts. Higher ticket ₹3-5K/month.</div></div>
+<div class="sr"><div class="sn">4</div><div class="sc"><strong>Residential colonies:</strong> Pratp Nagar, Mahesh Nagar — kirana + salon + parlour dense clusters. Easy field sales route.</div></div>
+</div>
+</div>
+
+<!-- INDUSTRIES -->
+<div id="page-industries" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--orange)"></div><h1>20+ Industries — QR Use Cases</h1><p>Har industry ka pain, solution aur pitch angle — click karo details ke liye</p></div>
+<div class="ig" id="qr-ind-grid"></div>
+<div id="qr-ind-det"></div>
+</div>
+
+<!-- PITCH SYSTEM -->
+<div id="page-pitch" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--blue)"></div><h1>Pitch System — Kaise Pitch Karo</h1><p>Field sales pitch — 3 minute mein yes lena ka formula</p></div>
+<div class="hl"><p><strong>QR Sales ka Golden Rule:</strong> Seedha dukaan mein jao. Phone pe mat pitch karo. Phone pe "nahi chahiye" kehna aasaan hai. Saamne se "nahi" kehna mushkil hota hai — especially jab tum kuch helpful dikhane aaye ho, bechne nahi.</p></div>
+<div class="card"><div class="ct">3-Minute Field Pitch Formula</div>
+<div class="scr"><div class="scr-role">Minute 0-0:30 — Entry (Don't sell yet)</div>"Bhaiya namaste — main Rahul hoon, Vistech software se. Aapke restaurant/dukaan ke liye specifically ek cheez laaya hoon — 1 minute milega?"
+[Don't wait for full yes — start walking in slowly. Confidence = permission.]</div>
+<div class="scr"><div class="scr-role">Minute 0:30-1:30 — Pain Trigger (Let them confirm)</div>"Ek quick question — Zomato/Swiggy pe ho? [Yes] Usmein kitna percent jaata hai? [30% bolta hai] Toh 100 orders pe ₹30,000 platform ko jaata hai daily... ye problem toh hogi na aapko?"
+[Never tell them their problem. Ask them to tell you. Their own words = strongest pain.]</div>
+<div class="scr"><div class="scr-role">Minute 1:30-2:30 — Demo (Phone dikhao)</div>"Dekho — ye ek QR code hai jo table pe lagata hai. Customer scan karta hai, seedha aapko WhatsApp pe order aata hai. Zomato bypass. Ye [nearby restaurant name] ne lagaaya — unka ₹18,000/month bach raha hai."
+[Show phone demo. Live. Scan karo, show WhatsApp message appearing.]</div>
+<div class="scr"><div class="scr-role">Minute 2:30-3:00 — Close (Numbers dikhao)</div>"Cost hai sirf ₹2,000/month. Ek din mein recover hoti hai. Kya aaj start karein? Kal tak QR ready ho jaayega."</div>
+</div>
+<div class="card"><div class="ct">5-Type Pitch Variations — Industry Specific</div>
+<div class="scr"><div class="scr-role">Restaurant/Dhaba Pitch Angle</div>"Bhaiya, ek calculation karo mere saath — roz kitne Zomato orders? [X] × ₹300 commission = ₹[Y]/day. Month mein [₹Z]. Ye QR se wo paise bachenge. ₹2K mein ₹[Z/15] ROI hai."</div>
+<div class="scr"><div class="scr-role">Kirana/Grocery Pitch Angle</div>"Bhaiya, aapke 1000 regular customers mein se kaun dobara aayega guarantee? Ye QR loyalty card deta hai — 10 purchases ke baad customer ko ek free item. Isse 40% customers guaranteed wapas aate hain."</div>
+<div class="scr"><div class="scr-role">Salon/Parlour Pitch Angle</div>"Didi/Madam, aaj kitni clients aayi? In mein se kaun 3 months baad khud remind karke ayegi? — Ye QR appointment + reminder system karta hai. Customer scan karo, next appointment book, reminder auto-jaata hai."</div>
+<div class="scr"><div class="scr-role">Medical/Clinic Pitch Angle</div>"Doctor sahib — patient ek baar aaya, prescription liya, aur phir nahi aaya follow-up ke liye? Ye QR patient follow-up automate karta hai. Aapka appointment badhega 30% bina extra staff ke."</div>
+<div class="scr"><div class="scr-role">Hotel/PG Pitch Angle</div>"Sir, OYO mein booking ke liye 20% dete ho na? Next time wahi guest aaye toh direct aaye — zero commission. Ye QR room mein lagao, guest scan kare, directly book kare next time."</div>
+</div>
+<div class="card"><div class="ct">Physical Demo Kit — Ye Saath Rakkho Hamesha</div>
+<div class="sr"><div class="sn">1</div><div class="sc"><strong>Printed QR standee</strong> (A5 size, laminated) — ek restaurant QR, ek kirana QR. Live scan ke liye. "Ye wahi QR hai jo install hoga aapke yahan."</div></div>
+<div class="sr"><div class="sn">2</div><div class="sc"><strong>Phone mein demo page</strong> — vishtechsoftware.com/demo/qr (offline bhi chalegi). Customer ka naam daalke personalize karo live.</div></div>
+<div class="sr"><div class="sn">3</div><div class="sc"><strong>ROI calculator screenshot</strong> — ek image jisme ₹2,000 investment vs ₹30,000 savings dikhta hai. Share karo WhatsApp pe turant.</div></div>
+<div class="sr"><div class="sn">4</div><div class="sc"><strong>2-3 reference cards</strong> — already using businesses ka naam + mobile number. "Ye inse pooch sakte ho — same gali mein hain."</div></div>
+<div class="sr"><div class="sn">5</div><div class="sc"><strong>Agreement form</strong> (simple printed A4) — name, business, phone, amount. Pen saath rakkho. Sign karwao wahi pe, advance UPI karo wahi pe.</div></div>
+</div>
+</div>
+
+<!-- SCRIPTS -->
+<div id="page-scripts" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--red)"></div><h1>Complete Script Library</h1><p>Har situation ke liye exact words — field, WhatsApp, phone, follow-up</p></div>
+<div class="card"><div class="ct">Cold Walk-in Script — Full Version</div>
+<div class="scr"><div class="scr-role">Entry</div>"Bhaiya, namaste. Main Vistech se hoon — aapke area mein kuch local businesses ke liye kaam kar raha tha. Ek cheez specifically aapke liye laaya hoon — bas 2 minute?"</div>
+<div class="scr"><div class="scr-role">Rapport Builder (listen more, talk less)</div>"Ye restaurant/dukaan kitne time se chal rahi hai? [Listen.] Waah, itne saal — matlab loyal customers hote honge aapke. [Listen.] Haan bilkul, aaj competition zyada ho gaya hai na — sab online ho gaye."</div>
+<div class="scr"><div class="scr-role">Pain Discovery</div>"Bhaiya, ek sawaal — wahi purana loyal customer jo kabhi kabhi nahi aata, kya wo aajkal kisi app se mangwa leta hai? [Usually yes.] Exactly — Zomato ne customer apna kar liya. Aapko commission deta hai customer aane ke liye."</div>
+<div class="scr"><div class="scr-role">Solution Bridge</div>"Ye QR code table pe lagao. Customer scan kare, menu dekhe, seedha WhatsApp pe order kare. Aapko. Directly. No Zomato. Customer data aapka. Next time aap khud reminder bhejoge."</div>
+<div class="scr"><div class="scr-role">ROI Close</div>"Cost hai ₹2,000/month. Ek extra order cover kar deta hai. Aaj shaam tak install ho jaata hai — kal se QR kaam karega."</div>
+</div>
+<div class="card"><div class="ct">WhatsApp Follow-up Scripts</div>
+<div class="scr"><div class="scr-role">Day 0 — After Meeting (Send within 1 hour)</div>Bhaiya namaste 🙏
+
+Aaj milke accha laga. Jo QR dikhaya tha uska short video bhej raha hoon — [Video/Link]
+
+Aur ye [nearby business name] ki 1-month result bhi dekho: 23% customers wapas aaye pehle month mein hi.
+
+Kal install karna hai toh bata dena — subah 10 baje free hoon.
+
+[Aapka naam | Vistech]</div>
+<div class="scr"><div class="scr-role">Day 2 — No Reply</div>Bhaiya, ek aur cheez share karni thi —
+
+Pichle week ek kirana owner ne lagaaya. Unka ROI calculation: [screenshot]
+
+Aapke business ka same calculation karunga — free mein. 5 min call ho sakti hai?</div>
+<div class="scr"><div class="scr-role">Day 5 — Urgency (Genuine)</div>Bhaiya, is mahine 3 slots hi bache hain Jaipur mein — team limited hai support ke liye.
+
+Next month lagaooge toh ₹2K ka naya rate hoga (abhi ₹1,500 mein chal raha hai introductory).
+
+Interested ho toh kal morning confirm karo — form ready hai.</div>
+<div class="scr"><div class="scr-role">Day 14 — Final</div>Bhaiya, last message — baad mein ready hon toh main hamesha available hoon.
+
+Ek kaam: ye link save kar lo — [demo link]. Kabhi bhi demo dekha ja sakta hai.
+
+All the best for the business! 🙏</div>
+</div>
+<div class="card"><div class="ct">Phone Call Script — Cold Calling</div>
+<div class="scr"><div class="scr-role">Opening</div>"Namaste, main Rahul bol raha hoon — Vistech software se. [Business name] ke owner se baat ho sakti hai? Unka QR repeat customer system ke baare mein baat karni thi — 2 minute hain?"</div>
+<div class="scr"><div class="scr-role">Qualify Fast</div>"Bhaiya, abhi Zomato/Swiggy pe ho? Ya apne khud ke customers hain? [Listen] — toh ye specifically aapke liye kaam karega."</div>
+<div class="scr"><div class="scr-role">Demo Offer</div>"Phone pe system dikhana mushkil hai — kya kal aapke restaurant pe 10 minute aa sakta hoon? Live demo dunga, aapko pasand na aaye toh koi commitment nahi."</div>
+</div>
+<div class="card"><div class="ct">Referral Request Script — Existing Clients</div>
+<div class="scr"><div class="scr-role">After 2 Weeks of Installation</div>"Bhaiya, sab theek chal raha hai na? [Confirm.] Ek kaam karna tha — aap ke mohalle mein kaun hai jo iska fayda uthaa sakta hai? Unka naam bata do, main seedha mil leta hoon. Aapka naam bolunga — 'inse pooch lena, inke yahan chal raha hai.'"</div>
+<div class="scr"><div class="scr-role">Incentive Offer</div>"Aur ek cheez — referral se install hoga toh aapka ek month free ho jaayega. Koi 2-3 naam hain?"</div>
+</div>
+</div>
+
+<!-- OBJECTIONS -->
+<div id="page-objections" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--red)"></div><h1>Objections — Complete Answers</h1><p>Har "nahi" ke peeche ek reason hota hai — ye reason handle karo</p></div>
+<div class="card">
+<div class="obj"><div class="obj-q">"Mujhe nahi chahiye / sab theek chal raha hai"</div><div class="obj-a">Bhaiya, main bhi yahi sochta tha agar main aapki jagah hota. Lekin ek calculation karna chahta hoon — Zomato pe month mein kitna commission jaata hai? [Get number.] Ye sirf ₹2,000 mein recover hota hai. Kyunki "theek chal raha hai" ka matlab ye nahi ki aur better nahi ho sakta.</div></div>
+<div class="obj"><div class="obj-q">"Technology nahi samjhi / staff nahi seekhega"</div><div class="obj-a">Isiliye main khud install karta hoon aur free training deta hoon — 30 minutes mein aapka poora staff sikhega. Ye QR code hai — customer scan karta hai, aapko WhatsApp milta hai. Aur kuch nahi. Jo WhatsApp use karte hain wo ye kar sakte hain.</div></div>
+<div class="obj"><div class="obj-q">"₹2,000 zyada hai / budget nahi"</div><div class="obj-a">Bhaiya, seedha puchta hoon — ek din mein Zomato commission kitna jaata hai? [₹500-1000 usually.] Matlab 2-4 din mein recover hota hai ₹2,000. Aur baaki 26 din? Pure profit. Lekin agar ab tight hai toh pehle mahina ₹0 mein de raha hoon — result dekho, phir decide karo.</div></div>
+<div class="obj"><div class="obj-q">"Pehle try karke dekhna chahta hoon"</div><div class="obj-a">Perfect — isiliye 1 mahina FREE de raha hoon. Koi commitment nahi, koi contract nahi. Setup aaj, result 2 weeks mein. Pasand na aaye toh QR uthar dunga. Fair hai?</div></div>
+<div class="obj"><div class="obj-q">"Customers QR scan nahi karte"</div><div class="obj-a">Ye 2022 ki concern thi — 2024 mein 80%+ India smartphone use karta hai. Aur QR scanning habit pandemic ke baad bahut zyada badhi hai. Lekin proof chahiye? Ek hafta free lagao — khud dekho scan rate. Average 35-40% customers scan karte hain pehle hafte mein.</div></div>
+<div class="obj"><div class="obj-q">"Internet band ho jaaye toh kya?"</div><div class="obj-a">Menu offline bhi kaam karta hai — phone mein cached hota hai. Sirf loyalty points update ke liye internet chahiye, wo bhi baad mein sync hota hai. Internet dependent features: order + review. Ye tab bhi manual backup hota hai. 99% time internet hota hai — is 1% ke liye poora system band nahi karte.</div></div>
+<div class="obj"><div class="obj-q">"Doosra company sasta deti hai"</div><div class="obj-a">Zaroor — ₹500/month wala system bhi market mein hai. Lekin wo sirf QR deta hai — loyalty + WhatsApp order + review collection + customer data + analytics + hamare jaise support nahi deta. Ek comparison karein features ka? Aur hamare saath Jaipur mein local support hai — kuch gadbad hua toh main khud aata hoon.</div></div>
+<div class="obj"><div class="obj-q">"Zomato chhod nahi sakta — orders wahan se aate hain"</div><div class="obj-a">Bilkul mat chhodna — wo parallel chalata raho. Ye QR un customers ke liye hai jo pehle se aapke yahan aate hain ya direct aate hain. Naye customers Zomato se — existing customers direct. Dono channels side by side. Ek month mein dekho — direct orders kitne hue, commission kitna bacha.</div></div>
+<div class="obj"><div class="obj-q">"Kya ye legal hai? Data security?"</div><div class="obj-a">100% legal — ye simple web application hai, same technology jo Domino's aur McDonald's use karta hai. Customer data sirf aapka — koi third party access nahi. HTTPS secured. Main agreement mein likhhta hoon specifically. Aur honestly — kirana mein jo paper khata hai, usme bhi data tha — ye actually zyada secure hai.</div></div>
+<div class="obj"><div class="obj-q">"Abhi busy season hai, baad mein karenge"</div><div class="obj-a">Bhaiya, busy season mein hi sabse zyada fayda hota hai — jab 500 customers aa rahe hain toh 200 scan karenge aur loyal ho jaayenge. Off-season mein toh customers hi nahi hote scan karne ke liye. Busy season mein setup = maximum ROI. Kya kal subah 9 baje se pehle install kar doon jab rush nahi hota?</div></div>
+</div>
+</div>
+
+<!-- FUNNEL -->
+<div id="page-funnel" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--teal)"></div><h1>QR Sales Funnel</h1><p>Stranger se ₹2K/month client — har step ka system</p></div>
+<div class="card">
+<div class="fi" style="border-color:var(--blue)"><div class="fi-t" style="color:var(--blue)">Stage 1 — Awareness (100+ businesses/day target area mein)</div><div class="fi-d">Field canvassing, Google Maps area search, JustDial listings, Instagram local business content, WhatsApp broadcast to local groups. Goal: naam sunna chahiye logo ko.</div></div>
+<div class="fi" style="border-color:var(--teal)"><div class="fi-t" style="color:var(--teal)">Stage 2 — Demo (10-15 demos/day field mein)</div><div class="fi-d">Walk-in pitch, phone demo. 3-minute formula. Show live scan. Show ROI calculator. Every demo = potential ₹24K/year contract.</div></div>
+<div class="fi" style="border-color:var(--green)"><div class="fi-t" style="color:var(--green)">Stage 3 — Trial Close (Same day or next day)</div><div class="fi-d">First month FREE offer — zero risk for them. Get agreement signed, phone number, setup appointment. 60-70% demo-to-trial conversion expected.</div></div>
+<div class="fi" style="border-color:var(--amber)"><div class="fi-t" style="color:var(--amber)">Stage 4 — Install + Onboard (Day 2-3)</div><div class="fi-d">QR print karo, install karo, 30-min training do. Show them first scan happening live. This moment = emotional investment made. Now they won't cancel.</div></div>
+<div class="fi" style="border-color:var(--orange)"><div class="fi-t" style="color:var(--orange)">Stage 5 — Convert to Paid (Month 2)</div><div class="fi-d">After free month: show results (scans, orders, loyalty customers). "Ye results ke baad ₹2K toh ek din mein recover hoga." 85-90% trial-to-paid conversion if onboarding was good.</div></div>
+</div>
+<div class="g2">
+<div class="card"><div class="ct">Daily Field Activity Target</div>
+<div class="sr"><div class="sn">30</div><div class="sc">Businesses visit/day (solo). Market cluster strategy — ek market mein 30 shops.</div></div>
+<div class="sr"><div class="sn">15</div><div class="sc">Pitches completed (50% of visits get pitch chance)</div></div>
+<div class="sr"><div class="sn">8</div><div class="sc">Full demos done (phone dikhaya)</div></div>
+<div class="sr"><div class="sn">3</div><div class="sc">Trials signed (free month offer)</div></div>
+<div class="sr"><div class="sn">2.5</div><div class="sc">Paying clients after free month (83% convert). Month mein = 75 clients. At ₹2K = ₹1.5L/month.</div></div>
+</div>
+<div class="card"><div class="ct">Revenue Math — Scale Targets</div>
+<div style="overflow-x:auto"><table class="vt">
+<tr><th>Stage</th><th>Clients</th><th>Monthly</th><th>Timeline</th></tr>
+<tr><td>Start</td><td>5</td><td style="color:var(--amber)">₹10,000</td><td>Week 1</td></tr>
+<tr><td>Early</td><td>20</td><td style="color:var(--amber)">₹40,000</td><td>Month 1</td></tr>
+<tr><td>Growing</td><td>50</td><td style="color:var(--green)">₹1,00,000</td><td>Month 2</td></tr>
+<tr><td>Scaling</td><td>100</td><td style="color:var(--green)">₹2,00,000</td><td>Month 3</td></tr>
+<tr><td>Stable</td><td>200</td><td style="color:var(--green)">₹4,00,000</td><td>Month 5-6</td></tr>
+<tr><td><strong>Target</strong></td><td><strong>500</strong></td><td style="color:var(--orange);font-weight:600">₹10,00,000</td><td>Month 12</td></tr>
+</table></div>
+</div>
+</div>
+</div>
+
+<!-- PRICING -->
+<div id="page-pricing" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--amber)"></div><h1>Pricing Strategy</h1><p>₹2K standard — lekin jab zyada lo, kab discount do, upsell kab karo</p></div>
+<div class="card"><div class="ct">3-Tier Pricing Model</div>
+<div class="pgrid">
+<div class="pc2"><div class="pn">Starter</div><div class="pa" style="color:var(--text2)">₹999/mo</div><div style="font-size:10px;color:var(--text3);margin-top:3px">QR menu only. For tiny shops with no orders.</div></div>
+<div class="pc2 feat"><div class="pn" style="color:var(--orange2)">Standard ★</div><div class="pa" style="color:var(--orange)">₹1,999/mo</div><div style="font-size:10px;color:var(--orange2);margin-top:3px">Menu + Loyalty + WhatsApp orders + Analytics. 85% choose this.</div></div>
+<div class="pc2"><div class="pn">Premium</div><div class="pa" style="color:var(--text2)">₹3,999/mo</div><div style="font-size:10px;color:var(--text3);margin-top:3px">All + Ads automation + multi-branch + priority support.</div></div>
+</div>
+<div style="font-size:11.5px;color:var(--text2);margin-top:11px;line-height:1.6">Always quote Standard as default. Agar budget concern aaye toh Starter mention karo. Agar multi-branch ya restaurant chain ho toh Premium push karo.</div>
+</div>
+<div class="card"><div class="ct">Annual vs Monthly — Push Annual Always</div>
+<div class="g2">
+<div class="card-sm">
+<div class="bdg ba" style="margin-bottom:7px">Monthly Plan</div>
+<div style="font-size:12px;line-height:1.7">₹2,000/month<br>₹24,000/year<br><span style="color:var(--text3)">Client can cancel anytime. Revenue uncertain.</span></div>
+</div>
+<div class="card-sm" style="border-color:rgba(255,107,43,0.2)">
+<div class="bdg bo" style="margin-bottom:7px">Annual Plan — PUSH THIS</div>
+<div style="font-size:12px;line-height:1.7">₹18,000/year (25% off)<br>= ₹1,500/month effective<br><span style="color:var(--orange2)">Guaranteed yearly revenue. Lower churn. Client committed.</span></div>
+</div>
+</div>
+<div class="hl"><p>Annual plan pitch: "Bhaiya, monthly ₹2K se ₹24K/year hota hai. Annual mein ₹18K — ₹6,000 bachate ho. Aur main bhi guarantee de sakta hoon year bhar dedicated support." Zyada pitch karna chahiye annual — guaranteed revenue tumhare liye better hai.</p></div>
+</div>
+<div class="card"><div class="ct">When to Discount — Rules</div>
+<div class="sr"><div class="sn">✓</div><div class="sc"><strong>Annual payment upfront:</strong> 25% off — ₹18K instead of ₹24K. Justified: cash flow benefit to you.</div></div>
+<div class="sr"><div class="sn">✓</div><div class="sc"><strong>Referral brings 2+ clients:</strong> 1 month free for referrer. Net cost ₹0, goodwill maximum.</div></div>
+<div class="sr"><div class="sn">✓</div><div class="sc"><strong>Multi-location same owner:</strong> Second location 20% off. Easy upsell, easy install.</div></div>
+<div class="sr"><div class="sn">✗</div><div class="sc"><strong>Never:</strong> Random discount bina reason ke. "Mahenga hai" objection pe seedha discount mat do — ROI first dikhao.</div></div>
+</div>
+<div class="card"><div class="ct">Upsell Opportunities — After 3 Months</div>
+<div class="sr"><div class="sn">↑</div><div class="sc"><strong>WhatsApp Campaign Service:</strong> ₹500-1000/month extra — har customer ke liye monthly broadcast run karo. "Holi special offer" type campaigns.</div></div>
+<div class="sr"><div class="sn">↑</div><div class="sc"><strong>Google Ads Management:</strong> ₹2,000-3,000/month — local search ads for their business. QR + Ads = complete digital stack.</div></div>
+<div class="sr"><div class="sn">↑</div><div class="sc"><strong>Full Website:</strong> ₹15-25K one-time — upsell from QR to website. Already have relationship + trust.</div></div>
+<div class="sr"><div class="sn">↑</div><div class="sc"><strong>Multi-branch rollout:</strong> If they have 2nd location — easy sell at 20% off. Same onboarding process, double revenue.</div></div>
+</div>
+</div>
+
+<!-- PSYCHOLOGY -->
+<div id="page-psychology" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--pink)"></div><h1>Sales Psychology — QR ke liye</h1><p>Local business owner kaise sochta hai — aur kaise convince karo</p></div>
+<div class="g2">
+<div class="card-sm" style="border-color:rgba(255,107,43,0.2)">
+<span class="bdg bo">Loss Aversion</span>
+<div class="ct" style="margin-top:7px">Bachane ki baat karo, kamane ki nahi</div>
+<div style="font-size:11.5px;color:var(--text2);margin-bottom:7px">Local owner loss se 3x zyada react karta hai gain se. Unka hard-earned money jaata dikhao.</div>
+<div style="background:var(--redD);border-radius:var(--r);padding:9px;font-size:11.5px;color:#f08080;margin-bottom:6px">Wrong: "Revenue 20% badhega"</div>
+<div style="background:var(--greenD);border-radius:var(--r);padding:9px;font-size:11.5px;color:var(--green)">Right: "Har mahine ₹18,000 ja raha hai Zomato ko. Aap mujhe ₹2,000 do, wo ₹18K bachao."</div>
+</div>
+<div class="card-sm" style="border-color:rgba(32,201,151,0.2)">
+<span class="bdg bg">Neighbor Effect</span>
+<div class="ct" style="margin-top:7px">Paas waali dukaan ne lagaaya</div>
+<div style="font-size:11.5px;color:var(--text2);margin-bottom:7px">Local business owners ek dusre ko dekh ke decide karte hain. Competitor ka naam powerful trigger hai.</div>
+<div style="background:var(--greenD);border-radius:var(--r);padding:9px;font-size:11.5px;color:var(--green)">"[Street pe same dukaan] ne last month lagaaya — roz unhe 8-10 direct WhatsApp orders aa rahe hain. Unse pooch sakte ho — main number deta hoon."</div>
+</div>
+<div class="card-sm" style="border-color:rgba(245,159,0,0.2)">
+<span class="bdg ba">Zero Risk Anchor</span>
+<div class="ct" style="margin-top:7px">Pehla mahina free</div>
+<div style="font-size:11.5px;color:var(--text2);margin-bottom:7px">Local owner risk-averse hai. "Free" word removes all friction. They say yes even if mildly interested.</div>
+<div style="background:var(--greenD);border-radius:var(--r);padding:9px;font-size:11.5px;color:var(--green)">"Pehla mahina zero. Install karo, use karo, pasand na aaye toh cancel — koi cost nahi, koi contract nahi." Conversion: 3x higher vs paid-from-day-1.</div>
+</div>
+<div class="card-sm" style="border-color:rgba(51,154,240,0.2)">
+<span class="bdg bb">Reciprocity Setup</span>
+<div class="ct" style="margin-top:7px">Free audit pehle, pitch baad mein</div>
+<div style="font-size:11.5px;color:var(--text2);margin-bottom:7px">Local owners feel obligated if you help them first. Small free help = big yes chance.</div>
+<div style="background:var(--greenD);border-radius:var(--r);padding:9px;font-size:11.5px;color:var(--green)">"Bhaiya, main aapke Zomato page ka free review karunga — kya improve kar sakte hain. Phir ye QR dekh sakte ho agar interest ho." Free help first = warm conversation.</div>
+</div>
+<div class="card-sm" style="border-color:rgba(132,94,247,0.2)">
+<span class="bdg bp">Same Day Close</span>
+<div class="ct" style="margin-top:7px">Aaj nahi toh kabhi nahi</div>
+<div style="font-size:11.5px;color:var(--text2);margin-bottom:7px">Local owner "sochenge" ka matlab hai forget karna. Same visit mein close karo — ya probability 80% girta hai.</div>
+<div style="background:var(--greenD);border-radius:var(--r);padding:9px;font-size:11.5px;color:var(--green)">"Kal install karna hai toh number de do abhi — form fill karta hoon yahan pe." Pen nikalo, form dikhao. Physical action = commitment trigger.</div>
+</div>
+<div class="card-sm" style="border-color:rgba(240,101,149,0.2)">
+<span class="bdg bpk">Specific Proof</span>
+<div class="ct" style="margin-top:7px">Vague claim vs specific number</div>
+<div style="font-size:11.5px;color:var(--text2);margin-bottom:7px">Local owners don't believe marketing language. Specific numbers from specific businesses = real proof.</div>
+<div style="background:var(--greenD);border-radius:var(--r);padding:9px;font-size:11.5px;color:var(--green)">"[Specific dhaba name], [area] — August mein 247 QR scans, 89 WhatsApp orders directly, ₹23,400 Zomato commission bachaya." Numbers + name = credibility.</div>
+</div>
+</div>
+</div>
+
+<!-- CLIENT BEHAVIOR -->
+<div id="page-behavior" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--amber)"></div><h1>Client Behavior — 8 Types</h1><p>Har type ka profile, trigger, aur exact handle strategy</p></div>
+<div class="g2">
+<div>
+<div class="beh"><div class="beh-type">Type 1 — Restaurant Owner</div><div class="beh-title">The Zomato Feeder</div><div class="beh-txt">Roz Zomato commission jaata hai — dard real hai lekin numb ho gaya hai. Trigger: exact monthly loss calculate karke dikhao live. Calculator nikaalo, unka daily order count multiply karo. "Ye paise aapke the." Closes fast once they SEE the number.</div></div>
+<div class="beh"><div class="beh-type">Type 2 — Kirana Owner</div><div class="beh-title">The Trust-First Buyer</div><div class="beh-txt">Technology se darta hai. Paas ki dukaan ka reference chahiye. "Aapke customer QR scan karenge kya?" Trigger: neighbor proof + free trial. "Ek mahina free try karo — apne customers se khud pucho." Slow yes lekin once yes = never cancels.</div></div>
+<div class="beh"><div class="beh-type">Type 3 — Salon Owner</div><div class="beh-title">The Relationship Seeker</div><div class="beh-txt">Appointment booking ke dard se connect karo — "Kitni baar customers aati hain then disappear?" QR appointment + reminder solves this. Personal connection strong honi chahiye — ye emotional buyer hai logical nahi. Didi/madam se ache se baat karo.</div></div>
+<div class="beh"><div class="beh-type">Type 4 — Medical/Clinic</div><div class="beh-title">The Evidence Demander</div><div class="beh-txt">Data aur proof chahiye. "Kitne patients ne use kiya?" type questions aayenge. Case study + percentage improvement stats ready rakkho. Don't oversell — underpromise. "Ye minimum 15% appointment increase karta hai — typically zyada hota hai." Conservative claims = more credibility.</div></div>
+</div>
+<div>
+<div class="beh"><div class="beh-type">Type 5 — Hotel/PG Owner</div><div class="beh-title">The Math Calculator</div><div class="beh-txt">OTA commission number sunne ke baad calculator nikalta hai. Let them calculate themselves — don't tell, ask: "Ek mahine mein OYO se kitni bookings? [X] × ₹400 commission = [calculated]. Ye aapka savings potential hai." Their own math = strongest close.</div></div>
+<div class="beh"><div class="beh-type">Type 6 — Street Food/Small Vendor</div><div class="beh-title">The Cash-Only Skeptic</div><div class="beh-txt">UPI se payment bhi doubt karta hai. Free trial offer zaroori — "Paisa mat do abhi." Monthly rather than annual. Referral incentive works well. Usually 3-4 touchpoints lagte hain. But volume play — bahut zyada vendors hain. Low ticket ₹999/month ke.</div></div>
+<div class="beh"><div class="beh-type">Type 7 — Multi-Chain Owner (2+ branches)</div><div class="beh-title">The ROI Maximizer</div><div class="beh-txt">Already business-minded. Fastest close if numbers check out. Premium plan push karo. Annual payment prefer karte hain. Ask immediately: "Doosri branch hai? Wahan bhi install karein — 20% off." Multi-location = 2-3x revenue from one relationship.</div></div>
+<div class="beh"><div class="beh-type">Type 8 — Existing Website Client</div><div class="beh-title">The Easy Upsell</div><div class="beh-txt">Trust already hai. QR add-on easy sell. "Aapka website toh hai — ye QR ussi se connect hota hai. Extra ₹2K mein physical world mein bhi digital loyalty ho jaata hai." Close rate 70%+ for existing clients. Always pitch QR when doing website projects.</div></div>
+</div>
+</div>
+</div>
+
+<!-- SETUP GUIDE -->
+<div id="page-setup" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--blue)"></div><h1>Technical Setup Guide</h1><p>QR system kaise banao, kaise install karo, kaise manage karo</p></div>
+<div class="card"><div class="ct">Tech Stack — Zero to ₹1L/month</div>
+<div class="g2">
+<div class="card-sm">
+<div class="bdg bg" style="margin-bottom:7px">Option A — DIY (Free Start)</div>
+<div style="font-size:11.5px;line-height:1.7;color:var(--text2)">
+• <strong style="color:var(--text)">QR Generator:</strong> qr-code-generator.com (free) ya goqr.me<br>
+• <strong style="color:var(--text)">Digital Menu:</strong> Canva Pro (₹2K/year) — QR links to Canva page<br>
+• <strong style="color:var(--text)">WhatsApp Integration:</strong> wa.me link embedded in QR<br>
+• <strong style="color:var(--text)">Loyalty:</strong> Stamp Me app (free tier) ya Google Sheet manual<br>
+• <strong style="color:var(--text)">Analytics:</strong> Bit.ly link tracking (free 1000 clicks/month)<br>
+• <strong style="color:var(--text)">Total cost:</strong> ₹2K/year for 10-20 clients
+</div>
+</div>
+<div class="card-sm" style="border-color:rgba(255,107,43,0.2)">
+<div class="bdg bo" style="margin-bottom:7px">Option B — Custom System (Scale)</div>
+<div style="font-size:11.5px;line-height:1.7;color:var(--text2)">
+• <strong style="color:var(--text)">Custom QR Portal:</strong> Firebase + React (tumhara own platform) — ₹5-10K dev cost<br>
+• <strong style="color:var(--text)">Dashboard per client:</strong> Scan analytics, loyalty points, order history<br>
+• <strong style="color:var(--text)">WhatsApp API:</strong> Wati/Interakt ₹800/month (for all clients)<br>
+• <strong style="color:var(--text)">Branding:</strong> White-label — client ka naam dikhta hai, Vistech ke powar pe chalti hai<br>
+• <strong style="color:var(--text)">Total cost:</strong> ₹15K dev + ₹2K/month ops for 50+ clients
+</div>
+</div>
+</div></div>
+<div class="card"><div class="ct">Installation SOP — Har Client Ke Liye</div>
+<div class="sr"><div class="sn">1</div><div class="sc"><strong>Day 1 — Information Gather:</strong> Business name, menu items (20-30 max), owner photo, WhatsApp number, preferred loyalty reward (free item ya discount).</div></div>
+<div class="sr"><div class="sn">2</div><div class="sc"><strong>Day 2 — Setup (2 hours):</strong> Digital menu create karo, QR generate karo, WhatsApp integration test karo, loyalty system setup karo, analytics tracking add karo.</div></div>
+<div class="sr"><div class="sn">3</div><div class="sc"><strong>Day 3 — Install karo physically:</strong> QR print karo (A5 laminated ₹30-50). Counter pe, table pe, door pe lagao. 3-5 spots minimum per location.</div></div>
+<div class="sr"><div class="sn">4</div><div class="sc"><strong>Day 3 — Training (30 min):</strong> Owner + 1 staff ko sikhao — kaise check kare orders, kaise loyalty points redeem kare, kaise analytics dekhe.</div></div>
+<div class="sr"><div class="sn">5</div><div class="sc"><strong>Week 2 — Check-in call:</strong> Scan ho raha hai? Orders aa rahe hain? Koi problem? Proactively call karo — don't wait for complaint.</div></div>
+<div class="sr"><div class="sn">6</div><div class="sc"><strong>Month 1 end — Results report bhejo:</strong> Total scans, orders, loyalty points collected, estimated savings. Isi report se paid conversion easy hoti hai.</div></div>
+</div>
+<div class="card"><div class="ct">QR Print Specifications</div>
+<div class="sr"><div class="sn">A5</div><div class="sc">Standard table/counter standee. Laminated. Cost: ₹30-40 each. Minimum 3 per location.</div></div>
+<div class="sr"><div class="sn">A4</div><div class="sc">Window/door display. Bigger visibility. "Scan for menu &amp; loyalty rewards" text include karo.</div></div>
+<div class="sr"><div class="sn">Sticker</div><div class="sc">3×3 inch sticker — POS counter, delivery bags, packaging. Cost: ₹5-10 each. 20+ per location.</div></div>
+<div class="sr"><div class="sn">Tent</div><div class="sc">Table tent card (triangle fold) — restaurant tables. Professional look. Cost: ₹15-20 each.</div></div>
+<div style="font-size:11.5px;color:var(--text2);margin-top:10px;line-height:1.6"><strong style="color:var(--text)">Printing tip:</strong> Bulk print sab clients ka ek saath — per unit cost ₹10-15 kam hogi. 50 clients × 5 QRs × ₹30 = ₹7,500 printing cost. Charge ₹500 as "installation fee" = printing covered.</div>
+</div>
+</div>
+
+<!-- PLAN A & B -->
+<div id="page-plans" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--orange)"></div><h1>Plan A &amp; Plan B</h1><p>Aggressive vs Bootstrap — dono plans complete hain</p></div>
+<div class="pt">
+<button class="pb on" onclick="togglePlan('qa',this)">Plan A — Field + Digital</button>
+<button class="pb" onclick="togglePlan('qb',this)">Plan B — Bootstrap Only</button>
+</div>
+<div id="plan-qa" class="pc on">
+<div class="succ"><p><strong>Plan A kab:</strong> Pehle 5 clients aa jaayein, ₹10K cash ho. Invest karo field team + tools mein.</p></div>
+<div class="card"><div class="ct">Plan A — Month by Month</div>
+<div class="tl">
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Week 1 — ₹2K invest</div><div class="tl-t">Pehle 5 Clients Khud</div><div class="tl-p">Demo QR print karo ₹200. Apne mohalle se. Khud jao. 5 clients = ₹10K/month. Cost recover in Day 1.</div></div>
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Week 2-4 — ₹5K invest</div><div class="tl-t">Field Agent Commission-Only</div><div class="tl-p">1 college student hire karo — ₹300/client commission. 20 clients target. Field coverage double hogi. ₹40K/month.</div></div>
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Month 2 — ₹10K invest</div><div class="tl-t">Digital + WhatsApp Campaigns</div><div class="tl-p">Instagram local ads ₹3K + WhatsApp broadcast ₹800 + Wati API ₹800. Inbound leads shuru hote hain. 50 clients, ₹1L/month.</div></div>
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Month 3+ — Scale</div><div class="tl-t">3 Field Agents + Dedicated Area</div><div class="tl-p">Jaipur ke 3 zones divide karo — 1 agent per zone. Each targets 35-40 clients/month. Total: 100+ clients, ₹2L/month.</div></div>
+</div></div>
+<div class="g2">
+<div class="succ"><p><strong>Best case Month 6:</strong> 300 clients, ₹6L/month, 5 agents, automated renewal system running.</p></div>
+<div class="warn"><p><strong>Risk:</strong> Agent quality vary kar sakti hai. Strict daily reporting mandatory. Commission-based = self-motivated lekin training zyada zaroori.</p></div>
+</div>
+</div>
+<div id="plan-qb" class="pc">
+<div class="hl"><p><strong>Plan B kab:</strong> Zero cash, careful approach. Sirf time invest karo — koi paisa nahi.</p></div>
+<div class="card"><div class="ct">Plan B — Zero Investment</div>
+<div class="tl">
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Week 1 — ₹0</div><div class="tl-t">5 Free Clients — Social Proof Build</div><div class="tl-p">Apne gali ke 5 dukaan owners se free mein install karo. Testimonial + result collect karo. Isko demo material banao.</div></div>
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Week 2-3 — ₹0</div><div class="tl-t">Referral Chain Start</div><div class="tl-p">In 5 owners se referral maango — "Apne paas ki dukaan ka naam bata do." 10-15 clients aise bante hain. ₹20-30K/month.</div></div>
+<div class="tl-i"><div class="tl-dot"></div><div class="tl-d">Month 2 — Revenue reinvest</div><div class="tl-t">First Tools Buy</div><div class="tl-p">Revenue se: WhatsApp API + QR printing fund karo. Har step previous step se fund hoga.</div></div>
+<div class="tl-i" style="margin-bottom:0"><div class="tl-dot"></div><div class="tl-d">Month 3-4</div><div class="tl-t">Stable Ground</div><div class="tl-p">40-50 clients, ₹80K-1L/month, zero debt, everything funded from revenue. Slower lekin risk-free.</div></div>
+</div></div>
+</div>
+</div>
+
+<!-- SCENARIOS -->
+<div id="page-scenarios" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--red)"></div><h1>Best / Worst Cases — All Scenarios</h1><p>Koi bhi situation aaye — pehle se ready. Click to expand.</p></div>
+<div class="card" style="border-color:rgba(32,201,151,0.2)">
+<div class="ct" style="color:var(--green)">Best Case Scenarios</div>
+<div class="sc-wrap"><div class="sc-head" onclick="toggleSC(this)"><div class="sc-ico">🚀</div><div class="sc-tit">Ek market mein word spreads — 10 referrals ek din mein</div><span class="bdg bg">BEST</span><span style="font-size:12px;margin-left:6px">▼</span></div>
+<div class="sc-body"><div style="background:var(--greenD);border-radius:var(--r);padding:11px;margin-bottom:8px"><p style="font-size:12px;color:var(--green)"><strong>Kya karo immediately:</strong> Turat un 10 referrals ke paas personally jao — same day. "Sunao, [aapke reference name] ne bata ke bheja. Unke yahan chal raha hai, aapke liye bhi 30 min mein ready kar deta hoon — free pehla mahina." Conversion 80%+ when warm referral.</p></div></div></div>
+<div class="sc-wrap"><div class="sc-head" onclick="toggleSC(this)"><div class="sc-ico">🏢</div><div class="sc-tit">Restaurant chain (10+ outlets) approach kare</div><span class="bdg bg">BEST</span><span style="font-size:12px;margin-left:6px">▼</span></div>
+<div class="sc-body"><div style="background:var(--greenD);border-radius:var(--r);padding:11px;margin-bottom:8px"><p style="font-size:12px;color:var(--green)"><strong>Corporate deal:</strong> ₹1,500/outlet/month × 10 outlets = ₹15,000/month from one client. Centralized dashboard, franchise-level analytics, dedicated support. Meeting: CEO/owner level, custom proposal, 1-week timeline. Agreement carefully banao. Pehle 50% advance ₹7,500.</p></div></div></div>
+</div>
+<div class="card" style="border-color:rgba(240,62,62,0.2)">
+<div class="ct" style="color:var(--red)">Worst Case Scenarios + Solutions</div>
+<div class="sc-wrap"><div class="sc-head" onclick="toggleSC(this)"><div class="sc-ico">❌</div><div class="sc-tit">Client cancel kar raha hai after 3 months</div><span class="bdg br">CRITICAL</span><span style="font-size:12px;margin-left:6px">▼</span></div>
+<div class="sc-body"><div style="font-size:11.5px;line-height:1.7">
+<div class="warn" style="margin-bottom:8px"><p><strong>Root cause first:</strong> Kyun cancel kar raha hai? 3 reasons hote hain: 1) Results nahi aaye, 2) Paise tight hain, 3) Competitor ne approach kiya.</p></div>
+<strong style="color:var(--green)">If results nahi aaye:</strong> "Ek month extension free deta hoon — aur main personally scan rate improve karne ki strategy deta hoon. Kya try karein?" Usually stays.<br><br>
+<strong style="color:var(--green)">If paise tight hain:</strong> "₹999 wale starter plan pe le aata hoon temporarily. Jab business accha hoga, upgrade karenge." Half revenue better than zero.<br><br>
+<strong style="color:var(--green)">If competitor:</strong> "Kya feature unka zyada accha hai? Main wahi feature add karta hoon — ya agar better deal hai toh sach mein jaao, main nahin rukne dunga." Honesty = sometimes they stay.
+</div></div></div>
+<div class="sc-wrap"><div class="sc-head" onclick="toggleSC(this)"><div class="sc-ico">💸</div><div class="sc-tit">30 clients ne ek saath renewal nahi kiya</div><span class="bdg br">WORST</span><span style="font-size:12px;margin-left:6px">▼</span></div>
+<div class="sc-body"><div style="font-size:11.5px;line-height:1.7">
+<div class="warn" style="margin-bottom:8px"><p>Agar 30 clients = ₹60K/month risk hai — ye kabhi ek saath nahi hona chahiye agar properly onboard kiya ho.</p></div>
+<strong style="color:var(--green)">Prevention:</strong> Annual contracts push karo — sirf monthly clients = churn risk. Annual client ne advance de diya = committed.<br><br>
+<strong style="color:var(--green)">If happens:</strong> Win-back campaign — personal call har client ko, updated results dikhao, 15% renewal discount offer karo (sirf renewal ke liye, not new). Target: 50% win-back = 15 clients back = ₹30K recovered.
+</div></div></div>
+<div class="sc-wrap"><div class="sc-head" onclick="toggleSC(this)"><div class="sc-ico">📱</div><div class="sc-tit">System technically fail ho gaya — QR kaam nahi kar raha</div><span class="bdg br">CRITICAL</span><span style="font-size:12px;margin-left:6px">▼</span></div>
+<div class="sc-body"><div style="font-size:11.5px;line-height:1.7">
+<strong style="color:var(--green)">Prevention:</strong> Har QR URL ke liye backup URL rakho. Domain renewal auto-pay set karo. Monthly server uptime check karo.<br><br>
+<strong style="color:var(--green)">If happens:</strong> 2-hour fix rule. Client ko 15 min mein notify karo: "Technical issue detect hua — 2 hours mein fix hoga. Inconvenience ke liye sorry — ye month ka ek week extra milega." Then actually fix it. Never go silent.
+</div></div></div>
+<div class="sc-wrap"><div class="sc-head" onclick="toggleSC(this)"><div class="sc-ico">😤</div><div class="sc-tit">Client complain karta hai customers scan nahi kar rahe</div><span class="bdg ba">COMMON</span><span style="font-size:12px;margin-left:6px">▼</span></div>
+<div class="sc-body"><div style="font-size:11.5px;line-height:1.7">
+<div class="hl" style="margin-bottom:8px"><p>Ye most common complaint hai — usually client ki problem hai, QR ki nahi. QR placement galat ya staff promote nahi kar raha hota hai.</p></div>
+<strong style="color:var(--green)">Solution:</strong> Site visit karo personally.<br>
+Check: QR placement eye-level hai? Lighting acchi hai? Staff customers ko bata raha hai?<br>
+Add: "Scan karo 10% off" ka sticker QR ke upar. This alone = 3-4x scan rate.<br>
+Training: Staff ko sikhao ki har customer ko physically batayein — "QR scan karo, loyalty points milenge."
+</div></div></div>
+<div class="sc-wrap"><div class="sc-head" onclick="toggleSC(this)"><div class="sc-ico">🏃</div><div class="sc-tit">Field agent ne chhod diya + clients unsettle ho gaye</div><span class="bdg ba">RISK</span><span style="font-size:12px;margin-left:6px">▼</span></div>
+<div class="sc-body"><div style="font-size:11.5px;line-height:1.7">
+<strong style="color:var(--green)">Prevention:</strong> Agent ke clients ka data tumhare CRM mein — not just agent's phone. Har client ke saath direct WhatsApp connection tumhara bhi hona chahiye.<br><br>
+<strong style="color:var(--green)">If happens:</strong> Personally call all affected clients within 24hrs. "Main directly handle kar raha hoon aapka account — koi gap nahi ayega." Ek week mein replacement hire karo. Har client ke liye 1 month extra free as goodwill.
+</div></div></div>
+</div>
+</div>
+
+<!-- MASTER RULES -->
+<div id="page-rules" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--red)"></div><h1>Master Rules — QR Business ke liye</h1><p>Ye tod ke clients ja chuke hain — ye follow karo aur stable raho</p></div>
+<div class="card" style="border-color:rgba(240,62,62,0.2)">
+<div class="ct" style="color:var(--red)">Non-Negotiable Rules</div>
+<div class="rl"><div class="rl-n">R-01</div><div class="rl-t"><strong>Annual contract push karo hamesha.</strong> Monthly = client can leave anytime. Annual = guaranteed revenue. Even ₹15K annual better than ₹2K × 12 monthly (because monthly churn happens).</div></div>
+<div class="rl"><div class="rl-n">R-02</div><div class="rl-t"><strong>QR kaam karta rahe 24/7 — downtime = cancellation trigger.</strong> Server reliable rakho. Domain auto-renew. Monthly backup. SLA: 99% uptime.</div></div>
+<div class="rl"><div class="rl-n">R-03</div><div class="rl-t"><strong>Month 1 results report bhejo har client ko.</strong> Results dikhte hain toh renewal automatic hai. Results nahi dikhaye toh client khud cancel karne ka reason dhundhta hai.</div></div>
+<div class="rl"><div class="rl-n">R-04</div><div class="rl-t"><strong>Client data sirf client ka.</strong> Ek restaurant ke customer data doosre ko mat do. Trust breach = immediate cancellation + reputation damage.</div></div>
+<div class="rl"><div class="rl-n">R-05</div><div class="rl-t"><strong>Installation ke 3 din baad check-in call zaroori.</strong> Problems early mein pakad lo — "Kaise chal raha hai?" — yahi relationship banata hai.</div></div>
+<div class="rl"><div class="rl-n">R-06</div><div class="rl-t"><strong>Agent ke saath client ka direct number tumhare paas bhi.</strong> Agent gaya toh client retain karna easy hoga agar relationship tumhari hai bhi.</div></div>
+<div class="rl"><div class="rl-n">R-07</div><div class="rl-t"><strong>Free month ke baad renewal conversation 5 days pehle start karo.</strong> Day 25 pe: results bhejo. Day 28: "Agle mahine ke liye payment link." Day 30: last reminder. Never wait for client to realize month end hua.</div></div>
+<div class="rl"><div class="rl-n">R-08</div><div class="rl-t"><strong>Referral program har client ko bata do installation pe hi.</strong> "Ek referral = 1 month free." Agar nahi bataya pehle din toh yaad nahi rahega.</div></div>
+</div>
+<div class="card" style="border-color:rgba(245,159,0,0.2)">
+<div class="ct" style="color:var(--amber)">Rule Break Recovery</div>
+<div class="rl"><div class="rl-n">B-01</div><div class="rl-t"><strong>System down raha 6+ hours:</strong> Personal apology call + 1 week free compensation. Baad mein: reliable hosting upgrade karo. Repetition = client gone.</div></div>
+<div class="rl"><div class="rl-n">B-02</div><div class="rl-t"><strong>Client ka renewal miss hua aur cancel kar diya:</strong> Win-back call within 24 hrs. Updated results + 15% discount for re-signup. 40-50% clients wapas aate hain if approached within 1 week.</div></div>
+<div class="rl"><div class="rl-n">B-03</div><div class="rl-t"><strong>Agent ne fake installs dikhaye (dishonest reporting):</strong> Immediate termination. Client ko personally call karo, truth batao, free month compensation do. Better to lose agent than client + reputation.</div></div>
+</div>
+</div>
+
+<!-- RETENTION -->
+<div id="page-retention" class="page">
+<div class="sh"><div class="sh-dot" style="background:var(--green)"></div><h1>Client Retention System</h1><p>Repeat revenue ka matlab hai churn zero rakhna — ye exactly kaise karo</p></div>
+<div class="hl"><p><strong>Retention = Real Business.</strong> New client acquire karna 5x costly hai retain karne se. Tumhara ₹1L/month business tabhi stable hai jab 90%+ clients hargiz renew karein. Iske liye ye system follow karo exactly.</p></div>
+<div class="card"><div class="ct">Monthly Retention SOP — Har Client</div>
+<div class="sr"><div class="sn">W1</div><div class="sc"><strong>Week 1 after install:</strong> Check-in WhatsApp — "Kaise chal raha hai? Scan ho rahe hain?" Personal message, not broadcast. Shows you care.</div></div>
+<div class="sr"><div class="sn">W2</div><div class="sc"><strong>Week 2:</strong> First scan report share karo — "Ye haftebhar ke scans hain. Ye progress hai." Even if small numbers — share. Transparency builds trust.</div></div>
+<div class="sr"><div class="sn">M1</div><div class="sc"><strong>Month 1 end:</strong> Full results report PDF/image — scans, orders, loyalty customers, estimated savings. "Ye free month mein hua — paid mein aur feature milenge." Conversion trigger.</div></div>
+<div class="sr"><div class="sn">M2</div><div class="sc"><strong>Month 2+:</strong> Monthly brief update WhatsApp (every month 25th) — this month ki performance vs last month. Growing = client stays happy. Declining = you address proactively.</div></div>
+<div class="sr"><div class="sn">Q1</div><div class="sc"><strong>Quarterly review call (3 months):</strong> 15-min call — "Kya improve karein?" Ask for feedback. Implement at least 1 suggestion. Client feel karta hai valued. Upsell opportunity here.</div></div>
+</div>
+<div class="card"><div class="ct">Churn Warning Signals — Immediately Act Karo</div>
+<div class="sr"><div class="sn">⚠</div><div class="sc">Client ne 2+ weeks se WhatsApp pe reply nahi kiya — call karo personally. Ghost hona = planning to cancel.</div></div>
+<div class="sr"><div class="sn">⚠</div><div class="sc">Client ke QR scans 50%+ drop ho gaye — site visit karo. Placement change hua? Staff not promoting?</div></div>
+<div class="sr"><div class="sn">⚠</div><div class="sc">Client ne complaint ki — resolve within 2 hours. Unresolved complaint = guaranteed cancellation.</div></div>
+<div class="sr"><div class="sn">⚠</div><div class="sc">Renewal date 10 din door hai aur client ne confirm nahi kiya — proactively reach out with results + payment link.</div></div>
+</div>
+<div class="card"><div class="ct">Referral Engine — Har Client Se 1-2 New Clients</div>
+<div class="sr"><div class="sn">1</div><div class="sc">Installation pe hi batao: "Ek referral de do — aapka ek month free." Specifically unse 2-3 naam maango — "Paas ki kaunsi dukaan hai jo ye use kar sakti hai?"</div></div>
+<div class="sr"><div class="sn">2</div><div class="sc">Month 1 results report ke saath: "Agar results se khush ho — kisi ek ko bata do mere baare mein." Easy ask after delivering value.</div></div>
+<div class="sr"><div class="sn">3</div><div class="sc">Happy client ke yahan physically jao — "Bhaiya, apne mohalle mein kaun hai jise ye chahiye?" In-person referral request = 3x more effective than WhatsApp request.</div></div>
+<div class="sr"><div class="sn">4</div><div class="sc">Champion client identify karo (wo jo khud deta hai referral) — these people deserve extra care. Free upgrade, priority support, personal relationship. They'll keep sending clients for years.</div></div>
+</div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+const QRindustries = [
+{icon:'🍕',name:'Restaurant/QSR',deal:'₹1,999/mo',b:'bo',pain:'Zomato 30% commission roz jaata hai. Customer data platform ke paas. Repeat order zero guarantee.',sol:'QR Direct Order System: Scan → WhatsApp order directly. No commission. Customer data yours. Loyalty points = repeat visits.',pitch:'Commission calculator live dikhao. "100 orders × ₹300 = ₹30K/month commission. Ye ₹2K mein recover hota hai."',start:'Day 1',priority:'HIGHEST'},
+{icon:'🛒',name:'Kirana/Grocery',deal:'₹1,499/mo',b:'bg',pain:'1000 customers mein 600 kabhi wapas nahi aate. No loyalty program. Competition se kuch different nahi.',sol:'QR Loyalty Card: 10 purchases = 1 free item. Customer data collect. WhatsApp broadcast for offers. "Apna Starbucks bano."',pitch:'"Aapke 1000 customers mein se 400 guaranteed wapas aayenge loyalty ke baad. ₹40,000 extra revenue monthly."',start:'Day 1',priority:'HIGHEST'},
+{icon:'✂️',name:'Salon/Parlour',deal:'₹1,999/mo',b:'ba',pain:'Appointments manual ya phone pe. Customers miss hoti hain, no-show hota hai. Repeat visit bina reminder zero.',sol:'QR Appointment + Reminder System: Scan → appointment book → auto WhatsApp reminder → next visit incentive.',pitch:'"Didi, kitni clients aayi phir nahi aayi? QR se wo sab wapas aa jaayegi — reminder automatic jaata hai."',start:'Week 1',priority:'HIGH'},
+{icon:'🏥',name:'Medical/Pharmacy',deal:'₹1,999/mo',b:'bb',pain:'Patient ek baar aaya phir nahi aaya follow-up ke liye. Prescription renewal missed. Appointment chaos.',sol:'Patient Follow-up QR: Scan → appointment book → medicine reminder → follow-up auto-schedule.',pitch:'"Doctor sahib, kitne patients follow-up nahi karte? QR se auto-reminder jaata hai — 30% more return visits."',start:'Week 1',priority:'HIGH'},
+{icon:'🏋️',name:'Gym/Fitness',deal:'₹1,499/mo',b:'bt',pain:'Members attendance manual. Monthly fee collection headache. Members quietly stop coming without notice.',sol:'Member QR: Attendance scan → loyalty points → streak reward → auto fee reminder → inactive member alert.',pitch:'"Member 3 hafte nahi aaya — koi system alert nahi. QR se alert aata hai, auto call trigger hota hai."',start:'Week 2',priority:'HIGH'},
+{icon:'🏨',name:'Hotel/PG',deal:'₹2,499/mo',b:'bp',pain:'OYO 20-25% commission per booking. Guest data platform ka. Repeat guest dobara OYO se book karta hai.',sol:'Room QR: Direct booking next stay → 10% off if direct → zero commission → guest database yours.',pitch:'"Sir, ₹2,000/night room × 20 bookings × ₹400 OYO = ₹8,000/month commission. QR ₹2,500 mein."',start:'Week 2',priority:'HIGH'},
+{icon:'🧁',name:'Bakery/Sweet Shop',deal:'₹999/mo',b:'bpk',pain:'Daily walk-in customers but no way to reach them. Festival offers nobody knows about. Competition from big brands.',sol:'QR Loyalty + Offers: Scan → points → birthday offer → festival special → WhatsApp broadcast to customers.',pitch:'"Eid/Diwali pe aapke regular customers ko offer kaise batate ho? QR se directly WhatsApp jaata hai."',start:'Day 1',priority:'HIGH'},
+{icon:'🌿',name:'Vegetable/Sabzi',deal:'₹999/mo',b:'bg',pain:'Customers Blinkit/Swiggy pe shift ho rahe hain. No loyalty, no repeat guarantee. Price war daily.',sol:'QR Daily Special: Scan → aaj ka rate board → WhatsApp subscribe → daily deal notification → loyalty stamp.',pitch:'"Bhaiya, 100 regular customers subscribe karenge daily rate pe — wo subah sabse pehle aapke paas aayenge."',start:'Week 1',priority:'HIGH'},
+{icon:'🍵',name:'Chai/Coffee Shop',deal:'₹999/mo',b:'ba',pain:'Walk-in chaalu hai lekin same customers kabhi kabhi zyada baar aa sakti hain. No brand loyalty built.',sol:'Punch Card QR: "10 chai = 1 free" → Scan every visit → Track automatically → WhatsApp reminder on visit 8.',pitch:'"Ek regular customer din mein ek chai — 10 visits mein ₹200 spent. With loyalty, 15 visits. ₹100 extra per customer."',start:'Day 1',priority:'VERY HIGH'},
+{icon:'🚗',name:'Car Workshop/Garage',deal:'₹1,999/mo',b:'bb',pain:'Customers servicing ke baad disappear. Next service reminder manual ya zero. Competition from nearby workshops.',sol:'Service QR: Scan → service history → next service auto-reminder → WhatsApp status update during service.',pitch:'"Bhaiya, service ke baad customer kahan jaata hai? QR se 3 months baad auto reminder — wo directly aapke paas aayega."',start:'Month 2',priority:'MEDIUM'},
+{icon:'📚',name:'Stationery/Bookshop',deal:'₹999/mo',b:'bt',pain:'Seasonal sales only (exam time). Off-season dead. No way to reach existing customers with new stock.',sol:'QR Catalog + Alert: Scan → full catalog → new arrival notification → exam material list → delivery option.',pitch:'"Exam season ke baad customers jaate hain. QR se new arrivals pe notification jaata hai — off-season bhi sales."',start:'Month 2',priority:'MEDIUM'},
+{icon:'👗',name:'Clothing/Boutique',deal:'₹1,999/mo',b:'bpk',pain:'Sale announcement — Instagram hi hai. Regular customers miss karte hain. No loyalty, no repeat data.',sol:'QR Loyalty + Sale Alert: VIP customer list, early access sale notification, referral discount.',pitch:'"Aapki best customers ko pehle sale pata chale — sirf unhe. QR se VIP WhatsApp group automatic ban jaata hai."',start:'Month 2',priority:'MEDIUM'},
+{icon:'🔧',name:'Hardware/Tools Shop',deal:'₹1,999/mo',b:'bb',pain:'Contractors/builders regularly aate hain but credit track manual. Inventory enquiry — phone pe khojo.',sol:'B2B QR: Contractor login → credit statement → product availability check → order WhatsApp directly.',pitch:'"Bhaiya, contractor ka credit kaafi jagah noted hai notebook mein. QR se instantly dekh sakte hain — digital khata."',start:'Month 2',priority:'MEDIUM'},
+{icon:'🐕',name:'Pet Shop/Vet',deal:'₹1,499/mo',b:'bg',pain:'Pet vaccination due — no reminder system. Product reorder — customer manually remembers. No loyalty.',sol:'Pet Care QR: Vaccination reminder → food reorder schedule → loyalty points → WhatsApp health tips.',pitch:'"Pet vaccination miss karna owner nahi chahta — QR se automatic reminder. Pet ki health = owner ko remind."',start:'Month 3',priority:'LOW-MED'},
+{icon:'👟',name:'Footwear Shop',deal:'₹1,499/mo',b:'ba',pain:'Festival season mein rush, baaki time dead. No way to alert customers about new designs.',sol:'QR Collection Alert: New arrival notification → size preference stored → sale early access → referral program.',pitch:'"Eid/Navratri pe aapka new collection aaya — existing customers ko kaise bataya? QR se directly WhatsApp jaata hai."',start:'Month 2',priority:'MEDIUM'},
+{icon:'🍽️',name:'Tiffin/Dabba Service',deal:'₹999/mo',b:'bo',pain:'Monthly orders uncertain. Customers forget to renew. New customers — only word of mouth.',sol:'Subscription QR: Monthly plan select → auto payment reminder → referral discount → today\'s menu share.',pitch:'"Bhaiya, monthly renewal yaad dilana padta hai manually? QR se auto reminder 5 din pehle jaata hai."',start:'Month 1',priority:'HIGH'},
+{icon:'🏦',name:'Finance/Insurance Agent',deal:'₹2,499/mo',b:'bp',pain:'Lead follow-up manual. Policy renewal missed. Client document tracking chaos. Referral not systematic.',sol:'QR Lead System: Scan → contact capture → policy reminder → document portal → referral tracking.',pitch:'"Sir, kitne clients ke policy renewal miss hue? QR auto-reminder se renewal rate 60% badhti hai."',start:'Month 3',priority:'MEDIUM'},
+{icon:'🌾',name:'Agri/Seeds/Fertilizer',deal:'₹1,499/mo',b:'bg',pain:'Farmer customers seasonal. Season mein bhool jaate hain ke kahan se khareeda. Competitor ke paas jaate hain.',sol:'Farmer QR: Seasonal crop calendar → fertilizer schedule → product availability alert → credit tracking.',pitch:'"Rabi season mein jo farmer aaya — QR se next kharif season pe directly aapko contact milega."',start:'Month 3',priority:'LOW-MED'},
+{icon:'🎮',name:'Gaming/Cyber Cafe',deal:'₹999/mo',b:'bt',pain:'Regular players kahin aur bhi jaate hain. Tournament announce karna — WhatsApp group only. No loyalty.',sol:'Gamer QR: Loyalty hours → tournament alerts → subscription packages → leaderboard access.',pitch:'"Bhai, top 10 gamers ke naam yaad hain? QR se leaderboard track hota hai — unhe tournament invite auto jaata hai."',start:'Month 2',priority:'MEDIUM'},
+{icon:'🚿',name:'Laundry/Dry Clean',deal:'₹1,499/mo',b:'ba',pain:'Pickup reminder manual. Ready for collection — WhatsApp karna padta hai. Repeat — customer forgets.',sol:'Laundry QR: Drop → SMS tracking → ready notification → pickup reminder → loyalty stamps.',pitch:'"Clothes ready hain — customer ko call karna padta hai? QR se automatic WhatsApp jaata hai. Staff time bachta hai."',start:'Month 2',priority:'MEDIUM'}
+];
+
+function renderQRIndustries(){
+  const grid=document.getElementById('qr-ind-grid');
+  const det=document.getElementById('qr-ind-det');
+  if(!grid)return;
+  QRindustries.forEach(ind=>{
+    const el=document.createElement('div');
+    el.className='ic';
+    el.innerHTML=`<div class="ic-ico">${ind.icon}</div><div class="ic-n">${ind.name}</div><div class="ic-d">${ind.deal}</div>`;
+    el.onclick=()=>{
+      document.querySelectorAll('.ic').forEach(c=>c.classList.remove('sel'));
+      el.classList.add('sel');
+      det.innerHTML=`<div class="id-det on"><div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:11px"><div><span class="bdg ${ind.b}" style="margin-bottom:5px">${ind.priority}</span><div style="font-family:var(--font-head);font-size:16px;font-weight:600;margin-top:3px">${ind.icon} ${ind.name}</div></div><div style="text-align:right"><div style="font-size:9px;color:var(--text3)">Monthly Price</div><div style="font-family:var(--font-head);font-size:18px;font-weight:600;color:var(--orange)">${ind.deal}</div><div style="font-size:9px;color:var(--text3);margin-top:1px">Start: ${ind.start}</div></div></div><div class="g2"><div style="background:var(--redD);border:1px solid rgba(240,62,62,0.15);border-radius:var(--r);padding:10px"><div style="font-size:9px;font-weight:600;color:var(--red);margin-bottom:3px;font-family:var(--font-mono)">PAIN</div><div style="font-size:11.5px;color:#f08080;line-height:1.6">${ind.pain}</div></div><div style="background:var(--greenD);border:1px solid rgba(32,201,151,0.15);border-radius:var(--r);padding:10px"><div style="font-size:9px;font-weight:600;color:var(--green);margin-bottom:3px;font-family:var(--font-mono)">QR SOLUTION</div><div style="font-size:11.5px;color:var(--green);line-height:1.6">${ind.sol}</div></div></div><div style="margin-top:11px;font-size:11.5px;background:var(--surface2);border-radius:var(--r);padding:10px;line-height:1.65"><strong style="font-family:var(--font-mono);font-size:9px;color:var(--orange2)">PITCH ANGLE</strong><br><span style="color:var(--text2)">${ind.pitch}</span></div></div></div>`;
+      det.scrollIntoView({behavior:'smooth',block:'start'});
+    };
+    grid.appendChild(el);
+  });
+}
+
+function nav(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('page-'+id).classList.add('on');
+  if(btn)btn.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function togglePlan(id,btn){
+  document.querySelectorAll('.pc').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.pb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('plan-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+function toggleSC(el){
+  const body=el.nextElementSibling;
+  const isOpen=body.classList.contains('open');
+  document.querySelectorAll('.sc-body').forEach(b=>b.classList.remove('open'));
+  if(!isOpen)body.classList.add('open');
+}
+
+renderQRIndustries();
+</script>
+</body>
+</html>

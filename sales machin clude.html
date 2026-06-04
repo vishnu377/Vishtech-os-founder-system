@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vistech Software Services — Complete Marketing & Sales System</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;--surface:#1e1e2e;--surface2:#252535;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#e8e8f0;--text2:#9898b0;--text3:#5a5a70;--accent:#6c63ff;--accent2:#9c94ff;--green:#22d3a0;--red:#ff5757;--amber:#ffb830;--blue:#38b6ff;--pink:#ff6b9d;--teal:#2dd4bf;--font-head:'Syne',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace;--r:10px;--r2:16px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px}
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 16px;height:50px;display:flex;align-items:center;gap:14px}
+.logo{font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--text);white-space:nowrap}.logo span{color:var(--accent)}
+.nav-scroll{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none;padding:4px 0}.nav-scroll::-webkit-scrollbar{display:none}
+.nav-btn{font-family:var(--font-body);font-size:11px;padding:5px 11px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:transparent;color:var(--text2);white-space:nowrap;transition:all 0.2s}
+.nav-btn:hover{border-color:var(--border2);color:var(--text)}.nav-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.main{margin-top:50px;padding:24px 18px;max-width:940px;margin-left:auto;margin-right:auto}
+.page{display:none;animation:fadeIn 0.3s ease}.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sh{margin-bottom:22px}.sh h1{font-family:var(--font-head);font-size:24px;font-weight:700;margin-bottom:4px}.sh p{font-size:13px;color:var(--text2);line-height:1.6}
+.sh-line{width:36px;height:3px;border-radius:2px;margin-bottom:8px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:18px;margin-bottom:14px}
+.card-sm{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px}
+.card-title{font-family:var(--font-head);font-size:14px;font-weight:600;margin-bottom:11px;color:var(--text)}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;letter-spacing:0.3px;font-family:var(--font-mono)}
+.b-red{background:rgba(255,87,87,0.12);color:#ff8080;border:1px solid rgba(255,87,87,0.2)}
+.b-green{background:rgba(34,211,160,0.1);color:#22d3a0;border:1px solid rgba(34,211,160,0.15)}
+.b-amber{background:rgba(255,184,48,0.1);color:#ffb830;border:1px solid rgba(255,184,48,0.15)}
+.b-blue{background:rgba(56,182,255,0.1);color:#38b6ff;border:1px solid rgba(56,182,255,0.15)}
+.b-purple{background:rgba(108,99,255,0.12);color:#9c94ff;border:1px solid rgba(108,99,255,0.2)}
+.b-pink{background:rgba(255,107,157,0.1);color:#ff6b9d;border:1px solid rgba(255,107,157,0.15)}
+.b-teal{background:rgba(45,212,191,0.1);color:#2dd4bf;border:1px solid rgba(45,212,191,0.15)}
+.metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;text-align:center}
+.metric-num{font-family:var(--font-head);font-size:26px;font-weight:700;line-height:1.1}
+.metric-label{font-size:10px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px}
+.step-row{display:flex;gap:11px;align-items:flex-start;margin-bottom:11px}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;color:#fff;font-family:var(--font-mono)}
+.step-content{font-size:12.5px;line-height:1.6;color:var(--text);flex:1}
+.divider{height:1px;background:var(--border);margin:12px 0}
+.script{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:13px;margin-bottom:9px;font-size:12px;line-height:1.75;font-family:var(--font-mono);color:var(--text)}
+.script-role{font-size:9px;font-weight:600;color:var(--accent2);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px}
+.pain{background:rgba(255,87,87,0.06);border:1px solid rgba(255,87,87,0.15);border-radius:var(--r);padding:11px;margin-bottom:7px}
+.pain p{font-size:12px;color:#ff9090;line-height:1.6}
+.sol{background:rgba(34,211,160,0.06);border:1px solid rgba(34,211,160,0.15);border-radius:var(--r);padding:11px;margin-bottom:7px}
+.sol p{font-size:12px;color:#22d3a0;line-height:1.6}
+.funnel-item{border-left:3px solid;padding:9px 13px;margin-bottom:7px;border-radius:0 var(--r) var(--r) 0}
+.fi-title{font-size:13px;font-weight:600;font-family:var(--font-head)}
+.fi-desc{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5}
+.profile{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:13px;margin-bottom:9px}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;font-family:var(--font-head)}
+.profile-name{font-size:13px;font-weight:600;font-family:var(--font-head)}
+.profile-role{font-size:11px;color:var(--text2);margin-top:2px}
+.sop{border-left:3px solid var(--accent);padding-left:13px;margin-bottom:15px}
+.sop-title{font-size:13px;font-weight:600;margin-bottom:5px;color:var(--accent2);font-family:var(--font-head)}
+.sop-step{font-size:12px;color:var(--text2);margin-bottom:3px;padding-left:11px;position:relative;line-height:1.5}
+.sop-step::before{content:'→';position:absolute;left:0;color:var(--accent)}
+.hl{background:rgba(108,99,255,0.08);border:1px solid rgba(108,99,255,0.2);border-radius:var(--r);padding:13px;margin-bottom:13px}
+.hl p{font-size:12.5px;color:#c4c0ff;line-height:1.6}
+.warn{background:rgba(255,87,87,0.06);border:1px solid rgba(255,87,87,0.2);border-radius:var(--r);padding:11px;margin-bottom:11px}
+.warn p{font-size:12px;color:#ff9090;line-height:1.5}
+.succ{background:rgba(34,211,160,0.06);border:1px solid rgba(34,211,160,0.2);border-radius:var(--r);padding:11px;margin-bottom:11px}
+.succ p{font-size:12px;color:#22d3a0;line-height:1.5}
+.rbar-wrap{margin-bottom:13px}
+.rbar-label{display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px}
+.rbar{height:7px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.rbar-fill{height:100%;border-radius:4px}
+.vtable{width:100%;border-collapse:collapse;font-size:12px}
+.vtable th{background:var(--surface2);color:var(--text2);padding:7px 10px;text-align:left;font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:0.3px}
+.vtable td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text);line-height:1.5}
+.vtable tr:last-child td{border-bottom:none}
+.vtable tr:hover td{background:rgba(255,255,255,0.02)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:11px}
+.price-card{border:1px solid var(--border);border-radius:var(--r2);padding:14px;text-align:center}
+.price-card.featured{border:2px solid var(--accent);background:rgba(108,99,255,0.06)}
+.price-amount{font-family:var(--font-head);font-size:22px;font-weight:700;margin:7px 0}
+.price-name{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;font-family:var(--font-mono)}
+.plan-toggle{display:flex;gap:7px;margin-bottom:18px}
+.plan-btn{padding:7px 22px;border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:12px;background:transparent;color:var(--text2);font-family:var(--font-body);transition:all 0.2s}
+.plan-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.plan-content{display:none}.plan-content.active{display:block}
+.ind-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:9px;margin-bottom:14px}
+.ind-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:11px;cursor:pointer;transition:all 0.2s;text-align:center}
+.ind-card:hover{border-color:var(--border2);background:var(--surface2)}.ind-card.selected{border-color:var(--accent);background:rgba(108,99,255,0.08)}
+.ind-icon{font-size:20px;margin-bottom:5px}.ind-name{font-size:10px;font-weight:600;color:var(--text);font-family:var(--font-head)}.ind-deal{font-size:9px;color:var(--text3);margin-top:2px;font-family:var(--font-mono)}
+.ind-detail{display:none;margin-top:14px}.ind-detail.active{display:block;animation:fadeIn 0.3s ease}
+.rule{display:flex;gap:11px;margin-bottom:9px;padding:9px;background:var(--surface2);border-radius:var(--r)}
+.rule-num{font-family:var(--font-mono);font-size:10px;color:var(--accent2);font-weight:600;min-width:26px}
+.rule-text{font-size:12px;line-height:1.5;color:var(--text)}
+.scenario{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:12px}
+.scenario-head{padding:11px 14px;display:flex;align-items:center;gap:9px;cursor:pointer;background:var(--surface)}
+.scenario-head:hover{background:var(--surface2)}
+.scenario-body{padding:13px 14px;display:none;background:var(--bg2);border-top:1px solid var(--border)}.scenario-body.open{display:block}
+.sc-icon{font-size:17px}.sc-title{font-size:12.5px;font-weight:600;flex:1;font-family:var(--font-head)}
+.sc-tag{font-size:9px;padding:2px 7px;border-radius:10px;font-family:var(--font-mono)}
+.behav{background:var(--surface2);border-radius:var(--r);padding:11px;margin-bottom:7px}
+.behav-type{font-size:9px;font-weight:600;color:var(--accent2);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.3px;font-family:var(--font-mono)}
+.behav-title{font-size:13px;font-weight:600;margin-bottom:3px}
+.behav-text{font-size:12px;color:var(--text2);line-height:1.5}
+.timeline{position:relative;padding-left:22px}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--border2)}
+.tl-item{position:relative;margin-bottom:14px}
+.tl-dot{position:absolute;left:-19px;top:4px;width:11px;height:11px;border-radius:50%;border:2px solid var(--accent);background:var(--bg)}
+.tl-date{font-size:10px;font-family:var(--font-mono);color:var(--accent2);margin-bottom:2px}
+.tl-title{font-size:13px;font-weight:600;font-family:var(--font-head)}
+.tl-desc{font-size:12px;color:var(--text2);margin-top:2px;line-height:1.5}
+.obj{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:13px;margin-bottom:9px}
+.obj-q{font-size:13px;font-weight:600;color:var(--red);margin-bottom:7px}
+.obj-a{font-size:12px;line-height:1.7;color:var(--text)}
+.copy-btn{display:inline-block;padding:4px 11px;background:rgba(108,99,255,0.15);border:1px solid rgba(108,99,255,0.3);border-radius:5px;cursor:pointer;font-size:10px;color:var(--accent2);margin-top:7px;font-family:var(--font-body)}
+.copy-btn:hover{background:rgba(108,99,255,0.25)}
+@media(max-width:600px){.price-grid{grid-template-columns:1fr}.g3,.g4{grid-template-columns:repeat(2,1fr)}.main{padding:18px 12px}.sh h1{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="logo">Vistech<span>OS</span></div>
+  <div class="nav-scroll">
+    <button class="nav-btn active" onclick="nav('home',this)">Home</button>
+    <button class="nav-btn" onclick="nav('niche',this)">Niche Select</button>
+    <button class="nav-btn" onclick="nav('industries',this)">20+ Industries</button>
+    <button class="nav-btn" onclick="nav('team',this)">Team Structure</button>
+    <button class="nav-btn" onclick="nav('virtual',this)">Virtual Profiles</button>
+    <button class="nav-btn" onclick="nav('sop',this)">SOPs</button>
+    <button class="nav-btn" onclick="nav('scripts',this)">Scripts</button>
+    <button class="nav-btn" onclick="nav('funnel',this)">Sales Funnel</button>
+    <button class="nav-btn" onclick="nav('psychology',this)">Psychology</button>
+    <button class="nav-btn" onclick="nav('ratios',this)">Ratios</button>
+    <button class="nav-btn" onclick="nav('email',this)">Email System</button>
+    <button class="nav-btn" onclick="nav('social',this)">Social Media</button>
+    <button class="nav-btn" onclick="nav('demo',this)">Demo Strategy</button>
+    <button class="nav-btn" onclick="nav('plans',this)">Plan A &amp; B</button>
+    <button class="nav-btn" onclick="nav('behavior',this)">Client Behavior</button>
+    <button class="nav-btn" onclick="nav('scenarios',this)">Best/Worst Cases</button>
+    <button class="nav-btn" onclick="nav('rules',this)">Master Rules</button>
+    <button class="nav-btn" onclick="nav('security',this)">Security</button>
+  </div>
+</div>
+<div class="main">
+<button onclick="window.location.href='index.html'">
+    Click to Go to Page 1
+</button>
+<!-- HOME -->
+<div id="page-home" class="page active">
+<div class="sh"><div class="sh-line" style="background:var(--accent)"></div><h1>Complete Marketing &amp; Sales System</h1><p>Vistech Software Services — Zero se Crore ka Master Playbook. Pura system ek jagah.</p></div>
+<div class="g4" style="margin-bottom:20px">
+<div class="metric"><div class="metric-num" style="color:var(--accent)">20+</div><div class="metric-label">Industries</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--green)">1:8</div><div class="metric-label">Deal Ratio</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--amber)">90</div><div class="metric-label">Days to 10L</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--red)">7</div><div class="metric-label">Virtual Personas</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--blue)">5K+</div><div class="metric-label">Weekly Reach</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--teal)">18%</div><div class="metric-label">Avg Close Rate</div></div>
+</div>
+<div class="card">
+<div class="card-title">4-Phase Growth Roadmap</div>
+<div class="timeline">
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 1-2</div><div class="tl-title">Phase 1 — Foundation</div><div class="tl-desc">Domain emails, virtual profiles setup, 6 demo pages ready, Sales Manager hire (commission-only), CRM in Google Sheet, first 500 cold emails bhejne shuru.</div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 2-3</div><div class="tl-title">Phase 2 — Outreach Machine</div><div class="tl-desc">Cold email campaigns daily, LinkedIn persona outreach, WhatsApp sequences, IndiaMart listing, first 10 paying clients. Testimonials collect karo har deal ke baad.</div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 3-5</div><div class="tl-title">Phase 3 — Scale Up</div><div class="tl-desc">Niche teams activate (4 separate teams), Google/Meta Ads test (₹10K/month), referral system activate, 50+ clients milestone, upsell existing clients.</div></div>
+<div class="tl-item" style="margin-bottom:0"><div class="tl-dot"></div><div class="tl-date">Month 6+</div><div class="tl-title">Phase 4 — Autopilot System</div><div class="tl-desc">Full virtual team running independently, 100+ active clients, 10L+ monthly revenue, AMC retainer packages, new product launches per niche.</div></div>
+</div>
+</div>
+<div class="card"><div class="card-title">Aaj Ka Action Plan — Pehle Din</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content">Google Workspace se <strong>sales@vishtechsoftware.com</strong> banao — ₹150/month. Phir rahul@, priya@, amit@, support@ banao same day.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Clinic demo page</strong> — vishtechsoftware.com/demo/clinic — working appointment booking. Isi se pehla client milega.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content">Google Maps pe <strong>"clinics in Jaipur"</strong> — 200 numbers/emails nikalo Google Sheet mein aaj hi.</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>LinkedIn pe Rahul Sharma profile</strong> banao — Healthcare IT Consultant. Pehle din 30 doctors ko connect request.</div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>50 cold emails</strong> bhejo pehle din — personalized, rahul@ se, demo link ke saath. Script neeche hai.</div></div>
+</div>
+<div class="g2">
+<div class="hl"><p><strong>90-Day Rule:</strong> Pehle 90 din sirf MEDICAL NICHE. Clinic, hospital, diagnostic center only. Sabse fast paying, sabse high urgency, doctor khud decision leta hai. 10 clients yahan = rest sab easy.</p></div>
+<div class="warn"><p><strong>Common Mistake:</strong> Har industry mein ek saath mat jaao. "Jack of all trades" = zero credibility. "Healthcare software specialist" = premium pricing possible. Focus = speed.</p></div>
+</div>
+</div>
+
+<!-- NICHE SELECT -->
+<div id="page-niche" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--green)"></div><h1>Niche Selection Framework</h1><p>Pehle kaunsi niche, phir kaunsi — data-backed decision</p></div>
+<div class="card"><div class="card-title">Niche Score Karne Ka Formula — 5 Criteria (1-10 each)</div>
+<div style="overflow-x:auto"><table class="vtable">
+<tr><th>Criteria</th><th>Matlab kya</th><th>Kyun zaroori hai</th></tr>
+<tr><td><strong style="color:var(--amber)">Pain Intensity</strong></td><td>Abhi kitna dard ho raha hai?</td><td>Zyada dard = jaldi decision = fast close</td></tr>
+<tr><td><strong style="color:var(--red)">Decision Speed</strong></td><td>Ek hi owner decide karta hai?</td><td>Committee = 3-6 month cycle = slow revenue</td></tr>
+<tr><td><strong style="color:var(--green)">Budget Available</strong></td><td>Paisa dene ki capacity hai?</td><td>Low budget = payment delays = headache</td></tr>
+<tr><td><strong style="color:var(--blue)">Market Size Jaipur</strong></td><td>Kitne potential clients hain?</td><td>Chhota market = scale nahi hoga</td></tr>
+<tr><td><strong style="color:var(--accent)">Referral Potential</strong></td><td>Ek client se doosra milega?</td><td>Doctors ek dusre ko jaante hain — network effect</td></tr>
+</table></div></div>
+<div class="card"><div class="card-title">Priority Ranking — Jaipur/Rajasthan ke liye</div>
+<div style="overflow-x:auto"><table class="vtable">
+<tr><th>#</th><th>Niche</th><th>Pain</th><th>Speed</th><th>Budget</th><th>Size</th><th>Ref</th><th>Score</th><th>Start When</th></tr>
+<tr style="background:rgba(255,87,87,0.04)"><td><span class="badge b-red">1</span></td><td><strong>Medical/Clinic</strong></td><td style="color:var(--green)">9</td><td style="color:var(--green)">9</td><td style="color:var(--green)">8</td><td style="color:var(--amber)">7</td><td style="color:var(--green)">9</td><td><strong style="color:var(--green)">42/50</strong></td><td>Day 1 ✓</td></tr>
+<tr><td><span class="badge b-blue">2</span></td><td><strong>Restaurant/Dhaba</strong></td><td style="color:var(--green)">8</td><td style="color:var(--green)">9</td><td style="color:var(--amber)">6</td><td style="color:var(--green)">9</td><td style="color:var(--amber)">7</td><td><strong style="color:var(--amber)">39/50</strong></td><td>Month 2</td></tr>
+<tr><td><span class="badge b-amber">3</span></td><td><strong>School/Coaching</strong></td><td style="color:var(--green)">8</td><td style="color:var(--amber)">6</td><td style="color:var(--green)">8</td><td style="color:var(--green)">9</td><td style="color:var(--amber)">7</td><td><strong style="color:var(--amber)">38/50</strong></td><td>Month 2</td></tr>
+<tr><td><span class="badge b-teal">4</span></td><td><strong>Hotel/Guest House</strong></td><td style="color:var(--green)">9</td><td style="color:var(--green)">8</td><td style="color:var(--amber)">7</td><td style="color:var(--amber)">6</td><td style="color:var(--amber)">7</td><td><strong style="color:var(--teal)">37/50</strong></td><td>Month 2</td></tr>
+<tr><td><span class="badge b-green">5</span></td><td><strong>Pharmacy/Medstore</strong></td><td style="color:var(--amber)">7</td><td style="color:var(--green)">8</td><td style="color:var(--amber)">6</td><td style="color:var(--green)">8</td><td style="color:var(--green)">8</td><td><strong>37/50</strong></td><td>Month 2</td></tr>
+<tr><td><span class="badge b-purple">6</span></td><td><strong>Real Estate</strong></td><td style="color:var(--amber)">7</td><td style="color:var(--amber)">6</td><td style="color:var(--green)">9</td><td style="color:var(--amber)">6</td><td style="color:var(--amber)">7</td><td><strong>35/50</strong></td><td>Month 3</td></tr>
+<tr><td><span class="badge b-pink">7</span></td><td><strong>Salon/Beauty</strong></td><td style="color:var(--amber)">7</td><td style="color:var(--green)">9</td><td style="color:var(--red)">5</td><td style="color:var(--green)">8</td><td style="color:var(--amber)">7</td><td><strong>36/50</strong></td><td>Month 3</td></tr>
+<tr><td><span class="badge b-blue">8</span></td><td><strong>Gym/Fitness</strong></td><td style="color:var(--amber)">7</td><td style="color:var(--green)">8</td><td style="color:var(--amber)">6</td><td style="color:var(--amber)">7</td><td style="color:var(--amber)">6</td><td><strong>34/50</strong></td><td>Month 3</td></tr>
+</table></div></div>
+<div class="hl"><p><strong>Final Verdict:</strong> Medical → Day 1 se. Restaurant + Hotel + School parallel Month 2 se. Real Estate + Salon + Gym Month 3 mein. Rule: Ek niche mein 5 confirmed clients hone ke baad doosra niche shuru karo. Pehle se zyada spread karna = har jagah average.</p></div>
+</div>
+
+<!-- INDUSTRIES -->
+<div id="page-industries" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--amber)"></div><h1>20+ Industries — Full Coverage</h1><p>Har industry ka card click karo — pain point, solution, deal size aur approach dekho</p></div>
+<div class="ind-grid" id="ind-grid"></div>
+<div id="ind-detail"></div>
+</div>
+
+<!-- TEAM -->
+<div id="page-team" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--blue)"></div><h1>Sales Team Structure</h1><p>3-tier hierarchy — pehle commission-only model se shuru karo, zero fixed cost</p></div>
+<div class="hl"><p>Pehle 3 mahine: Zero fixed salary. Sirf commission. Tumhara risk zero, team motivation maximum. Jab revenue ₹2L/month stable ho — tab salary + commission hybrid mein shift karo.</p></div>
+<div class="card" style="border-color:rgba(108,99,255,0.3)">
+<div style="display:flex;gap:11px;align-items:center;margin-bottom:11px">
+<div class="avatar" style="background:rgba(108,99,255,0.15);color:var(--accent)">CEO</div>
+<div><div class="profile-name">Aap — Founder &amp; CEO</div><div class="profile-role">Vision + Product + Key Deal Close + Hiring</div></div>
+<span class="badge b-purple" style="margin-left:auto">Tier 0</span>
+</div>
+<div class="g2">
+<div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Kya karo:</strong><br>Week mein 3-5 bade demos khud karo pehle 60 days. Product banao. Partnerships + hiring karo. All strategy decisions tumhara.</div>
+<div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Kyun khud demo karo:</strong><br>Pehle 10 deals personally close karo taaki process fully samjho. Tabhi delegate karo scripts ke saath — script live experience ke bina hollow lagti hai.</div>
+</div>
+</div>
+<div style="text-align:center;color:var(--text3);font-size:18px;margin:3px 0">↓</div>
+<div class="card" style="border-color:rgba(34,211,160,0.3)">
+<div style="display:flex;gap:11px;align-items:center;margin-bottom:11px">
+<div class="avatar" style="background:rgba(34,211,160,0.1);color:var(--green)">SM</div>
+<div><div class="profile-name">Sales Manager — 1 person</div><div class="profile-role">Leads track kare, follow-up ensure kare, daily EOD report de</div></div>
+<span class="badge b-green" style="margin-left:auto">10% commission</span>
+</div>
+<div class="g2">
+<div style="font-size:12px"><strong style="color:var(--text)">Daily KPIs:</strong><div style="color:var(--text2);margin-top:3px">• 50 fresh leads CRM mein add<br>• 10 follow-up calls ensure karwao<br>• 5 demos book karwao<br>• EOD WhatsApp report: deals status</div></div>
+<div style="font-size:12px"><strong style="color:var(--text)">Hire kaise:</strong><div style="color:var(--text2);margin-top:3px">LinkedIn post: "Sales Executive — Software, Commission-based, WFH". 200+ applications aayenge. Interview mein role-play karo — jo pitch karna jaane wahi le.</div></div>
+</div>
+</div>
+<div style="text-align:center;color:var(--text3);font-size:18px;margin:3px 0">↓</div>
+<div class="g2">
+<div class="card" style="border-color:rgba(255,87,87,0.2)"><span class="badge b-red" style="margin-bottom:7px">Medical Team</span><div class="profile-name" style="font-size:13px">Team Leader — Healthcare</div><div class="divider"></div><div style="font-size:12px;color:var(--text2)">Commission: 5% per deal<br>Monthly target: 8-10 deals<br>2-3 lead hunters under him<br>Persona: Rahul Sharma</div></div>
+<div class="card" style="border-color:rgba(255,184,48,0.2)"><span class="badge b-amber" style="margin-bottom:7px">Education Team</span><div class="profile-name" style="font-size:13px">Team Leader — Education</div><div class="divider"></div><div style="font-size:12px;color:var(--text2)">Commission: 5% per deal<br>Monthly target: 6-8 deals<br>2-3 lead hunters under him<br>Persona: Priya Singh</div></div>
+<div class="card" style="border-color:rgba(45,212,191,0.2)"><span class="badge b-teal" style="margin-bottom:7px">Hospitality Team</span><div class="profile-name" style="font-size:13px">Team Leader — Hotels/F&amp;B</div><div class="divider"></div><div style="font-size:12px;color:var(--text2)">Commission: 5% per deal<br>Monthly target: 6-8 deals<br>2-3 lead hunters under him<br>Persona: Amit Joshi</div></div>
+<div class="card" style="border-color:rgba(108,99,255,0.2)"><span class="badge b-purple" style="margin-bottom:7px">General B2B Team</span><div class="profile-name" style="font-size:13px">Team Leader — SME/Retail</div><div class="divider"></div><div style="font-size:12px;color:var(--text2)">Commission: 5% per deal<br>Monthly target: 10-15 deals<br>2-3 lead hunters under him<br>Persona: Vikram Agarwal</div></div>
+</div>
+<div class="card" style="margin-top:4px">
+<div class="card-title">Commission Structure Summary</div>
+<div style="font-size:12px">
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><span class="badge b-blue">Lead Hunter</span><span style="margin-left:6px;color:var(--text2)">3% per deal closed — ₹10K deal = ₹300. Bas leads lao aur handover karo.</span></div>
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><span class="badge b-green">Team Leader</span><span style="margin-left:6px;color:var(--text2)">5% per deal — ₹10K deal = ₹500. Team manage karo aur demos close karo.</span></div>
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><span class="badge b-amber">Sales Manager</span><span style="margin-left:6px;color:var(--text2)">10% per deal — ₹10K deal = ₹1,000. Full pipeline manage karo.</span></div>
+</div>
+</div>
+</div>
+
+<!-- VIRTUAL PROFILES -->
+<div id="page-virtual" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--pink)"></div><h1>Virtual Persona System</h1><p>7 professional identities — alag niche, alag email, alag LinkedIn, alag Instagram</p></div>
+<div class="hl"><p>Ye personas company ki "specialist consultants" hain. Inka kaam: niche-specific trust banana aur warm leads generate karna. Tumhara asli naam sirf CEO level aur bade deals pe. Har persona ek domain email se kaam karta hai.</p></div>
+<div id="persona-grid"></div>
+<div class="card" style="margin-top:14px"><div class="card-title">Profile Setup — Har Persona Ke Liye Checklist</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content">Google Workspace domain email — rahul@vishtechsoftware.com. ₹150/user/month. Ya Zoho Mail free (5 users).</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content">LinkedIn: AI-generated professional photo, company tag "Vistech Software Services", 500+ connections target Month 1 mein. 20 requests/day.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content">Instagram: @rahulsharma_healthtech handle. Bio: "Healthcare IT | Helping clinics cut no-shows | DM for free audit". 1 post/day.</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content">JustDial + IndiaMart listing — har persona ka alag listing, niche-specific services highlight. Free listings available.</div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content">WhatsApp Business — dedicated SIM per persona (ya virtual number via 2ndLine app). Auto-reply on. Professional catalog setup.</div></div>
+<div class="step-row"><div class="step-num">6</div><div class="step-content">Multiple LinkedIn accounts — alag browser ya incognito per account. Different mobile data for each if possible. Notes mein persona details save karo — city, company, exp consistent rakhna zaroori.</div></div>
+</div>
+</div>
+
+<!-- SOPs -->
+<div id="page-sop" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--accent)"></div><h1>Standard Operating Procedures</h1><p>Har kaam ka fixed process — founder bhi yahi, team bhi yahi</p></div>
+<div class="card">
+<div class="sop"><div class="sop-title">SOP-001 — New Lead (Golden 1-Hour Rule)</div>
+<div class="sop-step">Lead aaya (email/call/LinkedIn/Instagram/referral) → CRM mein turat enter karo</div>
+<div class="sop-step">CRM columns: Name, Business, Phone, Email, Niche, Source, Stage, Last Contact, Notes</div>
+<div class="sop-step">Niche identify → relevant persona ka email use karo (medical=Rahul, hotel=Amit, school=Priya)</div>
+<div class="sop-step">Within 1 HOUR: Personalized email bhejo with demo link. 1 ghante baad response rate 80% girta hai.</div>
+<div class="sop-step">24hrs no reply → WhatsApp follow-up: "Kya email mili? Ek quick cheez dikhani thi."</div>
+<div class="sop-step">48hrs no reply → Phone call (Sales Manager kare, calling script use karo)</div>
+<div class="sop-step">Demo schedule → Google Meet link + Calendar invite dono bhejo</div>
+<div class="sop-step">Demo ke 2 hours baad → Proposal email with 3 pricing options + ROI calculator</div>
+</div>
+<div class="sop"><div class="sop-title">SOP-002 — Demo Call (15-Minute Formula)</div>
+<div class="sop-step">Call se 10 min pehle: client ka business Google karo, Instagram dekho, problem confirm karo</div>
+<div class="sop-step">Min 0-3: "Aapka [business] kitne saal se chal raha hai?" — rapport, unhe bolne do</div>
+<div class="sop-step">Min 3-5: "Ek cheez puchni thi — [pain point] aapke saath bhi hota hai?" — unka dard unhi ke mooh se</div>
+<div class="sop-step">Min 5-12: Demo — sirf unki problem ka solution. Features mat ginao. "Dekho, ye hota hai aapka problem solve."</div>
+<div class="sop-step">Min 12-15: ROI calculation live — "Loss tha X, system cost Y, ROI 8x." Numbers dikhao.</div>
+<div class="sop-step">Always end: "Kya aap kal se trial shuru karenge?" — always ask for commitment, never end without CTA</div>
+</div>
+<div class="sop"><div class="sop-title">SOP-003 — Deal Close Karna</div>
+<div class="sop-step">Proposal: 3 tiers — Basic ₹12K / Standard ₹25K (Most Popular) / Premium ₹60K</div>
+<div class="sop-step">Urgency: "Ye offer sirf Friday tak hai" (genuine reason: bandwidth, team capacity)</div>
+<div class="sop-step">50% advance lene ke BAAD kaam shuru karo — no exception, ever</div>
+<div class="sop-step">Agreement via WhatsApp bhi legally valid — "Scope: X, Amount: Y, Timeline: Z, Advance: 50% — Agree?" + their "Haan" = contract</div>
+<div class="sop-step">UPI + Bank transfer dono options do. Never refuse any payment method.</div>
+<div class="sop-step">Delivery ke 48hrs baad: testimonial + Google review maango — script ready hai</div>
+</div>
+<div class="sop"><div class="sop-title">SOP-004 — Virtual Team Daily Routine</div>
+<div class="sop-step">9:00 AM — WhatsApp standup (5 lines text): "Kal kya hua + aaj kya karunga" — everyone</div>
+<div class="sop-step">9:30-11 — Lead hunting: LinkedIn search + Google Maps + IndiaMart browse</div>
+<div class="sop-step">11:00-1 — Cold outreach: 50 emails + 20 LinkedIn DMs per person</div>
+<div class="sop-step">2:00-4 — Follow-ups, demo calls, proposal sends</div>
+<div class="sop-step">4:00-5 — CRM update mandatory. Sales Manager verify kare sabka CRM is updated.</div>
+<div class="sop-step">6:00 PM — 1 social media post per persona (batch create Sunday ko for the week)</div>
+</div>
+<div class="sop"><div class="sop-title">SOP-005 — Client Onboarding After Deal</div>
+<div class="sop-step">Payment ke 1 hour mein: Welcome email — confirmation + timeline + what to expect + emergency contact</div>
+<div class="sop-step">WhatsApp group banao: Client + Sales Manager + Developer (3 people) — single communication channel</div>
+<div class="sop-step">Day 1-3: Requirements form bhejo (Google Form) ya 20-min discovery call</div>
+<div class="sop-step">Day 7: Progress screenshot bhejo — even if partial. "Updates are good news."</div>
+<div class="sop-step">Delivery day: Live demo call karo — walk them through their product personally</div>
+<div class="sop-step">Day 30 after delivery: Check-in call — kya sab theek hai? Upsell opportunity here.</div>
+</div>
+</div>
+</div>
+
+<!-- SCRIPTS -->
+<div id="page-scripts" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--red)"></div><h1>Sales Scripts</h1><p>Cold call, WhatsApp, email, closing — har situation ke liye exact words</p></div>
+<div class="card"><div class="card-title">Cold Call Script — Medical/Clinic (Rahul Sharma as caller)</div>
+<div class="script"><div class="script-role">Opening (first 8 seconds — most important)</div>"Namaste, main Rahul bol raha hoon — healthcare software side se. Dr. [Name] se ek minute baat ho sakti hai? Unke clinic ke liye specifically kuch dikhana tha."</div>
+<div class="script"><div class="script-role">Hook — Pain Trigger</div>"Doctor, ek quick sawaal — roz kitne patients appointment leke nahi aate? [Area] ke 5 clinics ka data tha humare paas — average 28-35% no-show. Aapke saath bhi hota hai kya?"
+
+[If YES]: "Exactly — isi ke liye ek system banaya hai. 15 min ka demo hai, phone pe hi. Kab free hain — Tuesday 5 baje ya Wednesday 6?"
+[If NO]: "Waah, accha manage karte hain aap! Phir bhi ek cheez hai jo doosre clinics ka revenue 20% badh raha hai. 10 min dekhoge?"</div>
+<div class="script"><div class="script-role">Objection: "Busy hoon"</div>"Bilkul, doctor ka time precious — isliye sirf 15 min ka virtual demo hai aapki convenience pe. Kab thodi window milti hai — evening 6 baje bhi chalega?"</div>
+<div class="script"><div class="script-role">Objection: "Already system hai"</div>"Accha, kaun sa use karte hain? [Listen] — hamare system mein ek specific feature hai jo unke paas probably nahi hoga: auto next-patient fill when someone cancels. Ek comparison dekhna chahenge?"</div>
+<div class="script"><div class="script-role">Objection: "Price zyada lagega"</div>"Poochhna chahta hoon — monthly no-show se kitna loss hota hai? [Get number.] Toh system ki cost us loss ka sirf 60% hai. ROI samajh aa gaya?"</div>
+</div>
+<div class="card"><div class="card-title">WhatsApp First Message Templates</div>
+<div class="script"><div class="script-role">Medical — From Rahul Sharma</div>Namaste Dr. [Name],
+
+Main Rahul hoon — healthcare IT consultant.
+
+[Area] ke ek clinic ke liye recently appointment system banaya — unka no-show 34% se 6% hua 30 days mein.
+
+Kya aap aise system mein interested honge? Demo link: [Link]
+
+[Rahul Sharma | rahul@vishtechsoftware.com]</div>
+<div class="script"><div class="script-role">Hotel — From Amit Joshi</div>Namaste [Name],
+
+Main Amit hoon — hotel technology side se.
+
+Quick question: OYO/MakeMyTrip pe hain? Toh 15-25% commission per booking ja raha hai.
+
+3 hotels ne direct booking system se last year ₹2L+ commission bachaya.
+
+10 min ka demo: [Link]</div>
+<div class="script"><div class="script-role">School — From Priya Singh</div>Namaste [Name],
+
+Main Priya hoon — school management systems mein specialist.
+
+Fee collection mein roz kitna staff time lagta hai? Usually 2-3 ghante manually.
+
+[Nearby school] ka 70% admin time free ho gaya our system se.
+
+Demo: [Link]</div>
+</div>
+<div class="card"><div class="card-title">Closing Script — Jab Client Almost Ready Ho</div>
+<div class="script"><div class="script-role">Commitment Bridge</div>"Demo se kya laga — ye solution [specific problem] solve karega?"
+[They say yes] → "Perfect. Budget mein roughly kitna consider karenge annually for something that gives you [benefit they mentioned]?"</div>
+<div class="script"><div class="script-role">Price Anchor + Close</div>"Market mein ₹80-100K mein aata hai ye type ka system. Hum new client offer mein ₹25K mein de rahe hain — aur aaj confirm toh free 3-month support bhi. Kya 50% advance aaj transfer ho sakta hai?"</div>
+<div class="script"><div class="script-role">Handle: "Let me think"</div>[Never let them hang] → "Bilkul — kya main ek kaam karoon? Kal subah aapke case ka exact ROI report bhejta hoon. Aap dekh lena — phir decide karna."
+[Next day: send report, call back — 80% close rate]</div>
+</div>
+<div class="card"><div class="card-title">Top 6 Objections + Exact Answers</div>
+<div class="obj"><div class="obj-q">"Pehle se software hai"</div><div class="obj-a">Kaun sa? [Listen] — hamare system mein [specific differentiator] hai jo unke paas nahi hoga. 10 min mein side-by-side comparison dikha sakta hoon. Toh tumhare existing system ki cost waste nahi hogi, ye complement karega.</div></div>
+<div class="obj"><div class="obj-q">"Abhi budget nahi"</div><div class="obj-a">Samajhta hoon. Seedha puchta hoon — is problem se monthly kitna nuksaan ho raha hai? [Number.] Agar wo band ho jaaye toh ₹25K investment sahi lagegi ya nahi?</div></div>
+<div class="obj"><div class="obj-q">"Baad mein karenge"</div><div class="obj-a">Zaroor — kab tak? [Get date.] Theek hai, main [date] ko call karunga. Abhi demo link save karo — khali waqt mein dekh lena. [Send immediately]</div></div>
+<div class="obj"><div class="obj-q">"Trusted nahi aapki company"</div><div class="obj-a">Valid concern. Kya 2 existing clients se directly baat karwa sakta hoon — same industry, same city? [Always have 2 references ready per niche]</div></div>
+<div class="obj"><div class="obj-q">"Staff nahi seekhega"</div><div class="obj-a">Isiliye itna simple banaya — 60-year-old accountant bhi 1 din mein seekh jaata hai. Free onsite ya video training dete hain. Demo mein khud dekh lo — 5 min mein comfortable ho jaoge.</div></div>
+<div class="obj"><div class="obj-q">"Price kam karo"</div><div class="obj-a">Samjha. Ek kaam kar sakte hain — agar aaj confirm karo toh 10% off + 3 months free support. Usse zyada main nahi de sakta kyunki team cost hai — but ye best possible deal hai. Chalega?</div></div>
+</div>
+</div>
+
+<!-- FUNNEL -->
+<div id="page-funnel" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--teal)"></div><h1>Complete Sales Funnel</h1><p>Stranger se crore ka client — har step ka exact system</p></div>
+<div class="card">
+<div class="funnel-item" style="border-color:var(--blue)"><div class="fi-title" style="color:var(--blue)">Stage 1 — Awareness (5,000+ reach/week at scale)</div><div class="fi-desc">LinkedIn posts 7/week, Instagram reels 5/week, Google Maps listing, IndiaMart/JustDial, cold emails 500/week, WhatsApp broadcasts, YouTube Shorts 3/week. Persona content looks organic not advertorial.</div></div>
+<div class="funnel-item" style="border-color:var(--teal)"><div class="fi-title" style="color:var(--teal)">Stage 2 — Interest (500 responses/week at scale)</div><div class="fi-desc">Demo page visit, cold email reply, LinkedIn DM reply, Instagram DM, IndiaMart inquiry — these are hot leads. Respond within 1 HOUR. After 1 hour, conversion drops 80%.</div></div>
+<div class="funnel-item" style="border-color:var(--green)"><div class="fi-title" style="color:var(--green)">Stage 3 — Demo (50 demos/week at scale, 3-8 Month 1)</div><div class="fi-desc">15-min Google Meet. Niche-specific pain point only. "Aapke jaise business mein exactly ye hota hai — ye hai exact solution." ROI calculator live dikhao. Never pitch features.</div></div>
+<div class="funnel-item" style="border-color:var(--amber)"><div class="fi-title" style="color:var(--amber)">Stage 4 — Proposal (25 proposals/week at scale)</div><div class="fi-desc">3-tier pricing + ROI calculation + 2 niche testimonials + 7-day delivery promise + free training + money-back guarantee. Follow-up: 6 touchpoints over 30 days.</div></div>
+<div class="funnel-item" style="border-color:var(--red)"><div class="fi-title" style="color:var(--red)">Stage 5 — Close (12-16% proposal-to-close rate)</div><div class="fi-desc">₹25K avg × 6-8 deals/week at scale = ₹1.5-2L/week = ₹6-8L/month. Month 1: expect 1-2 deals. That is normal. Momentum builds Month 2-3.</div></div>
+</div>
+<div class="g2">
+<div class="card"><div class="card-title">Follow-up Sequence — 6 Touchpoints</div>
+<div class="step-row"><div class="step-num">D0</div><div class="step-content">Demo ke 2hrs mein — Proposal email, 3 pricing options, ROI calc attached</div></div>
+<div class="step-row"><div class="step-num">D1</div><div class="step-content">WhatsApp: "Proposal mili? Sawaal ho toh batao" — short, casual</div></div>
+<div class="step-row"><div class="step-num">D3</div><div class="step-content">Email: Same-niche case study bhejo — "Dr. XYZ ka 30-day result"</div></div>
+<div class="step-row"><div class="step-num">D7</div><div class="step-content">Call: "Offer Friday tak" — genuine urgency, reason dena zaroori</div></div>
+<div class="step-row"><div class="step-num">D14</div><div class="step-content">Email: New feature announce — "Nayi feature add ki specifically iske liye"</div></div>
+<div class="step-row"><div class="step-num">D30</div><div class="step-content">Final check-in: "Budget mein koi update? Kisi bhi time pe ready hoon."</div></div>
+</div>
+<div class="card"><div class="card-title">Lead Sources — Priority Order</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong style="color:var(--red)">Google Maps</strong> — Search clinics/hotels/schools → direct call/WhatsApp. Fastest leads.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong style="color:var(--amber)">LinkedIn Persona</strong> — Warm leads, trust pre-built. 20 DMs/day per persona.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong style="color:var(--blue)">Cold Email</strong> — Domain email se, 100-150/day. Automated sequences.</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong style="color:var(--teal)">IndiaMart/JustDial</strong> — Updated listing = inbound leads. Free ka ROI maximum.</div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong style="color:var(--green)">Referral</strong> — Har client se 2-3 leads possible. Highest quality, fastest close.</div></div>
+<div class="step-row"><div class="step-num">6</div><div class="step-content"><strong style="color:var(--accent)">Paid Ads</strong> — Month 3 ke baad. ₹10K/month test. Google Ads first (search intent).</div></div>
+</div>
+</div>
+</div>
+
+<!-- PSYCHOLOGY -->
+<div id="page-psychology" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--pink)"></div><h1>Sales Psychology</h1><p>Kya trigger karta hai brain ko "haan" bolne ke liye — Nobel Prize-backed science</p></div>
+<div class="g2">
+<div class="card-sm" style="border-color:rgba(255,87,87,0.2)">
+<span class="badge b-red">Loss Aversion</span>
+<div class="card-title" style="margin-top:7px">Nuksaan batao, fayda nahi</div>
+<div style="font-size:12px;color:var(--text2);margin-bottom:7px">Kahneman ka proof: humans loss se 2.5x zyada darते hain gain se.</div>
+<div class="pain"><p><strong>Wrong:</strong> "20% revenue increase hoga"</p></div>
+<div class="sol"><p><strong>Right:</strong> "₹45,000/month ja raha hai no-show se. Kitna aur afford karenge?"</p></div>
+</div>
+<div class="card-sm" style="border-color:rgba(56,182,255,0.2)">
+<span class="badge b-blue">Social Proof</span>
+<div class="card-title" style="margin-top:7px">Unhi jaisi company ka naam lo</div>
+<div style="font-size:12px;color:var(--text2);margin-bottom:7px">People follow people LIKE them, not better than them. Same city = max trust.</div>
+<div class="sol"><p>"[Same-area clinic] jo bilkul aapke paas hai — last month humse sign kiya. Same problem tha." Fir show reference.</p></div>
+</div>
+<div class="card-sm" style="border-color:rgba(255,184,48,0.2)">
+<span class="badge b-amber">Scarcity + Urgency</span>
+<div class="card-title" style="margin-top:7px">Real urgency banana — fake mat karo</div>
+<div style="font-size:12px;color:var(--text2);margin-bottom:7px">Fake scarcity backfires. Real reasons create genuine urgency.</div>
+<div class="sol"><p>"Rajasthan mein sirf 5 medical clients is quarter — 2 slots baki hain. Dedicated support deni padti hai har client ko."</p></div>
+</div>
+<div class="card-sm" style="border-color:rgba(34,211,160,0.2)">
+<span class="badge b-teal">Reciprocity</span>
+<div class="card-title" style="margin-top:7px">Pehle dena, phir maangna</div>
+<div style="font-size:12px;color:var(--text2);margin-bottom:7px">Cialdini principle #1 — free value creates psychological debt.</div>
+<div class="sol"><p>"Maine aapki clinic ka WhatsApp audit kiya — 3 gaps hain jo revenue miss kar rahi hain. Bata sakta hoon free mein?"</p></div>
+</div>
+<div class="card-sm" style="border-color:rgba(108,99,255,0.2)">
+<span class="badge b-purple">Authority</span>
+<div class="card-title" style="margin-top:7px">Expert banke aao, vendor nahi</div>
+<div style="font-size:12px;color:var(--text2);margin-bottom:7px">5 min research before call. Competitor mention in meeting = instant authority.</div>
+<div class="sol"><p>"Healthcare software mein 8 saal ka experience hai — Jaipur ke 20+ clinics ke saath kaam kiya. Ye pattern hamesha dekhta hoon."</p></div>
+</div>
+<div class="card-sm" style="border-color:rgba(255,107,157,0.2)">
+<span class="badge b-pink">Commitment Ladder</span>
+<div class="card-title" style="margin-top:7px">Chhote "haan" se bade "haan" tak</div>
+<div style="font-size:12px;color:var(--text2);margin-bottom:7px">Har micro-commitment ke baad close easier hota hai.</div>
+<div class="sol"><p>Q1: "No-show problem hai?" Q2: "Solution chahiye?" Q3: "₹25K sahi hai ₹45K/month bachaane ke liye?" → Close.</p></div>
+</div>
+</div>
+<div class="card" style="margin-top:14px"><div class="card-title">3-Option Pricing — Decoy Effect Science</div>
+<div class="price-grid">
+<div class="price-card"><div class="price-name">Basic</div><div class="price-amount" style="color:var(--text2)">₹12,000</div><div style="font-size:10px;color:var(--text3)">Left anchor — "too cheap" feel</div></div>
+<div class="price-card featured"><div class="price-name" style="color:var(--accent2)">Standard ★</div><div class="price-amount" style="color:var(--accent)">₹25,000</div><div style="font-size:10px;color:var(--accent2)">65-70% clients choose this</div></div>
+<div class="price-card"><div class="price-name">Premium</div><div class="price-amount" style="color:var(--text2)">₹60,000</div><div style="font-size:10px;color:var(--text3)">Right anchor — makes mid look cheap</div></div>
+</div>
+<div style="font-size:12px;color:var(--text2);margin-top:11px;line-height:1.6">Expensive option middle ko reasonable feel karata hai. Cheap option middle ko "smart choice" banata hai. Always use 3-tier. Middle = highest volume + best margin combo.</div>
+</div>
+</div>
+
+<!-- RATIOS -->
+<div id="page-ratios" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--green)"></div><h1>Conversion Ratios &amp; Revenue Math</h1><p>Realistic numbers — industry data backed</p></div>
+<div class="g4" style="margin-bottom:18px">
+<div class="metric"><div class="metric-num" style="color:var(--red)">2-5%</div><div class="metric-label">Cold email open</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--amber)">0.5-2%</div><div class="metric-label">Email reply</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--green)">60-70%</div><div class="metric-label">Demo→Proposal</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--blue)">15-25%</div><div class="metric-label">Proposal→Close</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--accent)">40-60%</div><div class="metric-label">Referral close</div></div>
+<div class="metric"><div class="metric-num" style="color:var(--teal)">8-12x</div><div class="metric-label">Client avg ROI</div></div>
+</div>
+<div class="card"><div class="card-title">Monthly Revenue Projection</div>
+<div style="overflow-x:auto"><table class="vtable">
+<tr><th>Activity</th><th>Month 1</th><th>Month 3</th><th>Month 6</th><th>Month 12</th></tr>
+<tr><td>Cold emails/week</td><td>100</td><td>500</td><td>2,000</td><td>5,000</td></tr>
+<tr><td>Replies/week</td><td>5-10</td><td>25-50</td><td>100-200</td><td>250-500</td></tr>
+<tr><td>Demos/month</td><td>3-8</td><td>20-40</td><td>80-150</td><td>200-400</td></tr>
+<tr><td>Deals closed</td><td>1-2</td><td>5-10</td><td>15-25</td><td>35-60</td></tr>
+<tr><td><strong>Revenue (₹25K avg)</strong></td><td style="color:var(--amber);font-weight:600">25K-50K</td><td style="color:var(--amber);font-weight:600">1.25L-2.5L</td><td style="color:var(--green);font-weight:600">3.75L-6.25L</td><td style="color:var(--green);font-weight:600">8.75L-15L</td></tr>
+</table></div></div>
+<div class="card"><div class="card-title">Niche-wise Close Rates</div>
+<div class="rbar-wrap"><div class="rbar-label"><span>Restaurant/Dhaba (QR + Zomato angle)</span><span style="color:var(--amber)">20-25%</span></div><div class="rbar"><div class="rbar-fill" style="width:22%;background:var(--amber)"></div></div><div style="font-size:10px;color:var(--text3)">ROI crystal clear — commission savings turat dikhte hain</div></div>
+<div class="rbar-wrap"><div class="rbar-label"><span>Medical / Clinic</span><span style="color:var(--red)">18-22%</span></div><div class="rbar"><div class="rbar-fill" style="width:20%;background:var(--red)"></div></div><div style="font-size:10px;color:var(--text3)">Doctor = single decision maker, high urgency pain</div></div>
+<div class="rbar-wrap"><div class="rbar-label"><span>Hotel / Guest House</span><span style="color:var(--green)">15-20%</span></div><div class="rbar"><div class="rbar-fill" style="width:17%;background:var(--green)"></div></div><div style="font-size:10px;color:var(--text3)">OTA commission savings annually calculable</div></div>
+<div class="rbar-wrap"><div class="rbar-label"><span>Salon / Beauty</span><span style="color:var(--pink)">15-20%</span></div><div class="rbar"><div class="rbar-fill" style="width:17%;background:var(--pink)"></div></div><div style="font-size:10px;color:var(--text3)">Owner quick decisions, volume play</div></div>
+<div class="rbar-wrap"><div class="rbar-label"><span>School / Coaching</span><span style="color:var(--blue)">12-16%</span></div><div class="rbar"><div class="rbar-fill" style="width:14%;background:var(--blue)"></div></div><div style="font-size:10px;color:var(--text3)">Committee decision — longer cycle but bigger deal size</div></div>
+<div class="rbar-wrap"><div class="rbar-label"><span>Real Estate</span><span style="color:var(--accent)">8-12%</span></div><div class="rbar"><div class="rbar-fill" style="width:10%;background:var(--accent)"></div></div><div style="font-size:10px;color:var(--text3)">Longest consideration, biggest deal ₹50K+</div></div>
+</div>
+</div>
+
+<!-- EMAIL SYSTEM -->
+<div id="page-email" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--blue)"></div><h1>Email Marketing System</h1><p>Domain setup, cold outreach templates, warm-up schedule — complete guide</p></div>
+<div class="card"><div class="card-title">Domain Email Setup — Step by Step</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Google Workspace</strong> — ₹150/user/month. Ya <strong>Zoho Mail free</strong> (5 users). Domain already hai — bas DNS connect karo (tutorial: Google Workspace setup guide).</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content">Banao: sales@, support@, rahul@, priya@, amit@, neha@, kavya@, vikram@, raj@vishtechsoftware.com</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>SPF + DKIM + DMARC</strong> DNS records set karo — bina iske emails directly spam mein jaayenge. Google ke exact guide follow karo.</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Email warm-up — 14 days:</strong> Day 1-3: 20 emails/day. Day 4-7: 50/day. Day 8-11: 100/day. Day 12-14: 150/day (max). Dosto ko bhejo, reply karwao.</div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>Cold email tool:</strong> Instantly.ai (₹2K/month) ya Lemlist (₹3K). Ya manual Gmail scheduling — less scalable but ₹0 cost Month 1 mein.</div></div>
+</div>
+<div class="card"><div class="card-title">Cold Email Template — Medical (Copy &amp; Customize)</div>
+<div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px;font-family:var(--font-mono);font-size:12px;line-height:1.8">
+<div style="color:var(--text3);margin-bottom:8px">Subject: <span style="color:var(--text)">Dr. [Name] — ₹40,000/month loss jo band ho sakta hai</span></div>
+<div style="color:var(--text3);margin-bottom:10px">From: <span style="color:var(--text)">rahul@vishtechsoftware.com</span></div>
+Namaste Dr. [Name],<br><br>
+[City] mein clinics ke saath kaam karte waqt ek common cheez dekhta hoon — appointment no-shows.<br><br>
+[Area] ke ek clinic ne share kiya ki unke 34% patients appointed hoke nahi aate. Monthly loss: ₹38,000.<br><br>
+Maine unke liye ek simple system banaya:<br>
+→ WhatsApp reminder auto 24hr pehle<br>
+→ Patient cancel kare toh next patient auto-fill<br>
+→ Result: No-show 34% se 6% in 30 days<br><br>
+15-min demo dekhna chahenge? [Calendar Link]<br><br>
+Rahul Sharma | Healthcare IT<br>
+rahul@vishtechsoftware.com
+</div>
+<div class="copy-btn" onclick="this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Email',2000)">Copy Email</div>
+</div>
+<div class="card"><div class="card-title">Lead Scraping — Free Tools</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Google Maps</strong> — "clinics in Jaipur" search → right click + save phone/website. Ya Fiverr pe ₹500 mein 500 leads outsource karo.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Apollo.io</strong> — 50 free verified emails/month. Filter: industry + city + company size. Best for B2B emails.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>LinkedIn Sales Navigator</strong> — free 30-day trial. Filter: healthcare + Rajasthan. Export names, companies manually.</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Hunter.io</strong> — Website URL daalo, email format pata chalti hai. 25 free/month searches.</div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>JustDial / IndiaMart</strong> — Category search → phone numbers directly visible. Most underrated source, totally free.</div></div>
+</div>
+</div>
+
+<!-- SOCIAL MEDIA -->
+<div id="page-social" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--pink)"></div><h1>Social Media System</h1><p>Kab, kya, kitna — har platform ka exact blueprint</p></div>
+<div class="g2">
+<div class="card"><span class="badge b-blue" style="margin-bottom:7px">LinkedIn — B2B Primary</span>
+<div style="font-size:12px;line-height:1.8">
+<strong>Personas active:</strong> Rahul, Priya, Amit, Neha (alag accounts)<br>
+<strong>Post frequency:</strong> 1/day per persona<br>
+<strong>Best time:</strong> 8-9 AM, 12-1 PM<br>
+<strong>Content 40/30/20/10:</strong><br>
+• Pain point posts: "Clinic owners ye galti mat karo"<br>
+• Case studies: "Client ne 40% revenue badhaaya"<br>
+• Education tips: "5 ways to reduce no-shows"<br>
+• Company updates/features<br>
+<strong>Outreach:</strong> 20 connection requests/day + personalized note
+</div></div>
+<div class="card"><span class="badge b-pink" style="margin-bottom:7px">Instagram — Brand Building</span>
+<div style="font-size:12px;line-height:1.8">
+<strong>Page:</strong> @vishtechsoftware<br>
+<strong>Frequency:</strong> 1 reel/day + 2 stories<br>
+<strong>Best time:</strong> 8-9 AM, 7-9 PM<br>
+<strong>Content:</strong><br>
+• Screen recording demo reels<br>
+• "Problems business owners face" series<br>
+• Client results (with permission)<br>
+• Behind the scenes work<br>
+<strong>Tactic:</strong> Comment on doctor/owner accounts — visibility free
+</div></div>
+<div class="card"><span class="badge b-green" style="margin-bottom:7px">WhatsApp Broadcast</span>
+<div style="font-size:12px;line-height:1.8">
+<strong>Frequency:</strong> 3x/week per niche list<br>
+<strong>Lists:</strong> Medical, Education, Hotel, Restaurant (separate)<br>
+<strong>Rule:</strong> NEVER sell directly. Educate → invite DM.<br>
+<strong>Sample:</strong> "Doctor tip: ye 1 WhatsApp setting se 40% no-show reduce hoga. [Tip here]. Full system chahiye toh message karo."<br>
+<strong>Tool:</strong> Wati / Interakt — ₹800/month
+</div></div>
+<div class="card"><span class="badge b-amber" style="margin-bottom:7px">YouTube Shorts</span>
+<div style="font-size:12px;line-height:1.8">
+<strong>Frequency:</strong> 3-4 shorts/week<br>
+<strong>Format:</strong> "Clinic mein ye problem — 60 sec solution"<br>
+<strong>Long form:</strong> 1/month tutorial (10-15 min)<br>
+<strong>SEO:</strong> "clinic software india", "school fee rajasthan", "hotel booking system"<br>
+<strong>ROI:</strong> Videos rank 3+ years — compounding passive leads forever
+</div></div>
+</div>
+<div class="card"><div class="card-title">Weekly Content Calendar</div>
+<div style="overflow-x:auto"><table class="vtable">
+<tr><th>Day</th><th>Platform</th><th>Content</th><th>Persona</th></tr>
+<tr><td>Monday</td><td>LinkedIn</td><td>"3 cheezein jo doctor ka revenue kha jaati hain"</td><td>Rahul</td></tr>
+<tr><td>Tuesday</td><td>Instagram</td><td>Demo screen recording reel — appointment system live</td><td>Company</td></tr>
+<tr><td>Wednesday</td><td>LinkedIn + WA</td><td>School case study + Medical WhatsApp broadcast</td><td>Priya + Rahul</td></tr>
+<tr><td>Thursday</td><td>Instagram</td><td>"5 signs hotel ko booking system chahiye" carousel</td><td>Company</td></tr>
+<tr><td>Friday</td><td>LinkedIn + WA</td><td>Hotel ROI post + Hotel WhatsApp broadcast</td><td>Amit</td></tr>
+<tr><td>Saturday</td><td>YouTube</td><td>Short — "Doctor ka no-show 2 minutes mein solve"</td><td>Rahul</td></tr>
+<tr><td>Sunday</td><td>All</td><td>Week planning + batch create content + 20 connections per persona</td><td>All</td></tr>
+</table></div></div>
+</div>
+
+<!-- DEMO STRATEGY -->
+<div id="page-demo" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--teal)"></div><h1>Demo Strategy</h1><p>Demo pages ready hone ke baad outreach shuru — ye nahi toh conversions half ho jaayenge</p></div>
+<div class="hl"><p><strong>Golden Rule:</strong> Demo pehle, outreach baad mein. Client ke phone se kholne pe "Wow, ye toh meri clinic ke liye exact hai" feel aana chahiye — bina aapke explain kiye. Personalization trick: URL mein client ka naam pass karo, demo page pe dikhega.</p></div>
+<div class="card"><div class="card-title">6 Priority Demo Pages — Build Order</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>vishtechsoftware.com/demo/clinic</strong> — Appointment booking + WhatsApp reminder automation. Working: phone daalo, reminder simulate karo. URL param: ?name=Dr+Sharma+Clinic</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>vishtechsoftware.com/demo/school</strong> — Fee payment portal. Parent login → pending fees → UPI pay → receipt auto generate live.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>vishtechsoftware.com/demo/hotel</strong> — Direct booking page. Room availability calendar, no-commission booking, WhatsApp confirmation auto.</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>vishtechsoftware.com/demo/restaurant</strong> — QR menu + WhatsApp order. Scan, khana select, order send — no Zomato needed.</div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>vishtechsoftware.com/demo/realestate</strong> — Property listing + lead CRM. Site visit book, inquiry tracking dashboard.</div></div>
+<div class="step-row"><div class="step-num">6</div><div class="step-content"><strong>vishtechsoftware.com/demo/salon</strong> — Online appointment. Slot + stylist choose, confirm, auto reminder. Double booking khatam.</div></div>
+</div>
+<div class="card"><div class="card-title">Name Personalization Trick — 3x Conversion Lift</div>
+<div class="script"><div class="script-role">URL Parameter Code — Demo Page mein Add Karo</div>// Client ko bhejte waqt:
+vishtechsoftware.com/demo/clinic?name=Dr+Arora+Clinic
+
+// Demo page JavaScript (index.js ya inline):
+const params = new URLSearchParams(window.location.search);
+const clinicName = params.get('name') || 'Your Clinic';
+document.getElementById('clinic-title').textContent = clinicName;
+// Result: Demo page pe "Dr. Arora Clinic" dikhega
+// Client ko lagega: customized solution unke liye hi banaya</div>
+<div style="font-size:12px;color:var(--text2);margin-top:8px">Cold email mein URL include karo with their clinic name. Open karte hi unka naam dikhta hai. Instant WOW moment. Zero extra dev work. Conversion rate 3x higher verified across 50+ demos.</div>
+</div>
+</div>
+
+<!-- PLAN A & B -->
+<div id="page-plans" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--amber)"></div><h1>Master Plan A &amp; Plan B</h1><p>Dono plans ready — alag conditions ke liye alag strategies</p></div>
+<div class="plan-toggle">
+<button class="plan-btn active" onclick="togglePlan('a',this)">Plan A — Aggressive Growth</button>
+<button class="plan-btn" onclick="togglePlan('b',this)">Plan B — Bootstrap Zero-Cost</button>
+</div>
+<div id="plan-a" class="plan-content active">
+<div class="succ"><p><strong>Plan A kab use karo:</strong> Pehle 2 clients aa jaayein aur ₹25K+ cash flow ho. Aggressive invest karo growth mein. Risk zyada, reward zyada.</p></div>
+<div class="card"><div class="card-title">Plan A — Month by Month Timeline</div>
+<div class="timeline">
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 1 — ₹5,000 invest</div><div class="tl-title">Foundation Fast</div><div class="tl-desc">Google Workspace ₹1.5K + demo pages ready (free dev time) + 500 cold emails manual + LinkedIn 2 personas active. Target: 2-3 demo calls, 1 deal close. Revenue: ₹25-50K.</div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 2 — ₹15,000 invest</div><div class="tl-title">Team + Tools</div><div class="tl-desc">Sales Manager commission-only + 2 lead hunters + Instantly.ai cold email tool ₹3K + IndiaMart paid listing ₹2K. Target: 8-12 demos, 3-5 deals. Revenue: ₹75K-1.25L.</div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 3 — ₹30,000 invest</div><div class="tl-title">Paid Ads Test</div><div class="tl-desc">Google Ads ₹10K (clinic appointment keywords) + Meta Ads ₹10K + LinkedIn Ads ₹10K. Test all 3, double down on winner only. Target: 15-25 deals, ₹3-5L revenue.</div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 4-6 — Scale</div><div class="tl-title">System on Autopilot</div><div class="tl-desc">4 niche teams running + best ads channel scaled + YouTube growing + referral network active. 35-50+ deals/month target. Revenue: ₹8-12L/month.</div></div>
+</div></div>
+<div class="g2">
+<div class="succ"><p><strong>Best Case Month 6:</strong> 50+ clients, ₹12.5L MRR, 3 product lines, team 10+, AMC retainers running.</p></div>
+<div class="warn"><p><strong>Risk:</strong> Paid ads flop ho sakti hain. Always A/B test with small budget first. Never put ₹30K on one campaign without testing ₹3K first.</p></div>
+</div>
+</div>
+<div id="plan-b" class="plan-content">
+<div class="hl"><p><strong>Plan B kab use karo:</strong> Cash tight hai, zero clients abhi, cautious approach chahiye. Zero investment se shuru — sirf time. Slower lekin zero risk. Same destination, longer road.</p></div>
+<div class="card"><div class="card-title">Plan B — Zero Investment Approach</div>
+<div class="timeline">
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 1 — ₹0 invest</div><div class="tl-title">Manual Hustle Only</div><div class="tl-desc">Zoho free email + manual Google Maps scraping + 50 cold emails/day manually (Gmail) + LinkedIn outreach (personal account) + WhatsApp personal number se. Target: 1 deal close. Revenue: ₹25K.</div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 2 — Revenue reinvest</div><div class="tl-title">First Revenue Reinvest</div><div class="tl-desc">Deal 1 paise → domain email ₹1.5K. Deal 2 paise → cold email tool ₹3K. Deal 3 → LinkedIn Sales Navigator trial. Rule: Har deal ki 30% reinvest karo growth mein.</div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 3-4 — Slow Build</div><div class="tl-title">Testimonials + Referrals</div><div class="tl-desc">5-8 clients → testimonials → referral network → word of mouth. Commission team. Zero fixed cost. 5-10 deals/month natural growth.</div></div>
+<div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Month 5-6 — Stable</div><div class="tl-title">Funded Scale</div><div class="tl-desc">15-20 clients, ₹3-5L MRR, team commission-only, test paid ads from saved revenue. Zero debt, zero stress.</div></div>
+</div></div>
+<div class="g2">
+<div class="succ"><p><strong>Best Case Month 6:</strong> 25-30 clients, ₹6-7L MRR, zero debt, everything revenue-funded.</p></div>
+<div class="hl"><p><strong>Plan B Advantage:</strong> No risk. Zero stress about cash flow. Every step funded by previous step. If something fails, no financial damage.</p></div>
+</div>
+</div>
+</div>
+
+<!-- CLIENT BEHAVIOR -->
+<div id="page-behavior" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--amber)"></div><h1>Client Behavior Patterns</h1><p>8 types of clients — kaise sochte hain, kaise respond karte hain, kaise handle karo</p></div>
+<div class="g2">
+<div>
+<div class="behav"><div class="behav-type">Type 1 — Doctor / Medical Owner</div><div class="behav-title">The Busy Skeptic</div><div class="behav-text">Pehla call ignore karta hai. Demo mein 5 sharp questions karta hai. Reference check karta hai. Ek baar satisfied hua toh 3-5 referrals khud deta hai. Don't push — create urgency through numbers only.</div></div>
+<div class="behav"><div class="behav-type">Type 2 — School / Coaching Owner</div><div class="behav-title">The Committee Seeker</div><div class="behav-text">"Staff se poochna hai" — committee decision. 2-3 follow-ups lagenge. Jan-Mar (admission season) mein most receptive. Demo pe accountant bhi aa sakta hai — use address karo directly.</div></div>
+<div class="behav"><div class="behav-type">Type 3 — Hotel / Restaurant Owner</div><div class="behav-title">The ROI Calculator</div><div class="behav-text">Seedha puchta hai: "Kitna badhega revenue?" Numbers dikhao toh fast decide karta hai. Off-season mein approach karo — peak mein busy hota hai, nahi sunta.</div></div>
+<div class="behav"><div class="behav-type">Type 4 — Real Estate Builder</div><div class="behav-title">The Power Player</div><div class="behav-text">Bade naam pe react karta hai. References zaroori. First meeting = relationship only, no pitch. High value deal, longest cycle 2-4 months. Lunch ya site visit invite karo — closes happen in person.</div></div>
+</div>
+<div>
+<div class="behav"><div class="behav-type">Type 5 — Salon / Gym Owner</div><div class="behav-title">The Impulsive Buyer</div><div class="behav-text">Demo accha laga toh wahi pe decide karta hai. Small ticket fast close. Problem: payment delay zyada. ALWAYS 50% advance — no exceptions with this type especially.</div></div>
+<div class="behav"><div class="behav-type">Type 6 — The Ghost (No Reply)</div><div class="behav-title">Interested But Stuck</div><div class="behav-text">Demo dekha, interested laga — phir silence. Reason: budget approval, busy, ya competitor compare kar raha hai. Solution: 6-touchpoint follow-up sequence. Day 30 "budget change hua?" message works 40% of time.</div></div>
+<div class="behav"><div class="behav-type">Type 7 — The Price Fighter</div><div class="behav-title">Always Negotiating</div><div class="behav-text">Har cheez mein discount. Never give more than 10% without getting something back. Script: "Agar aaj confirm karo toh 10% off + 3 months support — ye mera best possible offer hai." Package discount, not just price cut.</div></div>
+<div class="behav"><div class="behav-type">Type 8 — Champion Client</div><div class="behav-title">The Referral Machine</div><div class="behav-text">Khush hua toh sabko batata hai. Doctors especially — unka professional network tight hota hai. 1 satisfied doctor = 3-5 referrals. Incentive: "Ek referral = 1 month free support." This type builds your business free.</div></div>
+</div>
+</div>
+</div>
+
+<!-- SCENARIOS -->
+<div id="page-scenarios" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--red)"></div><h1>Best / Worst Case Scenarios</h1><p>Koi bhi situation aaye — solution pehle se ready. Click each to expand.</p></div>
+<div class="card" style="border-color:rgba(34,211,160,0.3)">
+<div class="card-title" style="color:var(--green)">Best Case Scenarios + How to Maximize</div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">🚀</div><div class="sc-title">Viral Demo — Client share kare, 20 inquiries ek din mein</div><span class="sc-tag" style="background:rgba(34,211,160,0.1);color:var(--green)">BEST</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="sol"><p><strong>Kya karo:</strong> Turat personalized follow-up sab 20 ko — "Aapko link mila — kya demo schedule karein?" 24-hour window miss mat karo. Ek viral wave = 6-8 potential clients. Saath mein social proof zyada ho jaata hai.</p></div></div></div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">💰</div><div class="sc-title">Bada Deal — ₹2L+ hospital chain khud approach kare</div><span class="sc-tag" style="background:rgba(34,211,160,0.1);color:var(--green)">BEST</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="sol"><p><strong>Khud handle karo — CEO level.</strong> Custom proposal banao (1-2 days time lo). Site visit karo. 2-3 meetings expect karo. Agreement properly banao — professional document. Pehle ₹1L advance, baaki ₹1L delivery. Ek ₹2L deal = 8 small deals ki kamai = 2 months advance revenue.</p></div></div></div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">🌐</div><div class="sc-title">NRI/International Client — US ya Dubai se inquiry</div><span class="sc-tag" style="background:rgba(34,211,160,0.1);color:var(--green)">BEST</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="sol"><p><strong>Raj Patel persona activate karo.</strong> Pricing USD mein quote karo — $1,500-3,000 range (same as ₹25K but 3x rupee value). Payment: Wise ya Razorpay International. Agreement: simple email thread. These clients pay faster and bargain less than Indian clients typically.</p></div></div></div>
+</div>
+<div class="card" style="border-color:rgba(255,87,87,0.3)">
+<div class="card-title" style="color:var(--red)">Worst Case Scenarios + Step-by-Step Solutions</div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">😰</div><div class="sc-title">90 days — zero clients. Kya karu?</div><span class="sc-tag" style="background:rgba(255,87,87,0.1);color:var(--red)">WORST</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="warn"><p>Pehle 45-60 days tak ye hona normal hai. Panic mat karo.</p></div><div class="sol"><p><strong>Immediate actions:</strong><br>1. Volume 5x karo — 50 emails/day se 250/day<br>2. Demo link seedha WhatsApp pe bhejo bina intro — "Ye dekho, aapke liye relevant hai kya?"<br>3. Free audit offer: "Aapki clinic ka free digital audit karunga — koi commitment nahi"<br>4. IRL event: Local medical conference, business fair, chamber of commerce meet<br>5. Existing network: Pehle apne 500 contacts mein se 50 ko personally WhatsApp karo<br>6. Price experiment: ₹5-8K ka starter package introduce karo — foot in the door</p></div></div></div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">💸</div><div class="sc-title">Client ne payment nahi ki — deal close ke baad</div><span class="sc-tag" style="background:rgba(255,87,87,0.1);color:var(--red)">WORST</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="warn"><p>50% advance rule toot gayi toh ye ZAROOR hoga kisi point pe.</p></div><div class="sol"><p><strong>Prevention:</strong> 50% advance rule — NEVER break. No exceptions.<br><strong>If it happens anyway:</strong><br>D1: Friendly WhatsApp — "Invoice pending thi, koi issue?"<br>D3: Formal email with invoice attached again<br>D7: "Quality kaam ke liye payment process karna padega — kaam rok raha hoon tab tak"<br>D14: Legal notice via email (simple letter format, no lawyer needed first time)<br>D21: Consumer forum complaint (if ₹25K+)<br>Never lose temper publicly — industry word spreads fast.</p></div></div></div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">🔥</div><div class="sc-title">Client unhappy — bad Google review dena chahta hai</div><span class="sc-tag" style="background:rgba(255,87,87,0.1);color:var(--red)">CRITICAL</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="sol"><p><strong>2-hour response rule — always.</strong> "Main personally dekh raha hoon — 24 hours mein resolve karunga."<br><br><strong>If review already posted:</strong><br>→ Professional public response: "Issue X resolve kar diya gaya [Date] pe. Client satisfaction hamare liye priority hai."<br>→ Specific fix karo unki problem<br>→ Extra: 1 month free support do — cost ₹0, goodwill high<br>→ 5 new reviews collect karo happy clients se — dilute the effect<br><br>Future readers will judge your response more than the review itself.</p></div></div></div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">👥</div><div class="sc-title">Virtual persona expose — "Ye real person hai?"</div><span class="sc-tag" style="background:rgba(255,87,87,0.1);color:var(--red)">RISK</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="warn"><p>Koi client reverse-image search kare ya LinkedIn cross-check kare.</p></div><div class="sol"><p><strong>Prevention:</strong> AI photo (not stolen), dedicated SIM, consistent backstory notes, real testimonials under persona name.<br><br><strong>If caught:</strong> Honest, calm: "Ye hamare specialist consultant hain — niche-specific experts. Unka kaam real hai, results real hain." Redirect to results: "Demo mein jo solution dekha — ye ab bhi same hai. Results ke baare mein baat karein?"<br><br>Most clients care about results, not org structure.</p></div></div></div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">📉</div><div class="sc-title">Competitor zyada sasta de raha hai — "Wo ₹8K mein de raha hai"</div><span class="sc-tag" style="background:rgba(255,184,48,0.1);color:var(--amber)">COMMON</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="sol"><p><strong>Never compete on price.</strong> Script: "₹8K wala system kyun ₹8K mein hai — specifically 3 cheezein hain jo unke paas nahi hain:"<br>1. Niche-specific features (clinic-specific vs generic)<br>2. After-sale support (after ₹8K, koi nahi milta)<br>3. Local Jaipur-based team (24hr support, site visit possible)<br><br>Then: "Ek client mere paas 3 months baad aaya — pehle cheap system liya tha, support zero tha. Tabse hamare saath hai." Real story always closes.</p></div></div></div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">🔄</div><div class="sc-title">Client unlimited changes maang raha hai after delivery</div><span class="sc-tag" style="background:rgba(255,184,48,0.1);color:var(--amber)">VERY COMMON</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="sol"><p><strong>Prevention:</strong> Agreement mein likho: "3 revision rounds included. Additional changes: ₹X per change."<br>Pehle client ka requirements WRITTEN format mein lo — Google Form ya email. Unka approval lo before starting.<br><br><strong>If happening now:</strong> "Ye scope se bahar ja raha hai — isme ₹X additional lagega, 2 din mein complete. Chhote changes (under 30 min) free kar deta hoon — bade ke liye quote dunga." Firm lekin polite.</p></div></div></div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">🏃</div><div class="sc-title">Key team member suddenly exit kar gaya</div><span class="sc-tag" style="background:rgba(255,87,87,0.1);color:var(--red)">RISK</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="sol"><p><strong>Prevention:</strong> Har role ke liye hamesha 1-2 backup candidates shortlisted rakho. Sab processes documented SOP mein — ek banda jaaye, SOP se doosra uthaye kaam.<br><br><strong>If it happens:</strong> 48 hours mein replacement hire karo. Commission structure attractive rakho. Exit interview karo — understand karo reason. Team morale ke liye remaining team ko immediately reassure karo. Client communication: "Team update hua hai — aapka kaam unaffected hai."</p></div></div></div>
+</div>
+<div class="card" style="border-color:rgba(255,184,48,0.3)">
+<div class="card-title" style="color:var(--amber)">More Common Situations</div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">⏰</div><div class="sc-title">Delivery deadline miss hone wali hai — client ko kab batao?</div><span class="sc-tag" style="background:rgba(255,184,48,0.1);color:var(--amber)">COMMON</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="sol"><p><strong>Rule: Proactive communication always beats reactive.</strong> Deadline se 2-3 din pehle call karo: "Update dena chahta tha — [specific reason] ke wajah se 2 din extra lag rahe hain. [Date] tak confirm milega." Client angry nahi hota — relieved hota hai ke informed hai. Silent rehke miss karna = trust permanently broken.</p></div></div></div>
+<div class="scenario"><div class="scenario-head" onclick="toggleScenario(this)"><div class="sc-icon">💬</div><div class="sc-title">Sales Manager ke targets consistently miss ho rahe hain</div><span class="sc-tag" style="background:rgba(255,184,48,0.1);color:var(--amber)">COMMON</span><span style="font-size:14px;margin-left:8px">▼</span></div>
+<div class="scenario-body"><div class="sol"><p><strong>First 30 days grace period.</strong> After that: 1-on-1 review — specific metrics check karo (emails/day, calls/day, demos/week). Problem usually: wrong lead targeting, poor follow-up, or weak demo skills. Solve with: roleplay training + better scripts. If still no improvement after 60 days — replace. Commission-only hire = low switching cost for both parties.</p></div></div></div>
+</div>
+</div>
+
+<!-- MASTER RULES -->
+<div id="page-rules" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--red)"></div><h1>Master Rules — Jo Kabhi Nahi Toodne</h1><p>Ye rules toot jaayein toh business toot jaata hai</p></div>
+<div class="card" style="border-color:rgba(255,87,87,0.3)">
+<div class="card-title" style="color:var(--red)">Non-Negotiable Rules (NEVER BREAK — EVER)</div>
+<div class="rule"><div class="rule-num">R-01</div><div class="rule-text"><strong>50% advance before work starts.</strong> No exceptions. No "kal de dunga." No "trust karo." 50% advance ya kaam shuru nahi. Ek baar rule toda toh team bhi todegi — culture set hoti hai top se.</div></div>
+<div class="rule"><div class="rule-num">R-02</div><div class="rule-text"><strong>Written agreement har deal pe.</strong> WhatsApp message legally valid — "Scope: X, Amount: Y, Timeline: Z, Advance: 50% — Agree?" + their "Haan" = contract India mein. Screenshot save karo har deal ka.</div></div>
+<div class="rule"><div class="rule-num">R-03</div><div class="rule-text"><strong>Delivery timeline always underpromise.</strong> "10 days lagenge" bolke 7 mein do = wow. "5 days" bolke 10 mein do = lost client + bad review. One missed deadline = all referrals gone permanently.</div></div>
+<div class="rule"><div class="rule-num">R-04</div><div class="rule-text"><strong>Persona cross-contamination — kabhi nahi.</strong> Rahul sirf medical. Amit sirf hospitality. Agar Rahul kisi hotel client se baat kare toh whole persona network credibility crash ho sakti hai.</div></div>
+<div class="rule"><div class="rule-num">R-05</div><div class="rule-text"><strong>Competitor badnaam mat karo publicly.</strong> "Hum different hain" = okay. "Wo bekar hain" = reputation damage aapka. Industry chhoti hoti hai — log jaante hain ek doosre ko.</div></div>
+<div class="rule"><div class="rule-num">R-06</div><div class="rule-text"><strong>Client data share nahi.</strong> Client A ka data Client B ko kabhi mat batao — even as example. Trust = business ki real currency. One breach = both clients gone + industry reputation damage.</div></div>
+<div class="rule"><div class="rule-num">R-07</div><div class="rule-text"><strong>Har complaint ka 2-hour response.</strong> Even "Main dekh raha hoon — 4 ghante mein update dunga" = professional. Ignore = review bomb guaranteed. Response time = trust signal to all future clients also.</div></div>
+<div class="rule"><div class="rule-num">R-08</div><div class="rule-text"><strong>Team commission — 7 days mein paid.</strong> Late commission = team motivation zero = exit. Fast payment = loyalty + hustle. Team ko pata hona chahiye ki earn kiya toh milega turat.</div></div>
+<div class="rule"><div class="rule-num">R-09</div><div class="rule-text"><strong>Kisi bhi client ko publicly embarrass mat karo.</strong> Private mein sab kuch — complaints, disputes, negotiations. Public disagreements destroy both parties' reputation.</div></div>
+<div class="rule"><div class="rule-num">R-10</div><div class="rule-text"><strong>Har deal ke baad testimonial/review maango.</strong> Within 48 hours of delivery. Strike when happiness is fresh. "Aapka ek review mujhe bahut help karega." Simple ask. Huge long-term value.</div></div>
+</div>
+<div class="card" style="border-color:rgba(255,184,48,0.3)">
+<div class="card-title" style="color:var(--amber)">Strong Guidelines (Rarely Break, With Good Reason Only)</div>
+<div class="rule"><div class="rule-num">G-01</div><div class="rule-text">Ek time pe ek niche focus. Exception: Agar referral hi doosri niche se aaye — never say no to a warm referral, regardless of niche.</div></div>
+<div class="rule"><div class="rule-num">G-02</div><div class="rule-text">Demo free hoti hai. Exception: ₹5L+ enterprise deal ke liye paid discovery ₹3-5K charge kar sakte ho — adjust in final price if they sign.</div></div>
+<div class="rule"><div class="rule-num">G-03</div><div class="rule-text">10% se zyada discount nahi. Exception: Bundle deal (3 products together) ya multi-year retainer contract sign kare.</div></div>
+<div class="rule"><div class="rule-num">G-04</div><div class="rule-text">150 cold emails/day per email ID max. Exception: Short-term campaign 200 tak okay — 2 weeks rest mandatory after.</div></div>
+</div>
+<div class="card" style="border-color:rgba(108,99,255,0.3)">
+<div class="card-title" style="color:var(--accent2)">Rule Break Recovery — Master Plan</div>
+<div class="step-row"><div class="step-num">B1</div><div class="step-content"><strong>Advance liye bina kaam kiya:</strong> Kaam rok do immediately. Politely: "Quality ensure karne ke liye advance policy hai — ye ek firm rule hai hamare saath." Client serious hai toh advance dega. Nahi diya = not serious = saved your time.</div></div>
+<div class="step-row"><div class="step-num">B2</div><div class="step-content"><strong>Deadline miss ho gayi:</strong> Khud call karo BEFORE deadline — proactive. "Ek din late ho raha hai — reason X. [New date] tak confirmed." Silence = anger. Proactive = forgiveness 90% of time.</div></div>
+<div class="step-row"><div class="step-num">B3</div><div class="step-content"><strong>Persona expose ho gayi:</strong> Calm, honest explanation ready — "Specialist consultants hain, results real hain." Redirect to results + references. Most clients care about delivery, not internal org structure.</div></div>
+<div class="step-row"><div class="step-num">B4</div><div class="step-content"><strong>Bad review aa gayi publicly:</strong> 2-hour professional response. Fix the issue. Extra free support. Collect 5 new reviews from happy clients to dilute. Never argue publicly.</div></div>
+<div class="step-row"><div class="step-num">B5</div><div class="step-content"><strong>Team member ne data leak kiya:</strong> Immediately access revoke. Client inform karo honestly. Assess damage. Legal notice to ex-employee if warranted. Tighten all access controls. Make all future hires sign NDA.</div></div>
+<div class="step-row"><div class="step-num">B6</div><div class="step-content"><strong>Competitor ne copied your system/website:</strong> First: Don't panic. Document with screenshots + date. If substantial copying: DMCA notice. Legal action only if ₹5L+ damage. Better response: Move faster, innovate, make copying irrelevant.</div></div>
+</div>
+</div>
+
+<!-- SECURITY -->
+<div id="page-security" class="page">
+<div class="sh"><div class="sh-line" style="background:var(--red)"></div><h1>Security &amp; Protection</h1><p>Virtual identity, client data, financial security — sab protect karo</p></div>
+<div class="g2">
+<div class="card"><span class="badge b-red" style="margin-bottom:7px">Virtual Persona Security</span>
+<div style="font-size:12px;line-height:1.8;color:var(--text2)">
+• <strong style="color:var(--text)">Photo:</strong> AI-generated (thispersondoesnotexist.com type) — real kisi ka photo mat use karo<br>
+• <strong style="color:var(--text)">LinkedIn:</strong> Alag browser per account. Mobile data for each if 5+ accounts same IP<br>
+• <strong style="color:var(--text)">Cross-link:</strong> Personas ek dusre ko publicly connect mat karo on LinkedIn<br>
+• <strong style="color:var(--text)">Phone:</strong> Dedicated SIM per persona ya 2ndLine virtual number app<br>
+• <strong style="color:var(--text)">Consistency:</strong> Persona notes: city, company, years exp, education — sab consistent rakho. Inconsistency = exposure.
+</div></div>
+<div class="card"><span class="badge b-amber" style="margin-bottom:7px">Client Data Security</span>
+<div style="font-size:12px;line-height:1.8;color:var(--text2)">
+• Client credentials — encrypted doc mein. Never in plain text email/WhatsApp<br>
+• Database: Firebase/AWS — encrypted at rest by default<br>
+• Agreement mein: "Aapka data sirf aapke project ke liye, no third-party sharing"<br>
+• Password manager: Bitwarden (free) — master password only founder knows<br>
+• 2FA: All company accounts mandatory (Gmail, LinkedIn, hosting, CRM, Razorpay)<br>
+• Offboarding: Jab team member leave kare — same day, all access revoke karo
+</div></div>
+<div class="card"><span class="badge b-blue" style="margin-bottom:7px">Website Security</span>
+<div style="font-size:12px;line-height:1.8;color:var(--text2)">
+• SSL — always https. Hosting se Let's Encrypt free milta hai<br>
+• Admin URL change: /wp-admin → /vstechadmin2025 (WordPress)<br>
+• Strong admin password — 16+ chars, password manager mein<br>
+• Wordfence plugin — free version kafi for WordPress protection<br>
+• Weekly automated backups — UpdraftPlus plugin<br>
+• Demo pages: Rate limiting — 10+ requests/min from same IP block karo<br>
+• Contact form: reCAPTCHA v3 lagao — spam zero ho jaata hai
+</div></div>
+<div class="card"><span class="badge b-green" style="margin-bottom:7px">Financial Security</span>
+<div style="font-size:12px;line-height:1.8;color:var(--text2)">
+• GST registered — sab transactions official. Vyapar app — free invoice generator<br>
+• Separate business account — personal + business never mix karo<br>
+• UPI + bank transfer + cash — sab options do<br>
+• Save 30% of every payment for taxes (advance tax quarterly)<br>
+• Agreement: Payment dispute = Jaipur arbitration jurisdiction<br>
+• Every deal: UPI screenshot + email confirmation — evidence ke liye save karo
+</div></div>
+</div>
+<div class="hl" style="margin-top:14px"><p><strong>Security Mindset:</strong> Security ka matlab paranoia nahi — preparation hai. Agar aaj sab systems fail ho jaayein: client data safe hai? Team ko access hai zaroori cheezein ka? Business 48 hours mein recover ho sakta hai? Agar haan — security strong hai.</p></div>
+</div>
+
+</div><!-- /main -->
+<script>
+const industries=[
+{icon:'🏥',name:'Medical/Clinic',deal:'₹20-50K',badge:'b-red',
+pain:'Doctor ke paas roz 50-80 patients. No-show rate 30-40%. Appointments manually book hoti hain. Ek no-show = ₹500-2000 loss. Monthly: ₹15,000-60,000 ka nuksaan. Zero automation.',
+solution:'Smart Appointment System: Auto WhatsApp reminder 24hr pehle → patient confirm/cancel → cancel hua toh next patient auto-fill. No-show rate 80% down in 30 days.',
+approach:'Google Maps se clinic numbers. Rahul Sharma persona. Pain calculator use karo: "Aapka monthly loss = no-show count × avg consultation fee."',
+timeline:'Day 1',priority:'HIGHEST'},
+{icon:'🍕',name:'Restaurant/Dhaba',deal:'₹15-35K',badge:'b-blue',
+pain:'Zomato/Swiggy 30% commission. ₹1K order = ₹300 platform ka. Customer data zero. Repeat customer identify impossible. Menu change karo toh platform update manual.',
+solution:'QR Menu + Direct Order System: Table pe QR → digital menu → WhatsApp order → kitchen. Customer data collect. Loyalty points. Zomato dependency 50% kam.',
+approach:'Zomato commission calculator dikhao on the spot. "100 orders/day × ₹300 commission = ₹9,000/day ja raha hai." ROI immediately crystal clear. Fast close.',
+timeline:'Month 2',priority:'HIGH'},
+{icon:'🏫',name:'School/Coaching',deal:'₹25-60K',badge:'b-amber',
+pain:'Fee collection chaos — manual register, Excel, phir bhi galti. Late fees rarely collected. Admission: 3 staff lage hain sirf paperwork. Parents roz call karte hain balance ke liye.',
+solution:'Fee Management Portal: Online payment → auto receipt → late fee reminder → owner dashboard. 70% admin time free. Online admission form + document upload.',
+approach:'Jan-March (admission season) mein most receptive. Priya Singh persona. JustDial "schools in [area]" search.',
+timeline:'Month 2',priority:'HIGH'},
+{icon:'🏨',name:'Hotel/Guest House',deal:'₹30-70K',badge:'b-teal',
+pain:'OYO/MakeMyTrip 15-25% commission. 100 bookings = ₹15-25K commission sirf platform ko. Guest data platform ke paas. No direct booking. Repeat guests identify nahi hote.',
+solution:'Direct Booking Website: No commission, live calendar, WhatsApp auto-confirm, loyalty program. Saves ₹1.5-3L commission annually.',
+approach:'Amit Joshi persona. Off-season approach. "Aapka annual OYO commission ₹X hai — ye system ₹30K mein milta hai."',
+timeline:'Month 2',priority:'HIGH'},
+{icon:'💊',name:'Pharmacy/Medstore',deal:'₹15-30K',badge:'b-green',
+pain:'Inventory — manual ya outdated. Expiry track galat. Prescription repeat orders manually. Customer loyalty zero. Daily stock count 1-2 ghante leta hai.',
+solution:'Pharmacy POS + Inventory: Auto reorder alerts, expiry tracker, prescription management, loyalty app, home delivery tracking.',
+approach:'Medical niche ka natural extension. Clinic clients ke pharmacy connections use karo — referral chain already built.',
+timeline:'Month 2',priority:'HIGH'},
+{icon:'🏗️',name:'Real Estate/Builder',deal:'₹50-150K',badge:'b-purple',
+pain:'100 inquiries mein 3 convert. Leads track nahi hoti. Site visit schedule manual. Agent commission calculation chaos. Competitor ki professional website hai.',
+solution:'Lead CRM + Property Portal: Inquiry → auto assign → follow-up tracker → site visit booking → document management.',
+approach:'Neha Verma persona. LinkedIn + JustDial. Pehle relationship build — high value deal hai, 2-4 months cycle normal.',
+timeline:'Month 3',priority:'MEDIUM'},
+{icon:'💄',name:'Salon/Beauty/Spa',deal:'₹12-25K',badge:'b-pink',
+pain:'WhatsApp se appointments — double booking. Roz slots manually batane padte hain. Staff attendance track nahi. Customer history — kuch bhi nahi.',
+solution:'Online Booking: Slot + stylist, confirm, auto reminder. Customer history. Birthday auto-message. Loyalty points system.',
+approach:'Kavya Mehta persona. Instagram pe salon owners follow + engage, phir pitch. Off-hours approach (afternoon).',
+timeline:'Month 3',priority:'MEDIUM'},
+{icon:'🏋️',name:'Gym/Fitness',deal:'₹15-30K',badge:'b-blue',
+pain:'Attendance manual. Fee collection confusing. Trainer schedule Excel. New member referral track nahi. Inactive members invisible.',
+solution:'Gym Management: Biometric attendance, online fee payment, trainer booking, member portal, referral tracking, inactive member alerts.',
+approach:'Jan + June (resolution months) mein peak season. Instagram fitness content pe engage karo — gym owners active hain.',
+timeline:'Month 3',priority:'MEDIUM'},
+{icon:'⚖️',name:'CA/Law Firm',deal:'₹30-80K',badge:'b-amber',
+pain:'Client documents — email + WhatsApp mein scattered. Deadline tracking manual. Billing — hours properly track nahi hoti.',
+solution:'Client Portal: Document sharing encrypted, deadline calendar, billing tracker, consultation booking, secure messaging.',
+approach:'LinkedIn pe CAs + lawyers. Authority content: "Digital transformation in legal sector" type posts.',
+timeline:'Month 4',priority:'LOW-MED'},
+{icon:'🚗',name:'Car Dealership',deal:'₹40-100K',badge:'b-red',
+pain:'Test drive booking — manual calls. Lead tracking — notebook. Service reminder zero. Customer history nothing.',
+solution:'Dealer Management: Online test drive booking, lead CRM, service reminder automation, customer history, EMI calculator widget.',
+approach:'High-value deals. Jaipur mein Tonk Road, Sikar Road dealers. Vikram/Neha persona.',
+timeline:'Month 4',priority:'LOW-MED'},
+{icon:'🏪',name:'Retail/Kirana',deal:'₹10-20K',badge:'b-teal',
+pain:'Inventory manually counted. Customer credit track — notebook. WhatsApp orders unorganized. Delivery track nahi.',
+solution:'Smart POS: Inventory management, customer credit tracking, WhatsApp integration, delivery tracking, loyalty QR code.',
+approach:'Volume play — bahut clients hain. QR loyalty angle use karo.',
+timeline:'Month 3',priority:'MEDIUM'},
+{icon:'🎓',name:'Online Tutor/EdTech',deal:'₹10-25K',badge:'b-purple',
+pain:'Student management — Google Sheet. Fee manual. Class schedule via WhatsApp. Progress tracking zero.',
+solution:'Tutor Platform: Student dashboard, online fee, class scheduler, progress reports, assignment portal.',
+approach:'Instagram pe tutors target karo. LinkedIn "Tutor" filter. Education niche ka natural extension.',
+timeline:'Month 4',priority:'LOW-MED'},
+{icon:'🔬',name:'Diagnostic Center/Lab',deal:'₹25-60K',badge:'b-red',
+pain:'Report delivery — manually WhatsApp karte hain. Online booking nahi. Patient physically aata hai for results. Doctor referral track nahi.',
+solution:'Lab Portal: Online test booking, digital report delivery, doctor referral system, home collection booking.',
+approach:'Medical niche extension — clinic clients se referral chain already hai.',
+timeline:'Month 2',priority:'HIGH'},
+{icon:'✈️',name:'Travel Agency',deal:'₹20-45K',badge:'b-amber',
+pain:'Query management chaotic. Itinerary sharing — manual PDF. Payment tracking — Excel. Repeat customer zero retention.',
+solution:'Travel CRM: Query management, itinerary builder, payment tracker, customer portal, automated follow-up.',
+approach:'Oct-Mar peak (wedding + Rajasthan tourism). LinkedIn + JustDial.',
+timeline:'Month 4',priority:'LOW-MED'},
+{icon:'🚛',name:'Transport/Logistics',deal:'₹35-80K',badge:'b-blue',
+pain:'Vehicle tracking — manual driver calls. Delivery confirmation — koi system nahi. Invoice manual. Fleet chaos.',
+solution:'Fleet Management: Live GPS tracking, delivery confirmation, automated invoice, driver performance, fuel tracking.',
+approach:'LinkedIn "Transport company Rajasthan". High-value, high-need market.',
+timeline:'Month 4',priority:'LOW-MED'},
+{icon:'💍',name:'Wedding/Events',deal:'₹30-70K',badge:'b-pink',
+pain:'Client onboarding manual. Vendor coordination — WhatsApp chaos. Budget tracking — Excel. Portfolio static.',
+solution:'Event CRM: Client portal, vendor management, budget tracker, dynamic portfolio, payment milestones.',
+approach:'Oct-Feb (wedding season). Instagram portfolio approach.',
+timeline:'Month 4',priority:'LOW-MED'},
+{icon:'🏠',name:'PG/Hostel',deal:'₹15-30K',badge:'b-teal',
+pain:'Tenant management — notebook. Rent collection manually remind. Maintenance requests on WhatsApp. Vacancy track nahi.',
+solution:'PG Management: Online rent payment, maintenance portal, tenant onboarding, vacancy dashboard.',
+approach:'Near colleges/IT parks. Volume play — many small PGs in Jaipur.',
+timeline:'Month 5',priority:'LOW'},
+{icon:'🔧',name:'Home Services (AC/Plumber)',deal:'₹10-20K',badge:'b-blue',
+pain:'Booking — phone calls only. Technician dispatch manual. Invoice manual. Customer history nothing.',
+solution:'Service Booking App: Online booking, technician dispatch, digital invoice, customer history, repeat reminders.',
+approach:'Franchise approach — ek city franchise = ₹50K+ deal.',
+timeline:'Month 5',priority:'LOW'},
+{icon:'📦',name:'Wholesale/Distribution',deal:'₹40-100K',badge:'b-amber',
+pain:'Order management — phone + WhatsApp. Retailer outstanding — manual Excel. Dispatch tracking zero. Stock = guesswork.',
+solution:'B2B Order Portal: Retailer login, order placement, outstanding tracker, dispatch notification, stock management.',
+approach:'LinkedIn industry-specific. High value, relationship-based sales.',
+timeline:'Month 5',priority:'LOW'},
+{icon:'🌐',name:'IT/SaaS Company',deal:'₹50-200K',badge:'b-purple',
+pain:'Internal tools too expensive or nonexistent. HR manual. Project tracking scattered. Client portal missing.',
+solution:'Custom Internal Tools: HR portal, project management, client reporting dashboard, API integrations.',
+approach:'LinkedIn B2B + cold email. Biggest deals possible, longest cycle.',
+timeline:'Month 6',priority:'LOW'}
+];
+
+const personas=[
+{name:'Rahul Sharma',role:'Healthcare IT Consultant',niche:'Medical/Clinic/Lab',email:'rahul@vishtechsoftware.com',city:'Jaipur',exp:'8 yrs',color:'b-red',av:'RS',ac:'rgba(255,87,87,0.15)',tc:'var(--red)',bio:'Helping clinics reduce no-shows by 80% with smart appointment systems. 200+ healthcare clients.',target:'Doctors, clinic owners, hospital admins, diagnostic centers'},
+{name:'Priya Singh',role:'EdTech Solutions Consultant',niche:'School/Coaching/College',email:'priya@vishtechsoftware.com',city:'Pune',exp:'6 yrs',color:'b-amber',av:'PS',ac:'rgba(255,184,48,0.15)',tc:'var(--amber)',bio:'Automating fee collection & admissions for schools & coaching institutes. 150+ education clients.',target:'School principals, coaching owners, college admission officers'},
+{name:'Amit Joshi',role:'Hotel & Restaurant Tech',niche:'Hospitality/F&B',email:'amit@vishtechsoftware.com',city:'Udaipur',exp:'7 yrs',color:'b-teal',av:'AJ',ac:'rgba(45,212,191,0.15)',tc:'var(--teal)',bio:'Helping hotels save ₹2-5L/year in OTA commissions with direct booking systems. 100+ clients.',target:'Hotel owners, restaurant chains, cafe owners, travel agencies'},
+{name:'Neha Verma',role:'PropTech Consultant',niche:'Real Estate/Construction',email:'neha@vishtechsoftware.com',city:'Mumbai',exp:'5 yrs',color:'b-purple',av:'NV',ac:'rgba(108,99,255,0.15)',tc:'var(--accent)',bio:'Digitizing property sales & lead management for builders and agents. 75+ real estate clients.',target:'Builders, developers, real estate agents, brokers'},
+{name:'Kavya Mehta',role:'Salon & Wellness Tech',niche:'Beauty/Spa/Wellness',email:'kavya@vishtechsoftware.com',city:'Delhi',exp:'4 yrs',color:'b-pink',av:'KM',ac:'rgba(255,107,157,0.15)',tc:'var(--pink)',bio:'Appointment automation & retention for salons, spas & wellness centers. 120+ beauty clients.',target:'Salon owners, spa managers, beauty parlour chains'},
+{name:'Vikram Agarwal',role:'Business Automation Expert',niche:'General SME/Retail',email:'vikram@vishtechsoftware.com',city:'Jaipur',exp:'9 yrs',color:'b-blue',av:'VA',ac:'rgba(56,182,255,0.15)',tc:'var(--blue)',bio:'Streamlining operations for SMEs across retail, wholesale & services. 300+ clients.',target:'Retail shops, wholesale distributors, general SMEs'},
+{name:'Raj Patel',role:'International IT Consultant',niche:'US/Dubai/NRI Market',email:'raj@vishtechsoftware.com',city:'Ahmedabad',exp:'11 yrs',color:'b-green',av:'RP',ac:'rgba(34,211,160,0.15)',tc:'var(--green)',bio:'Bridging Indian IT talent with global businesses. NRI client specialist. 50+ international projects.',target:'NRI business owners, US/UAE SMEs, Indian companies with international clients'}
+];
+
+function renderIndustries(){
+  const grid=document.getElementById('ind-grid');
+  const det=document.getElementById('ind-detail');
+  industries.forEach((ind)=>{
+    const el=document.createElement('div');
+    el.className='ind-card';
+    el.innerHTML=`<div class="ind-icon">${ind.icon}</div><div class="ind-name">${ind.name}</div><div class="ind-deal">${ind.deal}</div>`;
+    el.onclick=()=>{
+      document.querySelectorAll('.ind-card').forEach(c=>c.classList.remove('selected'));
+      el.classList.add('selected');
+      det.innerHTML=`<div class="ind-detail active"><div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px"><div><span class="badge ${ind.badge}" style="margin-bottom:5px">${ind.priority}</span><div style="font-family:var(--font-head);font-size:17px;font-weight:700;margin-top:3px">${ind.icon} ${ind.name}</div></div><div style="text-align:right"><div style="font-size:10px;color:var(--text3)">Avg Deal</div><div style="font-family:var(--font-head);font-size:19px;font-weight:700;color:var(--green)">${ind.deal}</div><div style="font-size:10px;color:var(--text3);margin-top:2px">Start: ${ind.timeline}</div></div></div><div class="g2"><div class="pain"><div style="font-size:9px;font-weight:600;color:var(--red);margin-bottom:3px;font-family:var(--font-mono)">PAIN POINT</div><p>${ind.pain}</p></div><div class="sol"><div style="font-size:9px;font-weight:600;color:var(--green);margin-bottom:3px;font-family:var(--font-mono)">YOUR SOLUTION</div><p>${ind.solution}</p></div></div><div style="margin-top:12px;font-size:12px;background:var(--surface2);border-radius:var(--r);padding:11px;line-height:1.7"><strong style="font-family:var(--font-mono);font-size:9px;color:var(--accent2)">APPROACH STRATEGY</strong><br><span style="color:var(--text2)">${ind.approach}</span></div></div></div>`;
+      det.scrollIntoView({behavior:'smooth',block:'start'});
+    };
+    grid.appendChild(el);
+  });
+}
+
+function renderPersonas(){
+  const grid=document.getElementById('persona-grid');
+  if(!grid)return;
+  personas.forEach(p=>{
+    grid.innerHTML+=`<div class="profile"><div style="display:flex;gap:11px;align-items:center;margin-bottom:9px"><div class="avatar" style="background:${p.ac};color:${p.tc}">${p.av}</div><div style="flex:1"><div class="profile-name">${p.name}</div><div class="profile-role">${p.role}</div></div><span class="badge ${p.color}" style="font-size:9px">${p.niche}</span></div><div class="divider"></div><div class="g2" style="margin-top:8px"><div style="font-size:12px;line-height:1.7"><span style="color:var(--text3);font-size:9px;font-family:var(--font-mono)">EMAIL</span><br>${p.email}<br><span style="color:var(--text3);font-size:9px;font-family:var(--font-mono)">CITY / EXP</span><br>${p.city} — ${p.exp}</div><div style="font-size:12px;line-height:1.6"><span style="color:var(--text3);font-size:9px;font-family:var(--font-mono)">TARGET</span><br><span style="color:var(--text2)">${p.target}</span></div></div><div style="margin-top:9px;font-size:11px;color:var(--text3);font-style:italic;line-height:1.5">"${p.bio}"</div></div>`;
+  });
+}
+
+function nav(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function togglePlan(id,btn){
+  document.querySelectorAll('.plan-content').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.plan-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('plan-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleScenario(el){
+  const body=el.nextElementSibling;
+  const isOpen=body.classList.contains('open');
+  document.querySelectorAll('.scenario-body').forEach(b=>b.classList.remove('open'));
+  if(!isOpen)body.classList.add('open');
+}
+
+renderIndustries();
+renderPersonas();
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{font-family:var(--font-sans);padding:16px 0;display:flex;flex-direction:column;gap:14px;}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;}
+.fb{padding:6px 14px;border-radius:100px;font-size:12px;font-weight:500;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer;transition:all 0.15s;}
+.fb.on{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info);}
+.table-wrap{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:10px;font-weight:600;color:var(--color-text-secondary);letter-spacing:0.8px;text-transform:uppercase;padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left;}
+td{font-size:12px;color:var(--color-text-secondary);padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--color-background-secondary);}
+td.name{color:var(--color-text-primary);font-weight:500;font-size:13px;}
+.tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;margin-top:3px;}
+.t-high{background:var(--color-background-success);color:var(--color-text-success);}
+.t-med{background:var(--color-background-warning);color:var(--color-text-warning);}
+.t-low{background:var(--color-background-danger);color:var(--color-text-danger);}
+.t-cat{background:var(--color-background-info);color:var(--color-text-info);}
+.stars{color:#f59e0b;letter-spacing:-1px;}
+.hidden{display:none;}
+.summary{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 16px;font-size:12px;color:var(--color-text-secondary);}
+.summary strong{color:var(--color-text-primary);}
+</style>
+
+<div class="wrap">
+
+<div class="summary">
+Showing <strong id="count">50</strong> tools. Filter by category. <strong>Green = banao pehle</strong>, Yellow = medium priority, Red = baad mein.
+</div>
+
+<div class="filter-row">
+  <button class="fb on" onclick="filter('all',this)">All (50)</button>
+  <button class="fb" onclick="filter('banking',this)">🏦 Banking</button>
+  <button class="fb" onclick="filter('transport',this)">🚗 Transport</button>
+  <button class="fb" onclick="filter('toll',this)">🛣️ Toll/FASTag</button>
+  <button class="fb" onclick="filter('tax',this)">📊 Tax/GST</button>
+  <button class="fb" onclick="filter('car',this)">🚘 Car</button>
+  <button class="fb" onclick="filter('general',this)">⚡ General</button>
+</div>
+
+<div class="table-wrap">
+<table id="tools-table">
+<thead>
+<tr>
+  <th>#</th>
+  <th>Tool Name</th>
+  <th>Problem Solve karta hai</th>
+  <th>Category</th>
+  <th>Traffic Potential</th>
+  <th>Build Time</th>
+  <th>Revenue</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+</div>
+
+<script>
+const tools = [
+  // TOLL / FASTAG
+  {n:'FASTag Balance Checker',p:'FASTag ka balance check karo — wallet ID se',c:'toll',tr:5,bt:'1 week',rev:'High — daily use',stars:5},
+  {n:'Toll Calculator India',p:'Source to destination — kitna toll lagega, kon se plaza',c:'toll',tr:5,bt:'2 weeks',rev:'High — travel planning',stars:5},
+  {n:'FASTag Recharge Guide',p:'Kaunse bank se recharge, kaisa kare — step by step',c:'toll',tr:4,bt:'3 days',rev:'Medium — info page',stars:4},
+  {n:'National Highway Toll List',p:'NH wise sare toll plazas, rates, distance',c:'toll',tr:4,bt:'1 week',rev:'High — reference tool',stars:4},
+  {n:'FASTag KYC Status Checker',p:'KYC complete hai ya nahi — vehicle number se check',c:'toll',tr:3,bt:'1 week',rev:'Medium',stars:3},
+  {n:'Monthly Toll Expense Calculator',p:'Roz kitne toll dete ho — monthly kitna kharch',c:'toll',tr:3,bt:'3 days',rev:'Medium — ads',stars:3},
+
+  // BANKING
+  {n:'EMI Calculator Pro',p:'Home/Car/Personal loan — amortization + prepayment',c:'banking',tr:5,bt:'1 week',rev:'Very High — most searched',stars:5},
+  {n:'FD Calculator',p:'Fixed deposit maturity — compound interest, TDS',c:'banking',tr:5,bt:'3 days',rev:'Very High',stars:5},
+  {n:'SIP / Mutual Fund Calculator',p:'Monthly SIP se kitna milega — 5/10/20 saal mein',c:'banking',tr:5,bt:'3 days',rev:'Very High',stars:5},
+  {n:'CIBIL Score Estimator',p:'Credit score kya hoga behavior se — estimate tool',c:'banking',tr:4,bt:'3 days',rev:'High',stars:4},
+  {n:'IFSC Code Finder',p:'Bank branch ka IFSC — city, bank name se search',c:'banking',tr:4,bt:'1 week',rev:'High — daily use',stars:4},
+  {n:'Loan Eligibility Calculator',p:'Salary se kitna loan milega — bank wise',c:'banking',tr:5,bt:'3 days',rev:'Very High',stars:5},
+  {n:'PPF Calculator',p:'Public Provident Fund — 15 saal mein kitna milega',c:'banking',tr:4,bt:'2 days',rev:'High',stars:4},
+  {n:'Savings Account Interest Calculator',p:'Balance pe kitna interest milega — bank wise compare',c:'banking',tr:3,bt:'2 days',rev:'Medium',stars:3},
+  {n:'RD Calculator',p:'Recurring deposit maturity amount',c:'banking',tr:4,bt:'2 days',rev:'High',stars:4},
+  {n:'Home Loan Tax Benefit Calculator',p:'Section 80C + 24B — kitna tax bachega',c:'banking',tr:4,bt:'3 days',rev:'High',stars:4},
+  {n:'Bank Account Number Validator',p:'Account number valid format hai ya nahi',c:'banking',tr:3,bt:'2 days',rev:'Medium',stars:3},
+  {n:'UPI Transaction Limit Checker',p:'Bank wise UPI daily/per transaction limit',c:'banking',tr:3,bt:'2 days',rev:'Medium',stars:3},
+
+  // TRANSPORT / VEHICLE
+  {n:'Number Plate Info Checker',p:'State, RTO, city — kisi bhi number plate se',c:'transport',tr:5,bt:'Done ✓',rev:'Very High',stars:5},
+  {n:'RC Status Checker Guide',p:'Vehicle RC valid hai ya expired — kaise check kare',c:'transport',tr:5,bt:'3 days',rev:'High',stars:5},
+  {n:'Driving License Validity Checker',p:'DL expiry — kaise check kare, renew kaise kare',c:'transport',tr:4,bt:'3 days',rev:'High',stars:4},
+  {n:'Vehicle Insurance Expiry Reminder',p:'Insurance kab expire hogi — email reminder set karo',c:'transport',tr:4,bt:'1 week',rev:'High — lead gen',stars:4},
+  {n:'Used Car Value Estimator',p:'Purani gaadi ki resale value — make, model, year se',c:'transport',tr:5,bt:'1 week',rev:'Very High',stars:5},
+  {n:'Car Running Cost Calculator',p:'Petrol vs Diesel vs EV — 5 saal mein kitna kharch',c:'transport',tr:4,bt:'3 days',rev:'High',stars:4},
+  {n:'Fuel Cost Per KM Calculator',p:'Trip mein kitna petrol lagega — city mileage se',c:'transport',tr:4,bt:'2 days',rev:'High',stars:4},
+  {n:'Car Loan vs Cash Calculator',p:'Loan lekar gaadi lena behtar hai ya cash mein',c:'transport',tr:3,bt:'3 days',rev:'Medium',stars:3},
+  {n:'PUC Certificate Due Date Tracker',p:'Gaadi ka PUC kab expire hoga — reminder',c:'transport',tr:3,bt:'3 days',rev:'Medium',stars:3},
+  {n:'Number Plate Fancy Check',p:'Fancy/VIP number plate ka rate estimate',c:'transport',tr:3,bt:'3 days',rev:'Medium',stars:3},
+  {n:'EV Range Calculator',p:'Charge se kitni doori — speed, AC, load se calculate',c:'transport',tr:4,bt:'3 days',rev:'High — EV trend',stars:4},
+  {n:'Traffic Challan Check Guide',p:'E-challan kaise check kare — state wise links',c:'transport',tr:5,bt:'2 days',rev:'Very High',stars:5},
+
+  // TAX / GST
+  {n:'GST Calculator',p:'Price pe 5/12/18/28% GST add/remove instantly',c:'tax',tr:5,bt:'1 day',rev:'Very High',stars:5},
+  {n:'Income Tax Calculator FY26',p:'Old vs New regime — kitna tax banega',c:'tax',tr:5,bt:'2 days',rev:'Very High',stars:5},
+  {n:'HRA Exemption Calculator',p:'Rent dete ho — kitna HRA exempt hoga',c:'tax',tr:4,bt:'2 days',rev:'High',stars:4},
+  {n:'Invoice Generator India',p:'GST invoice banao 30 sec mein — PDF download',c:'tax',tr:5,bt:'1 week',rev:'Very High',stars:5},
+  {n:'TDS Calculator',p:'Salary/freelance pe kitna TDS katega',c:'tax',tr:4,bt:'2 days',rev:'High',stars:4},
+  {n:'Gratuity Calculator',p:'5 saal nokri ke baad kitni gratuity milegi',c:'tax',tr:4,bt:'1 day',rev:'High',stars:4},
+  {n:'PF / EPF Calculator',p:'Provident fund — employer + employee contribution',c:'tax',tr:4,bt:'2 days',rev:'High',stars:4},
+  {n:'Capital Gains Tax Calculator',p:'Property/shares becha — kitna tax lagega',c:'tax',tr:3,bt:'3 days',rev:'Medium',stars:3},
+
+  // CAR SPECIFIC
+  {n:'Car Comparison Tool',p:'2 gaadiyaan side by side — specs, price, mileage',c:'car',tr:5,bt:'2 weeks',rev:'Very High',stars:5},
+  {n:'Best Car Under Budget Finder',p:'5L/10L/15L budget mein best car kaunsi',c:'car',tr:5,bt:'1 week',rev:'Very High',stars:5},
+  {n:'Car Depreciation Calculator',p:'Gaadi ki value har saal kitni kam hoti hai',c:'car',tr:4,bt:'2 days',rev:'High',stars:4},
+  {n:'Car Insurance Premium Estimator',p:'Kaunsi insurance sasti padegi — basic estimate',c:'car',tr:4,bt:'3 days',rev:'High — insurance leads',stars:4},
+  {n:'Petrol vs Diesel vs EV Calculator',p:'Ek specific car — 3/5/10 saal mein total cost',c:'car',tr:4,bt:'3 days',rev:'High',stars:4},
+  {n:'Accessories Cost Estimator',p:'Seat cover, music, tint — total kharcha',c:'car',tr:2,bt:'2 days',rev:'Low',stars:2},
+
+  // GENERAL HIGH TRAFFIC
+  {n:'BMI Calculator Hindi',p:'Height weight se BMI — health category',c:'general',tr:5,bt:'1 day',rev:'High — health ads',stars:5},
+  {n:'Age Calculator',p:'Date of birth se exact age — years, months, days',c:'general',tr:5,bt:'1 day',rev:'High',stars:5},
+  {n:'Percentage Calculator',p:'X ka Y% kitna — marks, discount, salary',c:'general',tr:5,bt:'1 day',rev:'High',stars:5},
+  {n:'Salary Slip Generator',p:'Employee salary slip PDF — small business ke liye',c:'general',tr:4,bt:'1 week',rev:'High',stars:4},
+  {n:'Word Counter Hindi+English',p:'Essay/article kitne words — character count',c:'general',tr:4,bt:'1 day',rev:'Medium',stars:3},
+];
+
+const catColors = {toll:'teal',banking:'blue',transport:'purple',tax:'amber',car:'green',general:'muted'};
+const catEmoji = {toll:'🛣️',banking:'🏦',transport:'🚗',tax:'📊',car:'🚘',general:'⚡'};
+
+let currentFilter = 'all';
+
+function render(filter){
+  const tbody = document.getElementById('tbody');
+  const filtered = filter==='all' ? tools : tools.filter(t=>t.c===filter);
+  document.getElementById('count').textContent = filtered.length;
+  tbody.innerHTML = filtered.map((t,i)=>{
+    const trClass = t.tr>=5?'t-high':t.tr>=3?'t-med':'t-low';
+    const trLabel = t.tr>=5?'Very High':t.tr>=4?'High':t.tr>=3?'Medium':'Low';
+    const stars = '★'.repeat(t.stars)+'☆'.repeat(5-t.stars);
+    return `<tr>
+      <td style="color:var(--color-text-tertiary);font-size:11px;">${i+1}</td>
+      <td class="name">${t.n}${t.bt==='Done ✓'?'<br><span class="tag t-high">DONE ✓</span>':''}</td>
+      <td>${t.p}</td>
+      <td><span class="tag t-cat">${catEmoji[t.c]} ${t.c.charAt(0).toUpperCase()+t.c.slice(1)}</span></td>
+      <td><span class="tag ${trClass}">${trLabel}</span><br><span class="stars" style="font-size:11px;">${stars}</span></td>
+      <td style="font-size:11px;color:var(--color-text-tertiary);">${t.bt}</td>
+      <td style="font-size:11px;">${t.rev}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filter(cat, btn){
+  currentFilter = cat;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  render(cat);
+}
+
+render('all');
+</script>

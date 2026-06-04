@@ -1,0 +1,325 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{font-family:var(--font-sans);padding:16px 0;display:flex;flex-direction:column;gap:14px;}
+.hero{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:16px 18px;border:0.5px solid var(--color-border-tertiary);}
+.hero-title{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;}
+.hero-sub{font-size:12px;color:var(--color-text-secondary);line-height:1.6;}
+.tool-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;margin-bottom:2px;}
+.tc-head{padding:14px 16px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;}
+.tc-head:hover{background:var(--color-background-secondary);}
+.tc-num{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.tc-main{flex:1;}
+.tc-name{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;}
+.tc-problem{font-size:12px;color:var(--color-text-secondary);line-height:1.4;}
+.tc-tags{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;border:0.5px solid;}
+.t-fire{background:rgba(239,68,68,0.1);color:#ef4444;border-color:rgba(239,68,68,0.25);}
+.t-money{background:rgba(16,185,129,0.1);color:#10b981;border-color:rgba(16,185,129,0.25);}
+.t-build{background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.25);}
+.t-unique{background:rgba(167,139,250,0.1);color:#a78bfa;border-color:rgba(167,139,250,0.25);}
+.tc-arrow{font-size:14px;color:var(--color-text-tertiary);transition:transform 0.2s;margin-top:4px;flex-shrink:0;}
+.tc-arrow.open{transform:rotate(90deg);}
+.tc-body{display:none;padding:0 16px 16px 56px;border-top:0.5px solid var(--color-border-tertiary);}
+.tc-body.open{display:block;padding-top:14px;}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.dg-item{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;}
+.dg-label{font-size:10px;font-weight:600;color:var(--color-text-secondary);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;}
+.dg-val{font-size:12px;color:var(--color-text-primary);line-height:1.5;}
+.why-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;margin-bottom:10px;}
+.why-label{font-size:10px;font-weight:600;color:var(--color-text-secondary);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;}
+.why-text{font-size:12px;color:var(--color-text-primary);line-height:1.6;}
+.existing{font-size:11px;color:var(--color-text-danger);margin-bottom:6px;}
+.gap{font-size:11px;color:var(--color-text-success);}
+.section-head{font-size:10px;font-weight:700;color:var(--color-text-secondary);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;margin-top:4px;}
+</style>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="hero-title">🔍 Real Problems — Log Search Karte Hain, Solution Nahi Milta</div>
+  <div class="hero-sub">Yeh woh tools hain jahan user Google pe aata hai, 5-6 results dekhta hai, frustrated ho jaata hai kyunki koi proper Indian solution nahi hai. <strong style="color:var(--color-text-primary);">Yahi gap hai tera opportunity.</strong></div>
+</div>
+
+<div class="section-head">🔥 Tier 1 — Sabse Badi Problem, Sabse Kam Solution</div>
+
+<div id="cards"></div>
+
+</div>
+
+<script>
+const tools = [
+  {
+    n: "Court Case Status Tracker — India",
+    emoji: "⚖️",
+    color: "#ef4444",
+    problem: "Koi apne case ka status check karna chahta hai — court dates, judge, next hearing. Existing sites slow, crash hote hain, mobile pe kaam nahi karte.",
+    searches: "40L+/month",
+    existing: "eCourts.gov.in — slow, ugly, mobile pe broken, confusing UI",
+    gap: "Fast, clean, Hindi UI — case number dalo, instant result, notification set karo next date ke liye",
+    buildTime: "2-3 weeks",
+    revenue: "₹20-50K/month ads",
+    difficulty: "Medium",
+    unique: "Push notification for next hearing date — koi nahi deta yeh",
+    tags: ["fire","money","unique"]
+  },
+  {
+    n: "Property Registration Value Calculator",
+    emoji: "🏠",
+    color: "#f59e0b",
+    problem: "Zameen/makaan kharidne se pehle — stamp duty kitni lagegi, registration charge kitna — har state alag alag. Log 10 sites dekhte hain, koi clear answer nahi milta.",
+    searches: "25L+/month",
+    existing: "State govt sites — outdated, slow, only desktop, no Hindi",
+    gap: "State select karo, property value dalo — stamp duty + registration + total cost instantly. Hindi mein.",
+    buildTime: "1-2 weeks",
+    revenue: "₹15-40K/month",
+    difficulty: "Easy",
+    unique: "Sab states ek jagah — abhi koi nahi hai yeh",
+    tags: ["fire","money","build"]
+  },
+  {
+    n: "Ration Card Status & Beneficiary Checker",
+    emoji: "🍚",
+    color: "#10b981",
+    problem: "Ration card mein naam hai ya nahi, kitna mila, kab milega — 80 crore log PMGKAY beneficiary hain. Sarkari site pe kuch samajh nahi aata.",
+    searches: "50L+/month",
+    existing: "NFSA.gov.in — completely unusable on mobile, Hindi broken",
+    gap: "Phone number ya ration card number dalo — seedha status, next distribution date, kitna milega",
+    buildTime: "1 week",
+    revenue: "₹30-80K/month — massive traffic",
+    difficulty: "Easy",
+    unique: "80 crore potential users — India ka largest underserved audience",
+    tags: ["fire","money","unique"]
+  },
+  {
+    n: "PF Balance & Claim Status Tracker",
+    emoji: "💰",
+    color: "#3b82f6",
+    problem: "EPFO site hamesha down rehti hai. PF balance check karna, claim status track karna — employees ka sabse bada pain point. HR bhi nahi bata paate.",
+    searches: "30L+/month",
+    existing: "EPFO portal — 503 error, slow, UAN portal confusing",
+    gap: "UAN number dalo — balance, claim status, withdrawal eligibility, step by step guide",
+    buildTime: "1 week (guide + deep link)",
+    revenue: "₹20-50K/month",
+    difficulty: "Easy",
+    unique: "EPFO ke official links direct karo — tool actually works jab EPFO down ho",
+    tags: ["fire","money","build"]
+  },
+  {
+    n: "Driving License Test Mock — Hindi",
+    emoji: "🚗",
+    color: "#8b5cf6",
+    problem: "DL test dene se pehle practice karna chahte hain — Hindi mein questions chahiye. Jo sites hain woh outdated, ads se bhare, mobile pe broken.",
+    searches: "15L+/month",
+    existing: "Random sites with 2010-era design, not mobile friendly, Hindi broken",
+    gap: "State-wise updated questions, Hindi + English, mock test with timer, pass/fail result",
+    buildTime: "2 weeks",
+    revenue: "₹10-25K/month — VishTech Cars pe perfect fit",
+    difficulty: "Easy",
+    unique: "State-wise questions — RTO alag alag poochta hai",
+    tags: ["fire","build","unique"]
+  },
+  {
+    n: "ITR Filing Status + Refund Tracker",
+    emoji: "📊",
+    color: "#f59e0b",
+    problem: "ITR bhara — refund kab aayega? Income tax site slow hai, status confusing hai, koi explain nahi karta. March-July mein crore log search karte hain.",
+    searches: "20L+/month seasonal",
+    existing: "IT portal — complex, jargon-heavy, no Hindi explanation",
+    gap: "PAN number dalo — refund status, expected date, kya karna hai agar stuck — simple language",
+    buildTime: "1 week",
+    revenue: "₹15-40K/month (seasonal spike ₹1L+)",
+    difficulty: "Easy",
+    unique: "Hindi mein explain karo — 'aapka refund processing mein hai, 15 din aur'",
+    tags: ["fire","money","build"]
+  },
+  {
+    n: "Train PNR Status — SMS Alert Tool",
+    emoji: "🚂",
+    color: "#14b8a6",
+    problem: "PNR status toh milta hai — lekin baar baar check karna padta hai. WhatsApp/SMS pe automatic alert chahiye confirmation ka.",
+    searches: "1Cr+/month",
+    existing: "IRCTC, RailYatri — ads se bhari, slow, no WhatsApp alert",
+    gap: "PNR enter karo — WhatsApp pe alert milega jab status change ho. Simple.",
+    buildTime: "2 weeks",
+    revenue: "₹50K-2L/month — highest traffic potential",
+    difficulty: "Medium",
+    unique: "WhatsApp notification — koi free tool nahi deta",
+    tags: ["fire","money","unique"]
+  },
+  {
+    n: "Bijli Bill Calculator & Complaint Tracker",
+    emoji: "⚡",
+    color: "#f97316",
+    problem: "Electricity bill zyada aaya — kitna hona chahiye tha? Units se calculate karo. Complaint kaise kare — koi guide nahi. Har state ka alag portal.",
+    searches: "20L+/month",
+    existing: "State DISCOM sites — unusable, no calculator",
+    gap: "State select karo, units enter karo — exact bill amount. Plus complaint portal direct link.",
+    buildTime: "1-2 weeks",
+    revenue: "₹15-35K/month",
+    difficulty: "Easy",
+    unique: "Bill dispute calculator — 'aapka bill ₹200 zyada aaya, yeh karo'",
+    tags: ["fire","money","build"]
+  },
+  {
+    n: "Govt Scheme Eligibility Checker",
+    emoji: "🏛️",
+    color: "#6366f1",
+    problem: "500+ sarkari schemes hain — PM Awas, Ujjwala, Kisan Samman, Ayushman Bharat. Log search karte hain 'kaunsi scheme milegi mujhe' — koi tool nahi.",
+    searches: "30L+/month",
+    existing: "myscheme.gov.in — exists but complex, not conversational",
+    gap: "Age, income, state, category enter karo — 'aap in 8 schemes ke eligible hain, apply karo'",
+    buildTime: "2-3 weeks",
+    revenue: "₹20-60K/month — huge untapped",
+    difficulty: "Medium",
+    unique: "Conversational Hindi — seedha batao eligible ho ya nahi",
+    tags: ["fire","money","unique"]
+  },
+  {
+    n: "Loan Against Property Calculator",
+    emoji: "🏦",
+    color: "#ec4899",
+    problem: "Property pe loan kitna milega, interest rate kya hoga, kaunsa bank best hai — sab alag alag sites pe dhundna padta hai. Koi comparison tool nahi.",
+    searches: "10L+/month",
+    existing: "Bank sites — sirf apna rate dikhate hain, no comparison",
+    gap: "Property value + location + income — 5 banks ka comparison, best deal, apply button",
+    buildTime: "1-2 weeks",
+    revenue: "₹25-70K/month — lead gen bhi possible",
+    difficulty: "Easy-Medium",
+    unique: "Lead gen model — banks ko leads becho ₹500-2000/lead",
+    tags: ["money","unique","build"]
+  },
+  {
+    n: "Caste Certificate Status Tracker",
+    emoji: "📄",
+    color: "#84cc16",
+    problem: "SC/ST/OBC certificate apply kiya — status kab milega? State wise portals alag hain, confusing hain, Hindi mein explain nahi karte.",
+    searches: "15L+/month",
+    existing: "State portals — alag alag, no unified tool",
+    gap: "State select, application number — status + next steps Hindi mein",
+    buildTime: "1-2 weeks",
+    revenue: "₹10-25K/month",
+    difficulty: "Easy",
+    unique: "State wise direct links — guide format mein",
+    tags: ["fire","build"]
+  },
+  {
+    n: "Job Application Tracker — India",
+    emoji: "💼",
+    color: "#06b6d4",
+    problem: "Fresher 50-100 jobs apply karta hai — kahan apply kiya, kya response aaya, interview kab hai — track nahi hota. Excel banate hain, bhool jaate hain.",
+    searches: "8L+/month",
+    existing: "Notion/Excel — manual. Job portals apna tracker nahi dete.",
+    gap: "Company name, date, status, next action — free job tracker, reminders with WhatsApp",
+    buildTime: "2 weeks",
+    revenue: "₹8-20K/month + premium",
+    difficulty: "Easy",
+    unique: "WhatsApp reminder — 'aaj XYZ company ka follow up karo'",
+    tags: ["build","unique"]
+  },
+  {
+    n: "Vehicle Challan & Fine Calculator",
+    emoji: "🚔",
+    color: "#f43f5e",
+    problem: "Traffic challan kata — kitna bharna padega? State wise rates alag hain. Online pay kaise kare? Koi clear guide nahi.",
+    searches: "12L+/month",
+    existing: "echallan.parivahan.gov.in — exists but slow, confusing",
+    gap: "State + violation select — exact fine, pay karne ka direct link, court option explain karo",
+    buildTime: "1 week",
+    revenue: "₹10-25K/month — VishTech Cars pe perfect",
+    difficulty: "Easy",
+    unique: "Fine calculator — 'helmet nahi tha + phone use = ₹3,000 total'",
+    tags: ["fire","build"]
+  },
+  {
+    n: "Hostel & PG Complaint Tool",
+    emoji: "🏠",
+    color: "#a855f7",
+    problem: "Students/working professionals PG mein problem hai — kahan complaint kare, consumer forum kaise file kare. Koi guide nahi, koi tool nahi.",
+    searches: "5L+/month",
+    existing: "Nothing useful exists",
+    gap: "City select, problem type — exact authority contact, complaint template ready, consumer forum link",
+    buildTime: "1 week",
+    revenue: "₹5-15K/month",
+    difficulty: "Easy",
+    unique: "Complaint template generator — copy paste karo aur bhejo",
+    tags: ["unique","build"]
+  },
+  {
+    n: "FASTag Toll Route Planner",
+    emoji: "🛣️",
+    color: "#0ea5e9",
+    problem: "Delhi se Mumbai jaana hai — exactly kaun se toll plaza aayenge, total toll kitna lagega, FASTag se ya cash — koi comprehensive tool nahi.",
+    searches: "8L+/month",
+    existing: "Google Maps toll estimate — not detailed, no plaza names",
+    gap: "Source to destination — every toll plaza, amount, FASTag discount, total trip toll cost",
+    buildTime: "2-3 weeks",
+    revenue: "₹15-40K/month — VishTech Cars ke liye perfect",
+    difficulty: "Medium",
+    unique: "Exact plaza names + NH numbers — traveler ka best friend",
+    tags: ["fire","money","unique"]
+  }
+];
+
+const colors = {fire:'t-fire',money:'t-money',build:'t-build',unique:'t-unique'};
+const tagLabels = {fire:'🔥 High Traffic',money:'💰 High Revenue',build:'⚡ Easy Build',unique:'💎 Unique'};
+
+const container = document.getElementById('cards');
+tools.forEach((t,i)=>{
+  const card = document.createElement('div');
+  card.className = 'tool-card';
+  card.innerHTML = `
+    <div class="tc-head" onclick="toggle(this)">
+      <div class="tc-num" style="background:${t.color}22;color:${t.color};">${i+1}</div>
+      <div class="tc-main">
+        <div class="tc-name">${t.emoji} ${t.n}</div>
+        <div class="tc-problem">${t.problem}</div>
+        <div class="tc-tags">
+          ${t.tags.map(tg=>`<span class="tag ${colors[tg]}">${tagLabels[tg]}</span>`).join('')}
+        </div>
+      </div>
+      <div class="tc-arrow">›</div>
+    </div>
+    <div class="tc-body">
+      <div class="detail-grid">
+        <div class="dg-item">
+          <div class="dg-label">Monthly Searches</div>
+          <div class="dg-val" style="color:#f59e0b;font-weight:600;">${t.searches}</div>
+        </div>
+        <div class="dg-item">
+          <div class="dg-label">Build Time</div>
+          <div class="dg-val">${t.buildTime}</div>
+        </div>
+        <div class="dg-item">
+          <div class="dg-label">Ad Revenue Potential</div>
+          <div class="dg-val" style="color:#10b981;font-weight:600;">${t.revenue}</div>
+        </div>
+        <div class="dg-item">
+          <div class="dg-label">Difficulty</div>
+          <div class="dg-val">${t.difficulty}</div>
+        </div>
+      </div>
+      <div class="why-box">
+        <div class="why-label">❌ Existing Solutions Ki Problem</div>
+        <div class="existing">${t.existing}</div>
+        <div class="why-label" style="margin-top:8px;">✅ Tera Tool Kya Karega Alag</div>
+        <div class="gap">${t.gap}</div>
+      </div>
+      <div class="why-box">
+        <div class="why-label">💎 Unique Feature — Jo Koi Nahi Deta</div>
+        <div class="why-text">${t.unique}</div>
+      </div>
+    </div>
+  `;
+  container.appendChild(card);
+});
+
+function toggle(head){
+  const body = head.nextElementSibling;
+  const arrow = head.querySelector('.tc-arrow');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.tc-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.tc-arrow').forEach(a=>a.classList.remove('open'));
+  if(!isOpen){body.classList.add('open');arrow.classList.add('open');}
+}
+</script>
