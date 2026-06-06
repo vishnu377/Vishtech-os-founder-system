@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VISTECH EMPIRE — Master OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #181818;
+    --accent: #f5c518;
+    --accent2: #ff6b35;
+    --green: #00e676;
+    --red: #ff1744;
+    --blue: #00b0ff;
+    --purple: #d500f9;
+    --grey: #333;
+    --grey2: #555;
+    --text: #e8e8e8;
+    --text2: #999;
+    --card: #141414;
+    --border: #222;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Manrope',sans-serif; overflow-x:hidden; }
+
+  /* ===== NAV ===== */
+  nav {
+    position:fixed; top:0; left:0; width:100%; z-index:999;
+    background:rgba(10,10,10,0.95); border-bottom:1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 24px; backdrop-filter:blur(10px);
+  }
+  .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--accent); letter-spacing:3px; }
+  .nav-tabs { display:flex; gap:4px; flex-wrap:wrap; }
+  .nav-tab {
+    padding:6px 14px; border-radius:6px; border:1px solid transparent;
+    font-size:11px; font-weight:700; cursor:pointer; color:var(--text2);
+    transition:all 0.2s; text-transform:uppercase; letter-spacing:1px;
+    background:none;
+  }
+  .nav-tab:hover, .nav-tab.active { border-color:var(--accent); color:var(--accent); background:rgba(245,197,24,0.08); }
+  .nav-date { font-family:'Space Mono',monospace; font-size:11px; color:var(--text2); }
+
+  /* ===== SECTIONS ===== */
+  .section { display:none; padding:80px 20px 40px; max-width:1100px; margin:0 auto; }
+  .section.active { display:block; }
+
+  /* ===== HEADINGS ===== */
+  h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,6vw,64px); letter-spacing:4px; line-height:1; }
+  h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,4vw,40px); letter-spacing:3px; }
+  h3 { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; color:var(--accent); }
+  .tag { display:inline-block; padding:3px 10px; border-radius:4px; font-size:10px; font-weight:800; letter-spacing:2px; text-transform:uppercase; }
+  .tag-gold { background:rgba(245,197,24,0.15); color:var(--accent); border:1px solid var(--accent); }
+  .tag-green { background:rgba(0,230,118,0.12); color:var(--green); border:1px solid var(--green); }
+  .tag-red { background:rgba(255,23,68,0.12); color:var(--red); border:1px solid var(--red); }
+  .tag-blue { background:rgba(0,176,255,0.12); color:var(--blue); border:1px solid var(--blue); }
+  .tag-purple { background:rgba(213,0,249,0.12); color:var(--purple); border:1px solid var(--purple); }
+  .tag-orange { background:rgba(255,107,53,0.12); color:var(--accent2); border:1px solid var(--accent2); }
+
+  /* ===== CARDS ===== */
+  .card {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:20px; margin-bottom:16px;
+  }
+  .card:hover { border-color:var(--grey2); }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media(max-width:700px) { .grid2,.grid3 { grid-template-columns:1fr; } }
+
+  /* ===== HERO ===== */
+  .hero { text-align:center; padding:40px 0 60px; }
+  .hero h1 span { color:var(--accent); }
+  .hero-sub { font-size:13px; color:var(--text2); margin:12px 0 32px; letter-spacing:2px; text-transform:uppercase; font-family:'Space Mono',monospace; }
+  .hero-stats { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:32px 0; }
+  .hero-stat { text-align:center; }
+  .hero-stat-val { font-family:'Bebas Neue',sans-serif; font-size:40px; color:var(--accent); }
+  .hero-stat-lbl { font-size:10px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; }
+
+  /* ===== PRIORITY FLOW ===== */
+  .priority-flow { display:flex; flex-direction:column; gap:0; }
+  .pf-item {
+    display:flex; align-items:flex-start; gap:20px; padding:20px;
+    border:1px solid var(--border); border-radius:12px; margin-bottom:12px;
+    background:var(--card); cursor:pointer; transition:all 0.2s; position:relative;
+  }
+  .pf-item:hover { border-color:var(--accent); transform:translateX(4px); }
+  .pf-num { font-family:'Bebas Neue',sans-serif; font-size:52px; color:var(--accent); line-height:1; min-width:60px; }
+  .pf-content { flex:1; }
+  .pf-title { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; margin-bottom:6px; }
+  .pf-time { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent2); margin-bottom:8px; }
+  .pf-desc { font-size:12px; color:var(--text2); line-height:1.7; }
+  .pf-why { font-size:11px; color:var(--green); margin-top:8px; font-weight:700; }
+  .pf-arrow { position:absolute; right:20px; top:50%; transform:translateY(-50%); color:var(--grey2); font-size:20px; }
+
+  /* ===== TASK TRACKER ===== */
+  .task-input-row { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
+  .task-input {
+    flex:1; min-width:200px; background:var(--bg3); border:1px solid var(--grey);
+    color:var(--text); padding:12px 16px; border-radius:8px; font-family:'Manrope',sans-serif;
+    font-size:13px; outline:none;
+  }
+  .task-input:focus { border-color:var(--accent); }
+  .task-select {
+    background:var(--bg3); border:1px solid var(--grey); color:var(--text);
+    padding:12px 14px; border-radius:8px; font-family:'Manrope',sans-serif;
+    font-size:12px; outline:none; cursor:pointer;
+  }
+  .btn {
+    padding:12px 20px; border-radius:8px; border:none; cursor:pointer;
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:12px;
+    letter-spacing:1px; text-transform:uppercase; transition:all 0.2s;
+  }
+  .btn-gold { background:var(--accent); color:#000; }
+  .btn-gold:hover { background:#ffd740; }
+  .btn-red { background:var(--red); color:#fff; font-size:11px; padding:6px 12px; }
+  .btn-green { background:var(--green); color:#000; font-size:11px; padding:6px 12px; }
+
+  .task-list { list-style:none; }
+  .task-item {
+    display:flex; align-items:center; gap:12px; padding:14px 16px;
+    background:var(--card); border:1px solid var(--border); border-radius:8px;
+    margin-bottom:8px; transition:all 0.2s;
+  }
+  .task-item.done { opacity:0.4; }
+  .task-item.done .task-text { text-decoration:line-through; }
+  .task-check-btn {
+    width:24px; height:24px; border-radius:50%; border:2px solid var(--grey2);
+    background:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; transition:all 0.2s; color:transparent; font-size:12px;
+  }
+  .task-check-btn.checked { background:var(--green); border-color:var(--green); color:#000; }
+  .task-text { flex:1; font-size:13px; }
+  .task-cat { font-size:10px; font-weight:800; letter-spacing:1px; padding:2px 8px; border-radius:4px; }
+  .task-del { background:none; border:none; color:var(--grey2); cursor:pointer; font-size:16px; }
+  .task-del:hover { color:var(--red); }
+
+  .task-filters { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .filter-btn {
+    padding:6px 14px; border-radius:20px; border:1px solid var(--border);
+    background:none; color:var(--text2); font-size:11px; font-weight:700;
+    cursor:pointer; transition:all 0.2s; text-transform:uppercase; letter-spacing:1px;
+  }
+  .filter-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(245,197,24,0.1); }
+
+  .progress-bar-wrap { background:var(--bg3); border-radius:20px; height:8px; margin-bottom:20px; overflow:hidden; }
+  .progress-bar { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:20px; transition:width 0.4s; }
+
+  /* ===== STRATEGIES ===== */
+  .strat-box {
+    border-left:4px solid var(--accent); padding:16px 20px;
+    background:var(--card); border-radius:0 8px 8px 0; margin-bottom:12px;
+  }
+  .strat-title { font-weight:800; font-size:14px; margin-bottom:6px; }
+  .strat-rule { font-size:12px; color:var(--text2); line-height:1.7; }
+  .strat-rule strong { color:var(--text); }
+  .rule-list { list-style:none; }
+  .rule-list li { padding:10px 0; border-bottom:1px solid var(--border); font-size:13px; display:flex; gap:12px; align-items:flex-start; }
+  .rule-list li:last-child { border-bottom:none; }
+  .rule-num { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--accent); min-width:28px; }
+
+  /* ===== PEOPLE RADAR ===== */
+  .person-card {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:16px; margin-bottom:12px;
+  }
+  .person-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+  .person-type { font-family:'Bebas Neue',sans-serif; font-size:18px; }
+  .trust-meter { display:flex; gap:4px; margin-bottom:10px; }
+  .trust-dot { width:10px; height:10px; border-radius:50%; background:var(--border); }
+  .trust-dot.filled { background:var(--accent); }
+  .person-signs { font-size:12px; color:var(--text2); line-height:1.8; }
+  .person-action { margin-top:10px; font-size:11px; font-weight:800; color:var(--accent2); text-transform:uppercase; letter-spacing:1px; }
+  .warning-box {
+    background:rgba(255,23,68,0.08); border:1px solid rgba(255,23,68,0.3);
+    border-radius:8px; padding:14px 16px; margin-bottom:10px;
+    font-size:12px; color:var(--text2); line-height:1.7;
+  }
+  .warning-box strong { color:var(--red); }
+
+  /* ===== SITUATIONS ===== */
+  .situation-item {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    margin-bottom:12px; overflow:hidden;
+  }
+  .situation-header {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 20px; cursor:pointer;
+  }
+  .situation-header:hover { background:var(--bg3); }
+  .situation-q { font-weight:700; font-size:14px; }
+  .situation-arrow { color:var(--accent); font-size:18px; transition:transform 0.2s; }
+  .situation-arrow.open { transform:rotate(180deg); }
+  .situation-body { display:none; padding:16px 20px; border-top:1px solid var(--border); }
+  .situation-body.open { display:block; }
+  .solution-step { display:flex; gap:12px; margin-bottom:12px; font-size:13px; }
+  .step-num { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--accent); min-width:30px; line-height:1; }
+  .step-text { color:var(--text2); line-height:1.7; }
+  .step-text strong { color:var(--text); }
+
+  /* ===== DIGITAL ASSETS ===== */
+  .asset-card {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:20px; margin-bottom:16px;
+  }
+  .asset-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .asset-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; }
+  .asset-status { font-size:10px; font-weight:800; padding:4px 12px; border-radius:20px; letter-spacing:2px; }
+  .status-live { background:rgba(0,230,118,0.15); color:var(--green); border:1px solid var(--green); }
+  .status-build { background:rgba(0,176,255,0.15); color:var(--blue); border:1px solid var(--blue); }
+  .status-plan { background:rgba(245,197,24,0.15); color:var(--accent); border:1px solid var(--accent); }
+  .asset-steps { list-style:none; }
+  .asset-steps li { padding:8px 0; border-bottom:1px solid var(--border); font-size:12px; color:var(--text2); display:flex; gap:10px; align-items:flex-start; }
+  .asset-steps li:last-child { border-bottom:none; }
+  .asset-steps li::before { content:'→'; color:var(--accent); font-weight:700; flex-shrink:0; }
+
+  /* ===== EMOTIONAL RULES ===== */
+  .emo-rule {
+    display:flex; gap:16px; padding:16px; background:var(--card);
+    border:1px solid var(--border); border-radius:10px; margin-bottom:10px; align-items:flex-start;
+  }
+  .emo-icon { font-size:24px; flex-shrink:0; }
+  .emo-title { font-weight:800; font-size:14px; margin-bottom:4px; }
+  .emo-desc { font-size:12px; color:var(--text2); line-height:1.6; }
+  .emo-rule-text { background:var(--bg3); border-radius:6px; padding:8px 12px; margin-top:8px; font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); }
+
+  /* ===== DAILY REVIEW ===== */
+  .review-box {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:20px; margin-bottom:16px;
+  }
+  .review-label { font-size:11px; font-weight:800; letter-spacing:2px; color:var(--text2); text-transform:uppercase; margin-bottom:8px; }
+  .review-textarea {
+    width:100%; background:var(--bg3); border:1px solid var(--grey);
+    color:var(--text); padding:12px; border-radius:8px; font-family:'Manrope',sans-serif;
+    font-size:13px; resize:vertical; min-height:80px; outline:none; line-height:1.6;
+  }
+  .review-textarea:focus { border-color:var(--accent); }
+  .review-history { margin-top:20px; }
+  .review-day { background:var(--bg3); border-radius:8px; padding:14px; margin-bottom:10px; font-size:12px; }
+  .review-day-date { font-family:'Space Mono',monospace; font-size:10px; color:var(--accent); margin-bottom:8px; }
+
+  /* ===== INCOME TRACKER ===== */
+  .income-row { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px; margin-bottom:20px; }
+  @media(max-width:600px) { .income-row { grid-template-columns:1fr 1fr; } }
+  .income-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center; }
+  .income-val { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--accent); }
+  .income-lbl { font-size:10px; color:var(--text2); letter-spacing:1px; text-transform:uppercase; margin-top:4px; }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--grey); border-radius:2px; }
+
+  /* ===== DIVIDER ===== */
+  .divider { border:none; border-top:1px solid var(--border); margin:24px 0; }
+  .section-title { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:3px; margin:32px 0 16px; }
+  .section-subtitle { font-size:12px; color:var(--text2); margin-bottom:20px; line-height:1.7; }
+  .motto {
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(18px,3vw,28px); letter-spacing:4px;
+    color:var(--accent); text-align:center; padding:24px; border:1px solid var(--grey);
+    border-radius:12px; margin:24px 0;
+  }
+
+  /* ===== TOAST ===== */
+  #toast {
+    position:fixed; bottom:30px; right:30px; background:var(--accent); color:#000;
+    padding:12px 20px; border-radius:8px; font-weight:800; font-size:13px;
+    opacity:0; transform:translateY(20px); transition:all 0.3s; z-index:9999; pointer-events:none;
+  }
+  #toast.show { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚡ VISTECH OS</div>
+  <div class="nav-tabs">
+    <button onclick="window.location.href='index.html'">
+    home
+</button>
+    <button class="nav-tab active" onclick="showSection('dashboard')">Dashboard</button>
+    <button class="nav-tab" onclick="showSection('tasks')">Tasks</button>
+    <button class="nav-tab" onclick="showSection('priority')">Priority</button>
+    <button class="nav-tab" onclick="showSection('digital')">Digital</button>
+    <button class="nav-tab" onclick="showSection('strategy')">Strategy</button>
+    <button class="nav-tab" onclick="showSection('people')">People</button>
+    <button class="nav-tab" onclick="showSection('situations')">Situations</button>
+    <button class="nav-tab" onclick="showSection('emotional')">Discipline</button>
+    <button class="nav-tab" onclick="showSection('review')">Review</button>
+  </div>
+  <div class="nav-date" id="navDate"></div>
+</nav>
+
+<div id="toast"></div>
+
+<!-- ============================================================ -->
+<!-- DASHBOARD -->
+<!-- ============================================================ -->
+<section class="section active" id="section-dashboard">
+  <div class="hero">
+    <div class="tag tag-gold" style="margin-bottom:16px">VISHNU · JAIPUR · 2026</div>
+    <h1>VISTECH<br><span>EMPIRE</span><br>MASTER OS</h1>
+    <p class="hero-sub">Smart Work · Hard Work · Right Time · Right Direction</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val" id="stat-done">0</div>
+        <div class="hero-stat-lbl">Tasks Done Today</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" id="stat-total">0</div>
+        <div class="hero-stat-lbl">Total Tasks</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" id="stat-pct">0%</div>
+        <div class="hero-stat-lbl">Completion</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" id="stat-streak">0</div>
+        <div class="hero-stat-lbl">Day Streak</div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap" style="max-width:600px;margin:0 auto">
+      <div class="progress-bar" id="hero-progress" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="motto">SIRF APNE KAM PE FOCUS · EMOTIONAL LOOP SE BAHAR · EMPIRE BUILD KARO</div>
+
+  <div class="grid3" style="margin-top:24px">
+    <div class="card" style="border-color:var(--accent)">
+      <div class="tag tag-gold" style="margin-bottom:10px">PRIORITY #1</div>
+      <h3 style="font-size:16px;">Deal Share Mart Job</h3>
+      <p style="font-size:12px;color:var(--text2);margin-top:8px;">6 AM – 3 PM · Billing wali job. Income stability pehle.</p>
+      <div style="margin-top:12px;font-size:11px;color:var(--green);font-weight:700;">→ Agar mil jaye to FIRST priority</div>
+    </div>
+    <div class="card" style="border-color:var(--blue)">
+      <div class="tag tag-blue" style="margin-bottom:10px">PRIORITY #2</div>
+      <h3 style="font-size:16px;">QR Code Marketing</h3>
+      <p style="font-size:12px;color:var(--text2);margin-top:8px;">3 PM ke baad · System ready karo, clients dhundo, setup karo.</p>
+    </div>
+    <div class="card" style="border-color:var(--accent2)">
+      <div class="tag tag-orange" style="margin-bottom:10px">PRIORITY #3</div>
+      <h3 style="font-size:16px;">Website Clients Sales</h3>
+      <p style="font-size:12px;color:var(--text2);margin-top:8px;">Outreach · Marketing · New leads dhundo.</p>
+    </div>
+    <div class="card">
+      <div class="tag tag-purple" style="margin-bottom:10px">PRIORITY #4</div>
+      <h3 style="font-size:16px;">Agency Projects</h3>
+      <p style="font-size:12px;color:var(--text2);margin-top:8px;">Ongoing work deliver karo. Client satisfaction highest.</p>
+    </div>
+    <div class="card">
+      <div class="tag tag-green" style="margin-bottom:10px">PRIORITY #5</div>
+      <h3 style="font-size:16px;">Old Clients — Upsell</h3>
+      <p style="font-size:12px;color:var(--text2);margin-top:8px;">Referral, update, ya naya kuch becho purane clients ko.</p>
+    </div>
+    <div class="card">
+      <div class="tag" style="margin-bottom:10px;background:rgba(200,200,200,0.1);color:#aaa;border:1px solid #333">PRIORITY #6</div>
+      <h3 style="font-size:16px;">Cab Business</h3>
+      <p style="font-size:12px;color:var(--text2);margin-top:8px;">Driver maange karo, reports lo, earnings check karo.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:24px;border-color:var(--purple)">
+    <h3 style="margin-bottom:12px;">⚡ Today's Top 3 Focus</h3>
+    <div id="top3-list">
+      <div style="font-size:13px;color:var(--text2);">Tasks section mein tasks add karo, wahan se top 3 dikhenge.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TASKS -->
+<!-- ============================================================ -->
+<section class="section" id="section-tasks">
+  <h2 style="margin-bottom:6px">DAILY TASK TRACKER</h2>
+  <p class="section-subtitle">Add karo, complete karo, delete karo. Roz naya din, naya plan.</p>
+
+  <div class="task-input-row">
+    <input class="task-input" id="taskInput" placeholder="Task likhein... (e.g. 5 QR clients call karo)" onkeydown="if(event.key==='Enter') addTask()">
+    <select class="task-select" id="taskCat">
+      <option value="job">Job</option>
+      <option value="qr">QR System</option>
+      <option value="website">Website</option>
+      <option value="agency">Agency</option>
+      <option value="digital">Digital</option>
+      <option value="cab">Cab</option>
+      <option value="instagram">Instagram</option>
+      <option value="personal">Personal</option>
+    </select>
+    <select class="task-select" id="taskPriority">
+      <option value="high">🔴 High</option>
+      <option value="med">🟡 Medium</option>
+      <option value="low">🟢 Low</option>
+    </select>
+    <button class="btn btn-gold" onclick="addTask()">+ ADD</button>
+  </div>
+
+  <div class="task-filters">
+    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setFilter('pending',this)">Pending</button>
+    <button class="filter-btn" onclick="setFilter('done',this)">Done</button>
+    <button class="filter-btn" onclick="setFilter('job',this)">Job</button>
+    <button class="filter-btn" onclick="setFilter('qr',this)">QR</button>
+    <button class="filter-btn" onclick="setFilter('website',this)">Website</button>
+    <button class="filter-btn" onclick="setFilter('agency',this)">Agency</button>
+    <button class="filter-btn" onclick="setFilter('digital',this)">Digital</button>
+    <button class="filter-btn" onclick="setFilter('instagram',this)">Instagram</button>
+  </div>
+
+  <div style="margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span style="font-size:12px;color:var(--text2)" id="task-count-label">0 / 0 tasks done</span>
+      <button class="btn" style="background:var(--bg3);color:var(--red);border:1px solid var(--red);padding:6px 14px;font-size:11px" onclick="clearDone()">Clear Done</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="taskProgress" style="width:0%"></div></div>
+  </div>
+
+  <ul class="task-list" id="taskList"></ul>
+
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
+    <h3 style="margin-bottom:12px;font-size:16px;color:var(--text2)">QUICK ADD — COMMON TASKS</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:11px" onclick="quickAdd('5 QR system client calls karo','qr','high')">📞 QR Calls</button>
+      <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:11px" onclick="quickAdd('Instagram ke liye 1 content post create karo','instagram','med')">📸 IG Post</button>
+      <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:11px" onclick="quickAdd('Agency project progress update karo','agency','high')">💼 Agency Update</button>
+      <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:11px" onclick="quickAdd('Cab driver se earnings/report maango','cab','low')">🚕 Cab Report</button>
+      <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:11px" onclick="quickAdd('Vishtech.com blog post schedule karo','digital','med')">🌐 Blog Post</button>
+      <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:11px" onclick="quickAdd('Old clients ko follow-up/upsell message bhejo','website','med')">🔄 Old Client</button>
+      <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:11px" onclick="quickAdd('Deal Share Mart job ke liye apply/follow-up karo','job','high')">🏪 Job Apply</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PRIORITY SYSTEM -->
+<!-- ============================================================ -->
+<section class="section" id="section-priority">
+  <h2 style="margin-bottom:6px">PRIORITY EXECUTION ORDER</h2>
+  <p class="section-subtitle">Iska matlab ye nahi ki ek khatam ho to doosra shuru. Matlab ye hai ki agar time aur energy limited ho — to ye order follow karo. Ek din mein sab milega.</p>
+
+  <div class="priority-flow">
+
+    <div class="pf-item">
+      <div class="pf-num">01</div>
+      <div class="pf-content">
+        <div class="pf-title">DEAL SHARE MART — BILLING JOB</div>
+        <div class="pf-time">⏰ 6:00 AM – 3:00 PM (agar mil jaye)</div>
+        <div class="pf-desc">Ye teri income stability hai. Jab tak agency aur digital income stable nahi hoti, ek fixed income zaroori hai. Billing job chhoti lagti hai par ye teri "runway" hai — tujhe time deti hai empire build karne ka bina pressure ke.</div>
+        <div class="pf-why">✓ WHY FIRST: Financial stability = risk-free execution of all other plans</div>
+      </div>
+      <div class="pf-arrow">›</div>
+    </div>
+
+    <div class="pf-item">
+      <div class="pf-num">02</div>
+      <div class="pf-content">
+        <div class="pf-title">QR CODE MARKETING SYSTEM</div>
+        <div class="pf-time">⏰ 3:00 PM – 6:00 PM</div>
+        <div class="pf-desc">QR system tera highest-leverage product hai. Ek baar setup ho gaya to har client passive referral machine ban jaata hai. Focus: system ready karo → 5 demo clients roz → pitch script tight karo → automated follow-up set karo.</div>
+        <div class="pf-why">✓ WHY SECOND: Scalable, low cost, high impact. Ek sale = ₹3000–15000+</div>
+      </div>
+    </div>
+
+    <div class="pf-item">
+      <div class="pf-num">03</div>
+      <div class="pf-content">
+        <div class="pf-title">WEBSITE CLIENTS — SALES OUTREACH</div>
+        <div class="pf-time">⏰ 6:00 PM – 7:30 PM (ya lunch break mein)</div>
+        <div class="pf-desc">Roz minimum 10 businesses ko cold outreach karo. Local businesses jo abhi bhi website ke bina hain. WhatsApp message, direct visit, ya Instagram DM. Track karo kaun ne reply kiya, kaun ne nahi. Follow up 3 baar karo.</div>
+        <div class="pf-why">✓ WHY THIRD: Core business. ₹8000–₹50,000 per project</div>
+      </div>
+    </div>
+
+    <div class="pf-item">
+      <div class="pf-num">04</div>
+      <div class="pf-content">
+        <div class="pf-title">AGENCY — ONGOING PROJECTS</div>
+        <div class="pf-time">⏰ Available hours mein (flexible)</div>
+        <div class="pf-desc">Jo kaam already committed hai usse deliver karo. Quality mein koi compromise nahi. Deadline se pehle deliver karna tera brand hai. Project management simple rakho — ek Notion ya Excel sheet pe track karo status.</div>
+        <div class="pf-why">✓ WHY FOURTH: Reputation = repeat business + referrals</div>
+      </div>
+    </div>
+
+    <div class="pf-item">
+      <div class="pf-num">05</div>
+      <div class="pf-content">
+        <div class="pf-title">OLD CLIENTS — REFERRAL & UPSELL</div>
+        <div class="pf-time">⏰ Weekly — 1 ghante ka dedicated session</div>
+        <div class="pf-desc">List banao — kaun the teri previous clients. Unko ek simple message bhejo: "Bhai, hum kuch naya launch kar rahe hain — QR system / maintenance / blog setup — interested ho?" Warm leads se cold se 10x zyada conversion hoti hai.</div>
+        <div class="pf-why">✓ WHY FIFTH: Easiest money — already trust tha</div>
+      </div>
+    </div>
+
+    <div class="pf-item">
+      <div class="pf-num">06</div>
+      <div class="pf-content">
+        <div class="pf-title">CAB BUSINESS — MANAGEMENT</div>
+        <div class="pf-time">⏰ Weekly check-in — 30 min</div>
+        <div class="pf-desc">Driver se weekly: total trips, earnings, expenses, complaints report lo. Ek WhatsApp group banao. Agar driver sahi perform nahi kar raha — pehle warning, fir replacement. Tumhara time invest mat karo zyada — ye passive hai.</div>
+        <div class="pf-why">✓ WHY SIXTH: Passive income stream — minimize your involvement</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="motto" style="margin-top:32px">PEHLE STABILITY · FIR SCALE · FIR FREEDOM</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- DIGITAL ASSETS -->
+<!-- ============================================================ -->
+<section class="section" id="section-digital">
+  <h2 style="margin-bottom:6px">DIGITAL ASSETS PLAN</h2>
+  <p class="section-subtitle">Ye wala section long-term wealth ka foundation hai. Har asset ek alag income stream banaata hai.</p>
+
+  <div class="asset-card" style="border-color:var(--green)">
+    <div class="asset-header">
+      <div class="asset-name">VISHTECHCARS.COM</div>
+      <div class="asset-status status-live">LIVE — MONETIZE NOW</div>
+    </div>
+    <div class="tag tag-green" style="margin-bottom:12px">Google pe chal rahi hai — revenue lagao abhi</div>
+    <ul class="asset-steps">
+      <li>Google AdSense apply karo — agar eligible ho to ads lagao, revenue shuru</li>
+      <li>Roz 1 SEO-optimized blog post likho (Claude AI se help lo, apne words mein edit karo)</li>
+      <li>Categories: Used cars review, car maintenance tips, buying guide, Jaipur local car market</li>
+      <li>Affiliate links: OLX, CarDekho, InsuranceDekho — commission per click/sale</li>
+      <li>Target: 10,000 monthly visitors → ₹3,000–8,000/month passive</li>
+    </ul>
+  </div>
+
+  <div class="asset-card" style="border-color:var(--blue)">
+    <div class="asset-header">
+      <div class="asset-name">DIGITAL TOOLS (ilovepdf jaise)</div>
+      <div class="asset-status status-build">BUILD — PHASE 2</div>
+    </div>
+    <div class="tag tag-blue" style="margin-bottom:12px">New tools launch karo — traffic + revenue</div>
+    <ul class="asset-steps">
+      <li>Tool ideas: Image compressor, PDF to Word, Resume builder (Hindi), QR code generator free</li>
+      <li>Claude + simple React se MVP banao — 1 week mein 1 tool</li>
+      <li>SEO: "free image compress online hindi", "pdf to word free india" — low competition, high volume</li>
+      <li>Monetization: Google Ads + premium features (₹49/month subscription)</li>
+      <li>Goal: 5 tools live → 50,000 monthly visitors → ₹15,000–30,000/month</li>
+    </ul>
+  </div>
+
+  <div class="asset-card" style="border-color:var(--accent)">
+    <div class="asset-header">
+      <div class="asset-name">EXAM PAPERS PORTAL</div>
+      <div class="asset-status status-plan">PLAN — PHASE 3</div>
+    </div>
+    <div class="tag tag-gold" style="margin-bottom:12px">5 saal ke previous year papers — students ka sona</div>
+    <ul class="asset-steps">
+      <li>Niche: Rajasthan board, CBSE, competitive exams (RPSC, Police, Patwari, RAS)</li>
+      <li>Content: Free papers upload karo → premium: full solutions, video explanations</li>
+      <li>Platform: Simple WordPress site ya Next.js — Claude se banwao</li>
+      <li>Monetization: Ads + ₹99 premium membership per month per student</li>
+      <li>Target market: Rajasthan mein lakhs of students — ye demand massive hai</li>
+    </ul>
+  </div>
+
+  <div class="asset-card">
+    <div class="asset-header">
+      <div class="asset-name">INSTAGRAM CONTENT PAGES (4-5)</div>
+      <div class="asset-status status-build">BUILD — START NOW</div>
+    </div>
+    <div class="tag tag-orange" style="margin-bottom:12px">Daily content, bulk upload, brand build</div>
+    <ul class="asset-steps">
+      <li>Page 1: Finance tips (Hindi) — saving, investing, budgeting for youth</li>
+      <li>Page 2: Motivation quotes (Hindi) — entrepreneur mindset</li>
+      <li>Page 3: Business skills — short tips for small business owners</li>
+      <li>Page 4: AI tools tips — how to use Claude, Midjourney, etc. (trending)</li>
+      <li>Process: Leonardo AI se image → Claude AI se text → bulk schedule karo Buffer/Later se</li>
+      <li>Monetization: 10K followers = sponsored posts ₹1,000–5,000 each · Affiliate marketing</li>
+    </ul>
+  </div>
+
+  <div class="grid2" style="margin-top:8px">
+    <div class="card" style="border-color:var(--accent2)">
+      <h3 style="font-size:16px;margin-bottom:10px">DRY FRUITS BUSINESS</h3>
+      <div class="tag tag-orange" style="margin-bottom:10px">FUTURE — Income stable hone ke baad</div>
+      <p style="font-size:12px;color:var(--text2);line-height:1.7">Rajasthan mein demand hai. Local supplier se bulk purchase, Instagram pe sell karo. Gift packs — Diwali, Eid, weddings. ₹500–2000 per order. Capital: ₹10,000 se shuru kar sakte ho.</p>
+    </div>
+    <div class="card" style="border-color:var(--accent2)">
+      <h3 style="font-size:16px;margin-bottom:10px">CLOTHING BUSINESS</h3>
+      <div class="tag tag-orange" style="margin-bottom:10px">FUTURE — Income stable hone ke baad</div>
+      <p style="font-size:12px;color:var(--text2);line-height:1.7">Ethnic wear, printed tees, custom designs. Instagram + Meesho/Flipkart seller. Dropshipping model se bhi shuru kar sakte ho — zero inventory. Agar design ka sense hai — bahut profitable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- STRATEGY -->
+<!-- ============================================================ -->
+<section class="section" id="section-strategy">
+  <h2 style="margin-bottom:6px">MASTER STRATEGIES</h2>
+  <p class="section-subtitle">Sirf plan banana kafi nahi. Ye rules roz follow karo.</p>
+
+  <h3 class="section-title" style="font-size:22px;margin-top:0">THE NON-NEGOTIABLE RULES</h3>
+  <ul class="rule-list">
+    <li><div class="rule-num">01</div><div><strong style="display:block;margin-bottom:4px">Morning Anchor — First 2 Hours Sacred Hain</strong><span style="color:var(--text2);font-size:12px">Subah uthh ke pehle 2 ghante sirf deep work mein. Phone band. Social media nahi. Ye 2 ghante hi teri empire ke foundation hain. Jo bhi "most important" kaam hai — woh pehle 2 ghante mein karo.</span></div></li>
+    <li><div class="rule-num">02</div><div><strong style="display:block;margin-bottom:4px">10-Client Rule — Roz 10 Naye Contacts</strong><span style="color:var(--text2);font-size:12px">Chahe website ho, QR system ho, kuch bhi — roz 10 naye log/businesses ko reach karo. 10 rejection bhi theek hai. 10 mein se 1 bhi haan bole to din successful hai.</span></div></li>
+    <li><div class="rule-num">03</div><div><strong style="display:block;margin-bottom:4px">90-Day Trial Rule — Kisi par bhi jaldi trust nahi</strong><span style="color:var(--text2);font-size:12px">Koi bhi partner, team member, client — pehle 90 din observe karo. Performance dekho, promise vs delivery dekho. 90 din ke baad decide karo trust karna hai ya nahi.</span></div></li>
+    <li><div class="rule-num">04</div><div><strong style="display:block;margin-bottom:4px">24-Hour Rule — Emotional decisions nahi</strong><span style="color:var(--text2);font-size:12px">Gusse mein, dukh mein, ya bahut zyada khushi mein koi bhi bada decision mat lo. 24 ghante ruko. Fir soche. Ye ek rule thousands of bad decisions se bachata hai.</span></div></li>
+    <li><div class="rule-num">05</div><div><strong style="display:block;margin-bottom:4px">Weekly Review — Saturday 1 Hour</strong><span style="color:var(--text2);font-size:12px">Har Saturday: Is hafte kya kiya? Income kitni aayi? Clients kitne mile? Agla hafte ka plan kya hai? Bina review ke growth nahi hoti — tujhe pata hi nahi chalega kahan jaa raha hai.</span></div></li>
+    <li><div class="rule-num">06</div><div><strong style="display:block;margin-bottom:4px">Skill-First Spending</strong><span style="color:var(--text2);font-size:12px">Pehle jo bhi extra paise aayein — business skills pe lagao. Tools, courses, software. Entertainment, gadgets, clothes — baad mein. Har rupee jo tu khud mein lagata hai 10x return deta hai.</span></div></li>
+    <li><div class="rule-num">07</div><div><strong style="display:block;margin-bottom:4px">Document Everything</strong><span style="color:var(--text2);font-size:12px">Har client conversation screenshot lo. Har deal writing mein karo. Har payment receipt rakho. Business mein memory pe nahi, documents pe chalte hain.</span></div></li>
+  </ul>
+
+  <h3 class="section-title">SMART WORK FORMULAS</h3>
+  <div class="grid2">
+    <div class="strat-box">
+      <div class="strat-title">BATCH PROCESSING</div>
+      <div class="strat-rule">Ek kaam ek hi waqt pe karo. <strong>Aaj Instagram posts bana rahe ho?</strong> 7 din ke posts ek hi session mein banao. Roz alag karne mein 5x zyada time lagta hai setup-teardown mein.</div>
+    </div>
+    <div class="strat-box">
+      <div class="strat-title">TEMPLATE EVERYTHING</div>
+      <div class="strat-rule"><strong>Pehli baar kuch naya karo — template banao.</strong> Client proposal template, QR pitch script, invoice template, WhatsApp message template. Ek baar bana — baar baar use karo.</div>
+    </div>
+    <div class="strat-box">
+      <div class="strat-title">2-MINUTE RULE</div>
+      <div class="strat-rule">Agar koi kaam <strong>2 minute se kam mein ho sakta hai — abhi karo.</strong> Reply karna, ek message send karna, ek note likhna — delay mat karo. Accumulate hoke bade problem banta hai.</div>
+    </div>
+    <div class="strat-box">
+      <div class="strat-title">ENERGY MANAGEMENT</div>
+      <div class="strat-rule"><strong>High energy = creative/sales work.</strong> Low energy = routine/admin work. Subah uthh ke subse pehle call mat karo — body warm-up chahiye. Peak hours: 9 AM–1 PM typically.</div>
+    </div>
+  </div>
+
+  <h3 class="section-title">12-MONTH ROADMAP</h3>
+  <div class="card">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+      <div style="text-align:center;padding:12px;background:var(--bg3);border-radius:8px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent)">0–3 MO</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:6px;line-height:1.6">Job stable karo<br>QR system launch<br>5 website clients<br>Instagram start</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--bg3);border-radius:8px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent)">3–6 MO</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:6px;line-height:1.6">QR 20+ clients<br>VishtechCars monetize<br>2 Instagram pages<br>Exam portal plan</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--bg3);border-radius:8px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent)">6–9 MO</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:6px;line-height:1.6">2–3 digital tools live<br>Exam portal launch<br>₹50K/mo target<br>Cab optimize</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--bg3);border-radius:8px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent)">9–12 MO</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:6px;line-height:1.6">₹1.5L+/mo system<br>Team hire karo<br>Dry fruits / clothing<br>Scale begin</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PEOPLE RADAR -->
+<!-- ============================================================ -->
+<section class="section" id="section-people">
+  <h2 style="margin-bottom:6px">PEOPLE RADAR</h2>
+  <p class="section-subtitle">Log teri biggest asset bhi ho sakte hain aur biggest liability bhi. Pehchaan seekho. 90-day rule follow karo hamesha.</p>
+
+  <div class="warning-box" style="margin-bottom:24px">
+    <strong>⚠️ GOLDEN RULE:</strong> Koi bhi tujhse zyada khush nahi hoga teri success pe — jitna tu khud hoga. Isliye kisi ke baare mein bhi itna mat socho ki wo sochta kya hai. Sirf ye dekho: <strong>kya wo deliver kar raha hai jo usne promise kiya tha?</strong>
+  </div>
+
+  <div class="person-card" style="border-color:var(--green)">
+    <div class="person-header">
+      <div>
+        <div class="person-type" style="color:var(--green)">✅ TRUSTWORTHY PEOPLE</div>
+        <div style="font-size:12px;color:var(--text2)">Inhe samay do, energy do</div>
+      </div>
+      <div class="tag tag-green">INVEST</div>
+    </div>
+    <div class="trust-meter">
+      <div class="trust-dot filled"></div><div class="trust-dot filled"></div>
+      <div class="trust-dot filled"></div><div class="trust-dot filled"></div><div class="trust-dot filled"></div>
+    </div>
+    <div class="person-signs">
+      <strong style="color:var(--text)">Signs:</strong><br>
+      • Jo kehte hain woh karte hain — consistently<br>
+      • Tere acche din mein bhi saath, bure din mein bhi<br>
+      • Tujhe better banana chahte hain — honest feedback dete hain<br>
+      • Teri success se khush hote hain — jealous nahi<br>
+      • Expectations clear rakhte hain — hidden agenda nahi
+    </div>
+    <div class="person-action">→ COLLABORATE · SHARE PLANS · BUILD TOGETHER</div>
+  </div>
+
+  <div class="person-card" style="border-color:var(--accent)">
+    <div class="person-header">
+      <div>
+        <div class="person-type" style="color:var(--accent)">⚠️ NEUTRAL / OBSERVE</div>
+        <div style="font-size:12px;color:var(--text2)">90-din rule — judge mat karo abhi</div>
+      </div>
+      <div class="tag tag-gold">WATCH</div>
+    </div>
+    <div class="trust-meter">
+      <div class="trust-dot filled"></div><div class="trust-dot filled"></div>
+      <div class="trust-dot filled"></div><div class="trust-dot"></div><div class="trust-dot"></div>
+    </div>
+    <div class="person-signs">
+      <strong style="color:var(--text)">Signs:</strong><br>
+      • Kabhi help karte hain, kabhi nahi — inconsistent<br>
+      • Baatein achhi hain, actions thodi slow<br>
+      • Naye log — abhi judging karna jaldi hai<br>
+      • Colleagues/clients jo recent mein mile — time dekho
+    </div>
+    <div class="person-action">→ PROFESSIONAL ONLY · NO SECRETS · TRACK BEHAVIOR</div>
+  </div>
+
+  <div class="person-card" style="border-color:var(--red)">
+    <div class="person-header">
+      <div>
+        <div class="person-type" style="color:var(--red)">🚨 RED FLAG PEOPLE</div>
+        <div style="font-size:12px;color:var(--text2)">Distance banao immediately</div>
+      </div>
+      <div class="tag tag-red">AVOID</div>
+    </div>
+    <div class="trust-meter">
+      <div class="trust-dot filled" style="background:var(--red)"></div>
+      <div class="trust-dot"></div><div class="trust-dot"></div><div class="trust-dot"></div><div class="trust-dot"></div>
+    </div>
+    <div class="person-signs">
+      <strong style="color:var(--text)">Red flags — immediately distance karo agar:</strong><br>
+      • Teri plans ke baare mein negatively baat karte hain bina reason ke<br>
+      • Teri success ke baare mein jealous behavior dikhate hain<br>
+      • Gossip karte hain dusron ke baare mein — tere baare mein bhi karte honge<br>
+      • Paise involve ho to disappear ho jaate hain<br>
+      • Baat alag karte hain, kaam alag karte hain — consistently<br>
+      • Tujhe raat ko bura feel karaate hain regularly<br>
+      • Sirf tujhse lete hain, dete kabhi nahi
+    </div>
+    <div class="person-action">→ NO BUSINESS WITH THEM · NO SECRETS · GRADUAL DISTANCE</div>
+  </div>
+
+  <div class="person-card" style="border-color:var(--red)">
+    <div class="person-header">
+      <div>
+        <div class="person-type" style="color:var(--red)">💔 DHOKA — KYA KARNA HAI</div>
+        <div style="font-size:12px;color:var(--text2)">Agar koi betray kare — protocol</div>
+      </div>
+      <div class="tag tag-red">PROTOCOL</div>
+    </div>
+    <div class="warning-box" style="margin-top:10px;margin-bottom:0">
+      <strong>Agar koi partner/team member dhoka de:</strong><br><br>
+      <strong>Step 1:</strong> Emotion baad mein — pehle documents secure karo (screenshots, agreements)<br>
+      <strong>Step 2:</strong> Legal option check karo — koi contract tha? Police FIR worth it hai?<br>
+      <strong>Step 3:</strong> 24-hour rule — abhi koi public statement mat do<br>
+      <strong>Step 4:</strong> Losses calculate karo honestly — financial aur time<br>
+      <strong>Step 5:</strong> Lesson extract karo — future mein kaise bachein<br>
+      <strong>Step 6:</strong> Move on — wahan energy waste mat karo jahan return nahi<br><br>
+      <strong style="color:var(--accent)">REMEMBER: Jo log dhoka dete hain woh tujhe FREE karte hain unse jo deserve nahi karte teri energy.</strong>
+    </div>
+  </div>
+
+  <h3 class="section-title">TEAM MEMBER EVALUATION CHECKLIST</h3>
+  <div class="card">
+    <p style="font-size:12px;color:var(--text2);line-height:1.8">
+      Kisi ko bhi hire karo ya partner banao — ye 5 cheezein dekho:<br><br>
+      <strong>1. TRACK RECORD</strong> — Pehle kya kiya hai? Proof hai? References check kiye?<br>
+      <strong>2. COMMUNICATION</strong> — Ye log reply fast karte hain? Clear bolte hain? Ya vague rehte hain?<br>
+      <strong>3. MONEY ATTITUDE</strong> — Pehle hi bahut zyada maang rahe hain bina prove kiye? Red flag.<br>
+      <strong>4. DEADLINE RESPECT</strong> — Pehle task do, chhota kaam do — dekho deliver karte hain ya excuses dete hain<br>
+      <strong>5. REACTION TO FEEDBACK</strong> — Criticism sunke kya karte hain? Defensive? Ya improve karte hain?
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SITUATIONS -->
+<!-- ============================================================ -->
+<section class="section" id="section-situations">
+  <h2 style="margin-bottom:6px">SITUATION SOLUTIONS</h2>
+  <p class="section-subtitle">Har possible situation ka solution pehle se ready hai. Kuch bhi ho — ghabrana nahi, ye list dekho.</p>
+
+  <div id="situationList">
+
+    <div class="situation-item">
+      <div class="situation-header" onclick="toggleSituation(this)">
+        <div class="situation-q">😰 Client ne payment rok li ya baat hi band kar di</div>
+        <div class="situation-arrow">▼</div>
+      </div>
+      <div class="situation-body">
+        <div class="solution-step"><div class="step-num">1</div><div class="step-text"><strong>Screenshot lo</strong> — sab conversations, payment confirmations, project scope — sab secure karo pehle</div></div>
+        <div class="solution-step"><div class="step-num">2</div><div class="step-text"><strong>Professional message bhejo</strong> — gusse mein nahi, calm mein: "Bhai, agreed payment ka kya schedule hai?"</div></div>
+        <div class="solution-step"><div class="step-num">3</div><div class="step-text"><strong>3 baar follow up</strong> — WhatsApp, call, phir email. Har baar polite. 3rd ke baad escalate karo</div></div>
+        <div class="solution-step"><div class="step-num">4</div><div class="step-text"><strong>Legal notice (₹500 ke andar)</strong> — advocate se simple legal notice — bahut baar sirf ye kafi hota hai</div></div>
+        <div class="solution-step"><div class="step-num">5</div><div class="step-text"><strong>Future mein:</strong> 50% advance mandatory. Ye negotiable nahi. Likho agreements mein.</div></div>
+      </div>
+    </div>
+
+    <div class="situation-item">
+      <div class="situation-header" onclick="toggleSituation(this)">
+        <div class="situation-q">📉 Koi mahina slow gaya — income nahi aayi</div>
+        <div class="situation-arrow">▼</div>
+      </div>
+      <div class="situation-body">
+        <div class="solution-step"><div class="step-num">1</div><div class="step-text"><strong>Panic nahi</strong> — business mein slow months normal hain. Ye evaluate karo: kya ye trend hai ya ek baar?</div></div>
+        <div class="solution-step"><div class="step-num">2</div><div class="step-text"><strong>Old clients activate karo</strong> — ek WhatsApp message sab ko. Fastest money here.</div></div>
+        <div class="solution-step"><div class="step-num">3</div><div class="step-text"><strong>Outreach double karo</strong> — slow time = marketing time. 20 contacts per day temporarily</div></div>
+        <div class="solution-step"><div class="step-num">4</div><div class="step-text"><strong>Expenses cut karo</strong> — temporary. Jo zaroori nahi subscriptions band karo</div></div>
+        <div class="solution-step"><div class="step-num">5</div><div class="step-text"><strong>Emergency fund rule:</strong> Jab achha chale — 3 months ka expense save karo hamesha</div></div>
+      </div>
+    </div>
+
+    <div class="situation-item">
+      <div class="situation-header" onclick="toggleSituation(this)">
+        <div class="situation-q">😤 Family pressure — "ye sab chhod do, koi aur kaam karo"</div>
+        <div class="situation-arrow">▼</div>
+      </div>
+      <div class="situation-body">
+        <div class="solution-step"><div class="step-num">1</div><div class="step-text"><strong>Argue mat karo</strong> — sirf ek number dikhao. "Aaj mujhe ₹X mila." Numbers argue nahi karte.</div></div>
+        <div class="solution-step"><div class="step-num">2</div><div class="step-text"><strong>Ghar ke liye contribute karo</strong> — chahe thoda bhi ho. Ye trust banaata hai</div></div>
+        <div class="solution-step"><div class="step-num">3</div><div class="step-text"><strong>Time diya results</strong> — "6 mahine aur do mujhe. Agar results nahi aaye, toh baat karenge."</div></div>
+        <div class="solution-step"><div class="step-num">4</div><div class="step-text"><strong>Apna plan ek baar clearly explain karo</strong> — fir roz explain karna band karo. Jo samajhna chahega samajhega.</div></div>
+      </div>
+    </div>
+
+    <div class="situation-item">
+      <div class="situation-header" onclick="toggleSituation(this)">
+        <div class="situation-q">🤝 Partner ya team member kaam nahi kar raha — lazy hai</div>
+        <div class="situation-arrow">▼</div>
+      </div>
+      <div class="situation-body">
+        <div class="solution-step"><div class="step-num">1</div><div class="step-text"><strong>Pehle seedha baat karo</strong> — private mein. "Bhai, ye deadline miss hua — kya hua?"</div></div>
+        <div class="solution-step"><div class="step-num">2</div><div class="step-text"><strong>KPIs set karo</strong> — clear targets jo measurable hain. Vague kaam = vague results</div></div>
+        <div class="solution-step"><div class="step-num">3</div><div class="step-text"><strong>Warning 1 — written</strong> — "Agar agle 2 hafte mein improvement nahi aayi..." formally likhna important hai</div></div>
+        <div class="solution-step"><div class="step-num">4</div><div class="step-text"><strong>Replace karo</strong> — ek weak link poori chain ko damage kar deta hai. Emotions se nahi, business logic se socho</div></div>
+      </div>
+    </div>
+
+    <div class="situation-item">
+      <div class="situation-header" onclick="toggleSituation(this)">
+        <div class="situation-q">💔 Emotional breakdown — kuch karne ka mann nahi</div>
+        <div class="situation-arrow">▼</div>
+      </div>
+      <div class="situation-body">
+        <div class="solution-step"><div class="step-num">1</div><div class="step-text"><strong>Ek din ka break lo</strong> — haan, sirf ek din. Business survive karega. Tu nahi karega to sab kuch hi ruk jaayega.</div></div>
+        <div class="solution-step"><div class="step-num">2</div><div class="step-text"><strong>Walk karo — 30 min</strong> — phone band karke. Nature mein jao. Body movement brain reset karta hai.</div></div>
+        <div class="solution-step"><div class="step-num">3</div><div class="step-text"><strong>Sirf 1 task karo</strong> — "Aaj sirf yeh ek kaam karunga." Momentum wapas aata hai</div></div>
+        <div class="solution-step"><div class="step-num">4</div><div class="step-text"><strong>Journal likhein</strong> — kagaz pe sab kuch daalo. Bahar aa jaata hai andar se</div></div>
+        <div class="solution-step"><div class="step-num">5</div><div class="step-text"><strong>24-hour rule</strong> — koi decision nahi aaj. Kal soche.</div></div>
+      </div>
+    </div>
+
+    <div class="situation-item">
+      <div class="situation-header" onclick="toggleSituation(this)">
+        <div class="situation-q">🏦 Paise khatam ho rahe hain — crisis mode</div>
+        <div class="situation-arrow">▼</div>
+      </div>
+      <div class="situation-body">
+        <div class="solution-step"><div class="step-num">1</div><div class="step-text"><strong>Cash flow statement banao</strong> — kahin se kuch aane wala hai? Kab? List karo sab</div></div>
+        <div class="solution-step"><div class="step-num">2</div><div class="step-text"><strong>Immediate revenue options:</strong> Old clients, QR pitch, website quick projects (₹3000–8000 fast)</div></div>
+        <div class="solution-step"><div class="step-num">3</div><div class="step-text"><strong>Expenses freeze</strong> — sirf zaroori: rent, food, internet, phone. Sab kuch else hold</div></div>
+        <div class="solution-step"><div class="step-num">4</div><div class="step-text"><strong>Freelance 1 kaam lo</strong> — temporary. Fiverr, local market — kuch bhi. Bridge the gap</div></div>
+        <div class="solution-step"><div class="step-num">5</div><div class="step-text"><strong>Family se loan nahi — clarity se maango</strong> — "Mujhe ₹X ki zaroorat hai. 3 mahine mein wapas karunga." Clear terms.</div></div>
+      </div>
+    </div>
+
+    <div class="situation-item">
+      <div class="situation-header" onclick="toggleSituation(this)">
+        <div class="situation-q">🚀 Competitor same kaam kar raha hai — copy kar raha hai</div>
+        <div class="situation-arrow">▼</div>
+      </div>
+      <div class="situation-body">
+        <div class="solution-step"><div class="step-num">1</div><div class="step-text"><strong>Celebrate karo</strong> — seriously. Matlab teri idea valuable hai. Copy hona success ka sign hai.</div></div>
+        <div class="solution-step"><div class="step-num">2</div><div class="step-text"><strong>Differentiate karo</strong> — kya WO nahi kar sakta jo TU kar sakta hai? Service quality, local presence, speed, relationships</div></div>
+        <div class="solution-step"><div class="step-num">3</div><div class="step-text"><strong>Apne existing clients ko lock karo</strong> — better service, loyalty program, regular contact</div></div>
+        <div class="solution-step"><div class="step-num">4</div><div class="step-text"><strong>Innovate faster</strong> — jo copy karta hai woh always peeche hota hai. Tu aage badh.</div></div>
+      </div>
+    </div>
+
+    <div class="situation-item">
+      <div class="situation-header" onclick="toggleSituation(this)">
+        <div class="situation-q">📱 Social media kaam nahi kar raha — views/engagement nahi</div>
+        <div class="situation-arrow">▼</div>
+      </div>
+      <div class="situation-body">
+        <div class="solution-step"><div class="step-num">1</div><div class="step-text"><strong>Content type check karo</strong> — Reels > Posts. Trending audio + valuable content = growth formula</div></div>
+        <div class="solution-step"><div class="step-num">2</div><div class="step-text"><strong>Niche tight karo</strong> — "sab kuch" wale pages nahi chadte. Ek specific topic pe focus karo</div></div>
+        <div class="solution-step"><div class="step-num">3</div><div class="step-text"><strong>3-month patience</strong> — Instagram algorithm ko time lagta hai. 90 consistent posts ke baad evaluate karo</div></div>
+        <div class="solution-step"><div class="step-num">4</div><div class="step-text"><strong>Engagement buy nahi karo</strong> — fake followers se kuch nahi milta. Real community build karo</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- EMOTIONAL DISCIPLINE -->
+<!-- ============================================================ -->
+<section class="section" id="section-emotional">
+  <h2 style="margin-bottom:6px">EMOTIONAL DISCIPLINE</h2>
+  <p class="section-subtitle">Ye section sabse important hai. Intelligence se zyada emotional control determine karta hai who succeeds. Roz padho.</p>
+
+  <div class="motto">EMOTIONS ARE DATA · NOT DIRECTIONS</div>
+
+  <div class="emo-rule">
+    <div class="emo-icon">🧊</div>
+    <div>
+      <div class="emo-title">THE 24-HOUR RULE</div>
+      <div class="emo-desc">Koi bhi emotion feel ho — gussa, dard, excitement, fear — 24 ghante koi bada decision nahi. Soo jao, kal soche. 80% "urgent" problems khud solve ho jaati hain.</div>
+      <div class="emo-rule-text">RULE: Agar aaj decide karna bahut zaroori lag raha hai — it's not. Wait.</div>
+    </div>
+  </div>
+
+  <div class="emo-rule">
+    <div class="emo-icon">🎯</div>
+    <div>
+      <div class="emo-title">COMPARISON IS POISON</div>
+      <div class="emo-desc">Accenture wala, GF ka naya partner, dost ki job — ye sab alag journey hain. Tu apne 2025 version se compare kar apne aap ko. Baaki sab irrelevant hain. Unka path tera path nahi hai.</div>
+      <div class="emo-rule-text">RULE: Roz ek cheez likho — "aaj main pehle se better hun kyunki..."</div>
+    </div>
+  </div>
+
+  <div class="emo-rule">
+    <div class="emo-icon">🔇</div>
+    <div>
+      <div class="emo-title">VALIDATION SEEKERS FAIL</div>
+      <div class="emo-desc">Kisi ko prove karne ki zaroorat nahi. Na family ko, na ex ko, na dosto ko. Tu jab unhe prove karna band karega — tab teri asli power shuru hogi. Apne liye karo. Sirf apne liye.</div>
+      <div class="emo-rule-text">RULE: "Main ye unhe dikhane ke liye kar raha hun?" — agar haan, ruk. Rethink.</div>
+    </div>
+  </div>
+
+  <div class="emo-rule">
+    <div class="emo-icon">💬</div>
+    <div>
+      <div class="emo-title">EMOTIONAL PEOPLE SE BUSINESS NAHI</div>
+      <div class="emo-desc">Agar koi bahut jaldi aggressive hota hai, bahut jaldi blame karta hai, bahut jaldi expectations change karta hai — ye client ya partner nahi lena. Emotional turbulence = business problem guaranteed.</div>
+      <div class="emo-rule-text">RULE: Gut feeling sun. Agar uncomfortable lag raha hai meeting mein — trust the feeling.</div>
+    </div>
+  </div>
+
+  <div class="emo-rule">
+    <div class="emo-icon">🔋</div>
+    <div>
+      <div class="emo-title">ENERGY MANAGEMENT = MONEY MANAGEMENT</div>
+      <div class="emo-desc">Negative log, useless arguments, social media drama, overthinking — ye sab tere energy bankrupt kar dete hain. Har cheez jo tujhe drain karti hai — remove karo. Ye self-care nahi, ye survival hai.</div>
+      <div class="emo-rule-text">RULE: Raat ko socho — "kya aaj meri energy sahi jagah gayi?" Agar nahi — kal badlo.</div>
+    </div>
+  </div>
+
+  <div class="emo-rule">
+    <div class="emo-icon">🌊</div>
+    <div>
+      <div class="emo-title">REJECTION IS REDIRECTION</div>
+      <div class="emo-desc">Client ne nahi kaha, job nahi mili, deal fail hui — ye failure nahi. Ye data hai. Kya sikhna hai? Kya alag karna hai? Har "nahi" tujhe sahi direction mein le jaata hai agar tu seekhne ki attitude rakhe.</div>
+      <div class="emo-rule-text">RULE: Har rejection ke baad: "Main isse kya seekh sakta hun?" — likho.</div>
+    </div>
+  </div>
+
+  <div class="emo-rule">
+    <div class="emo-icon">📵</div>
+    <div>
+      <div class="emo-title">DIGITAL DETOX — DAILY</div>
+      <div class="emo-desc">Roz 1 ghanta phone band. Khaana khate waqt, subah ke pehle 30 min, raat ko soone se 30 min pehle. Social media scroll karna tere competitors ki intelligence nahi badhata — sirf tera time waste karta hai.</div>
+      <div class="emo-rule-text">RULE: Phone bedroom mein mat rakho. Alarm ghadi le lo. Seriously.</div>
+    </div>
+  </div>
+
+  <h3 class="section-title" style="margin-top:32px">DAILY MORNING PROTOCOL</h3>
+  <div class="card">
+    <div style="display:grid;gap:10px">
+      <div style="display:flex;gap:14px;align-items:center;padding:10px;background:var(--bg3);border-radius:8px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);min-width:70px">5:30 AM</div>
+        <div style="font-size:13px">Uthh jao — alarm pehli baar pe. Snooze nahi. Ye ek habit se pata chalta hai kitna committed hai</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center;padding:10px;background:var(--bg3);border-radius:8px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);min-width:70px">5:45 AM</div>
+        <div style="font-size:13px">Paani piyo, 10 min walk ya stretch — body ko signal do ki din shuru ho gaya</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center;padding:10px;background:var(--bg3);border-radius:8px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);min-width:70px">6:00 AM</div>
+        <div style="font-size:13px">Aaj ka #1 most important task likho — sirf ek. Ye kaafi hai shuru karne ke liye</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center;padding:10px;background:var(--bg3);border-radius:8px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);min-width:70px">6:15 AM</div>
+        <div style="font-size:13px">Deep work shuru — phone aeroplane mode. Pehla kaam sabse important kaam</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- DAILY REVIEW -->
+<!-- ============================================================ -->
+<section class="section" id="section-review">
+  <h2 style="margin-bottom:6px">DAILY REVIEW SYSTEM</h2>
+  <p class="section-subtitle">Raat ko soone se pehle — 10 minute. Ye accountability system hai. Koi poochhne wala nahi — tu khud poochh khud se.</p>
+
+  <div class="review-box">
+    <div class="review-label">📅 Aaj Ki Taareekh</div>
+    <input class="task-input" id="reviewDate" type="date" style="max-width:220px">
+  </div>
+
+  <div class="review-box">
+    <div class="review-label">✅ Aaj Kya Kiya — Jo Empire Ke Liye Tha?</div>
+    <textarea class="review-textarea" id="reviewDid" placeholder="Kya kiya aaj... (e.g. 8 QR calls kiye, 1 client interested, Instagram post daala...)"></textarea>
+  </div>
+
+  <div class="review-box">
+    <div class="review-label">❌ Kya Nahi Kiya — Kyun?</div>
+    <textarea class="review-textarea" id="reviewDidnt" placeholder="Kya reh gaya... (e.g. website outreach nahi hui kyunki meeting mein time gaya — kal karunga)"></textarea>
+  </div>
+
+  <div class="review-box">
+    <div class="review-label">🎯 Kal Ka Ek Sabse Zaroori Kaam</div>
+    <textarea class="review-textarea" id="reviewTomorrow" placeholder="Sirf ek cheez — kal subah pehle ye karunga..." style="min-height:60px"></textarea>
+  </div>
+
+  <div class="review-box">
+    <div class="review-label">💭 Aaj Ka Mood / Lesson (Optional)</div>
+    <textarea class="review-textarea" id="reviewMood" placeholder="Kya seeha aaj? Ya kuch important realize hua?" style="min-height:60px"></textarea>
+  </div>
+
+  <button class="btn btn-gold" onclick="saveReview()" style="width:100%;padding:16px;font-size:14px;letter-spacing:2px">💾 REVIEW SAVE KARO</button>
+
+  <div class="review-history" id="reviewHistory">
+    <h3 style="margin:24px 0 12px;font-size:18px;color:var(--text2)">PREVIOUS REVIEWS</h3>
+    <div id="reviewList"></div>
+  </div>
+</section>
+
+<script>
+// ===== STATE =====
+let tasks = JSON.parse(localStorage.getItem('vt_tasks') || '[]');
+let reviews = JSON.parse(localStorage.getItem('vt_reviews') || '[]');
+let currentFilter = 'all';
+
+const catColors = {
+  job: { bg:'rgba(245,197,24,0.15)', color:'#f5c518', border:'#f5c518' },
+  qr: { bg:'rgba(0,176,255,0.15)', color:'#00b0ff', border:'#00b0ff' },
+  website: { bg:'rgba(0,230,118,0.15)', color:'#00e676', border:'#00e676' },
+  agency: { bg:'rgba(213,0,249,0.15)', color:'#d500f9', border:'#d500f9' },
+  digital: { bg:'rgba(255,107,53,0.15)', color:'#ff6b35', border:'#ff6b35' },
+  cab: { bg:'rgba(200,200,200,0.1)', color:'#aaa', border:'#555' },
+  instagram: { bg:'rgba(255,23,68,0.15)', color:'#ff1744', border:'#ff1744' },
+  personal: { bg:'rgba(100,100,100,0.15)', color:'#888', border:'#444' }
+};
+
+// ===== NAVIGATION =====
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  event.target.classList.add('active');
+  if (id === 'tasks') renderTasks();
+  if (id === 'dashboard') updateDashboard();
+  if (id === 'review') renderReviews();
+}
+
+// ===== DATE =====
+function updateDate() {
+  const d = new Date();
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('navDate').textContent = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  const di = document.getElementById('reviewDate');
+  if (di && !di.value) di.value = d.toISOString().split('T')[0];
+}
+
+// ===== TASKS =====
+function addTask() {
+  const text = document.getElementById('taskInput').value.trim();
+  const cat = document.getElementById('taskCat').value;
+  const pri = document.getElementById('taskPriority').value;
+  if (!text) { showToast('Task likhein pehle!'); return; }
+  tasks.unshift({ id: Date.now(), text, cat, pri, done: false, date: new Date().toDateString() });
+  saveTasks();
+  document.getElementById('taskInput').value = '';
+  renderTasks();
+  updateDashboard();
+  showToast('Task add ho gaya! ✓');
+}
+
+function quickAdd(text, cat, pri) {
+  tasks.unshift({ id: Date.now(), text, cat, pri, done: false, date: new Date().toDateString() });
+  saveTasks();
+  renderTasks();
+  updateDashboard();
+  showToast('Task add ho gaya! ✓');
+}
+
+function toggleTask(id) {
+  const t = tasks.find(x => x.id === id);
+  if (t) { t.done = !t.done; saveTasks(); renderTasks(); updateDashboard(); }
+}
+
+function deleteTask(id) {
+  tasks = tasks.filter(x => x.id !== id);
+  saveTasks();
+  renderTasks();
+  updateDashboard();
+  showToast('Task delete kiya');
+}
+
+function clearDone() {
+  tasks = tasks.filter(x => !x.done);
+  saveTasks();
+  renderTasks();
+  updateDashboard();
+  showToast('Done tasks clear!');
+}
+
+function setFilter(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderTasks();
+}
+
+function saveTasks() { localStorage.setItem('vt_tasks', JSON.stringify(tasks)); }
+
+function renderTasks() {
+  const today = new Date().toDateString();
+  let filtered = tasks;
+  if (currentFilter === 'pending') filtered = tasks.filter(t => !t.done);
+  else if (currentFilter === 'done') filtered = tasks.filter(t => t.done);
+  else if (currentFilter !== 'all') filtered = tasks.filter(t => t.cat === currentFilter);
+
+  const list = document.getElementById('taskList');
+  if (!list) return;
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text2);font-size:13px">Koi task nahi is category mein. Add karo! 👆</div>';
+  } else {
+    list.innerHTML = filtered.map(t => {
+      const c = catColors[t.cat] || catColors.personal;
+      const priIcon = t.pri === 'high' ? '🔴' : t.pri === 'med' ? '🟡' : '🟢';
+      return `<li class="task-item ${t.done ? 'done' : ''}">
+        <button class="task-check-btn ${t.done ? 'checked' : ''}" onclick="toggleTask(${t.id})">${t.done ? '✓' : ''}</button>
+        <span class="task-text">${t.text}</span>
+        <span style="font-size:12px">${priIcon}</span>
+        <span class="task-cat" style="background:${c.bg};color:${c.color};border:1px solid ${c.border}">${t.cat.toUpperCase()}</span>
+        <button class="task-del" onclick="deleteTask(${t.id})">×</button>
+      </li>`;
+    }).join('');
+  }
+
+  const todayTasks = tasks.filter(t => t.date === today);
+  const done = todayTasks.filter(t => t.done).length;
+  const total = todayTasks.length;
+  const pct = total ? Math.round((done/total)*100) : 0;
+  const prog = document.getElementById('taskProgress');
+  if (prog) prog.style.width = pct + '%';
+  const lbl = document.getElementById('task-count-label');
+  if (lbl) lbl.textContent = `${done} / ${total} tasks done today (${pct}%)`;
+}
+
+function updateDashboard() {
+  const today = new Date().toDateString();
+  const todayTasks = tasks.filter(t => t.date === today);
+  const done = todayTasks.filter(t => t.done).length;
+  const total = todayTasks.length;
+  const pct = total ? Math.round((done/total)*100) : 0;
+
+  const sd = document.getElementById('stat-done');
+  const st = document.getElementById('stat-total');
+  const sp = document.getElementById('stat-pct');
+  const hp = document.getElementById('hero-progress');
+  if (sd) sd.textContent = done;
+  if (st) st.textContent = total;
+  if (sp) sp.textContent = pct + '%';
+  if (hp) hp.style.width = pct + '%';
+
+  // Streak
+  const streak = parseInt(localStorage.getItem('vt_streak') || '0');
+  const ss = document.getElementById('stat-streak');
+  if (ss) ss.textContent = streak;
+
+  // Top 3
+  const t3 = document.getElementById('top3-list');
+  if (t3) {
+    const pending = tasks.filter(t => !t.done && t.date === today).slice(0, 3);
+    if (pending.length === 0) {
+      t3.innerHTML = '<div style="color:var(--green);font-size:14px;font-weight:700">✅ Aaj ke sab kaam done! Badiya!</div>';
+    } else {
+      t3.innerHTML = pending.map((t, i) => {
+        const c = catColors[t.cat] || catColors.personal;
+        return `<div style="display:flex;gap:12px;align-items:center;margin-bottom:10px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--accent);min-width:30px">${i+1}</div>
+          <div style="font-size:13px">${t.text}</div>
+          <span style="font-size:10px;padding:2px 8px;border-radius:4px;background:${c.bg};color:${c.color};border:1px solid ${c.border};white-space:nowrap">${t.cat.toUpperCase()}</span>
+        </div>`;
+      }).join('');
+    }
+  }
+}
+
+// ===== SITUATIONS =====
+function toggleSituation(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.situation-arrow');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.situation-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.situation-arrow').forEach(a => a.classList.remove('open'));
+  if (!isOpen) { body.classList.add('open'); arrow.classList.add('open'); }
+}
+
+// ===== REVIEW =====
+function saveReview() {
+  const date = document.getElementById('reviewDate').value;
+  const did = document.getElementById('reviewDid').value.trim();
+  const didnt = document.getElementById('reviewDidnt').value.trim();
+  const tomorrow = document.getElementById('reviewTomorrow').value.trim();
+  const mood = document.getElementById('reviewMood').value.trim();
+  if (!did) { showToast('Kya kiya — ye toh likhein!'); return; }
+  reviews.unshift({ date, did, didnt, tomorrow, mood, saved: new Date().toLocaleString('hi-IN') });
+  if (reviews.length > 30) reviews.pop();
+  localStorage.setItem('vt_reviews', JSON.stringify(reviews));
+
+  // Update streak
+  const lastDate = localStorage.getItem('vt_last_review');
+  const today = new Date().toDateString();
+  if (lastDate !== today) {
+    const streak = parseInt(localStorage.getItem('vt_streak') || '0');
+    localStorage.setItem('vt_streak', streak + 1);
+    localStorage.setItem('vt_last_review', today);
+  }
+
+  ['reviewDid','reviewDidnt','reviewTomorrow','reviewMood'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  renderReviews();
+  updateDashboard();
+  showToast('Review save ho gaya! 🔥 Streak badha!');
+}
+
+function renderReviews() {
+  const list = document.getElementById('reviewList');
+  if (!list) return;
+  if (reviews.length === 0) {
+    list.innerHTML = '<div style="color:var(--text2);font-size:13px;padding:20px;text-align:center">Abhi tak koi review nahi. Aaj shuru karo!</div>';
+    return;
+  }
+  list.innerHTML = reviews.map(r => `
+    <div class="review-day">
+      <div class="review-day-date">${r.date} — saved at ${r.saved}</div>
+      <div style="margin-bottom:8px"><span style="color:var(--green);font-weight:700;font-size:11px">✅ KIYA:</span><br><span style="color:var(--text2)">${r.did || '—'}</span></div>
+      ${r.didnt ? `<div style="margin-bottom:8px"><span style="color:var(--red);font-weight:700;font-size:11px">❌ NAHI KIYA:</span><br><span style="color:var(--text2)">${r.didnt}</span></div>` : ''}
+      ${r.tomorrow ? `<div style="margin-bottom:8px"><span style="color:var(--accent);font-weight:700;font-size:11px">🎯 KAL:</span><br><span style="color:var(--text2)">${r.tomorrow}</span></div>` : ''}
+      ${r.mood ? `<div><span style="color:var(--blue);font-weight:700;font-size:11px">💭 MOOD/LESSON:</span><br><span style="color:var(--text2)">${r.mood}</span></div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ===== INIT =====
+updateDate();
+updateDashboard();
+renderTasks();
+renderReviews();
+setInterval(updateDate, 60000);
+</script>
+</body>
+</html>

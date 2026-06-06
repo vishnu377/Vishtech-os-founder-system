@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VISTECH EMPIRE — Ultimate Master OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090909;--bg2:#111;--bg3:#181818;--accent:#f5c518;--accent2:#ff6b35;--green:#00e676;--red:#ff1744;--blue:#00b0ff;--purple:#d500f9;--grey:#2a2a2a;--grey2:#444;--text:#e8e8e8;--text2:#888;--card:#121212;--border:#1e1e1e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;overflow-x:hidden;font-size:14px;}
+
+/* ====NAV==== */
+nav{position:fixed;top:0;left:0;width:100%;z-index:9999;background:rgba(9,9,9,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);letter-spacing:3px;cursor:pointer;}
+.nav-logo span{color:var(--text2);font-size:11px;display:block;letter-spacing:2px;font-family:'Space Mono',monospace;}
+.nav-date{font-family:'Space Mono',monospace;font-size:10px;color:var(--text2);}
+.nav-tabs{display:flex;gap:2px;flex-wrap:wrap;padding:6px 20px 10px;border-top:1px solid var(--border);}
+.nt{padding:5px 12px;border-radius:5px;border:1px solid transparent;font-size:10px;font-weight:800;cursor:pointer;color:var(--text2);transition:all .2s;text-transform:uppercase;letter-spacing:1px;background:none;white-space:nowrap;}
+.nt:hover,.nt.active{border-color:var(--accent);color:var(--accent);background:rgba(245,197,24,.08);}
+
+/* ====SECTIONS==== */
+.sec{display:none;padding:90px 16px 60px;max-width:1000px;margin:0 auto;}
+.sec.active{display:block;}
+
+/* ====TYPE==== */
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,7vw,72px);letter-spacing:4px;line-height:.95;}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,5vw,44px);letter-spacing:3px;}
+h3{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--accent);}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;}
+.tg{background:rgba(245,197,24,.12);color:var(--accent);border:1px solid rgba(245,197,24,.3);}
+.tr{background:rgba(255,23,68,.12);color:var(--red);border:1px solid rgba(255,23,68,.3);}
+.tg2{background:rgba(0,230,118,.1);color:var(--green);border:1px solid rgba(0,230,118,.3);}
+.tb{background:rgba(0,176,255,.1);color:var(--blue);border:1px solid rgba(0,176,255,.3);}
+.tp{background:rgba(213,0,249,.1);color:var(--purple);border:1px solid rgba(213,0,249,.3);}
+.to{background:rgba(255,107,53,.1);color:var(--accent2);border:1px solid rgba(255,107,53,.3);}
+
+/* ====CARDS==== */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media(max-width:650px){.g2,.g3{grid-template-columns:1fr;}}
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0;}
+.st{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;margin:28px 0 12px;color:var(--text);}
+.sub{font-size:12px;color:var(--text2);margin-bottom:16px;line-height:1.7;}
+.motto{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.5vw,22px);letter-spacing:3px;color:var(--accent);text-align:center;padding:18px;border:1px solid var(--grey2);border-radius:8px;margin:20px 0;}
+
+/* ====HERO==== */
+.hero{text-align:center;padding:30px 0 50px;}
+.hero h1 span{color:var(--accent);}
+.hero-sub{font-size:11px;color:var(--text2);margin:10px 0 28px;letter-spacing:2px;font-family:'Space Mono',monospace;}
+.hstats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin:24px 0;}
+.hstat{text-align:center;}
+.hsv{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--accent);}
+.hsl{font-size:9px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;}
+.pb-wrap{background:var(--bg3);border-radius:20px;height:6px;overflow:hidden;}
+.pb{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .4s;}
+
+/* ====PRIORITY FLOW==== */
+.pfi{display:flex;gap:16px;padding:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:10px;background:var(--card);transition:all .2s;position:relative;cursor:default;}
+.pfi:hover{border-color:var(--grey2);transform:translateX(3px);}
+.pfn{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--accent);line-height:1;min-width:56px;}
+.pfc{flex:1;}
+.pft{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;margin-bottom:4px;}
+.pfti{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent2);margin-bottom:6px;}
+.pfd{font-size:12px;color:var(--text2);line-height:1.7;}
+.pfw{font-size:11px;color:var(--green);margin-top:6px;font-weight:700;}
+
+/* ====TASKS==== */
+.ti{flex:1;min-width:180px;background:var(--bg3);border:1px solid var(--grey);color:var(--text);padding:10px 14px;border-radius:7px;font-family:'Manrope',sans-serif;font-size:12px;outline:none;}
+.ti:focus{border-color:var(--accent);}
+.tsel{background:var(--bg3);border:1px solid var(--grey);color:var(--text);padding:10px 12px;border-radius:7px;font-family:'Manrope',sans-serif;font-size:11px;outline:none;cursor:pointer;}
+.btn{padding:10px 16px;border-radius:7px;border:none;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:800;font-size:11px;letter-spacing:1px;text-transform:uppercase;transition:all .2s;}
+.bg{background:var(--accent);color:#000;}
+.bg:hover{background:#ffd740;}
+.br{background:var(--red);color:#fff;font-size:10px;padding:5px 10px;}
+.tir{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.tl{list-style:none;}
+.ti2{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:7px;margin-bottom:7px;transition:all .2s;}
+.ti2.done{opacity:.35;}
+.ti2.done .tt{text-decoration:line-through;}
+.tcb{width:22px;height:22px;border-radius:50%;border:2px solid var(--grey2);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;color:transparent;font-size:11px;}
+.tcb.chk{background:var(--green);border-color:var(--green);color:#000;}
+.tt{flex:1;font-size:12px;}
+.tcat{font-size:9px;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:3px;}
+.tdel{background:none;border:none;color:var(--grey2);cursor:pointer;font-size:15px;}
+.tdel:hover{color:var(--red);}
+.tfil{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.fb{padding:5px 12px;border-radius:16px;border:1px solid var(--border);background:none;color:var(--text2);font-size:10px;font-weight:700;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:1px;}
+.fb.active{border-color:var(--accent);color:var(--accent);background:rgba(245,197,24,.1);}
+.qa-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;}
+.qa{padding:7px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-size:10px;font-weight:700;cursor:pointer;transition:all .2s;}
+.qa:hover{border-color:var(--grey2);color:var(--text);}
+
+/* ====SEQUENCE PHASES==== */
+.phase{border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;}
+.ph{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;background:var(--card);}
+.ph:hover{background:var(--bg3);}
+.phn{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--accent);line-height:1;min-width:50px;}
+.phti{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;}
+.phsub{font-size:10px;color:var(--text2);font-family:'Space Mono',monospace;}
+.phar{color:var(--grey2);margin-left:auto;font-size:16px;transition:transform .2s;}
+.phar.open{transform:rotate(180deg);}
+.phb{display:none;padding:16px;border-top:1px solid var(--border);background:var(--bg3);}
+.phb.open{display:block;}
+.phs{display:flex;gap:10px;margin-bottom:10px;font-size:12px;}
+.phsn{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);min-width:26px;line-height:1;}
+.phst{color:var(--text2);line-height:1.7;}
+.phst strong{color:var(--text);}
+.cond{background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.2);border-radius:6px;padding:10px 12px;margin-top:10px;font-size:11px;color:var(--green);}
+
+/* ====QR SYSTEM==== */
+.roi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+@media(max-width:600px){.roi-row{grid-template-columns:1fr 1fr;}}
+.roi-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;}
+.roi-v{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--accent);}
+.roi-l{font-size:9px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;}
+.pitch-step{display:flex;gap:12px;padding:12px;background:var(--bg3);border-radius:7px;margin-bottom:8px;}
+.psn{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent);min-width:32px;line-height:1;}
+.pst{font-size:12px;color:var(--text2);line-height:1.6;}
+.pst strong{color:var(--text);}
+.obj{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px;}
+.obj-q{font-size:12px;font-weight:700;margin-bottom:6px;color:var(--accent2);}
+.obj-a{font-size:11px;color:var(--text2);line-height:1.6;}
+.niche-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+@media(max-width:600px){.niche-grid{grid-template-columns:1fr 1fr;}}
+.nc{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:10px;cursor:pointer;transition:all .2s;}
+.nc:hover{border-color:var(--accent);}
+.nci{font-size:18px;margin-bottom:4px;}
+.nct{font-size:11px;font-weight:700;}
+.ncs{font-size:9px;color:var(--text2);}
+
+/* ====DIGITAL TOOLS==== */
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;}
+.tool-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent);line-height:1;min-width:36px;}
+.tool-info{flex:1;}
+.tool-name{font-size:13px;font-weight:800;margin-bottom:3px;}
+.tool-desc{font-size:11px;color:var(--text2);line-height:1.6;}
+.tool-meta{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.tm{font-size:9px;padding:2px 7px;border-radius:3px;font-weight:700;}
+.domain-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:8px;}
+.domain-url{font-family:'Space Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px;}
+.domain-tools{font-size:11px;color:var(--text2);line-height:1.8;}
+
+/* ====SALES MACHINE==== */
+.rule-list{list-style:none;}
+.rule-list li{padding:10px 0;border-bottom:1px solid var(--border);font-size:12px;display:flex;gap:10px;}
+.rule-list li:last-child{border-bottom:none;}
+.rn{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);min-width:26px;}
+.niche-table{width:100%;border-collapse:collapse;font-size:11px;}
+.niche-table th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);color:var(--text2);font-size:9px;letter-spacing:2px;text-transform:uppercase;}
+.niche-table td{padding:8px 10px;border-bottom:1px solid var(--border);}
+.niche-table tr:last-child td{border-bottom:none;}
+.niche-table tr:hover td{background:var(--bg3);}
+.score{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent);}
+
+/* ====PEOPLE RADAR==== */
+.person-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;}
+.person-type{font-family:'Bebas Neue',sans-serif;font-size:18px;}
+.tdots{display:flex;gap:4px;margin:8px 0;}
+.td{width:9px;height:9px;border-radius:50%;background:var(--border);}
+.td.f{background:var(--accent);}
+.td.fr{background:var(--red);}
+.psigns{font-size:11px;color:var(--text2);line-height:1.8;}
+.pact{margin-top:8px;font-size:10px;font-weight:800;color:var(--accent2);letter-spacing:1px;}
+.wbox{background:rgba(255,23,68,.06);border:1px solid rgba(255,23,68,.25);border-radius:7px;padding:12px;font-size:11px;color:var(--text2);line-height:1.7;}
+.wbox strong{color:var(--red);}
+
+/* ====SITUATIONS==== */
+.sit{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+.sh{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer;}
+.sh:hover{background:var(--bg3);}
+.sq{font-weight:700;font-size:13px;}
+.sar{color:var(--accent);font-size:16px;transition:transform .2s;}
+.sar.open{transform:rotate(180deg);}
+.sb{display:none;padding:14px 16px;border-top:1px solid var(--border);}
+.sb.open{display:block;}
+.ss{display:flex;gap:10px;margin-bottom:10px;font-size:12px;}
+.ssn{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);min-width:28px;line-height:1;}
+.sst{color:var(--text2);line-height:1.7;}
+.sst strong{color:var(--text);}
+
+/* ====EMOTIONAL==== */
+.er{display:flex;gap:14px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:9px;margin-bottom:9px;}
+.ei{font-size:22px;flex-shrink:0;}
+.etit{font-weight:800;font-size:13px;margin-bottom:3px;}
+.ed{font-size:11px;color:var(--text2);line-height:1.6;}
+.ert{background:var(--bg3);border-radius:5px;padding:7px 10px;margin-top:7px;font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);}
+
+/* ====REVIEW==== */
+.rv{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+.rvl{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:7px;}
+.rvta{width:100%;background:var(--bg3);border:1px solid var(--grey);color:var(--text);padding:10px;border-radius:7px;font-family:'Manrope',sans-serif;font-size:12px;resize:vertical;min-height:70px;outline:none;line-height:1.6;}
+.rvta:focus{border-color:var(--accent);}
+.rday{background:var(--bg3);border-radius:7px;padding:12px;margin-bottom:8px;font-size:11px;}
+.rdd{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);margin-bottom:7px;}
+
+/* ====INCOME==== */
+.irow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+@media(max-width:600px){.irow{grid-template-columns:1fr 1fr;}}
+.ic{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;}
+.iv{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent);}
+.il{font-size:9px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-top:3px;}
+.iinput{width:100%;background:var(--bg3);border:1px solid var(--grey);color:var(--text);padding:9px 12px;border-radius:6px;font-family:'Manrope',sans-serif;font-size:13px;outline:none;}
+.iinput:focus{border-color:var(--accent);}
+
+/* ====TOAST==== */
+#toast{position:fixed;bottom:24px;right:20px;background:var(--accent);color:#000;padding:10px 18px;border-radius:7px;font-weight:800;font-size:12px;opacity:0;transform:translateY(16px);transition:all .25s;z-index:99999;pointer-events:none;}
+#toast.show{opacity:1;transform:translateY(0);}
+
+/* ====SCROLLBAR==== */
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--grey);border-radius:2px;}
+
+/* ====QUICK DECISIONS==== */
+.qd{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;}
+.qdq{font-size:12px;font-weight:700;flex:1;}
+.qda{font-size:12px;font-family:'Space Mono',monospace;}
+.red-ans{color:var(--red);}
+.grn-ans{color:var(--green);}
+.yel-ans{color:var(--accent);}
+
+/* ====INCOME TABLE==== */
+.inc-table{width:100%;border-collapse:collapse;font-size:11px;}
+.inc-table th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);color:var(--text2);font-size:9px;letter-spacing:2px;text-transform:uppercase;}
+.inc-table td{padding:8px 10px;border-bottom:1px solid var(--border);}
+.inc-table tr:last-child td{border-bottom:none;}
+.inc-table .total{font-weight:800;color:var(--accent);}
+
+/* ====VERCEL LINKS==== */
+.vlink{display:flex;gap:10px;align-items:center;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:7px;margin-bottom:7px;text-decoration:none;}
+.vlink:hover{border-color:var(--accent);}
+.vlink-title{font-size:12px;font-weight:700;color:var(--text);flex:1;}
+.vlink-url{font-size:10px;color:var(--blue);font-family:'Space Mono',monospace;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-top">
+    <div class="nav-logo">⚡ VISTECH EMPIRE OS<span id="navDate">Loading...</span></div>
+    <div class="nav-date" id="dayStatus">BUILDING MODE</div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nt active" onclick="go('dashboard')">🏠 Dashboard</button>
+    <button class="nt" onclick="go('tasks')">✅ Tasks</button>
+    <button class="nt" onclick="go('sequence')">🗺️ Empire Sequence</button>
+    <button class="nt" onclick="go('qr')">📱 QR System</button>
+    <button class="nt" onclick="go('sales')">💼 Sales Machine</button>
+    <button class="nt" onclick="go('digital')">🌐 Digital Assets</button>
+    <button class="nt" onclick="go('instagram')">📸 Instagram</button>
+    <button class="nt" onclick="go('decisions')">⚡ Quick Decisions</button>
+    <button class="nt" onclick="go('people')">👥 People Radar</button>
+    <button class="nt" onclick="go('situations')">🚨 Situations</button>
+    <button class="nt" onclick="go('discipline')">🧠 Discipline</button>
+    <button class="nt" onclick="go('review')">📋 Daily Review</button>
+    <button class="nt" onclick="go('income')">₹ Income</button>
+    <button class="nt" onclick="go('files')">📁 All Files</button>
+  </div>
+</nav>
+<div id="toast"></div>
+
+<!-- ===DASHBOARD=== -->
+<section class="sec active" id="sec-dashboard">
+  <div class="hero">
+    <div class="tag tg" style="margin-bottom:14px">VISHNU · 24 YRS · B.TECH CS+AI · JAIPUR · 2026</div>
+    <h1>VISTECH<br><span>EMPIRE</span><br>MASTER OS</h1>
+    <p class="hero-sub">Smart Work · Hard Work · Right Time · Right Direction · Emotional Discipline</p>
+    <div class="hstats">
+      <div class="hstat"><div class="hsv" id="sd">0</div><div class="hsl">Done Today</div></div>
+      <div class="hstat"><div class="hsv" id="st">0</div><div class="hsl">Total Tasks</div></div>
+      <div class="hstat"><div class="hsv" id="sp">0%</div><div class="hsl">Completion</div></div>
+      <div class="hstat"><div class="hsv" id="ss">0</div><div class="hsl">Day Streak</div></div>
+    </div>
+    <div class="pb-wrap" style="max-width:500px;margin:0 auto 20px"><div class="pb" id="hp" style="width:0%"></div></div>
+  </div>
+  <div class="motto">SERVICE → CASH → PRODUCT → EMPIRE · SEQUENCE MAT TODNA</div>
+  <div class="g3" style="margin-top:20px">
+    <div class="card" style="border-color:var(--accent)"><div class="tag tg" style="margin-bottom:8px">NOW #1</div><h3 style="font-size:15px">Deal Share Mart</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">6AM–3PM · Billing job · Income stability sabse pehle</p><p style="font-size:10px;color:var(--green);margin-top:8px;font-weight:700">→ Agar mil jaye = FIRST priority</p></div>
+    <div class="card" style="border-color:var(--blue)"><div class="tag tb" style="margin-bottom:8px">LAUNCH #2</div><h3 style="font-size:15px">QR System</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">3PM ke baad · ₹2K/client/month · 50 clients = ₹1L/mo</p><p style="font-size:10px;color:var(--green);margin-top:8px;font-weight:700">→ Pehle 10 clients — SECRET rakho abhi</p></div>
+    <div class="card" style="border-color:var(--accent2)"><div class="tag to" style="margin-bottom:8px">PARALLEL #3</div><h3 style="font-size:15px">Agency + Website</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">Outreach · Projects · Old clients upsell</p></div>
+    <div class="card"><div class="tag tp" style="margin-bottom:8px">ONGOING #4</div><h3 style="font-size:15px">Agency Projects</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">Deliver karo. Quality. 50% advance mandatory.</p></div>
+    <div class="card"><div class="tag tg2" style="margin-bottom:8px">PASSIVE #5</div><h3 style="font-size:15px">Cab Business</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">Weekly report, earnings, driver management. Passive.</p></div>
+    <div class="card"><div class="tag tg" style="margin-bottom:8px">DIGITAL #6</div><h3 style="font-size:15px">VishtechCars + Tools</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">Monetize cars site · Build tools · iLovePDF model</p></div>
+  </div>
+  <div class="card" style="margin-top:16px;border-color:var(--purple)">
+    <h3 style="margin-bottom:10px;font-size:15px">⚡ Aaj Ka Focus — Top 3</h3>
+    <div id="top3"></div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--text2);margin-bottom:12px">NORTH STAR — YAD RAKH</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.8">
+      🎯 <strong style="color:var(--text)">Sequence mat todna</strong> — Job → QR → Agency → Cab → Dry Fruits → Clothing<br>
+      💰 <strong style="color:var(--text)">50% advance mandatory</strong> — Koi bhi kaam bina advance ke nahi<br>
+      🔒 <strong style="color:var(--text)">QR idea secret</strong> — Jab tak 10 paying clients nahi — kisi ko mat batao<br>
+      🚫 <strong style="color:var(--text)">IndiaMart = NEVER</strong> — ₹60K deke ₹30K mila. Chapter band hai.<br>
+      📵 <strong style="color:var(--text)">Subah 2 ghante no-phone</strong> — Deep work protected hona chahiye<br>
+      📋 <strong style="color:var(--text)">Raat ko review</strong> — 3 sawaal: kya kiya, kya nahi, kal kya
+    </div>
+  </div>
+</section>
+
+<!-- ===TASKS=== -->
+<section class="sec" id="sec-tasks">
+  <h2 style="margin-bottom:4px">DAILY TASK TRACKER</h2>
+  <p class="sub">Add karo, complete karo, delete karo. Roz naya din.</p>
+  <div class="tir">
+    <input class="ti" id="tInp" placeholder="Task likhein..." onkeydown="if(event.key==='Enter')addTask()">
+    <select class="tsel" id="tCat">
+      <option value="job">Job</option><option value="qr">QR</option>
+      <option value="website">Website</option><option value="agency">Agency</option>
+      <option value="digital">Digital</option><option value="cab">Cab</option>
+      <option value="instagram">Instagram</option><option value="personal">Personal</option>
+    </select>
+    <select class="tsel" id="tPri">
+      <option value="high">🔴 High</option>
+      <option value="med">🟡 Med</option>
+      <option value="low">🟢 Low</option>
+    </select>
+    <button class="btn bg" onclick="addTask()">+ ADD</button>
+  </div>
+  <div class="tfil">
+    <button class="fb active" onclick="sf('all',this)">All</button>
+    <button class="fb" onclick="sf('pending',this)">Pending</button>
+    <button class="fb" onclick="sf('done',this)">Done</button>
+    <button class="fb" onclick="sf('job',this)">Job</button>
+    <button class="fb" onclick="sf('qr',this)">QR</button>
+    <button class="fb" onclick="sf('agency',this)">Agency</button>
+    <button class="fb" onclick="sf('digital',this)">Digital</button>
+    <button class="fb" onclick="sf('instagram',this)">Instagram</button>
+    <button class="fb" onclick="sf('cab',this)">Cab</button>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+    <span style="font-size:11px;color:var(--text2)" id="tcl">0/0</span>
+    <button class="btn" style="background:var(--bg3);color:var(--red);border:1px solid var(--red);padding:5px 12px;font-size:10px" onclick="clearDone()">Clear Done</button>
+  </div>
+  <div class="pb-wrap" style="margin-bottom:14px"><div class="pb" id="tp" style="width:0%"></div></div>
+  <ul class="tl" id="tList"></ul>
+  <div class="qa-grid">
+    <button onclick="window.location.href='index.html'">
+  home
+</button>
+    <button class="qa" onclick="qa('Deal Share Mart pe apply/follow-up karo','job','high')">🏪 DSM Apply</button>
+    <button class="qa" onclick="qa('5 QR demos bhejo aaj','qr','high')">📱 QR Demo x5</button>
+    <button class="qa" onclick="qa('Agency project update karo client ko','agency','high')">💼 Agency Update</button>
+    <button class="qa" onclick="qa('10 new website outreach messages bhejo','website','high')">🌐 Outreach x10</button>
+    <button class="qa" onclick="qa('Instagram post create aur schedule karo','instagram','med')">📸 IG Post</button>
+    <button class="qa" onclick="qa('Old clients ko upsell/referral message bhejo','website','med')">🔄 Old Client</button>
+    <button class="qa" onclick="qa('Cab driver se weekly earnings report lo','cab','low')">🚕 Cab Report</button>
+    <button class="qa" onclick="qa('VishtechCars blog post likho/schedule karo','digital','med')">🚗 Cars Blog</button>
+    <button class="qa" onclick="qa('Ek digital tool build/progress karo','digital','high')">🛠️ Build Tool</button>
+    <button class="qa" onclick="qa('Weekly review karo aaj shaam','personal','high')">📊 Weekly Review</button>
+  </div>
+</section>
+
+<!-- ===EMPIRE SEQUENCE=== -->
+<section class="sec" id="sec-sequence">
+  <h2 style="margin-bottom:4px">EMPIRE SEQUENCE</h2>
+  <p class="sub">Vishnu ka exact blueprint. Phase by phase. Sequence mat todna — ek bhi skip nahi.</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center">
+    <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace">NOW</div>
+    <div style="color:var(--accent);font-weight:700;font-size:12px">Job</div>
+    <div style="color:var(--grey2)">→</div>
+    <div style="color:var(--text2);font-size:12px">QR</div>
+    <div style="color:var(--grey2)">→</div>
+    <div style="color:var(--text2);font-size:12px">Agency</div>
+    <div style="color:var(--grey2)">→</div>
+    <div style="color:var(--text2);font-size:12px">Cab</div>
+    <div style="color:var(--grey2)">→</div>
+    <div style="color:var(--text2);font-size:12px">Dry Fruits</div>
+    <div style="color:var(--grey2)">→</div>
+    <div style="color:var(--text2);font-size:12px">Clothing</div>
+    <div style="color:var(--grey2)">→</div>
+    <div style="color:var(--text2);font-size:12px">Plot/Godam</div>
+  </div>
+
+  <div class="phase">
+    <div class="ph" onclick="tp(this)">
+      <div class="phn">01</div>
+      <div><div class="phti">DEAL SHARE MART — BRIDGE JOB</div><div class="phsub">June 2026 – Aug 2026 · ABHI KARO</div></div>
+      <div class="phar">▼</div>
+    </div>
+    <div class="phb">
+      <div class="phs"><div class="phsn">→</div><div class="phst"><strong>Kyun pehle?</strong> Cash flow zaroori hai. Job = ₹15K guaranteed/month. 6AM–3PM = 9 ghante free baad mein business ke liye. IT company nahi — wahan 7AM–9PM = zero business time.</div></div>
+      <div class="phs"><div class="phsn">1</div><div class="phst"><strong>Aaj hi apply karo</strong> — Deal Share Mart mein morning shift maango 6AM–3PM. Billing/customer profile role.</div></div>
+      <div class="phs"><div class="phsn">2</div><div class="phst"><strong>Joining ke baad:</strong> ₹15K mein se → ₹5K savings, ₹3K sales person, ₹7K expenses. Strict budget.</div></div>
+      <div class="phs"><div class="phsn">3</div><div class="phst"><strong>Exit condition:</strong> QR ₹20K/month consistent 2 mahine → resign karo. Tab tak job chhodni nahi.</div></div>
+      <div class="cond">✓ CONDITION TO EXIT: QR MRR ₹20K+ for 2 consecutive months</div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph" onclick="tp(this)">
+      <div class="phn">02</div>
+      <div><div class="phti">QR SYSTEM + AGENCY — PARALLEL</div><div class="phsub">June – Oct 2026 · 3PM ke baad</div></div>
+      <div class="phar">▼</div>
+    </div>
+    <div class="phb">
+      <div class="phs"><div class="phsn">→</div><div class="phst"><strong>Daily routine:</strong> Job 3PM pe khatam → 3–5PM QR demos field → 5–7PM agency work → 7–9PM marketing/Instagram → 9PM planning + review.</div></div>
+      <div class="phs"><div class="phsn">1</div><div class="phst"><strong>QR targets:</strong> Month 1 = 5 clients, Month 2 = 15 clients, Month 3 = 30 clients. Sales wale ko roz 5–7 shops bhejo.</div></div>
+      <div class="phs"><div class="phsn">2</div><div class="phst"><strong>Agency:</strong> 2 demo pages live Week 2 (Clinic + School). 1–2 projects/month ₹8–15K each. Niche: Medical pehle.</div></div>
+      <div class="phs"><div class="phsn">3</div><div class="phst"><strong>Parallel karo:</strong> VishtechCars pe blog + ads. 1 digital tool per month build shuru. Instagram pages setup.</div></div>
+      <div class="cond">✓ CONDITION: 30 QR clients + Agency ₹20K/month = ready for Phase 3</div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph" onclick="tp(this)">
+      <div class="phn">03</div>
+      <div><div class="phti">CAB BUSINESS — VISHTECH CARS</div><div class="phsub">Oct–Nov 2026 · Condition: ₹1L saved</div></div>
+      <div class="phar">▼</div>
+    </div>
+    <div class="phb">
+      <div class="phs"><div class="phsn">→</div><div class="phst"><strong>Model:</strong> Maruti Dzire 2022–23 second hand. ₹1L down payment. ₹3L loan @ 12% = ₹9,963 EMI. Driver ₹12K. Net profit: ₹17–27K/month passive.</div></div>
+      <div class="phs"><div class="phsn">1</div><div class="phst"><strong>Save ₹1L</strong> pehle — Job ₹5K/month save + ek agency project. ~4–5 mahine mein ho jaayega.</div></div>
+      <div class="phs"><div class="phsn">2</div><div class="phst"><strong>Car dhundo</strong> — OLX, CarDekho pe 2022–23 Dzire/Wagon R. Mechanical check zaroori.</div></div>
+      <div class="phs"><div class="phsn">3</div><div class="phst"><strong>2nd cab</strong> Jan 2027 mein QR profits se. Fleet building = compounding passive income.</div></div>
+      <div class="cond">✓ CONDITION TO START: ₹1 Lakh saved + QR/Agency stable</div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph" onclick="tp(this)">
+      <div class="phn">04</div>
+      <div><div class="phti">DIGITAL TOOLS + INSTAGRAM EMPIRE</div><div class="phsub">Ongoing · Parallel with everything</div></div>
+      <div class="phar">▼</div>
+    </div>
+    <div class="phb">
+      <div class="phs"><div class="phsn">→</div><div class="phst"><strong>VishtechCars.com:</strong> Google AdSense + affiliate links (OLX, CarDekho, InsuranceDekho). Roz 1 SEO blog. Already live — monetize NOW.</div></div>
+      <div class="phs"><div class="phsn">1</div><div class="phst"><strong>iLovePDF model:</strong> indiatools.in ya similar domain pe 20+ Indian-specific tools. GST Calculator, Number Plate, Image Compressor pehle. Ek tool rank kare → sab ko traffic milta hai.</div></div>
+      <div class="phs"><div class="phsn">2</div><div class="phst"><strong>4–5 Instagram pages:</strong> Finance (Hindi), Motivation, Business Skills, AI Tools. Leonardo AI + Claude se bulk content. Buffer se schedule.</div></div>
+      <div class="phs"><div class="phsn">3</div><div class="phst"><strong>Exam papers portal:</strong> Rajasthan board, RPSC, Police, Patwari — 5 saal papers free + premium solutions. Massive demand.</div></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph" onclick="tp(this)">
+      <div class="phn">05</div>
+      <div><div class="phti">DRY FRUITS — MURLIPURA</div><div class="phsub">Feb–Apr 2027 · Condition: QR ₹40K+</div></div>
+      <div class="phar">▼</div>
+    </div>
+    <div class="phb">
+      <div class="phs"><div class="phsn">→</div><div class="phst"><strong>Dhani Thana Ji Gali</strong> se maal uthao. Murlipura wholesale market. Branding karo — premium look. Online first: Instagram → website → dukan.</div></div>
+      <div class="phs"><div class="phsn">1</div><div class="phst"><strong>Start small:</strong> ₹30–50K stock — kaju, badam, pista. Margin: wholesale 20–30%, branded 50–70%.</div></div>
+      <div class="phs"><div class="phsn">2</div><div class="phst"><strong>QR integration:</strong> Apni dry fruits dukan mein apna QR loyalty system lagao. Own product use karo — best demo.</div></div>
+      <div class="cond">✓ CONDITION: QR ₹40K+ stable, Cab chal raha hai, Agency consistent</div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph" onclick="tp(this)">
+      <div class="phn">06</div>
+      <div><div class="phti">CLOTHING STORE + ASSET EMPIRE</div><div class="phsub">2028+ · Long game</div></div>
+      <div class="phar">▼</div>
+    </div>
+    <div class="phb">
+      <div class="phs"><div class="phsn">→</div><div class="phst"><strong>Dry fruits stable hone ke baad:</strong> Murlipura mein kapdo ki dukan. QR loyalty system wahan bhi. Same location = foot traffic.</div></div>
+      <div class="phs"><div class="phsn">→</div><div class="phst"><strong>Asset empire (2028–2030):</strong> Cash flow stable → plot lena → godam banana → Loha Mandi investment. Physical + digital assets dono. Yeh long game hai.</div></div>
+      <div class="cond">✓ Focus karo abhi sirf Phase 1 pe — baaki automatically unlock honge</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px">
+    <div class="st" style="font-size:18px;margin-top:0">5-YEAR MILESTONES</div>
+    <table class="inc-table">
+      <tr><th>Timeline</th><th>Milestone</th><th>Target</th><th>Status</th></tr>
+      <tr><td>Month 1–2</td><td>QR 10 clients + DSM Job + 3 demo pages</td><td>₹25–38K/mo</td><td class="tag tg">NOW</td></tr>
+      <tr><td>Month 3–4</td><td>QR 30 clients + Agency ₹20K</td><td>₹55–80K/mo</td><td class="tag tb">SOON</td></tr>
+      <tr><td>Month 6</td><td>QR 50 subs + Cab 1st + Digital tools</td><td>₹1.2L/mo</td><td class="tag" style="background:rgba(100,100,100,.1);color:#777;border:1px solid #333">LATER</td></tr>
+      <tr><td>Year 2</td><td>QR 200+ subs + Team 5 log + Dry Fruits</td><td>₹3–5L/mo</td><td class="tag" style="background:rgba(100,100,100,.1);color:#777;border:1px solid #333">FUTURE</td></tr>
+      <tr><td>Year 5</td><td>SaaS 3 products + ₹1Cr ARR + Assets</td><td>₹8L+/mo</td><td class="tag to">DREAM</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ===QR SYSTEM=== -->
+<section class="sec" id="sec-qr">
+  <h2 style="margin-bottom:4px">QR REPEAT REVENUE SYSTEM</h2>
+  <p class="sub">Tera real business model. ₹2K/client/month recurring. 50 clients = ₹1L/month guaranteed. SECRET rakhna jab tak 10 clients nahi.</p>
+  <div class="roi-row">
+    <div class="roi-card"><div class="roi-v">₹2K</div><div class="roi-l">Per Client/Month</div></div>
+    <div class="roi-card"><div class="roi-v">50</div><div class="roi-l">Clients = ₹1L/mo</div></div>
+    <div class="roi-card"><div class="roi-v">90%</div><div class="roi-l">Renewal Rate</div></div>
+    <div class="roi-card"><div class="roi-v">3 Din</div><div class="roi-l">Setup Per Client</div></div>
+  </div>
+  <div class="motto">KABHI MAT BOLO "SOFTWARE KHARIDO" — BOLO "₹30,000/MONTH BACHANE KA SYSTEM"</div>
+  <div class="st">PEHLE DIN KA ACTION PLAN</div>
+  <div class="pitch-step"><div class="psn">1</div><div class="pst"><strong>Demo QR print karo</strong> — cardboard pe laminate karo. Phone mein demo page open rakho offline bhi. Aaj hi ghar ke paas ki 3 dukaanon pe jao.</div></div>
+  <div class="pitch-step"><div class="psn">2</div><div class="pst"><strong>Script:</strong> "Bhaiya, ek minute mein dikhaata hoon — ye QR customer lagaataar wapas kaise laata hai. Aur jo commission Zomato ko de rahe ho — woh band hoga."</div></div>
+  <div class="pitch-step"><div class="psn">3</div><div class="pst"><strong>Pehle 5 clients FREE 1 month</strong> — social proof collect karo. Phir ₹2K standard price. Free month = zero resistance to try.</div></div>
+  <div class="pitch-step"><div class="psn">4</div><div class="pst"><strong>Evening:</strong> WhatsApp mein 3 dukaan contacts save karo. Instagram pe "QR for local business Jaipur" content start karo.</div></div>
+  <div class="st">NICHE PRIORITY — PEHLE KAHAN JAO</div>
+  <div class="niche-grid">
+    <div class="nc"><div class="nci">🏥</div><div class="nct">Medical / Clinic</div><div class="ncs">Score: 42/50 · Day 1 ✓</div></div>
+    <div class="nc"><div class="nci">🍽️</div><div class="nct">Restaurant / Dhaba</div><div class="ncs">Score: 39/50 · Month 2</div></div>
+    <div class="nc"><div class="nci">🏫</div><div class="nct">School / Coaching</div><div class="ncs">Score: 38/50 · Month 2</div></div>
+    <div class="nc"><div class="nci">🏨</div><div class="nct">Hotel / Guest House</div><div class="ncs">Score: 37/50 · Month 2</div></div>
+    <div class="nc"><div class="nci">💊</div><div class="nct">Pharmacy</div><div class="ncs">Score: 37/50 · Month 2</div></div>
+    <div class="nc"><div class="nci">✂️</div><div class="nct">Salon / Beauty</div><div class="ncs">Score: 36/50 · Month 3</div></div>
+    <div class="nc"><div class="nci">💪</div><div class="nct">Gym / Fitness</div><div class="ncs">Score: 34/50 · Month 3</div></div>
+    <div class="nc"><div class="nci">🛒</div><div class="nct">Kirana / Retail</div><div class="ncs">Score: 34/50 · Month 3</div></div>
+    <div class="nc"><div class="nci">🚗</div><div class="nct">Car Showroom</div><div class="ncs">Score: 32/50 · Month 4</div></div>
+  </div>
+  <div class="st">OBJECTION HANDLING</div>
+  <div class="obj"><div class="obj-q">"Itna mehnga hai — ₹2K/month"</div><div class="obj-a">→ "Bhai, Zomato ko ₹9,000/month de rahe ho. QR se direct order aaya to ₹7K bachega. ₹2K investment pe ₹7K return — ye business nahi, ye saving hai."</div></div>
+  <div class="obj"><div class="obj-q">"Pehle sochenge / baad mein dekho"</div><div class="obj-a">→ "Bilkul. Lekin 1 mahine FREE try karo — koi payment nahi. Sirf result dekho. Agar result nahi aaya — band kar dena, koi pressure nahi."</div></div>
+  <div class="obj"><div class="obj-q">"Hamara customer QR scan nahi karta"</div><div class="obj-a">→ "Bhai, 2024 mein 70% India UPI se pay karta hai. Wahi customer QR scan karta hai. Aur hum cashier pe 'Free Item mile QR scan pe' board lagayenge — khud scan karenge."</div></div>
+  <div class="obj"><div class="obj-q">"Internet nahi rehta hamesha"</div><div class="obj-a">→ "QR offline bhi kaam karta hai basic features mein. Aur aapka WiFi to hai — customer apne data se scan karta hai."</div></div>
+  <div class="st">90-DAY TARGETS</div>
+  <table class="inc-table">
+    <tr><th>Timeline</th><th>Target</th><th>MRR</th><th>Action</th></tr>
+    <tr><td>Day 1–7</td><td>5 clients</td><td>₹10K</td><td>Demo QR + gali mein jao</td></tr>
+    <tr><td>Week 2–4</td><td>20 clients</td><td>₹40K</td><td>Referral engine + mohalla expand</td></tr>
+    <tr><td>Month 2</td><td>50 clients</td><td>₹1L</td><td>Sales agent commission-only hire</td></tr>
+    <tr><td>Month 3–6</td><td>150–200 clients</td><td>₹3–4L</td><td>Full city, 5 agents, multiple niches</td></tr>
+  </table>
+</section>
+
+<!-- ===SALES MACHINE=== -->
+<section class="sec" id="sec-sales">
+  <h2 style="margin-bottom:4px">COMPLETE SALES MACHINE</h2>
+  <p class="sub">Website agency + QR system ke liye pura marketing system. Niche-focused. Template-based. Scale karo.</p>
+  <div class="st">NICHE PRIORITY — WEBSITE AGENCY</div>
+  <table class="niche-table">
+    <tr><th>#</th><th>Niche</th><th>Pain</th><th>Speed</th><th>Budget</th><th>Score</th><th>Start</th></tr>
+    <tr><td>1</td><td><strong>Medical/Clinic</strong></td><td>9</td><td>9</td><td>8</td><td class="score">42/50</td><td class="tag tg2">Day 1 ✓</td></tr>
+    <tr><td>2</td><td>Restaurant/Dhaba</td><td>8</td><td>9</td><td>6</td><td class="score">39/50</td><td class="tag tb">Month 2</td></tr>
+    <tr><td>3</td><td>School/Coaching</td><td>8</td><td>6</td><td>8</td><td class="score">38/50</td><td class="tag tb">Month 2</td></tr>
+    <tr><td>4</td><td>Hotel/Guest House</td><td>9</td><td>8</td><td>7</td><td class="score">37/50</td><td class="tag tb">Month 2</td></tr>
+    <tr><td>5</td><td>Real Estate</td><td>7</td><td>6</td><td>9</td><td class="score">35/50</td><td>Month 3</td></tr>
+    <tr><td>6</td><td>Salon/Beauty</td><td>7</td><td>9</td><td>5</td><td class="score">36/50</td><td>Month 3</td></tr>
+  </table>
+  <div class="st">90-DAY GROWTH ROADMAP</div>
+  <div class="card"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+    <div style="padding:10px;background:var(--bg3);border-radius:7px;text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent)">M 1–2</div><div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6">Domain emails setup<br>6 demo pages live<br>Sales manager hire<br>500 cold emails</div></div>
+    <div style="padding:10px;background:var(--bg3);border-radius:7px;text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent)">M 2–3</div><div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6">Cold email daily<br>WhatsApp sequences<br>10 paying clients<br>Testimonials collect</div></div>
+    <div style="padding:10px;background:var(--bg3);border-radius:7px;text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent)">M 3–5</div><div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6">Niche teams active<br>₹10K ads test<br>50+ clients milestone<br>Upsell existing</div></div>
+    <div style="padding:10px;background:var(--bg3);border-radius:7px;text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent)">M 6+</div><div style="font-size:10px;color:var(--text2);margin-top:4px;line-height:1.6">Virtual team running<br>100+ active clients<br>₹10L+ monthly<br>AMC packages</div></div>
+  </div></div>
+  <div class="st">FOUNDER RULES — LAMINATE KAR DO</div>
+  <ul class="rule-list">
+    <li><div class="rn">01</div><div><strong>Ek niche mein 5 clients pehle</strong> — tabhi doosra niche shuru karo. "Specialist" = premium price. "Jack of all" = zero credibility.</div></li>
+    <li><div class="rn">02</div><div><strong>50% advance mandatory</strong> — Koi bhi kaam bina advance ke shuru nahi. Likho agreements mein. Non-negotiable.</div></li>
+    <li><div class="rn">03</div><div><strong>Khud pehle 10 deals close karo</strong> — Tabhi delegate karo. Script live experience ke bina hollow lagti hai.</div></li>
+    <li><div class="rn">04</div><div><strong>Medical niche 90 din first</strong> — Sabse fast paying, sabse high urgency, doctor khud decide karta hai.</div></li>
+    <li><div class="rn">05</div><div><strong>Demo page = trust builder</strong> — Koi bhi website dikhao nahi — live demo dikhao. Clinic demo = clinic client. Hotel demo = hotel client.</div></li>
+    <li><div class="rn">06</div><div><strong>Cold outreach formula:</strong> Personalized = 18% close rate. Generic = 2%. Naam lo, location lo, specific pain bolo.</div></li>
+  </ul>
+</section>
+
+<!-- ===DIGITAL ASSETS=== -->
+<section class="sec" id="sec-digital">
+  <h2 style="margin-bottom:4px">DIGITAL ASSETS PLAN</h2>
+  <p class="sub">iLovePDF model + VishtechCars + Exam Portal. Long-term passive income. Ek baar bana do — saalo tak income.</p>
+  <div class="st" style="margin-top:0">TOP TOOLS — BUILD ORDER</div>
+  <div class="tool-card" style="border-color:var(--accent)">
+    <div class="tool-num">1</div>
+    <div class="tool-info">
+      <div class="tool-name">🚗 Number Plate / Vehicle Lookup</div>
+      <div class="tool-desc">Vehicle number → owner info, RC, insurance, challan. Real Vahan API. India #1 most searched tool.</div>
+      <div class="tool-meta"><span class="tm tg2">100% AI-Proof</span><span class="tm tg">🔥 10L+/month</span><span class="tm tb">₹50K+/mo</span><span class="tm to">1 Week Build</span></div>
+    </div>
+  </div>
+  <div class="tool-card" style="border-color:var(--accent)">
+    <div class="tool-num">2</div>
+    <div class="tool-info">
+      <div class="tool-name">🖼️ Image Compressor</div>
+      <div class="tool-desc">Browser-side compression — no server upload. TinyPNG ka free alternative. Developers + bloggers daily.</div>
+      <div class="tool-meta"><span class="tm tg2">100% AI-Proof</span><span class="tm tg">🔥 20L+/month</span><span class="tm tb">₹1L+/mo</span><span class="tm to">3 Din Build</span></div>
+    </div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-num">3</div>
+    <div class="tool-info">
+      <div class="tool-name">💰 GST Calculator</div>
+      <div class="tool-desc">Amount + rate → GST amount + total. Inclusive/exclusive dono. Every business daily use karta hai.</div>
+      <div class="tool-meta"><span class="tm tg2">AI-Proof</span><span class="tm tg">15L+/month</span><span class="tm tb">₹40K/mo</span><span class="tm to">2 Hours!</span></div>
+    </div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-num">4</div>
+    <div class="tool-info">
+      <div class="tool-name">📈 SIP Calculator</div>
+      <div class="tool-desc">Monthly investment, return rate, years → chart. Groww/Zerodha affiliate = ₹100–500 per signup.</div>
+      <div class="tool-meta"><span class="tm tg">20L+/month</span><span class="tm tb">₹1L+/mo</span><span class="tm to">1 Din!</span></div>
+    </div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-num">5</div>
+    <div class="tool-info">
+      <div class="tool-name">📄 Invoice Generator India (GST)</div>
+      <div class="tool-desc">Business details → GST invoice PDF download. 6 crore+ small businesses. SaaS potential.</div>
+      <div class="tool-meta"><span class="tm tg2">100% AI-Proof</span><span class="tm tg">8L+/month</span><span class="tm tb">₹60K+/mo</span><span class="tm to">2 Din</span></div>
+    </div>
+  </div>
+  <div class="tool-card">
+    <div class="tool-num">6</div>
+    <div class="tool-info">
+      <div class="tool-name">🎓 CGPA to Percentage + Age Calculator</div>
+      <div class="tool-desc">University-wise formula + UPSC/SSC/Railway age eligibility. Exam ke baad crores search karte hain.</div>
+      <div class="tool-meta"><span class="tm tg2">AI-Proof</span><span class="tm tg">15L+/month</span><span class="tm tb">₹25K/mo</span><span class="tm to">2 Hours!</span></div>
+    </div>
+  </div>
+  <div class="st">DOMAIN STRATEGY — CLUSTER MODEL</div>
+  <div class="domain-card" style="border-color:var(--green)">
+    <div class="domain-url">vishtechcars.com — LIVE</div>
+    <div class="domain-tools">Car EMI Calculator · Number Plate Lookup · Car vs Car Comparison · Fuel Cost Calculator · Used Car Price Estimator · Car Insurance Calculator<br><strong style="color:var(--green)">→ Already live pe Google — AdSense + affiliate lagao ABHI</strong></div>
+  </div>
+  <div class="domain-card" style="border-color:var(--accent)">
+    <div class="domain-url">indiatools.in (ya similar) — BUILD NEXT</div>
+    <div class="domain-tools">GST Calculator · Image Compressor · Invoice Generator · QR Code Generator · PDF Merger · Background Remover · Passport Photo · CGPA Calculator · Age Calculator<br><strong style="color:var(--accent)">→ iLovePDF model. Cluster effect = compound traffic</strong></div>
+  </div>
+  <div class="domain-card">
+    <div class="domain-url">sipcalc.in ya fintools.in — PHASE 3</div>
+    <div class="domain-tools">SIP Calculator · Home Loan EMI · Income Tax · FD/RD Calculator · PPF Calculator · NPS Calculator · Crorepati Calculator<br><strong style="color:var(--blue)">→ Finance niche = highest AdSense CPM ₹50–200 per 1000 views</strong></div>
+  </div>
+  <div class="st">VISHTECHCARS MONETIZE — ABHI</div>
+  <div class="card">
+    <ul class="rule-list">
+      <li><div class="rn">1</div><div><strong>Google AdSense apply karo</strong> — eligible ho to ads lagao. Immediate passive income start.</div></li>
+      <li><div class="rn">2</div><div><strong>Roz 1 SEO blog</strong> — Claude AI se draft, apne words mein edit. Topics: used cars Jaipur, car maintenance tips, buying guide.</div></li>
+      <li><div class="rn">3</div><div><strong>Affiliate links:</strong> OLX Cars, CarDekho, InsuranceDekho — commission per click/sale.</div></li>
+      <li><div class="rn">4</div><div><strong>Target:</strong> 10,000 monthly visitors → ₹3,000–8,000/month passive. Already running = head start.</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===INSTAGRAM=== -->
+<section class="sec" id="sec-instagram">
+  <h2 style="margin-bottom:4px">INSTAGRAM CONTENT EMPIRE</h2>
+  <p class="sub">4–5 pages. Daily content. Bulk upload. Brand build. Leonardo AI + Claude AI + Buffer = passive content machine.</p>
+  <div class="g2">
+    <div class="card" style="border-color:var(--accent)"><div class="tag tg" style="margin-bottom:8px">PAGE 1 — START NOW</div><h3 style="font-size:15px">Finance Tips Hindi</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">Saving, investing, budgeting for Indian youth. High demand. Monetizable at 10K followers.</p></div>
+    <div class="card" style="border-color:var(--blue)"><div class="tag tb" style="margin-bottom:8px">PAGE 2 — START NOW</div><h3 style="font-size:15px">Motivation Quotes</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">Entrepreneur mindset, hustle culture. Viral potential high. Easy bulk create.</p></div>
+    <div class="card"><div class="tag to" style="margin-bottom:8px">PAGE 3 — MONTH 2</div><h3 style="font-size:15px">Business Skills Hindi</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">Short tips for small business owners. Direct audience for QR system too.</p></div>
+    <div class="card"><div class="tag tp" style="margin-bottom:8px">PAGE 4 — MONTH 2</div><h3 style="font-size:15px">AI Tools Tips</h3><p style="font-size:11px;color:var(--text2);margin-top:6px">How to use Claude, Midjourney, ChatGPT. Trending niche. Tech-forward audience.</p></div>
+  </div>
+  <div class="st">CONTENT CREATION PROCESS — BATCH METHOD</div>
+  <div class="pitch-step"><div class="psn">1</div><div class="pst"><strong>Week mein 1 session — Sunday 2 ghante:</strong> 7 din ke saare posts ek baar banao. Roz alag karna = 5x zyada time waste.</div></div>
+  <div class="pitch-step"><div class="psn">2</div><div class="pst"><strong>Leonardo AI:</strong> Quote ya tip ke liye background image generate karo. Style consistent rakho per page — brand identity.</div></div>
+  <div class="pitch-step"><div class="psn">3</div><div class="pst"><strong>Claude AI:</strong> Image pe text overlay, caption likhwao, hashtags generate karo. Hindi + English mix karo reach ke liye.</div></div>
+  <div class="pitch-step"><div class="psn">4</div><div class="pst"><strong>Buffer / Later:</strong> Saare 7 posts ek baar schedule karo. Best time: Finance = 8–9 AM, Motivation = 7–8 AM, Business = 12–1 PM.</div></div>
+  <div class="pitch-step"><div class="psn">5</div><div class="pst"><strong>Monetization triggers:</strong> 10K followers = ₹1K–5K sponsored posts. Affiliate links bio mein. Digital product sell karo.</div></div>
+  <div class="card" style="margin-top:8px">
+    <div class="st" style="font-size:16px;margin-top:0">CONTENT CALENDAR — WEEK TEMPLATE</div>
+    <table class="inc-table">
+      <tr><th>Din</th><th>Finance Page</th><th>Motivation Page</th></tr>
+      <tr><td>Mon</td><td>Saving tip + infographic</td><td>Monday motivation quote</td></tr>
+      <tr><td>Tue</td><td>Investment myth busted</td><td>Entrepreneur story snippet</td></tr>
+      <tr><td>Wed</td><td>Calculator tool promo</td><td>Midweek push quote</td></tr>
+      <tr><td>Thu</td><td>Market news simplified</td><td>Discipline quote</td></tr>
+      <tr><td>Fri</td><td>Weekend budget tip</td><td>Weekend warrior quote</td></tr>
+      <tr><td>Sat</td><td>Reel — finance myth</td><td>Success story reel</td></tr>
+      <tr><td>Sun</td><td>Weekly wrap tip</td><td>Week prep motivation</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ===QUICK DECISIONS=== -->
+<section class="sec" id="sec-decisions">
+  <h2 style="margin-bottom:4px">QUICK DECISIONS</h2>
+  <p class="sub">Confuse ho — yahan aao. Answers ready hain. Dobara mat sochna.</p>
+  <div class="qd"><div class="qdq">IndiaMart renewal lena chahiye?</div><div class="qda red-ans">NAHI. KABHI NAHI.</div></div>
+  <div class="qd"><div class="qdq">Job karna chahiye abhi?</div><div class="qda yel-ans">Deal Share Mart = YES. IT company = NO.</div></div>
+  <div class="qd"><div class="qdq">QR system idea publicly announce karna?</div><div class="qda red-ans">Nahi — jab tak 10 paying clients nahi.</div></div>
+  <div class="qd"><div class="qdq">Bina advance ke client ka kaam shuru?</div><div class="qda red-ans">NAHI. 50% upfront. Non-negotiable.</div></div>
+  <div class="qd"><div class="qdq">Paid ads chalane chahiye abhi?</div><div class="qda red-ans">Nahi — pehle 3 demo pages live karo.</div></div>
+  <div class="qd"><div class="qdq">Naya service add karni chahiye?</div><div class="qda red-ans">Nahi — pehle 12 niches ke demos complete karo.</div></div>
+  <div class="qd"><div class="qdq">Client price kam karne ko bol raha hai?</div><div class="qda yel-ans">Demo dikhao. Value prove karo. Price mat ghataao.</div></div>
+  <div class="qd"><div class="qdq">Freelancer hire karna chahiye?</div><div class="qda yel-ans">Jab MRR ₹50K stable ho — tab sochna.</div></div>
+  <div class="qd"><div class="qdq">Overwhelm ho raha hai — kya karu?</div><div class="qda grn-ans">Sirf aaj ke 3 tasks. Baaki sab kal.</div></div>
+  <div class="qd"><div class="qdq">Roz Instagram post karna chahiye?</div><div class="qda grn-ans">Haan. Niche rotate karo. Demo link bio mein.</div></div>
+  <div class="qd"><div class="qdq">Sales wale ko pehle kya sikhaun?</div><div class="qda yel-ans">QR demo script — woh easy pitch hai. Medical niche first.</div></div>
+  <div class="qd"><div class="qdq">Agency ya QR — kya zyada important?</div><div class="qda yel-ans">QR = future. Agency = fuel. Dono chalao saath.</div></div>
+  <div class="qd"><div class="qdq">Emotional decision lena chahiye abhi?</div><div class="qda red-ans">24-HOUR RULE. Ruko. Kal sochna.</div></div>
+  <div class="qd"><div class="qdq">Kisi partner pe trust karna chahiye?</div><div class="qda yel-ans">90-day rule. Pehle deliver, phir trust.</div></div>
+  <div class="qd"><div class="qdq">Family pressure hai business chhodne ki?</div><div class="qda yel-ans">Numbers dikhao. 6 mahine ka time maango. Argue mat karo.</div></div>
+  <div class="qd"><div class="qdq">Kab dry fruits / clothing shuru karna?</div><div class="qda yel-ans">QR ₹40K+ stable, cab chal raha ho — tab.</div></div>
+</section>
+
+<!-- ===PEOPLE RADAR=== -->
+<section class="sec" id="sec-people">
+  <h2 style="margin-bottom:4px">PEOPLE RADAR</h2>
+  <p class="sub">Log teri biggest asset bhi ho sakte hain aur biggest liability bhi. 90-day rule. Deliver dekho, phir trust karo.</p>
+  <div class="wbox" style="margin-bottom:16px"><strong>⚠️ GOLDEN RULE:</strong> Koi bhi teri success se utna khush nahi hoga jitna tu khud hoga. Isliye kisi ko prove mat karo. Sirf dekho: <strong>kya wo deliver kar raha hai jo usne promise kiya?</strong></div>
+  <div class="person-card" style="border-color:var(--green)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="person-type" style="color:var(--green)">✅ TRUSTWORTHY PEOPLE</div><div class="tag tg2">INVEST TIME</div></div>
+    <div class="tdots"><div class="td f"></div><div class="td f"></div><div class="td f"></div><div class="td f"></div><div class="td f"></div></div>
+    <div class="psigns">• Jo kehte hain woh karte hain — consistently, without reminders<br>• Teri success se genuinely khush hote hain — jealous nahi<br>• Honest feedback dete hain — sirf compliment nahi<br>• Bure waqt mein bhi saath hote hain — fair weather nahi<br>• Hidden agenda nahi — expectations clear rakhte hain</div>
+    <div class="pact">→ COLLABORATE · SHARE REAL PLANS · BUILD TOGETHER</div>
+  </div>
+  <div class="person-card" style="border-color:var(--accent)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="person-type" style="color:var(--accent)">⚠️ OBSERVE — 90-DAY RULE</div><div class="tag tg">WATCH</div></div>
+    <div class="tdots"><div class="td f"></div><div class="td f"></div><div class="td f"></div><div class="td"></div><div class="td"></div></div>
+    <div class="psigns">• Naye log — abhi judge karna jaldi hai<br>• Kabhi help karte hain, kabhi nahi — inconsistent<br>• Baatein achhi hain, actions slow hain<br>• Colleagues / clients jo recent mein mile<br>→ Professional rakho. No secrets. Track karo 90 din.</div>
+    <div class="pact">→ PROFESSIONAL ONLY · NO BUSINESS SECRETS · TRACK ACTIONS</div>
+  </div>
+  <div class="person-card" style="border-color:var(--red)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="person-type" style="color:var(--red)">🚨 RED FLAG — DISTANCE NOW</div><div class="tag tr">AVOID</div></div>
+    <div class="tdots"><div class="td fr"></div><div class="td"></div><div class="td"></div><div class="td"></div><div class="td"></div></div>
+    <div class="psigns">• Plans ke baare mein negatively baat karte hain bina reason<br>• Gossip karte hain dusron ke baare mein — tere baare mein bhi karte honge<br>• Paise involve ho to disappear hote hain<br>• Baat alag karte hain, kaam alag karte hain — consistently<br>• Sirf lete hain, dete kabhi nahi — energy vampire<br>• Tujhe raat ko bura feel karaate hain regularly</div>
+    <div class="pact">→ NO BUSINESS · NO SECRETS · GRADUAL DISTANCE BANAO</div>
+  </div>
+  <div class="person-card" style="border-color:var(--red)">
+    <div class="person-type" style="color:var(--red);margin-bottom:10px">💔 DHOKA PROTOCOL — JAB KOI BETRAY KARE</div>
+    <div class="wbox">
+      <strong>Step 1:</strong> Emotion baad mein — pehle documents secure karo (screenshots, agreements, payment records)<br>
+      <strong>Step 2:</strong> Legal option check karo — contract tha? FIR worth it hai? Advocate se poochho (₹500 mein legal advice milti hai)<br>
+      <strong>Step 3:</strong> 24-hour rule — abhi koi public statement ya reaction nahi<br>
+      <strong>Step 4:</strong> Loss calculate karo honestly — financial + time + opportunity<br>
+      <strong>Step 5:</strong> Lesson extract karo — future mein kaise bachein<br>
+      <strong>Step 6:</strong> Move on. Wahan energy waste mat karo jahan return nahi.<br><br>
+      <strong style="color:var(--accent)">Jo dhoka dete hain woh tujhe FREE karte hain unse jo deserve nahi karte teri energy.</strong>
+    </div>
+  </div>
+  <div class="st">TEAM MEMBER HIRE CHECKLIST</div>
+  <ul class="rule-list">
+    <li><div class="rn">1</div><div><strong>Track record:</strong> Pehle kya kiya? Proof? References verify kiye? Claim ≠ reality.</div></li>
+    <li><div class="rn">2</div><div><strong>Communication test:</strong> Reply fast karte hain? Clear bolte hain? Ya vague aur excuses?</div></li>
+    <li><div class="rn">3</div><div><strong>Money attitude:</strong> Pehle hi bahut zyada maang rahe hain bina prove kiye? Red flag immediate.</div></li>
+    <li><div class="rn">4</div><div><strong>Small task test:</strong> Chhota kaam do pehle. Deadline respect karte hain ya excuses dete hain?</div></li>
+    <li><div class="rn">5</div><div><strong>Feedback reaction:</strong> Criticism sunke improve karte hain ya defensive hote hain? Future problem indicator.</div></li>
+  </ul>
+</section>
+
+<!-- ===SITUATIONS=== -->
+<section class="sec" id="sec-situations">
+  <h2 style="margin-bottom:4px">SITUATION SOLUTIONS</h2>
+  <p class="sub">Har possible situation ka solution pehle se ready hai. Ghabrana mat — yahan dekho.</p>
+
+  <div class="sit"><div class="sh" onclick="ts(this)"><div class="sq">😰 Client ne payment rok li — invoice pending hai</div><div class="sar">▼</div></div><div class="sb">
+    <div class="ss"><div class="ssn">1</div><div class="sst"><strong>Screenshots secure karo</strong> — sab conversations, payment confirmations, project scope. Evidence pehle.</div></div>
+    <div class="ss"><div class="ssn">2</div><div class="sst"><strong>Professional message:</strong> "Bhai, agreed payment ka kya schedule hai? Project deliver ho gaya hai as per terms."</div></div>
+    <div class="ss"><div class="ssn">3</div><div class="sst"><strong>3 baar follow up</strong> — WhatsApp, call, phir email. Har baar polite. 3rd ke baad escalate.</div></div>
+    <div class="ss"><div class="ssn">4</div><div class="sst"><strong>Legal notice</strong> — ₹500 mein advocate se simple legal notice. Bahut baar sirf yahi kafi hota hai.</div></div>
+    <div class="ss"><div class="ssn">5</div><div class="sst"><strong>Future prevention:</strong> 50% advance mandatory. Written agreement. "Mera policy hai" — negotiable nahi.</div></div>
+  </div></div>
+
+  <div class="sit"><div class="sh" onclick="ts(this)"><div class="sq">📉 Income slow — koi bhi mahina dry gaya</div><div class="sar">▼</div></div><div class="sb">
+    <div class="ss"><div class="ssn">1</div><div class="sst"><strong>Panic nahi</strong> — slow months normal hain. Ye trend hai ya ek baar — pehle evaluate karo.</div></div>
+    <div class="ss"><div class="ssn">2</div><div class="sst"><strong>Old clients activate karo immediately</strong> — ek WhatsApp message sab ko. Fastest money source hai.</div></div>
+    <div class="ss"><div class="ssn">3</div><div class="sst"><strong>Outreach double karo</strong> — slow time = marketing time. 20 contacts per day temporarily.</div></div>
+    <div class="ss"><div class="ssn">4</div><div class="sst"><strong>Emergency fund rule (future):</strong> Jab achha chale — 3 months ka expense save karo hamesha. Buffer banana is rule se hoga.</div></div>
+  </div></div>
+
+  <div class="sit"><div class="sh" onclick="ts(this)"><div class="sq">😤 Family pressure — "ye sab chhod do"</div><div class="sar">▼</div></div><div class="sb">
+    <div class="ss"><div class="ssn">1</div><div class="sst"><strong>Argue mat karo</strong> — sirf ek number dikhao. "Aaj mujhe ₹X mila." Numbers argue nahi karte.</div></div>
+    <div class="ss"><div class="ssn">2</div><div class="sst"><strong>Ghar ke liye contribute karo</strong> — chahe thoda bhi ho. Ye trust banaata hai. ₹2–3K bhi kafi hai symbol ke liye.</div></div>
+    <div class="ss"><div class="ssn">3</div><div class="sst"><strong>Time maango:</strong> "6 mahine aur do. Agar results nahi aaye — toh baat karenge." Phir prove karo.</div></div>
+    <div class="ss"><div class="ssn">4</div><div class="sst"><strong>Ek baar clearly explain karo</strong> — fir roz explain karna band karo. Jo samajhna chahega samajhega.</div></div>
+  </div></div>
+
+  <div class="sit"><div class="sh" onclick="ts(this)"><div class="sq">🤝 Team member / partner lazy hai ya dhoka de raha hai</div><div class="sar">▼</div></div><div class="sb">
+    <div class="ss"><div class="ssn">1</div><div class="sst"><strong>Seedha private mein baat karo:</strong> "Bhai, ye deadline miss hua — kya hua? Kuch problem hai?"</div></div>
+    <div class="ss"><div class="ssn">2</div><div class="sst"><strong>KPIs set karo</strong> — clear measurable targets. Vague kaam = vague results = no accountability.</div></div>
+    <div class="ss"><div class="ssn">3</div><div class="sst"><strong>Written warning 1:</strong> "Agar agle 2 hafte mein improvement nahi aayi..." — formally likhna important hai legally.</div></div>
+    <div class="ss"><div class="ssn">4</div><div class="sst"><strong>Replace karo</strong> — ek weak link poori chain damage karta hai. Emotions se nahi, business logic se socho.</div></div>
+  </div></div>
+
+  <div class="sit"><div class="sh" onclick="ts(this)"><div class="sq">💔 Emotional breakdown — kuch karne ka mann nahi</div><div class="sar">▼</div></div><div class="sb">
+    <div class="ss"><div class="ssn">1</div><div class="sst"><strong>Ek din ka break lo</strong> — seriously. Business survive karega. Tu ruke toh sab ruk jaata hai.</div></div>
+    <div class="ss"><div class="ssn">2</div><div class="sst"><strong>30 min walk — phone band</strong> — Nature mein jao. Body movement = brain reset. Science hai ye.</div></div>
+    <div class="ss"><div class="ssn">3</div><div class="sst"><strong>Sirf 1 task karo</strong> — "Aaj sirf yeh ek kaam." Momentum wapas aata hai is se hi.</div></div>
+    <div class="ss"><div class="ssn">4</div><div class="sst"><strong>24-hour rule:</strong> Koi bada decision aaj nahi. Kal soche jab mind clear ho.</div></div>
+  </div></div>
+
+  <div class="sit"><div class="sh" onclick="ts(this)"><div class="sq">🏦 Financial crisis — paise khatam ho rahe hain</div><div class="sar">▼</div></div><div class="sb">
+    <div class="ss"><div class="ssn">1</div><div class="sst"><strong>Cash flow statement banao</strong> — kahin se kuch aane wala hai? Kab? Sab list karo.</div></div>
+    <div class="ss"><div class="ssn">2</div><div class="sst"><strong>Immediate options:</strong> Old clients WhatsApp → QR pitch → website quick project (₹3K–8K fast turn karo).</div></div>
+    <div class="ss"><div class="ssn">3</div><div class="sst"><strong>Expenses freeze:</strong> Sirf zaroori — rent, food, internet, phone. Sab kuch else hold karo.</div></div>
+    <div class="ss"><div class="ssn">4</div><div class="sst"><strong>Family se loan:</strong> Clear terms mein maango — "₹X chahiye, 3 mahine mein wapas karunga." Na bhi kaho clearly.</div></div>
+  </div></div>
+
+  <div class="sit"><div class="sh" onclick="ts(this)"><div class="sq">🚀 Competitor copy kar raha hai mere idea ko</div><div class="sar">▼</div></div><div class="sb">
+    <div class="ss"><div class="ssn">1</div><div class="sst"><strong>Celebrate karo</strong> — copy hona = teri idea valuable hai. Market validated. Ye success sign hai.</div></div>
+    <div class="ss"><div class="ssn">2</div><div class="sst"><strong>Differentiate:</strong> Service quality, local presence, speed, relationships — ye copy nahi hota.</div></div>
+    <div class="ss"><div class="ssn">3</div><div class="sst"><strong>Existing clients lock karo</strong> — better service, loyalty program, regular contact. Retention > acquisition.</div></div>
+    <div class="ss"><div class="ssn">4</div><div class="sst"><strong>Innovate faster</strong> — jo copy karta hai woh always peeche hota hai. Tu aage badh. Woh tujhe follow karega.</div></div>
+  </div></div>
+
+  <div class="sit"><div class="sh" onclick="ts(this)"><div class="sq">📱 Instagram engagement zero — views nahi aa rahe</div><div class="sar">▼</div></div><div class="sb">
+    <div class="ss"><div class="ssn">1</div><div class="sst"><strong>Reels > Posts</strong> — Trending audio + valuable content = growth formula. Static posts algorithm prefer nahi karta.</div></div>
+    <div class="ss"><div class="ssn">2</div><div class="sst"><strong>Niche tight karo</strong> — "Sab kuch" wale pages nahi chadte. Ek specific topic. Algorithm ko samajhne mein time lagta hai.</div></div>
+    <div class="ss"><div class="ssn">3</div><div class="sst"><strong>90 consistent posts rule</strong> — 3 mahine roz post karo before judging. Algorithm time leta hai teri audience samajhne mein.</div></div>
+  </div></div>
+</section>
+
+<!-- ===DISCIPLINE=== -->
+<section class="sec" id="sec-discipline">
+  <h2 style="margin-bottom:4px">EMOTIONAL DISCIPLINE</h2>
+  <p class="sub">Intelligence se zyada emotional control determines who succeeds. Roz padho. Internalize karo.</p>
+  <div class="motto">EMOTIONS ARE DATA — NOT DIRECTIONS</div>
+  <div class="er"><div class="ei">🧊</div><div><div class="etit">THE 24-HOUR RULE</div><div class="ed">Gussa, dard, excitement, fear — koi bhi emotion ho — 24 ghante koi bada decision nahi. Soo jao, kal soche. 80% "urgent" problems khud solve ho jaati hain.</div><div class="ert">RULE: Agar aaj decide karna bahut zaroori lag raha hai — it's not. Wait 24 hours.</div></div></div>
+  <div class="er"><div class="ei">🎯</div><div><div class="etit">COMPARISON IS POISON</div><div class="ed">Accenture wala, GF ka naya partner, dost ki job — ye sab alag journey hain. Tu apne yesterday se compare kar. Unka path tera path nahi hai. Kabhi nahi tha.</div><div class="ert">RULE: Roz 1 cheez likho — "Aaj main kal se better hun kyunki..."</div></div></div>
+  <div class="er"><div class="ei">🔇</div><div><div class="etit">VALIDATION SEEKERS FAIL</div><div class="ed">Kisi ko prove karne ki zaroorat nahi. Na family, na ex, na dost. Jab prove karna band karega — tab teri asli power shuru hogi. Apne liye karo. Sirf apne liye.</div><div class="ert">RULE: "Main ye unhe dikhane ke liye kar raha hun?" — agar haan, ruk. Rethink.</div></div></div>
+  <div class="er"><div class="ei">💬</div><div><div class="etit">EMOTIONAL PEOPLE SE BUSINESS NAHI</div><div class="ed">Agar koi bahut jaldi aggressive hota hai, bahut jaldi blame karta hai, expectations constantly change karta hai — ye client ya partner nahi lena. Emotional turbulence = guaranteed business problem.</div><div class="ert">RULE: Gut feeling sun. Uncomfortable lag raha hai meeting mein? Trust the feeling.</div></div></div>
+  <div class="er"><div class="ei">🔋</div><div><div class="etit">ENERGY MANAGEMENT = MONEY MANAGEMENT</div><div class="ed">Negative log, useless arguments, social media drama, overthinking — ye sab teri energy bankrupt kar dete hain. Har cheez jo drain karti hai — remove karo. Ye self-care nahi, ye survival hai.</div><div class="ert">RULE: Raat ko socho — "Kya aaj meri energy sahi jagah gayi?" Agar nahi — kal badlo.</div></div></div>
+  <div class="er"><div class="ei">🌊</div><div><div class="etit">REJECTION IS REDIRECTION</div><div class="ed">Client ne nahi kaha, job nahi mili, deal fail — ye failure nahi. Ye data hai. Kya sikhna hai? Kya alag karna hai? Har "nahi" sahi direction mein le jaata hai agar seekhne ki attitude ho.</div><div class="ert">RULE: Har rejection ke baad likho — "Main isse kya seekh sakta hun?"</div></div></div>
+  <div class="er"><div class="ei">📵</div><div><div class="etit">DIGITAL DETOX — DAILY 1 HOUR</div><div class="ed">Roz 1 ghanta phone band. Subah ke pehle 30 min, raat soone se 30 min pehle. Social media scroll = competitors ki intelligence nahi badhata. Sirf tera time waste karta hai.</div><div class="ert">RULE: Phone bedroom mein mat rakho. Alarm ghadi le lo. Seriously karo ye.</div></div></div>
+  <div class="st">MORNING PROTOCOL — RAAT PEHLE SE PLAN</div>
+  <div class="card">
+    <div style="display:grid;gap:8px">
+      <div style="display:flex;gap:12px;align-items:center;padding:10px;background:var(--bg3);border-radius:7px"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);min-width:65px">5:30 AM</div><div style="font-size:12px">Uthh jao — alarm pehli baar pe. Snooze = teri commitment ka level dikhaata hai.</div></div>
+      <div style="display:flex;gap:12px;align-items:center;padding:10px;background:var(--bg3);border-radius:7px"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);min-width:65px">5:45 AM</div><div style="font-size:12px">Paani piyo. 10 min walk ya stretch. Body ko signal do ki din shuru ho gaya.</div></div>
+      <div style="display:flex;gap:12px;align-items:center;padding:10px;background:var(--bg3);border-radius:7px"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);min-width:65px">6:00 AM</div><div style="font-size:12px">Aaj ka #1 most important task likho — sirf ek. Business priority order dekho. Phir karo.</div></div>
+      <div style="display:flex;gap:12px;align-items:center;padding:10px;background:var(--bg3);border-radius:7px"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);min-width:65px">6:15 AM</div><div style="font-size:12px">Deep work — phone aeroplane mode. Sabse important kaam pehle. No distractions. 2 ghante.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===REVIEW=== -->
+<section class="sec" id="sec-review">
+  <h2 style="margin-bottom:4px">DAILY REVIEW SYSTEM</h2>
+  <p class="sub">Raat ko soone se pehle — 10 minute. Koi nahi poochhega — tu khud poochh. Streak se discipline aati hai.</p>
+  <div class="rv"><div class="rvl">📅 Taareekh</div><input class="ti" id="rd" type="date" style="max-width:200px"></div>
+  <div class="rv"><div class="rvl">✅ Aaj Kya Kiya — Empire ke liye?</div><textarea class="rvta" id="r1" placeholder="Kya kiya aaj... QR calls, outreach, agency work..."></textarea></div>
+  <div class="rv"><div class="rvl">❌ Kya Nahi Kiya — Aur Kyun?</div><textarea class="rvta" id="r2" placeholder="Kya reh gaya aur kyun..."></textarea></div>
+  <div class="rv"><div class="rvl">🎯 Kal Ka Ek Sabse Zaroori Kaam</div><textarea class="rvta" id="r3" placeholder="Sirf ek cheez — kal subah pehle ye..." style="min-height:55px"></textarea></div>
+  <div class="rv"><div class="rvl">💭 Aaj Ka Mood / Lesson</div><textarea class="rvta" id="r4" placeholder="Kya seeha? Koi realization?" style="min-height:55px"></textarea></div>
+  <button class="btn bg" onclick="saveRv()" style="width:100%;padding:14px;font-size:13px;letter-spacing:2px;margin-bottom:24px">💾 REVIEW SAVE KARO + STREAK BADHA</button>
+  <div id="rvList"></div>
+</section>
+
+<!-- ===INCOME TRACKER=== -->
+<section class="sec" id="sec-income">
+  <h2 style="margin-bottom:4px">INCOME TRACKER</h2>
+  <p class="sub">Har mahine update karo. Numbers jhooth nahi bolte.</p>
+  <div class="irow">
+    <div class="ic"><div class="iv" id="i-job">₹0</div><div class="il">Job / DSM</div></div>
+    <div class="ic"><div class="iv" id="i-qr">₹0</div><div class="il">QR MRR</div></div>
+    <div class="ic"><div class="iv" id="i-agency">₹0</div><div class="il">Agency</div></div>
+    <div class="ic"><div class="iv" id="i-cab">₹0</div><div class="il">Cab Net</div></div>
+    <div class="ic"><div class="iv" id="i-digital">₹0</div><div class="il">Digital/Ads</div></div>
+    <div class="ic"><div class="iv" id="i-other">₹0</div><div class="il">Other</div></div>
+    <div class="ic" style="border-color:var(--accent)"><div class="iv" id="i-total" style="color:var(--green)">₹0</div><div class="il">TOTAL</div></div>
+    <div class="ic"><div class="iv" id="i-target">₹0</div><div class="il">% of Goal</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div style="font-size:11px;color:var(--text2);margin-bottom:10px;font-weight:700">INCOME UPDATE KARO (₹)</div>
+      <div style="display:grid;gap:8px">
+        <div style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;min-width:80px;color:var(--text2)">Job/DSM</span><input class="iinput" id="ii-job" type="number" placeholder="0" oninput="calcIncome()"></div>
+        <div style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;min-width:80px;color:var(--text2)">QR MRR</span><input class="iinput" id="ii-qr" type="number" placeholder="0" oninput="calcIncome()"></div>
+        <div style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;min-width:80px;color:var(--text2)">Agency</span><input class="iinput" id="ii-agency" type="number" placeholder="0" oninput="calcIncome()"></div>
+        <div style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;min-width:80px;color:var(--text2)">Cab Net</span><input class="iinput" id="ii-cab" type="number" placeholder="0" oninput="calcIncome()"></div>
+        <div style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;min-width:80px;color:var(--text2)">Digital/Ads</span><input class="iinput" id="ii-digital" type="number" placeholder="0" oninput="calcIncome()"></div>
+        <div style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;min-width:80px;color:var(--text2)">Other</span><input class="iinput" id="ii-other" type="number" placeholder="0" oninput="calcIncome()"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--text2);margin-bottom:10px;font-weight:700">MONTHLY TARGETS</div>
+      <table class="inc-table">
+        <tr><th>Source</th><th>Month 1–2</th><th>Month 6+</th></tr>
+        <tr><td>Job/DSM</td><td>₹15K</td><td>Exit hoga</td></tr>
+        <tr><td>QR</td><td>₹5–10K</td><td>₹40–60K</td></tr>
+        <tr><td>Agency</td><td>₹15–25K</td><td>₹60–80K</td></tr>
+        <tr><td>Cab</td><td>—</td><td>₹17–27K</td></tr>
+        <tr><td>Digital</td><td>₹2–3K</td><td>₹15–30K</td></tr>
+        <tr class="total"><td>TOTAL</td><td>₹37–53K</td><td>₹1.3–2L</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===FILES=== -->
+<section class="sec" id="sec-files">
+  <h2 style="margin-bottom:4px">ALL FILES — VERCEL LINKS</h2>
+  <p class="sub">Teri saari previously banaayi hui files. Ek jagah — bookmark kar lo.</p>
+  <a class="vlink" href="https://vishtech-os-founder-system.vercel.app/index.html" target="_blank">
+    <div><div class="vlink-title">🏠 Founder Command Center (Main OS)</div><div class="vlink-url">vishtech-os-founder-system.vercel.app/index.html</div></div>
+    <div class="tag tg">LIVE</div>
+  </a>
+  <a class="vlink" href="https://vishtech-os-founder-system.vercel.app/Vishtech%20empire%20complete%20system.html" target="_blank">
+    <div><div class="vlink-title">🗺️ Empire Complete System — Master Sequence</div><div class="vlink-url">.../Vishtech empire complete system.html</div></div>
+    <div class="tag tg">LIVE</div>
+  </a>
+  <a class="vlink" href="https://vishtech-os-founder-system.vercel.app/Vishtech%20empirevvvv22222.html" target="_blank">
+    <div><div class="vlink-title">🗺️ Empire Sequence V2</div><div class="vlink-url">.../Vishtech empirevvvv22222.html</div></div>
+    <div class="tag tb">LIVE</div>
+  </a>
+  <a class="vlink" href="https://vishtech-os-founder-system.vercel.app/qrcode%20system%20salesmarketing.html" target="_blank">
+    <div><div class="vlink-title">📱 QR Code System — Sales & Marketing</div><div class="vlink-url">.../qrcode system salesmarketing.html</div></div>
+    <div class="tag tg">LIVE</div>
+  </a>
+  <a class="vlink" href="https://vishtech-os-founder-system.vercel.app/sales%20machin%20clude.html" target="_blank">
+    <div><div class="vlink-title">💼 Complete Sales Machine</div><div class="vlink-url">.../sales machin clude.html</div></div>
+    <div class="tag tg">LIVE</div>
+  </a>
+  <a class="vlink" href="https://vishtech-os-founder-system.vercel.app/Digital%20tools%20priority%20list.html" target="_blank">
+    <div><div class="vlink-title">🌐 Digital Tools Priority List 2026</div><div class="vlink-url">.../Digital tools priority list.html</div></div>
+    <div class="tag tg">LIVE</div>
+  </a>
+  <a class="vlink" href="https://vishtech-os-founder-system.vercel.app/digital%20aasets%20110tolsslist.html" target="_blank">
+    <div><div class="vlink-title">🛠️ 110 Tools Complete List — All Categories</div><div class="vlink-url">.../digital aasets 110tolsslist.html</div></div>
+    <div class="tag tg">LIVE</div>
+  </a>
+  <a class="vlink" href="https://vishtech-os-founder-system.vercel.app/Digital%20tools%20systemcompledtclude%20tech%20niches.html" target="_blank">
+    <div><div class="vlink-title">🚀 Digital Tools Launch System — Tech Niches</div><div class="vlink-url">.../Digital tools systemcompledtclude tech niches.html</div></div>
+    <div class="tag tg">LIVE</div>
+  </a>
+  <a class="vlink" href="https://vishtech-os-founder-system.vercel.app/Digital%20tools%20systemcompledtedclude.html" target="_blank">
+    <div><div class="vlink-title">🚀 Digital Tools Launch Playbook (Full)</div><div class="vlink-url">.../Digital tools systemcompledtedclude.html</div></div>
+    <div class="tag tg">LIVE</div>
+  </a>
+  <div class="card" style="margin-top:16px;border-color:var(--accent)">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;margin-bottom:10px;color:var(--accent)">⚡ YE FILE — VISTECH ULTIMATE MASTER OS</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.7">Is file ko Vercel pe upload karo — sari purani files ka REPLACEMENT hai. Ek jagah sab kuch. Tasks, sequence, QR system, sales, digital, Instagram, quick decisions, people radar, situations, discipline, daily review, income tracker — sab.</div>
+    <div style="margin-top:10px;font-size:11px;color:var(--green);font-weight:700">→ Download karo → Vercel project mein daalo → Deploy karo</div>
+  </div>
+</section>
+
+<script>
+// ===STATE===
+let tasks=JSON.parse(localStorage.getItem('vt2_t')||'[]');
+let reviews=JSON.parse(localStorage.getItem('vt2_r')||'[]');
+let cf=('all');
+
+const cc={
+  job:{bg:'rgba(245,197,24,.12)',c:'#f5c518',b:'rgba(245,197,24,.3)'},
+  qr:{bg:'rgba(0,176,255,.12)',c:'#00b0ff',b:'rgba(0,176,255,.3)'},
+  website:{bg:'rgba(0,230,118,.1)',c:'#00e676',b:'rgba(0,230,118,.3)'},
+  agency:{bg:'rgba(213,0,249,.1)',c:'#d500f9',b:'rgba(213,0,249,.3)'},
+  digital:{bg:'rgba(255,107,53,.1)',c:'#ff6b35',b:'rgba(255,107,53,.3)'},
+  cab:{bg:'rgba(100,100,100,.1)',c:'#aaa',b:'rgba(100,100,100,.3)'},
+  instagram:{bg:'rgba(255,23,68,.12)',c:'#ff1744',b:'rgba(255,23,68,.3)'},
+  personal:{bg:'rgba(80,80,80,.1)',c:'#777',b:'rgba(80,80,80,.3)'}
+};
+
+// ===NAV===
+function go(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nt').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  event.target.classList.add('active');
+  if(id==='tasks') renderT();
+  if(id==='dashboard') updDB();
+  if(id==='review') renderRv();
+}
+
+// ===DATE===
+function setDate(){
+  const d=new Date();
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('navDate').textContent=`${days[d.getDay()]}, ${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`;
+  const ri=document.getElementById('rd');
+  if(ri&&!ri.value) ri.value=d.toISOString().split('T')[0];
+}
+
+// ===TASKS===
+function addTask(){
+  const tx=document.getElementById('tInp').value.trim();
+  const ca=document.getElementById('tCat').value;
+  const pr=document.getElementById('tPri').value;
+  if(!tx){toast('Task likhein pehle!');return;}
+  tasks.unshift({id:Date.now(),text:tx,cat:ca,pri:pr,done:false,date:new Date().toDateString()});
+  savT();
+  document.getElementById('tInp').value='';
+  renderT(); updDB(); toast('Task added ✓');
+}
+function qa(tx,ca,pr){
+  tasks.unshift({id:Date.now(),text:tx,cat:ca,pri:pr,done:false,date:new Date().toDateString()});
+  savT(); renderT(); updDB(); toast('Task added ✓');
+}
+function togT(id){const t=tasks.find(x=>x.id===id);if(t){t.done=!t.done;savT();renderT();updDB();}}
+function delT(id){tasks=tasks.filter(x=>x.id!==id);savT();renderT();updDB();toast('Deleted');}
+function clearDone(){tasks=tasks.filter(x=>!x.done);savT();renderT();updDB();toast('Done tasks cleared');}
+function sf(f,el){cf=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderT();}
+function savT(){localStorage.setItem('vt2_t',JSON.stringify(tasks));}
+
+function renderT(){
+  let fl=tasks;
+  const today=new Date().toDateString();
+  if(cf==='pending') fl=tasks.filter(t=>!t.done);
+  else if(cf==='done') fl=tasks.filter(t=>t.done);
+  else if(cf!=='all') fl=tasks.filter(t=>t.cat===cf);
+  const L=document.getElementById('tList');
+  if(!L) return;
+  if(!fl.length){L.innerHTML='<div style="text-align:center;padding:32px;color:var(--text2);font-size:12px">Koi task nahi. Add karo! ☝️</div>';return;}
+  L.innerHTML=fl.map(t=>{
+    const c=cc[t.cat]||cc.personal;
+    const pi=t.pri==='high'?'🔴':t.pri==='med'?'🟡':'🟢';
+    return `<li class="ti2 ${t.done?'done':''}">
+      <button class="tcb ${t.done?'chk':''}" onclick="togT(${t.id})">${t.done?'✓':''}</button>
+      <span class="tt">${t.text}</span>
+      <span style="font-size:11px">${pi}</span>
+      <span class="tcat" style="background:${c.bg};color:${c.c};border:1px solid ${c.b}">${t.cat.toUpperCase()}</span>
+      <button class="tdel" onclick="delT(${t.id})">×</button>
+    </li>`;
+  }).join('');
+  const td=tasks.filter(t=>t.date===today);
+  const dn=td.filter(t=>t.done).length;
+  const tt=td.length;
+  const pc=tt?Math.round(dn/tt*100):0;
+  const tp=document.getElementById('tp');
+  if(tp) tp.style.width=pc+'%';
+  const cl=document.getElementById('tcl');
+  if(cl) cl.textContent=`${dn}/${tt} done today (${pc}%)`;
+}
+
+function updDB(){
+  const today=new Date().toDateString();
+  const td=tasks.filter(t=>t.date===today);
+  const dn=td.filter(t=>t.done).length;
+  const tt=td.length;
+  const pc=tt?Math.round(dn/tt*100):0;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('sd',dn); set('st',tt); set('sp',pc+'%');
+  set('ss',localStorage.getItem('vt2_streak')||'0');
+  const hp=document.getElementById('hp');
+  if(hp) hp.style.width=pc+'%';
+  const t3=document.getElementById('top3');
+  if(t3){
+    const p=tasks.filter(t=>!t.done&&t.date===today).slice(0,3);
+    if(!p.length) t3.innerHTML='<div style="color:var(--green);font-size:13px;font-weight:700">✅ Aaj ke sab tasks done! 🔥</div>';
+    else t3.innerHTML=p.map((t,i)=>{
+      const c=cc[t.cat]||cc.personal;
+      return `<div style="display:flex;gap:10px;align-items:center;margin-bottom:9px">
+        <div style="font-family:\'Bebas Neue\',sans-serif;font-size:22px;color:var(--accent);min-width:28px">${i+1}</div>
+        <div style="font-size:12px;flex:1">${t.text}</div>
+        <span style="font-size:9px;padding:2px 6px;border-radius:3px;background:${c.bg};color:${c.c};border:1px solid ${c.b}">${t.cat.toUpperCase()}</span>
+      </div>`;
+    }).join('');
+  }
+}
+
+// ===ACCORDIONS===
+function tp(el){
+  const b=el.nextElementSibling;
+  const ar=el.querySelector('.phar');
+  const o=b.classList.contains('open');
+  document.querySelectorAll('.phb').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.phar').forEach(x=>x.classList.remove('open'));
+  if(!o){b.classList.add('open');ar.classList.add('open');}
+}
+function ts(el){
+  const b=el.nextElementSibling;
+  const ar=el.querySelector('.sar');
+  const o=b.classList.contains('open');
+  document.querySelectorAll('.sb').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.sar').forEach(x=>x.classList.remove('open'));
+  if(!o){b.classList.add('open');ar.classList.add('open');}
+}
+
+// ===REVIEW===
+function saveRv(){
+  const dt=document.getElementById('rd').value;
+  const r1=document.getElementById('r1').value.trim();
+  if(!r1){toast('Kya kiya — ye likho!');return;}
+  const r2=document.getElementById('r2').value.trim();
+  const r3=document.getElementById('r3').value.trim();
+  const r4=document.getElementById('r4').value.trim();
+  reviews.unshift({dt,r1,r2,r3,r4,saved:new Date().toLocaleString()});
+  if(reviews.length>30) reviews.pop();
+  localStorage.setItem('vt2_r',JSON.stringify(reviews));
+  const today=new Date().toDateString();
+  const last=localStorage.getItem('vt2_lrd');
+  if(last!==today){
+    const str=parseInt(localStorage.getItem('vt2_streak')||'0');
+    localStorage.setItem('vt2_streak',str+1);
+    localStorage.setItem('vt2_lrd',today);
+  }
+  ['r1','r2','r3','r4'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  renderRv(); updDB(); toast('Review saved! 🔥 Streak badhi!');
+}
+function renderRv(){
+  const L=document.getElementById('rvList');
+  if(!L) return;
+  if(!reviews.length){L.innerHTML='<div style="color:var(--text2);font-size:12px;padding:20px;text-align:center">Abhi koi review nahi. Aaj shuru karo!</div>';return;}
+  L.innerHTML='<div class="st" style="font-size:18px;margin-bottom:12px">PREVIOUS REVIEWS</div>'+reviews.map(r=>`
+    <div class="rday">
+      <div class="rdd">${r.dt} · saved ${r.saved}</div>
+      <div style="margin-bottom:6px"><span style="color:var(--green);font-size:9px;font-weight:800;letter-spacing:2px">✅ KIYA: </span><span>${r.r1||'—'}</span></div>
+      ${r.r2?`<div style="margin-bottom:6px"><span style="color:var(--red);font-size:9px;font-weight:800;letter-spacing:2px">❌ NAHI: </span><span>${r.r2}</span></div>`:''}
+      ${r.r3?`<div style="margin-bottom:6px"><span style="color:var(--accent);font-size:9px;font-weight:800;letter-spacing:2px">🎯 KAL: </span><span>${r.r3}</span></div>`:''}
+      ${r.r4?`<div><span style="color:var(--blue);font-size:9px;font-weight:800;letter-spacing:2px">💭 LESSON: </span><span>${r.r4}</span></div>`:''}
+    </div>`).join('');
+}
+
+// ===INCOME===
+function calcIncome(){
+  const ids=['job','qr','agency','cab','digital','other'];
+  let tot=0;
+  ids.forEach(i=>{
+    const v=parseFloat(document.getElementById('ii-'+i).value)||0;
+    tot+=v;
+    const el=document.getElementById('i-'+i);
+    if(el) el.textContent='₹'+v.toLocaleString('en-IN');
+  });
+  const tel=document.getElementById('i-total');
+  if(tel) tel.textContent='₹'+tot.toLocaleString('en-IN');
+  const goal=120000;
+  const pct=Math.round(tot/goal*100);
+  const gg=document.getElementById('i-target');
+  if(gg) gg.textContent=pct+'% of ₹1.2L';
+}
+
+// ===TOAST===
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ===INIT===
+setDate(); updDB(); renderT(); renderRv();
+setInterval(setDate,60000);
+</script>
+</body>
+</html>
