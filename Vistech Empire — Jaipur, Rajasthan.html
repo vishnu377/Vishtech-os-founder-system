@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishnu Founder OS v2 — Vistech Empire</title>
+<style>
+:root {
+  --bg: #080808;
+  --bg2: #0f0f0f;
+  --bg3: #161616;
+  --bg4: #1e1e1e;
+  --bg5: #252525;
+  --border: #1f1f1f;
+  --border2: #2a2a2a;
+  --border3: #333;
+  --text: #f2ede8;
+  --text2: #9a9088;
+  --text3: #5a5450;
+  --gold: #f5a623;
+  --gold2: #ffc85a;
+  --gold-dim: rgba(245,166,35,0.12);
+  --red: #e8503a;
+  --blue: #4a9eff;
+  --green: #3ecf6e;
+  --purple: #a78bfa;
+  --teal: #2dd4bf;
+  --pink: #f472b6;
+  --font: 'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono: 'Courier New',monospace;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;line-height:1.6;min-height:100vh;overflow:hidden;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border3);border-radius:2px;}
+
+/* HEADER */
+.hdr{
+  height:52px;background:var(--bg2);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;position:fixed;top:0;left:0;right:0;z-index:200;
+}
+.hdr-left{display:flex;align-items:center;gap:12px;}
+.logo{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,#f5a623,#e8503a);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:14px;color:#000;letter-spacing:-0.5px;
+  box-shadow:0 0 16px rgba(245,166,35,0.3);
+}
+.hdr-title{font-size:14px;font-weight:600;color:var(--text);}
+.hdr-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+.hdr-right{display:flex;align-items:center;gap:16px;}
+.hdr-stat{text-align:right;}
+.hdr-stat-num{font-size:15px;font-weight:700;color:var(--gold);}
+.hdr-stat-label{font-size:10px;color:var(--text3);}
+.live-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 6px var(--green);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+#hdr-date{font-size:11px;color:var(--text3);}
+
+/* LAYOUT */
+.layout{display:flex;height:calc(100vh - 52px);margin-top:52px;}
+
+/* SIDEBAR */
+.sidebar{
+  width:210px;background:var(--bg2);border-right:1px solid var(--border);
+  padding:12px 8px;overflow-y:auto;flex-shrink:0;
+  display:flex;flex-direction:column;gap:4px;
+}
+.sb-section{margin-bottom:4px;}
+.sb-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);padding:6px 8px 4px;}
+.nav{
+  display:flex;align-items:center;gap:9px;padding:8px 10px;
+  border-radius:8px;cursor:pointer;transition:all 0.15s;
+  font-size:12px;color:var(--text2);position:relative;
+}
+.nav:hover{background:var(--bg3);color:var(--text);}
+.nav.active{background:var(--bg4);color:var(--text);}
+.nav.active::before{
+  content:'';position:absolute;left:0;top:4px;bottom:4px;
+  width:2px;border-radius:0 2px 2px 0;background:var(--gold);
+}
+.nav-ic{font-size:14px;flex-shrink:0;}
+.nav-badge{
+  margin-left:auto;font-size:9px;font-weight:700;
+  background:var(--red);color:#fff;
+  padding:1px 5px;border-radius:8px;min-width:16px;text-align:center;
+}
+.nav-badge.gold{background:var(--gold);color:#000;}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;padding:20px;background:var(--bg);}
+.page{display:none;}
+.page.active{display:block;}
+
+/* PAGE HEADER */
+.ph{margin-bottom:20px;}
+.ph h1{font-size:20px;font-weight:700;color:var(--text);}
+.ph p{font-size:12px;color:var(--text2);margin-top:3px;}
+
+/* CARDS */
+.card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:18px;margin-bottom:14px;
+}
+.card.glow{border-color:rgba(245,166,35,0.2);box-shadow:0 0 20px rgba(245,166,35,0.04);}
+.ct{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);margin-bottom:14px;}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr);}.g3{grid-template-columns:1fr 1fr;}}
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr;}.sidebar{display:none;}.mob-menu{display:flex!important;}}
+
+/* METRIC CARDS */
+.mc{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px;text-align:center;
+  transition:border-color 0.2s;
+}
+.mc:hover{border-color:var(--border3);}
+.mc-num{font-size:22px;font-weight:800;line-height:1;}
+.mc-label{font-size:11px;color:var(--text2);margin-top:5px;line-height:1.4;}
+.mc-change{font-size:10px;margin-top:4px;}
+.mc-change.up{color:var(--green);}
+.mc-change.target{color:var(--gold);}
+
+/* HIGHLIGHT BOXES */
+.hb{
+  background:var(--bg3);border-left:2px solid var(--blue);
+  border-radius:0 8px 8px 0;padding:11px 14px;margin:8px 0;
+}
+.hb.g{border-left-color:var(--green);}
+.hb.w{border-left-color:var(--gold);}
+.hb.r{border-left-color:var(--red);}
+.hb.p{border-left-color:var(--purple);}
+.hb.t{border-left-color:var(--teal);}
+.hb-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:4px;}
+.hb.g .hb-lbl{color:var(--green);}
+.hb.w .hb-lbl{color:var(--gold);}
+.hb.r .hb-lbl{color:var(--red);}
+.hb.p .hb-lbl{color:var(--purple);}
+.hb.t .hb-lbl{color:var(--teal);}
+.hb-val{font-size:13px;color:var(--text);line-height:1.6;}
+
+/* TIMELINE */
+.tl{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:14px;position:relative;padding-bottom:16px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item:not(:last-child)::after{
+  content:'';position:absolute;left:15px;top:32px;bottom:0;
+  width:1px;background:var(--border2);
+}
+.tl-dot{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  background:var(--bg3);border:1px solid var(--border2);
+  color:var(--text3);font-size:9px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  text-transform:uppercase;letter-spacing:0.05em;z-index:1;
+}
+.tl-dot.now{background:#1a1400;border-color:var(--gold);color:var(--gold);box-shadow:0 0 12px rgba(245,166,35,0.2);}
+.tl-dot.done{background:#081a0e;border-color:var(--green);color:var(--green);}
+.tl-dot.soon{background:#0a1520;border-color:var(--blue);color:var(--blue);}
+.tl-body{flex:1;padding-top:4px;}
+.tl-date{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;}
+.tl-title{font-size:13px;font-weight:600;color:var(--text);}
+.tl-sub{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5;}
+
+/* SCHEDULE */
+.sr{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);}
+.sr:last-child{border-bottom:none;}
+.sr-time{font-size:11px;font-weight:700;color:var(--gold);min-width:95px;flex-shrink:0;padding-top:1px;}
+.sr-text{font-size:12px;color:var(--text);line-height:1.5;}
+.tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:6px;margin-left:6px;vertical-align:middle;}
+.tag.b{background:rgba(74,158,255,0.12);color:var(--blue);}
+.tag.g{background:rgba(62,207,110,0.12);color:var(--green);}
+.tag.w{background:rgba(245,166,35,0.12);color:var(--gold);}
+.tag.r{background:rgba(232,80,58,0.12);color:var(--red);}
+.tag.gr{background:var(--bg4);color:var(--text3);}
+
+/* RULE ROWS */
+.rr{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.rr:last-child{border-bottom:none;}
+.rr-num{font-size:11px;font-weight:800;color:var(--gold);min-width:28px;padding-top:1px;}
+.rr-title{font-size:13px;font-weight:600;color:var(--text);}
+.rr-sub{font-size:11px;color:var(--text2);margin-top:3px;line-height:1.5;}
+
+/* CHECKLIST */
+.ci{
+  display:flex;gap:10px;align-items:flex-start;padding:10px 8px;
+  border-bottom:1px solid var(--border);cursor:pointer;
+  border-radius:8px;transition:background 0.1s;
+}
+.ci:last-child{border-bottom:none;}
+.ci:hover{background:var(--bg3);}
+.ci.done .ci-label{text-decoration:line-through;color:var(--text3);}
+.ci.done .ci-sub{color:var(--text3);}
+.cb{
+  width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;
+  border:1px solid var(--border2);background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--green);transition:all 0.15s;
+}
+.ci.done .cb{background:rgba(62,207,110,0.1);border-color:var(--green);}
+.ci-label{font-size:13px;color:var(--text);line-height:1.5;}
+.ci-sub{font-size:11px;color:var(--text2);margin-top:2px;}
+
+/* PROGRESS */
+.prog-wrap{margin-bottom:16px;}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:6px;}
+.prog-track{background:var(--bg3);border-radius:99px;height:4px;}
+.prog-fill{height:4px;border-radius:99px;background:var(--green);transition:width 0.3s;}
+
+/* VISION HERO */
+.vh{
+  background:linear-gradient(135deg,#100c00 0%,#0a0808 60%,#080808 100%);
+  border:1px solid #2a2000;border-radius:var(--radius-lg);
+  padding:28px 24px;margin-bottom:14px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.vh::before{
+  content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+  width:300px;height:200px;
+  background:radial-gradient(ellipse,rgba(245,166,35,0.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.vh-tag{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:10px;}
+.vh h2{font-size:19px;font-weight:800;color:var(--text);line-height:1.5;max-width:500px;margin:0 auto 12px;}
+.vh p{font-size:12px;color:var(--text2);max-width:420px;margin:0 auto;line-height:1.7;}
+
+/* MANTRA */
+.mantra{
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:var(--radius-lg);padding:20px;text-align:center;
+  font-size:14px;font-weight:500;color:var(--text);line-height:2.2;
+  position:relative;
+}
+.mantra::before{content:'"';font-size:48px;color:var(--gold);opacity:0.15;position:absolute;top:-8px;left:16px;line-height:1;font-family:serif;}
+
+/* INCOME TABLE */
+.it{width:100%;border-collapse:collapse;font-size:12px;}
+.it th{padding:9px 12px;text-align:left;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);border-bottom:1px solid var(--border);}
+.it td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);}
+.it tr:last-child td{border-bottom:none;}
+.it tr:hover td{background:var(--bg3);}
+.it .tot td{color:var(--gold);font-weight:800;border-top:1px solid var(--border2);}
+
+/* ===================== CRM ===================== */
+.crm-toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;}
+.crm-input{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:8px;
+  padding:8px 12px;font-size:12px;color:var(--text);font-family:var(--font);
+  flex:1;min-width:140px;outline:none;
+}
+.crm-input:focus{border-color:var(--gold);}
+.crm-select{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:8px;
+  padding:8px 10px;font-size:12px;color:var(--text);font-family:var(--font);
+  outline:none;cursor:pointer;
+}
+.crm-select:focus{border-color:var(--gold);}
+.btn{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:8px;
+  padding:8px 14px;font-size:12px;color:var(--text);cursor:pointer;
+  font-family:var(--font);transition:all 0.15s;white-space:nowrap;
+}
+.btn:hover{background:var(--bg4);border-color:var(--border3);}
+.btn.primary{background:var(--gold);color:#000;border-color:var(--gold);font-weight:700;}
+.btn.primary:hover{background:var(--gold2);}
+.btn.danger{color:var(--red);border-color:rgba(232,80,58,0.3);}
+.btn.danger:hover{background:rgba(232,80,58,0.08);}
+.btn.small{padding:5px 10px;font-size:11px;}
+
+.crm-table{width:100%;border-collapse:collapse;font-size:12px;}
+.crm-table th{padding:9px 12px;text-align:left;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);border-bottom:1px solid var(--border);background:var(--bg2);}
+.crm-table td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;}
+.crm-table tr:hover td{background:var(--bg3);}
+.crm-table .empty td{text-align:center;color:var(--text3);padding:24px;font-size:12px;}
+
+.status-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;
+}
+.status-badge.demo{background:rgba(245,166,35,0.12);color:var(--gold);}
+.status-badge.trial{background:rgba(74,158,255,0.12);color:var(--blue);}
+.status-badge.paid{background:rgba(62,207,110,0.12);color:var(--green);}
+.status-badge.followup{background:rgba(167,139,250,0.12);color:var(--purple);}
+.status-badge.lost{background:rgba(90,84,80,0.2);color:var(--text3);}
+
+/* ===================== TRACKER ===================== */
+.tracker-form{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+@media(max-width:900px){.tracker-form{grid-template-columns:repeat(2,1fr);}}
+.tf-field{display:flex;flex-direction:column;gap:5px;}
+.tf-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);}
+.tf-input{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:8px;
+  padding:9px 12px;font-size:13px;color:var(--text);font-family:var(--font);
+  outline:none;
+}
+.tf-input:focus{border-color:var(--gold);}
+
+.log-table{width:100%;border-collapse:collapse;font-size:12px;}
+.log-table th{padding:8px 12px;text-align:left;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);border-bottom:1px solid var(--border);}
+.log-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text);}
+.log-table tr:last-child td{border-bottom:none;}
+
+/* ===================== MOTIVATION ===================== */
+.streak-ring{
+  width:90px;height:90px;border-radius:50%;
+  border:3px solid var(--border2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--bg3);flex-shrink:0;
+  position:relative;
+}
+.streak-num{font-size:28px;font-weight:800;color:var(--gold);line-height:1;}
+.streak-label{font-size:9px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:0.06em;}
+
+.goal-bar-wrap{margin:8px 0;}
+.goal-bar-info{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px;}
+.goal-bar-name{color:var(--text);}
+.goal-bar-val{color:var(--text2);}
+.goal-track{background:var(--bg3);border-radius:99px;height:6px;}
+.goal-fill{height:6px;border-radius:99px;transition:width 0.4s;}
+
+.quote-box{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);
+  padding:20px;text-align:center;font-size:14px;font-weight:500;
+  color:var(--text);line-height:1.8;margin-bottom:14px;cursor:pointer;
+  transition:border-color 0.2s;
+}
+.quote-box:hover{border-color:var(--border3);}
+.quote-box .q-author{font-size:11px;color:var(--text3);margin-top:8px;}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.8);
+  z-index:500;display:flex;align-items:center;justify-content:center;
+  padding:20px;
+}
+.modal{
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:var(--radius-lg);padding:24px;width:100%;max-width:460px;
+  max-height:90vh;overflow-y:auto;
+}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:16px;color:var(--text);}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;}
+
+/* MOBILE MENU */
+.mob-menu{
+  display:none;position:fixed;bottom:0;left:0;right:0;
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:8px 4px;z-index:300;
+  flex-wrap:wrap;gap:2px;justify-content:center;
+}
+.mob-nav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:6px 10px;border-radius:8px;cursor:pointer;
+  font-size:9px;color:var(--text3);transition:all 0.15s;
+  border:none;background:transparent;
+}
+.mob-nav-btn.active{color:var(--gold);}
+.mob-nav-btn .mni{font-size:16px;}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .main{padding:12px;padding-bottom:80px;}
+  .hdr-stat{display:none;}
+  #hdr-date{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">V</div>
+    <div>
+      <div class="hdr-title">Vishnu Founder OS <span style="font-size:10px;color:var(--text3);font-weight:400;">v2.0</span></div>
+      <div class="hdr-sub">Vistech Empire — Jaipur, Rajasthan</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-stat">
+      <div class="hdr-stat-num" id="hdr-clients">0</div>
+      <div class="hdr-stat-label">QR Clients</div>
+    </div>
+    <div class="hdr-stat">
+      <div class="hdr-stat-num" id="hdr-income">₹0</div>
+      <div class="hdr-stat-label">This Month</div>
+    </div>
+    <div class="live-dot"></div>
+    <div id="hdr-date"></div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sb-section">
+    <button onclick="window.location.href='index.html'">
+
+ home
+</button>
+    <div class="sb-label">Empire HQ</div>
+    <div class="nav active" onclick="go('vision',this)"><span class="nav-ic">🎯</span>Vision & Mission</div>
+    <div class="nav" onclick="go('position',this)"><span class="nav-ic">📍</span>Aaj Tu Kahan Hai</div>
+    <div class="nav" onclick="go('goals',this)"><span class="nav-ic">🏆</span>Goals & Targets</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Daily System</div>
+    <div class="nav" onclick="go('checklist',this)"><span class="nav-ic">✅</span>Aaj Ka Checklist<span class="nav-badge" id="sb-pending">10</span></div>
+    <div class="nav" onclick="go('daily',this)"><span class="nav-ic">⏰</span>Daily OS</div>
+    <div class="nav" onclick="go('weekly',this)"><span class="nav-ic">📅</span>Weekly Plan</div>
+    <div class="nav" onclick="go('monthly',this)"><span class="nav-ic">📈</span>Monthly Milestones</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Live Tools</div>
+    <div class="nav" onclick="go('tracker',this)"><span class="nav-ic">📊</span>Daily Tracker</div>
+    <div class="nav" onclick="go('crm',this)"><span class="nav-ic">🤝</span>QR Sales CRM</div>
+    <div class="nav" onclick="go('income',this)"><span class="nav-ic">💰</span>Income Projection</div>
+    <div class="nav" onclick="go('motivation',this)"><span class="nav-ic">🔥</span>Motivation OS</div>
+    <div class="nav" onclick="go('rules',this)"><span class="nav-ic">⚡</span>Founder Rules</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main">
+
+<!-- ====== VISION ====== -->
+<div id="p-vision" class="page active">
+  <div class="vh">
+    <div class="vh-tag">⚡ Vistech Empire — Founded 2025 — Jaipur, Rajasthan</div>
+    <h2>Ek 24 saal ka ladka — sirf dimag aur dedication se multi-crore business system khada karega</h2>
+    <p>Na kisi job ki zaroorat. Na kisi ke neeche kaam. Khud ka system, khud ke rules, khud ki zindagi. Ye shuruat hai — empire ka pehla page.</p>
+  </div>
+
+  <div class="g2">
+    <div class="card glow">
+      <div class="ct">🎯 Vision — End Goal</div>
+      <div style="font-size:15px;font-weight:600;color:var(--text);line-height:1.7;">Vishtech Empire — jahan QR SaaS, cab fleet, dry fruits aur tech services mil ke ₹5L+/month ka recurring system ban jaaye.</div>
+      <div style="margin-top:10px;font-size:12px;color:var(--text2);">Hospitals, animal seva, real estate — ye sab tabhi possible hai jab pehle foundation strong ho.</div>
+    </div>
+    <div class="card">
+      <div class="ct">🚀 Mission — Abhi</div>
+      <div style="font-size:13px;color:var(--text);line-height:1.7;">June – December 2026 tak Jaipur mein <strong style="color:var(--gold)">QR Repeat Revenue System ke 50+ paying clients</strong> banao aur <strong style="color:var(--green)">₹1 lakh/month</strong> recurring income achieve karo.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">❤️ Tu Kyun Chahta Hai — Real Reasons</div>
+    <div class="g3">
+      <div class="hb p"><div class="hb-lbl">Freedom</div><div class="hb-val">Ghar walo ko financially secure karna. Unhe prove karna ki job se bada kuch hai.</div></div>
+      <div class="hb g"><div class="hb-lbl">Legacy</div><div class="hb-val">Hospitals, animal seva, real estate — pehle QR recurring income chahiye.</div></div>
+      <div class="hb w"><div class="hb-lbl">Identity</div><div class="hb-val">Tu sirf "software wala" nahi — Vistech Empire ka founder hai.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📅 Timeline — Kb Tak</div>
+    <div class="g4">
+      <div class="mc"><div class="mc-num" style="color:var(--red)">Jun 26</div><div class="mc-label">QR live + 10 clients</div><div class="mc-change target">₹20K start</div></div>
+      <div class="mc"><div class="mc-num" style="color:var(--gold)">Sep 26</div><div class="mc-label">Full-time, no job</div><div class="mc-change target">₹1L/month</div></div>
+      <div class="mc"><div class="mc-num" style="color:var(--green)">Dec 26</div><div class="mc-label">4 businesses live</div><div class="mc-change target">₹2.5L/month</div></div>
+      <div class="mc"><div class="mc-num" style="color:var(--teal)">Dec 27</div><div class="mc-label">Empire mode on</div><div class="mc-change target">₹5L+/month</div></div>
+    </div>
+  </div>
+
+  <div class="mantra">
+    "Main 24 saal ka hoon. Main Vistech Empire ka founder hoon.<br>
+    Aaj main 5 shops mein jaunga. Aaj main ek kadam aur aage badhungaa.<br>
+    Aaj ka kaam aaj khatam karna hai."
+    <div style="font-size:11px;color:var(--text3);margin-top:10px;">— Har subah padho, phir ghar se niklo</div>
+  </div>
+</div>
+
+<!-- ====== POSITION ====== -->
+<div id="p-position" class="page">
+  <div class="ph"><h1>Aaj Tu Kahan Hai</h1><p>Honest analysis — kya achieve kiya, kya reality hai, ab kya alag karna hai</p></div>
+
+  <div class="card">
+    <div class="ct">✅ Jo Tune Achieve Kiya — Proof</div>
+    <div class="hb g">
+      <div class="hb-lbl">Achievements</div>
+      <div class="hb-val">✓ B.Tech CS + AI 2025 passout &nbsp;|&nbsp; ✓ Company registered — Vistech Software Services<br>
+      ✓ 4-5 website clients &nbsp;|&nbsp; ✓ QR idea ready with complete plan<br>
+      ✓ <strong style="color:var(--gold)">10 logon ne demo ke baad HAAN kaha</strong> &nbsp;|&nbsp; ✓ Market mein khud gaya, dara nahi</div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ct">⚠️ Aaj Ki Reality</div>
+      <div class="hb w">
+        <div class="hb-lbl">Current State</div>
+        <div class="hb-val">• QR system build ho raha hai<br>• Zero paying QR clients abhi<br>• Income tight hai<br>• Ghar walo ka pressure hai<br>• Planning overdone, execution pending</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">📊 Tu Level 2.5 Pe Hai</div>
+      <div style="font-size:13px;color:var(--text);line-height:1.7;">Self-employed se Business Owner banne ki transition. Ye SABSE mushkil phase hai.<br><br>Jo log ye phase survive karte hain — woh empire banate hain. Tu abhi wahan hai.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔑 Tu Yahan Kyun Hai</div>
+    <div class="rr"><div class="rr-num">01</div><div><div class="rr-title">10 logon ne HAAN kaha — market ne validate kar diya</div><div class="rr-sub">Ye warm leads hain. System ready hone pe turant clients aayenge.</div></div></div>
+    <div class="rr"><div class="rr-num">02</div><div><div class="rr-title">Job nahi hai — 100% focus QR pe de sakta hai</div><div class="rr-sub">Jo logon ke paas time nahi hota, woh tujhe chahiye. Use karo fully.</div></div></div>
+    <div class="rr"><div class="rr-num">03</div><div><div class="rr-title">Sab plans ban chuke hain — sirf execution bacha hai</div><div class="rr-sub">Planning phase khatam. Ab ek hi kaam — karo.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔄 Ab Kya Alag Karna Hai</div>
+    <div class="hb r"><div class="hb-lbl">Jo pehle galat hua — dobara nahi</div><div class="hb-val">Written agreement ke bina kaam · Ek hi source pe depend rehna · Emotional decisions · Plans banana aur execute nahi karna</div></div>
+    <div class="hb g"><div class="hb-lbl">Naya Rule</div><div class="hb-val">QR system ready → 10 "haan" waalon ko ABHI install karo → Month 1 results collect karo → Referrals maango → Scale karo.</div></div>
+  </div>
+</div>
+
+<!-- ====== GOALS ====== -->
+<div id="p-goals" class="page">
+  <div class="ph"><h1>Goals & Targets</h1><p>Clear numbers — kyun, kya, kb tak</p></div>
+
+  <div class="card">
+    <div class="ct">🎯 QR Client Targets</div>
+    <div class="g4">
+      <div class="mc"><div class="mc-num" style="color:var(--red)">10</div><div class="mc-label">Pehle se HAAN bol chuke</div><div class="mc-change target">Install ABHI</div></div>
+      <div class="mc"><div class="mc-num" style="color:var(--gold)">25</div><div class="mc-label">July target</div><div class="mc-change target">₹50K/month</div></div>
+      <div class="mc"><div class="mc-num" style="color:var(--blue)">50</div><div class="mc-label">August target</div><div class="mc-change target">₹1L/month</div></div>
+      <div class="mc"><div class="mc-num" style="color:var(--green)">200</div><div class="mc-label">December 2026</div><div class="mc-change target">₹4L/month</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📅 Month-by-Month Roadmap</div>
+    <div class="tl">
+      <div class="tl-item"><div class="tl-dot now">NOW</div><div class="tl-body"><div class="tl-date">June 2026 — Abhi</div><div class="tl-title">QR system complete karo. 10 existing "haan" waalon ko install karo.</div><div class="tl-sub">Target: ₹10,000–20,000/month start. Non-negotiable — system live HONA CHAHIYE.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Jul</div><div class="tl-body"><div class="tl-date">July 2026</div><div class="tl-title">25 paying clients. Referral engine start. Monthly results reports.</div><div class="tl-sub">Target: ₹40,000–50,000/month. Har existing client se 2 referrals maango.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Aug</div><div class="tl-body"><div class="tl-date">August 2026</div><div class="tl-title">50 clients. 1 commission-based agent hire. Cab purchase final.</div><div class="tl-sub">Target: ₹70,000–80,000/month. Cab loan pre-approval karo.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Sep</div><div class="tl-body"><div class="tl-date">September 2026</div><div class="tl-title">75 clients. Cab 1 live on Ola/Uber. ₹1 lakh cross karo.</div><div class="tl-sub">₹1L ka psychological milestone. Ghar walo ko proof do.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Oct</div><div class="tl-body"><div class="tl-date">October 2026</div><div class="tl-title">Dry fruits shop Murlipura. 100 QR clients. ₹1.2L+/month.</div><div class="tl-sub">Diwali season start. QR + dry fruits combo — double revenue.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Dec</div><div class="tl-body"><div class="tl-date">December 2026</div><div class="tl-title">₹2.5L/month. 4 businesses live. 2nd cab plan. Empire mode on.</div><div class="tl-sub">Year-end review. Jan 2027 — Jodhpur/Udaipur QR expand plan ready karo.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== CHECKLIST ====== -->
+<div id="p-checklist" class="page">
+  <div class="ph"><h1>Aaj Ka Checklist</h1><p id="cl-date-label">Today's mission</p></div>
+
+  <div class="card">
+    <div class="prog-wrap">
+      <div class="prog-info"><span>Aaj ka progress</span><span id="prog-text">0 / 10 done</span></div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div id="cl-items">
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>QR system ka aaj ka build task complete karo</strong></div><div class="ci-sub">Ek specific feature — demo QR live karo, dashboard banao, ya client portal ready karo.</div></div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>10 "haan" waalon mein se 3 ko call karo — installation date fix karo</strong></div><div class="ci-sub">Wo already yes bol chuke hain. Bas date chahiye. 3 calls = potential ₹6,000/month.</div></div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>Demo kit ready hai check karo</strong></div><div class="ci-sub">Printed QR standee, phone pe demo page, ROI calculator screenshot, 2-3 reference cards.</div></div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>Minimum 5 new shops ko demo do</strong></div><div class="ci-sub">Cafes/restaurants pehle. Script: "Bhaiya, ek minute mein dikhaata hoon ye customer wapas kaise laata hai..."</div></div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>Har demo ke baad 1 ghante mein WhatsApp bhejo</strong></div><div class="ci-sub">ROI screenshot attach karo. "Bhaiya namaste, aaj milke accha laga — ye calculation dekho..."</div></div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>Daily tracker mein aaj ke numbers enter karo</strong></div><div class="ci-sub">Demos diye, shops visited, income received, follow-ups sent — sab note karo.</div></div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>1 existing client ka check-in karo</strong></div><div class="ci-sub">Scan ho rahe hain? Koi problem? Results share karo. Retention = real business.</div></div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>CRM mein aaj ke leads update karo</strong></div><div class="ci-sub">New contacts add karo, status update karo, follow-up dates set karo.</div></div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>1 social media post karo (QR result ya market visit)</strong></div><div class="ci-sub">Brand banao daily — ek post, roz. Instagram ya LinkedIn. Screenshot results dikhao.</div></div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb">✓</div><div><div class="ci-label"><strong>Kal ka schedule aaj raat hi likh do</strong></div><div class="ci-sub">Kaun sa market, kaun sa client, kya time. Subah confusion nahi hogi.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🚫 Aaj Jo Bilkul Nahi Karna</div>
+    <div class="hb r"><div class="hb-lbl">Hard NO</div><div class="hb-val">✗ Naya plan banana &nbsp;|&nbsp; ✗ Instagram 30 min+ scroll &nbsp;|&nbsp; ✗ Bina agreement koi kaam dena &nbsp;|&nbsp; ✗ "Kal se" sochna &nbsp;|&nbsp; ✗ Free mein kaam kisi ke liye</div></div>
+  </div>
+</div>
+
+<!-- ====== DAILY OS ====== -->
+<div id="p-daily" class="page">
+  <div class="ph"><h1>Daily OS</h1><p>Minute-by-minute — June 2026</p></div>
+  <div class="card">
+    <div class="ct">⏰ Tera Har Din Ka Schedule</div>
+    <div class="sr"><div class="sr-time">5:00 – 5:30 AM</div><div class="sr-text">Uth. Bholebaba mandir. Notebook mein "aaj kya achieve karna hai" likho.<span class="tag gr">Mind</span></div></div>
+    <div class="sr"><div class="sr-time">5:30 – 7:30 AM</div><div class="sr-text">QR system development. Phone band. Zero distraction. Deep work block.<span class="tag b">Build</span></div></div>
+    <div class="sr"><div class="sr-time">7:30 – 9:00 AM</div><div class="sr-text">Breakfast + ready hona. Demo kit check karo. Kal ke leads dekhna.</div></div>
+    <div class="sr"><div class="sr-time">9:00 – 12:00 PM</div><div class="sr-text">Field sales — cafes, restaurants, kirana. Min 5 demos. Script yaad karo.<span class="tag g">₹₹₹ Core Time</span></div></div>
+    <div class="sr"><div class="sr-time">12:00 – 1:00 PM</div><div class="sr-text">Lunch. Aaj ke demos note karo. Follow-up WhatsApp list update karo.<span class="tag w">Track</span></div></div>
+    <div class="sr"><div class="sr-time">1:00 – 4:00 PM</div><div class="sr-text">QR installation + onboarding (jo clients ready hain). Ya aur demos.<span class="tag g">Install</span></div></div>
+    <div class="sr"><div class="sr-time">4:00 – 6:00 PM</div><div class="sr-text">WhatsApp follow-ups, calls, payments collect karo. Pending demos close.<span class="tag b">Follow-up</span></div></div>
+    <div class="sr"><div class="sr-time">6:00 – 7:00 PM</div><div class="sr-text">Blog ya social content — 1 post. QR results, tips, ya market update.<span class="tag b">Brand</span></div></div>
+    <div class="sr"><div class="sr-time">7:00 – 8:00 PM</div><div class="sr-text">Dinner + family time. Phone rakkh do. Ye time unka hai.</div></div>
+    <div class="sr"><div class="sr-time">8:00 – 9:30 PM</div><div class="sr-text">Daily tracker update. Kal ka plan — market, clients, timing.<span class="tag w">Plan</span></div></div>
+    <div class="sr"><div class="sr-time">10:00 PM</div><div class="sr-text">SONA. No negotiation. 8 ghante sleep = better performance kal.<span class="tag gr">Rest</span></div></div>
+  </div>
+  <div class="g2">
+    <div class="hb w" style="margin:0;border-radius:var(--radius-lg);padding:16px;"><div class="hb-lbl">9–12 Sacred Rule</div><div class="hb-val">Ye teen ghante tere ₹1L/month banate hain. Koi call, chai break, distraction — bilkul nahi.</div></div>
+    <div class="hb r" style="margin:0;border-radius:var(--radius-lg);padding:16px;"><div class="hb-lbl">Subah ka rule</div><div class="hb-val">Uthke pehla kaam — apna kaam. Instagram/WhatsApp/News — sab baad mein. Pehle 30 min tere hain.</div></div>
+  </div>
+</div>
+
+<!-- ====== WEEKLY ====== -->
+<div id="p-weekly" class="page">
+  <div class="ph"><h1>Weekly Plan</h1><p>Har din ka role — system mein ghoomna, random nahi</p></div>
+  <div class="card">
+    <div class="ct">📅 Har Week Ka Structure</div>
+    <div class="rr"><div class="rr-num" style="color:var(--blue)">Mon</div><div><div class="rr-title">Weekly review + naye targets set karo</div><div class="rr-sub">Last week ka result — demos, clients, income. Aaj ka target fix karo notebook mein.</div></div></div>
+    <div class="rr"><div class="rr-num" style="color:var(--gold)">Tue</div><div><div class="rr-title">Heavy field day — naye market cluster</div><div class="rr-sub">Min 8 demos. Ek naye area — Vaishali Nagar, Mansarovar, Johari Bazaar rotate.</div></div></div>
+    <div class="rr"><div class="rr-num" style="color:var(--green)">Wed</div><div><div class="rr-title">Installations + existing client check-in</div><div class="rr-sub">Trial clients ko results dikhao. Close karo. Monthly payment lo.</div></div></div>
+    <div class="rr"><div class="rr-num" style="color:var(--blue)">Thu</div><div><div class="rr-title">Referrals + follow-ups</div><div class="rr-sub">Har existing client se 2 referrals maango. "Ek aur dukaan ka naam — aapka ek mahina free."</div></div></div>
+    <div class="rr"><div class="rr-num" style="color:var(--purple)">Fri</div><div><div class="rr-title">Technical improvements + content</div><div class="rr-sub">QR system improve. 1 case study — results ke saath. Instagram/LinkedIn post.</div></div></div>
+    <div class="rr"><div class="rr-num" style="color:var(--gold)">Sat</div><div><div class="rr-title">Weekend markets — peak time</div><div class="rr-sub">9–1 baje. Restaurants sabse busy. Owners available hote hain, decisions fast.</div></div></div>
+    <div class="rr"><div class="rr-num" style="color:var(--text3)">Sun</div><div><div class="rr-title">Weekly review + next week plan</div><div class="rr-sub">Kya achieve kiya? Kya nahi? Kyun? Ek cheez jo agle hafte alag karunga?</div></div></div>
+  </div>
+  <div class="card">
+    <div class="ct">🎯 Weekly Non-Negotiable Numbers</div>
+    <div class="g4">
+      <div class="mc"><div class="mc-num" style="color:var(--gold)">30+</div><div class="mc-label">Shops visit</div></div>
+      <div class="mc"><div class="mc-num" style="color:var(--blue)">15+</div><div class="mc-label">Full demos</div></div>
+      <div class="mc"><div class="mc-num" style="color:var(--purple)">5+</div><div class="mc-label">Trial closes</div></div>
+      <div class="mc"><div class="mc-num" style="color:var(--green)">3+</div><div class="mc-label">Paying converts</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MONTHLY ====== -->
+<div id="p-monthly" class="page">
+  <div class="ph"><h1>Monthly Milestones</h1><p>Har mahine ke end mein kya hona chahiye</p></div>
+  <div class="card">
+    <div class="ct">📈 June–December 2026</div>
+    <div class="tl">
+      <div class="tl-item"><div class="tl-dot now">Jun</div><div class="tl-body"><div class="tl-title">QR system live. 10 clients install. ₹10–20K income.</div><div class="tl-sub">Foundation hai. Pehle 10 clients se pehle ₹20K aayega. Non-negotiable.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Jul</div><div class="tl-body"><div class="tl-title">25 clients. Referral engine. ₹40–50K/month.</div><div class="tl-sub">Har client se 2 referrals. Monthly results report bhejni shuru karo.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Aug</div><div class="tl-body"><div class="tl-title">50 clients. 1 agent hire. Cab purchase plan final.</div><div class="tl-sub">₹70–80K/month. Cab loan pre-approval. Agent = extra 20 clients/month.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Sep</div><div class="tl-body"><div class="tl-title">75 clients. Cab live. ₹1L+ milestone.</div><div class="tl-sub">Ghar walo ko monthly report bana ke do. Ye mahina sab kuch badalta hai.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Oct</div><div class="tl-body"><div class="tl-title">Dry fruits shop Murlipura. 100 clients. ₹1.2L+.</div><div class="tl-sub">Diwali season. QR + dry fruits combo gift pack = double opportunity.</div></div></div>
+      <div class="tl-item"><div class="tl-dot soon">Dec</div><div class="tl-body"><div class="tl-title">₹2.5L/month. 4 businesses. 2nd cab plan. Empire mode.</div><div class="tl-sub">Year-end review. Jan 2027 — Jodhpur/Udaipur expand plan ready karo.</div></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">❓ Har Month Ke End Mein 3 Sawal</div>
+    <div class="hb"><div class="hb-lbl">1</div><div class="hb-val">Kitne new paying clients aaye? Target tha kya? Fark kyun hua?</div></div>
+    <div class="hb g"><div class="hb-lbl">2</div><div class="hb-val">Kitne existing clients ne renew kiya? Koi cancel kiya? Kyun?</div></div>
+    <div class="hb p"><div class="hb-lbl">3</div><div class="hb-val">Agla mahina — kya ek cheez badloungi jo results improve karegi?</div></div>
+  </div>
+</div>
+
+<!-- ====== DAILY TRACKER ====== -->
+<div id="p-tracker" class="page">
+  <div class="ph"><h1>Daily Tracker</h1><p>Har din ke numbers log karo — jo measure hota hai, wo improve hota hai</p></div>
+
+  <div class="card">
+    <div class="ct">➕ Aaj Ka Log Add Karo</div>
+    <div class="tracker-form">
+      <div class="tf-field"><div class="tf-label">Date</div><input type="date" class="tf-input" id="tr-date"></div>
+      <div class="tf-field"><div class="tf-label">Shops Visited</div><input type="number" class="tf-input" id="tr-shops" min="0" placeholder="0"></div>
+      <div class="tf-field"><div class="tf-label">Demos Given</div><input type="number" class="tf-input" id="tr-demos" min="0" placeholder="0"></div>
+      <div class="tf-field"><div class="tf-label">Trials Closed</div><input type="number" class="tf-input" id="tr-trials" min="0" placeholder="0"></div>
+      <div class="tf-field"><div class="tf-label">Paying Clients Added</div><input type="number" class="tf-input" id="tr-clients" min="0" placeholder="0"></div>
+      <div class="tf-field"><div class="tf-label">Income Received (₹)</div><input type="number" class="tf-input" id="tr-income" min="0" placeholder="0"></div>
+      <div class="tf-field"><div class="tf-label">Follow-ups Sent</div><input type="number" class="tf-input" id="tr-followups" min="0" placeholder="0"></div>
+      <div class="tf-field"><div class="tf-label">Mood (1–5)</div><input type="number" class="tf-input" id="tr-mood" min="1" max="5" placeholder="3"></div>
+    </div>
+    <button class="btn primary" onclick="addLog()">+ Log Karo</button>
+  </div>
+
+  <div class="card">
+    <div class="ct">📊 Total Summary</div>
+    <div class="g4" id="tracker-summary">
+      <div class="mc"><div class="mc-num" id="ts-shops" style="color:var(--gold)">0</div><div class="mc-label">Total shops visited</div></div>
+      <div class="mc"><div class="mc-num" id="ts-demos" style="color:var(--blue)">0</div><div class="mc-label">Total demos given</div></div>
+      <div class="mc"><div class="mc-num" id="ts-clients" style="color:var(--green)">0</div><div class="mc-label">Total clients added</div></div>
+      <div class="mc"><div class="mc-num" id="ts-income" style="color:var(--gold)">₹0</div><div class="mc-label">Total income logged</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📋 Log History</div>
+    <div style="overflow-x:auto;">
+      <table class="log-table">
+        <thead><tr><th>Date</th><th>Shops</th><th>Demos</th><th>Trials</th><th>Clients</th><th>Income</th><th>Follow-ups</th><th>Mood</th><th></th></tr></thead>
+        <tbody id="log-body"><tr><td colspan="9" style="text-align:center;color:var(--text3);padding:20px;font-size:12px;">Koi log nahi abhi — pehla entry add karo ⬆️</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ====== CRM ====== -->
+<div id="p-crm" class="page">
+  <div class="ph"><h1>QR Sales CRM</h1><p>Har client, har lead — ek jagah track karo</p></div>
+
+  <div class="card">
+    <div class="ct" style="margin-bottom:10px;">➕ New Lead / Client Add Karo</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px;">
+      <div class="tf-field"><div class="tf-label">Business Name</div><input class="tf-input" id="crm-biz" placeholder="e.g. Sharma Cafe"></div>
+      <div class="tf-field"><div class="tf-label">Owner Name</div><input class="tf-input" id="crm-owner" placeholder="e.g. Ramesh Sharma"></div>
+      <div class="tf-field"><div class="tf-label">Phone</div><input class="tf-input" id="crm-phone" placeholder="9876543210" type="tel"></div>
+      <div class="tf-field"><div class="tf-label">Area / Market</div><input class="tf-input" id="crm-area" placeholder="e.g. Vaishali Nagar"></div>
+      <div class="tf-field"><div class="tf-label">Business Type</div>
+        <select class="tf-input" id="crm-type">
+          <option>Restaurant/Dhaba</option><option>Kirana/Grocery</option><option>Cafe/Bakery</option>
+          <option>Salon/Parlour</option><option>Medical/Pharmacy</option><option>Hotel/PG</option>
+          <option>Gym/Fitness</option><option>Clothing Store</option><option>Other</option>
+        </select>
+      </div>
+      <div class="tf-field"><div class="tf-label">Status</div>
+        <select class="tf-input" id="crm-status">
+          <option value="demo">Demo Given</option><option value="trial">Free Trial</option>
+          <option value="paid">Paying Client</option><option value="followup">Follow-up Needed</option>
+          <option value="lost">Not Interested</option>
+        </select>
+      </div>
+      <div class="tf-field"><div class="tf-label">Follow-up Date</div><input class="tf-input" id="crm-fdate" type="date"></div>
+      <div class="tf-field"><div class="tf-label">Plan (₹/month)</div><input class="tf-input" id="crm-plan" placeholder="1999" type="number"></div>
+      <div class="tf-field"><div class="tf-label">Notes</div><input class="tf-input" id="crm-notes" placeholder="Any details..."></div>
+    </div>
+    <button class="btn primary" onclick="addLead()">+ Lead Add Karo</button>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+      <div class="ct" style="margin:0;">📋 All Leads & Clients</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <input class="crm-input" id="crm-search" placeholder="Search business, owner..." style="width:180px;" oninput="renderCRM()">
+        <select class="crm-select" id="crm-filter" onchange="renderCRM()">
+          <option value="all">All Status</option>
+          <option value="demo">Demo Given</option><option value="trial">Free Trial</option>
+          <option value="paid">Paying Client</option><option value="followup">Follow-up</option>
+          <option value="lost">Not Interested</option>
+        </select>
+      </div>
+    </div>
+    <div id="crm-stats" class="g4" style="margin-bottom:14px;">
+      <div class="mc"><div class="mc-num" id="crm-total" style="color:var(--text)">0</div><div class="mc-label">Total leads</div></div>
+      <div class="mc"><div class="mc-num" id="crm-paid-count" style="color:var(--green)">0</div><div class="mc-label">Paying clients</div></div>
+      <div class="mc"><div class="mc-num" id="crm-trial-count" style="color:var(--blue)">0</div><div class="mc-label">On free trial</div></div>
+      <div class="mc"><div class="mc-num" id="crm-mrr" style="color:var(--gold)">₹0</div><div class="mc-label">Monthly recurring</div></div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="crm-table">
+        <thead><tr><th>Business</th><th>Owner</th><th>Area</th><th>Type</th><th>Status</th><th>Follow-up</th><th>Plan</th><th>Notes</th><th></th></tr></thead>
+        <tbody id="crm-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ====== INCOME PROJECTION ====== -->
+<div id="p-income" class="page">
+  <div class="ph"><h1>Income Projection</h1><p>June 2026 – December 2026 — Conservative realistic estimates</p></div>
+  <div class="card">
+    <div class="ct">💰 Month-by-Month — 4 Businesses</div>
+    <div style="overflow-x:auto;">
+      <table class="it">
+        <thead><tr><th>Month</th><th>QR Code</th><th>Cab</th><th>Dry Fruits</th><th>Clothing</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td>June 2026</td><td style="color:var(--blue)">₹10,000</td><td style="color:var(--text3)">—</td><td style="color:var(--text3)">—</td><td style="color:var(--text3)">—</td><td style="color:var(--gold);font-weight:700">₹10,000</td></tr>
+          <tr><td>July 2026</td><td style="color:var(--blue)">₹40,000</td><td style="color:var(--text3)">—</td><td style="color:var(--text3)">—</td><td style="color:var(--text3)">—</td><td style="color:var(--gold);font-weight:700">₹40,000</td></tr>
+          <tr><td>August 2026</td><td style="color:var(--blue)">₹80,000</td><td style="color:var(--green)">₹17,000</td><td style="color:var(--text3)">—</td><td style="color:var(--text3)">—</td><td style="color:var(--gold);font-weight:700">₹97,000</td></tr>
+          <tr><td>September 2026</td><td style="color:var(--blue)">₹1,00,000</td><td style="color:var(--green)">₹20,000</td><td style="color:var(--text3)">—</td><td style="color:var(--text3)">—</td><td style="color:var(--gold);font-weight:700">₹1,20,000</td></tr>
+          <tr><td>October 2026</td><td style="color:var(--blue)">₹1,20,000</td><td style="color:var(--green)">₹22,000</td><td style="color:var(--purple)">₹11,200</td><td style="color:var(--teal)">₹12,000</td><td style="color:var(--gold);font-weight:700">₹1,65,200</td></tr>
+          <tr><td>November 2026</td><td style="color:var(--blue)">₹1,44,000</td><td style="color:var(--green)">₹22,000</td><td style="color:var(--purple)">₹24,000</td><td style="color:var(--teal)">₹18,000</td><td style="color:var(--gold);font-weight:700">₹2,08,000</td></tr>
+          <tr class="tot"><td>December 2026 🎯</td><td>₹1,60,000</td><td>₹25,000</td><td>₹48,000</td><td>₹24,000</td><td style="font-size:16px">₹2,57,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">🎯 Dec 2026 Breakdown</div>
+      <div class="g2">
+        <div class="mc"><div class="mc-num" style="color:var(--blue)">₹1.6L</div><div class="mc-label">QR SaaS — 80+ clients</div></div>
+        <div class="mc"><div class="mc-num" style="color:var(--green)">₹25K</div><div class="mc-label">Cab — Dzire Ola/Uber</div></div>
+        <div class="mc"><div class="mc-num" style="color:var(--purple)">₹48K</div><div class="mc-label">Dry Fruits — Diwali</div></div>
+        <div class="mc"><div class="mc-num" style="color:var(--teal)">₹24K</div><div class="mc-label">Clothing — consignment</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">📊 QR Only — 50 Clients Ka Math</div>
+      <div class="g2">
+        <div class="mc"><div class="mc-num" style="color:var(--gold)">50</div><div class="mc-label">Clients × ₹2K/month</div></div>
+        <div class="mc"><div class="mc-num" style="color:var(--green)">₹1L</div><div class="mc-label">Guaranteed recurring</div></div>
+        <div class="mc"><div class="mc-num" style="color:var(--blue)">90%</div><div class="mc-label">Expected renewal</div></div>
+        <div class="mc"><div class="mc-num" style="color:var(--teal)">₹12L</div><div class="mc-label">Annual revenue</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MOTIVATION ====== -->
+<div id="p-motivation" class="page">
+  <div class="ph"><h1>Motivation OS</h1><p>Streak, goals, quotes — tu track pe hai</p></div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ct">🔥 Current Streak</div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="streak-ring" id="streak-display">
+          <div class="streak-num" id="streak-num">0</div>
+          <div class="streak-label">Days</div>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);" id="streak-msg">Aaj se shuru karo!</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px;">Daily checklist complete karo streak badhao</div>
+          <div style="margin-top:10px;display:flex;gap:8px;">
+            <button class="btn small primary" onclick="addStreak()">+ Aaj Complete ✓</button>
+            <button class="btn small danger" onclick="resetStreak()">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">🏆 Best Streaks</div>
+      <div class="rr" style="padding:8px 0;"><div class="rr-num">🥇</div><div><div class="rr-title" id="best-streak">0 days</div><div class="rr-sub">Longest streak</div></div></div>
+      <div class="rr" style="padding:8px 0;"><div class="rr-num">📅</div><div><div class="rr-title" id="total-days">0 days</div><div class="rr-sub">Total days logged</div></div></div>
+      <div class="rr" style="padding:8px 0;border:none;"><div class="rr-num">⚡</div><div><div class="rr-title" id="this-week-days">0 / 7</div><div class="rr-sub">This week complete</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🎯 Monthly Goals Progress</div>
+    <div id="goals-progress">
+      <div class="goal-bar-wrap">
+        <div class="goal-bar-info"><span class="goal-bar-name">QR Clients (target: 10)</span><span class="goal-bar-val" id="g-clients-val">0 / 10</span></div>
+        <div class="goal-track"><div class="goal-fill" id="g-clients-bar" style="width:0%;background:var(--green);"></div></div>
+      </div>
+      <div class="goal-bar-wrap">
+        <div class="goal-bar-info"><span class="goal-bar-name">Demos Given (target: 60/month)</span><span class="goal-bar-val" id="g-demos-val">0 / 60</span></div>
+        <div class="goal-track"><div class="goal-fill" id="g-demos-bar" style="width:0%;background:var(--blue);"></div></div>
+      </div>
+      <div class="goal-bar-wrap">
+        <div class="goal-bar-info"><span class="goal-bar-name">Monthly Income (target: ₹20,000)</span><span class="goal-bar-val" id="g-income-val">₹0 / ₹20,000</span></div>
+        <div class="goal-track"><div class="goal-fill" id="g-income-bar" style="width:0%;background:var(--gold);"></div></div>
+      </div>
+      <div class="goal-bar-wrap">
+        <div class="goal-bar-info"><span class="goal-bar-name">Checklist Days (target: 25/month)</span><span class="goal-bar-val" id="g-streak-val">0 / 25</span></div>
+        <div class="goal-track"><div class="goal-fill" id="g-streak-bar" style="width:0%;background:var(--purple);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-box" id="quote-box" onclick="newQuote()">
+    <div id="quote-text">"Ek kadam. Har din. Sirf ek kadam. Yahi empire banata hai."</div>
+    <div class="q-author">— Click karo naya quote ke liye</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">💪 Level System — Tu Kahan Hai</div>
+    <div class="g2">
+      <div>
+        <div class="rr"><div class="rr-num" style="color:var(--text3)">L1</div><div><div class="rr-title" style="color:var(--text3)">Employee</div><div class="rr-sub">Job karta, doosron ke liye value</div></div></div>
+        <div class="rr"><div class="rr-num" style="color:var(--text3)">L2</div><div><div class="rr-title" style="color:var(--text3)">Self-employed</div><div class="rr-sub">Khud kaam, ek stream</div></div></div>
+        <div class="rr" style="background:var(--gold-dim);border-radius:8px;padding:10px;border:none;"><div class="rr-num" style="color:var(--gold)">L2.5</div><div><div class="rr-title" style="color:var(--gold)">⭐ TU YAHAN HAI — Transition</div><div class="rr-sub" style="color:var(--gold);opacity:0.7;">Sabse mushkil phase — jo survive karta hai, woh empire banata hai</div></div></div>
+      </div>
+      <div>
+        <div class="rr"><div class="rr-num" style="color:var(--blue)">L3</div><div><div class="rr-title">Business Owner</div><div class="rr-sub">System banata, team hoti — Dec 2026 target</div></div></div>
+        <div class="rr"><div class="rr-num" style="color:var(--purple)">L4</div><div><div class="rr-title">Investor</div><div class="rr-sub">Paisa paisa kamata — 2028-2030</div></div></div>
+        <div class="rr" style="border:none;"><div class="rr-num" style="color:var(--green)">L5</div><div><div class="rr-title">Empire Builder</div><div class="rr-sub">Multiple industries, legacy — long term</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== RULES ====== -->
+<div id="p-rules" class="page">
+  <div class="ph"><h1>Founder Rules</h1><p>Ye tod ke clients ja chuke hain — ye follow karo aur stable raho</p></div>
+  <div class="card">
+    <div class="ct">⚡ 10 Golden Rules</div>
+    <div class="rr"><div class="rr-num">R1</div><div><div class="rr-title">QR system pehle — sab baad mein</div><div class="rr-sub">Cab, dry fruits, clothing — sab baad. Abhi sirf QR. Focus split = dono fail.</div></div></div>
+    <div class="rr"><div class="rr-num">R2</div><div><div class="rr-title">10 "haan" waalon ko aaj close karo</div><div class="rr-sub">Warm leads hain. System ready hone pe turant call karo — installation date do.</div></div></div>
+    <div class="rr"><div class="rr-num">R3</div><div><div class="rr-title">Written agreement — har baar, har client</div><div class="rr-sub">Simple WhatsApp message bhi chalega. Screenshot = agreement. No exceptions.</div></div></div>
+    <div class="rr"><div class="rr-num">R4</div><div><div class="rr-title">Numbers track karo — feeling pe nahi chalte</div><div class="rr-sub">Demos, closes, revenue — har din likho. Jo measure nahi hota wo improve nahi hota.</div></div></div>
+    <div class="rr"><div class="rr-num">R5</div><div><div class="rr-title">Har month 25 tarikh ko renewal conversation shuru karo</div><div class="rr-sub">Results bhejo, payment link bhejo. 30 ko yaad nahi karna — 5 din pehle karo.</div></div></div>
+    <div class="rr"><div class="rr-num">R6</div><div><div class="rr-title">Ghar waalon ko monthly update do</div><div class="rr-sub">Clients, income, agla target — unhe loop mein rakkho. Doubt dhire khatam hoga.</div></div></div>
+    <div class="rr"><div class="rr-num">R7</div><div><div class="rr-title">Planning se zyada execution</div><div class="rr-sub">Plans already ready hain. Ab ek cheez — QR live karo. Aaj. Right now.</div></div></div>
+    <div class="rr"><div class="rr-num">R8</div><div><div class="rr-title">Ek baar mein ek business — jab stable ho tabhi agle mein</div><div class="rr-sub">QR se ₹50K/month stable hone tak — doosra kuch mat karo. Seriously.</div></div></div>
+    <div class="rr"><div class="rr-num">R9</div><div><div class="rr-title">Bholebaba pe trust — kaam pe focus</div><div class="rr-sub">Mandir har subah. Phir niklo. Mehnat aur bhakti saath chalti hai.</div></div></div>
+    <div class="rr"><div class="rr-num">R10</div><div><div class="rr-title">24 saal — ₹1L/month possible hai, tu kar sakta hai</div><div class="rr-sub">10 logon ne HAAN kaha. Market ne validate kiya. Sirf ek kadam aage.</div></div></div>
+  </div>
+  <div class="mantra">
+    "Main 24 saal ka hoon. Main Vistech Empire ka founder hoon.<br>
+    Aaj main 5 shops mein jaunga. Aaj main ek kadam aur aage badhungaa.<br>
+    Aaj ka kaam aaj khatam karna hai."
+    <div style="font-size:11px;color:var(--text3);margin-top:10px;">— Har subah padho, phir ghar se niklo</div>
+  </div>
+</div>
+
+</div><!-- end main -->
+</div><!-- end layout -->
+
+<!-- MOBILE BOTTOM NAV -->
+<div class="mob-menu" id="mob-menu">
+  <button class="mob-nav-btn active" onclick="go('vision',this)"><span class="mni">🎯</span>Vision</button>
+  <button class="mob-nav-btn" onclick="go('checklist',this)"><span class="mni">✅</span>Checklist</button>
+  <button class="mob-nav-btn" onclick="go('tracker',this)"><span class="mni">📊</span>Tracker</button>
+  <button class="mob-nav-btn" onclick="go('crm',this)"><span class="mni">🤝</span>CRM</button>
+  <button class="mob-nav-btn" onclick="go('motivation',this)"><span class="mni">🔥</span>Motivation</button>
+  <button class="mob-nav-btn" onclick="go('rules',this)"><span class="mni">⚡</span>Rules</button>
+</div>
+
+<script>
+// ===== NAVIGATION =====
+function go(name, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav, .mob-nav-btn').forEach(n => n.classList.remove('active'));
+  document.getElementById('p-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  document.getElementById('main').scrollTo(0, 0);
+}
+
+// ===== DATE =====
+const D = new Date();
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+document.getElementById('hdr-date').textContent = DAYS[D.getDay()] + ', ' + D.getDate() + ' ' + MONTHS[D.getMonth()] + ' ' + D.getFullYear();
+document.getElementById('cl-date-label').textContent = DAYS[D.getDay()] + ', ' + D.getDate() + ' ' + MONTHS[D.getMonth()] + ' — tick karte jao';
+document.getElementById('tr-date').value = D.toISOString().split('T')[0];
+document.getElementById('crm-fdate').value = new Date(D.getTime() + 2*24*60*60*1000).toISOString().split('T')[0];
+
+// ===== STORAGE HELPERS =====
+const S = {
+  get: k => { try { return JSON.parse(localStorage.getItem('vos_' + k)); } catch(e) { return null; } },
+  set: (k, v) => { try { localStorage.setItem('vos_' + k, JSON.stringify(v)); } catch(e) {} }
+};
+
+// ===== CHECKLIST =====
+function ck(el) {
+  el.classList.toggle('done');
+  updateCL();
+}
+function updateCL() {
+  const items = document.querySelectorAll('.ci');
+  const done = document.querySelectorAll('.ci.done').length;
+  const pct = Math.round(done / items.length * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-text').textContent = done + ' / ' + items.length + ' done';
+  const pending = items.length - done;
+  document.getElementById('sb-pending').textContent = pending;
+  document.getElementById('sb-pending').style.background = pending === 0 ? 'var(--green)' : 'var(--red)';
+  const states = Array.from(items).map(i => i.classList.contains('done'));
+  S.set('cl_' + D.toDateString(), states);
+}
+function loadCL() {
+  const saved = S.get('cl_' + D.toDateString());
+  if (saved) {
+    const items = document.querySelectorAll('.ci');
+    items.forEach((el, i) => { if (saved[i]) el.classList.add('done'); });
+  }
+  updateCL();
+}
+
+// ===== DAILY TRACKER =====
+function addLog() {
+  const row = {
+    date: document.getElementById('tr-date').value,
+    shops: parseInt(document.getElementById('tr-shops').value) || 0,
+    demos: parseInt(document.getElementById('tr-demos').value) || 0,
+    trials: parseInt(document.getElementById('tr-trials').value) || 0,
+    clients: parseInt(document.getElementById('tr-clients').value) || 0,
+    income: parseInt(document.getElementById('tr-income').value) || 0,
+    followups: parseInt(document.getElementById('tr-followups').value) || 0,
+    mood: parseInt(document.getElementById('tr-mood').value) || 3
+  };
+  if (!row.date) { alert('Date daalo!'); return; }
+  const logs = S.get('logs') || [];
+  logs.unshift(row);
+  S.set('logs', logs);
+  ['tr-shops','tr-demos','tr-trials','tr-clients','tr-income','tr-followups'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('tr-mood').value = '3';
+  renderTracker();
+  updateGoals();
+  updateHdr();
+}
+const moodEmoji = ['','😞','😐','🙂','😊','🔥'];
+function renderTracker() {
+  const logs = S.get('logs') || [];
+  const tbody = document.getElementById('log-body');
+  if (!logs.length) {
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--text3);padding:20px;font-size:12px;">Koi log nahi abhi — pehla entry add karo ⬆️</td></tr>';
+    document.getElementById('ts-shops').textContent = '0';
+    document.getElementById('ts-demos').textContent = '0';
+    document.getElementById('ts-clients').textContent = '0';
+    document.getElementById('ts-income').textContent = '₹0';
+    return;
+  }
+  let tShops=0, tDemos=0, tClients=0, tIncome=0;
+  tbody.innerHTML = logs.map((r, i) => {
+    tShops += r.shops; tDemos += r.demos; tClients += r.clients; tIncome += r.income;
+    return `<tr>
+      <td>${r.date}</td><td style="color:var(--gold)">${r.shops}</td>
+      <td style="color:var(--blue)">${r.demos}</td><td>${r.trials}</td>
+      <td style="color:var(--green);font-weight:600">${r.clients}</td>
+      <td style="color:var(--gold)">₹${r.income.toLocaleString('en-IN')}</td>
+      <td>${r.followups}</td>
+      <td>${moodEmoji[r.mood] || '🙂'}</td>
+      <td><button class="btn small danger" onclick="delLog(${i})">✕</button></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('ts-shops').textContent = tShops;
+  document.getElementById('ts-demos').textContent = tDemos;
+  document.getElementById('ts-clients').textContent = tClients;
+  document.getElementById('ts-income').textContent = '₹' + tIncome.toLocaleString('en-IN');
+}
+function delLog(i) {
+  if (!confirm('Is entry ko delete karo?')) return;
+  const logs = S.get('logs') || [];
+  logs.splice(i, 1);
+  S.set('logs', logs);
+  renderTracker();
+  updateGoals();
+  updateHdr();
+}
+
+// ===== CRM =====
+function addLead() {
+  const biz = document.getElementById('crm-biz').value.trim();
+  if (!biz) { alert('Business name daalo!'); return; }
+  const lead = {
+    id: Date.now(),
+    biz, owner: document.getElementById('crm-owner').value.trim(),
+    phone: document.getElementById('crm-phone').value.trim(),
+    area: document.getElementById('crm-area').value.trim(),
+    type: document.getElementById('crm-type').value,
+    status: document.getElementById('crm-status').value,
+    fdate: document.getElementById('crm-fdate').value,
+    plan: parseInt(document.getElementById('crm-plan').value) || 1999,
+    notes: document.getElementById('crm-notes').value.trim()
+  };
+  const leads = S.get('leads') || [];
+  leads.unshift(lead);
+  S.set('leads', leads);
+  ['crm-biz','crm-owner','crm-phone','crm-area','crm-notes'].forEach(id => document.getElementById(id).value = '');
+  renderCRM();
+  updateHdr();
+}
+const statusMap = {
+  demo: 'Demo Given', trial: 'Free Trial',
+  paid: 'Paying Client', followup: 'Follow-up', lost: 'Not Interested'
+};
+function renderCRM() {
+  const leads = S.get('leads') || [];
+  const q = document.getElementById('crm-search').value.toLowerCase();
+  const f = document.getElementById('crm-filter').value;
+  const filtered = leads.filter(l => {
+    const match = !q || [l.biz, l.owner, l.area].join(' ').toLowerCase().includes(q);
+    const status = f === 'all' || l.status === f;
+    return match && status;
+  });
+  const paid = leads.filter(l => l.status === 'paid');
+  const trial = leads.filter(l => l.status === 'trial');
+  const mrr = paid.reduce((s, l) => s + (l.plan || 1999), 0);
+  document.getElementById('crm-total').textContent = leads.length;
+  document.getElementById('crm-paid-count').textContent = paid.length;
+  document.getElementById('crm-trial-count').textContent = trial.length;
+  document.getElementById('crm-mrr').textContent = '₹' + mrr.toLocaleString('en-IN');
+  const tbody = document.getElementById('crm-body');
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr class="empty"><td colspan="9">Koi lead nahi — add karo ⬆️</td></tr>`;
+    return;
+  }
+  const today = new Date().toISOString().split('T')[0];
+  tbody.innerHTML = filtered.map(l => {
+    const fdStyle = l.fdate && l.fdate <= today ? 'color:var(--red);font-weight:600' : 'color:var(--text2)';
+    const wa = l.phone ? `<a href="https://wa.me/91${l.phone}" target="_blank" style="color:var(--green);text-decoration:none;font-size:10px;">📱 WA</a>` : '';
+    return `<tr>
+      <td><div style="font-weight:600;font-size:13px;">${l.biz}</div>${wa}</td>
+      <td>${l.owner || '—'}</td>
+      <td><span style="font-size:11px;color:var(--text2)">${l.area || '—'}</span></td>
+      <td><span style="font-size:11px">${l.type}</span></td>
+      <td><span class="status-badge ${l.status}">${statusMap[l.status]}</span></td>
+      <td><span style="font-size:11px;${fdStyle}">${l.fdate || '—'}</span></td>
+      <td style="color:var(--gold);font-weight:600">₹${(l.plan||1999).toLocaleString('en-IN')}</td>
+      <td><span style="font-size:11px;color:var(--text2)">${l.notes || '—'}</span></td>
+      <td>
+        <select class="crm-select" style="font-size:10px;padding:4px 6px;" onchange="updateStatus(${l.id},this.value)">
+          ${Object.entries(statusMap).map(([k,v]) => `<option value="${k}" ${k===l.status?'selected':''}>${v}</option>`).join('')}
+        </select>
+        <button class="btn small danger" style="margin-top:4px;" onclick="delLead(${l.id})">✕</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+function updateStatus(id, status) {
+  const leads = S.get('leads') || [];
+  const l = leads.find(x => x.id === id);
+  if (l) { l.status = status; S.set('leads', leads); renderCRM(); updateHdr(); }
+}
+function delLead(id) {
+  if (!confirm('Is lead ko delete karo?')) return;
+  const leads = (S.get('leads') || []).filter(l => l.id !== id);
+  S.set('leads', leads);
+  renderCRM();
+  updateHdr();
+}
+
+// ===== HEADER STATS =====
+function updateHdr() {
+  const leads = S.get('leads') || [];
+  const paid = leads.filter(l => l.status === 'paid').length;
+  document.getElementById('hdr-clients').textContent = paid;
+  const logs = S.get('logs') || [];
+  const thisMonth = D.getMonth();
+  const monthIncome = logs.filter(l => new Date(l.date).getMonth() === thisMonth).reduce((s, l) => s + l.income, 0);
+  document.getElementById('hdr-income').textContent = '₹' + monthIncome.toLocaleString('en-IN');
+}
+
+// ===== STREAK =====
+function updateStreak() {
+  const data = S.get('streak') || { current: 0, best: 0, total: 0, lastDate: null, weekDays: [] };
+  document.getElementById('streak-num').textContent = data.current;
+  document.getElementById('best-streak').textContent = data.best + ' days';
+  document.getElementById('total-days').textContent = data.total + ' days';
+  const thisWeek = (data.weekDays || []).filter(d => {
+    const diff = (D - new Date(d)) / (1000 * 60 * 60 * 24);
+    return diff >= 0 && diff < 7;
+  }).length;
+  document.getElementById('this-week-days').textContent = thisWeek + ' / 7';
+  const msgs = [
+    'Aaj se shuru karo!', 'Pehla kadam! Shukriya!', 'Ek aur din! Badhte raho!',
+    'Teen din! Momentum ban raha hai!', 'Chaar din! Habit form ho rahi hai!',
+    'Paanch din! Strong streak!', 'Chhe din! Ek aur aur week complete!',
+    'Ek poora hafta! Kya baat hai!', 'Aath din! Seriously impressive!',
+    '10 din! Double figures!', '2 hafte ke paas! Amazing!',
+    '14 din! Teri dedication dekh raha hoon!', '3 hafte ke paas!',
+    'Pura mahina lagbhag! Tu unstoppable hai!'
+  ];
+  const idx = Math.min(data.current, msgs.length - 1);
+  document.getElementById('streak-msg').textContent = msgs[idx];
+  if (data.current >= 7) {
+    document.querySelector('.streak-ring').style.borderColor = 'var(--gold)';
+    document.querySelector('.streak-ring').style.boxShadow = '0 0 20px rgba(245,166,35,0.25)';
+  }
+}
+function addStreak() {
+  const data = S.get('streak') || { current: 0, best: 0, total: 0, lastDate: null, weekDays: [] };
+  const today = D.toDateString();
+  if (data.lastDate === today) { alert('Aaj ka already mark kar diya hai!'); return; }
+  const yesterday = new Date(D - 86400000).toDateString();
+  data.current = (data.lastDate === yesterday) ? data.current + 1 : 1;
+  data.best = Math.max(data.best, data.current);
+  data.total = (data.total || 0) + 1;
+  data.lastDate = today;
+  data.weekDays = [...(data.weekDays || []), today].slice(-7);
+  S.set('streak', data);
+  updateStreak();
+  updateGoals();
+}
+function resetStreak() {
+  if (!confirm('Streak reset karo?')) return;
+  S.set('streak', { current: 0, best: 0, total: 0, lastDate: null, weekDays: [] });
+  updateStreak();
+}
+
+// ===== GOALS PROGRESS =====
+function updateGoals() {
+  const leads = S.get('leads') || [];
+  const paid = leads.filter(l => l.status === 'paid').length;
+  const logs = S.get('logs') || [];
+  const thisMonth = D.getMonth();
+  const mLogs = logs.filter(l => new Date(l.date).getMonth() === thisMonth);
+  const demos = mLogs.reduce((s, l) => s + l.demos, 0);
+  const income = mLogs.reduce((s, l) => s + l.income, 0);
+  const streak = S.get('streak') || {};
+  const streakDays = streak.total || 0;
+
+  setGoalBar('g-clients', paid, 10, paid + ' / 10');
+  setGoalBar('g-demos', demos, 60, demos + ' / 60');
+  setGoalBar('g-income', income, 20000, '₹' + income.toLocaleString('en-IN') + ' / ₹20,000');
+  setGoalBar('g-streak', Math.min(streakDays, 25), 25, streakDays + ' / 25');
+}
+function setGoalBar(id, val, max, label) {
+  const pct = Math.min(100, Math.round(val / max * 100));
+  document.getElementById(id + '-bar').style.width = pct + '%';
+  document.getElementById(id + '-val').textContent = label;
+}
+
+// ===== QUOTES =====
+const quotes = [
+  { text: "Ek kadam. Har din. Sirf ek kadam. Yahi empire banata hai.", author: "Vishnu Founder OS" },
+  { text: "Tu 24 saal ka hai. 95% log sirf sochte hain. Tu execute kar raha hai.", author: "Tere plan se" },
+  { text: "Planning sabne ki. Execution sirf winner karte hain.", author: "Vistech Empire" },
+  { text: "10 logon ne HAAN kaha. Market ne validate kar diya. Ab teri baari hai.", author: "Tera first validation" },
+  { text: "Ghar waalon ka doubt teri mehnat se khatam hoga — baaton se nahi.", author: "Tere founder OS se" },
+  { text: "Pain temporary hai. ₹1L/month permanent hoga.", author: "December 2026 target" },
+  { text: "Jo aaj ke kaam se bhagta hai, woh kal ke results se bhi bhaagega.", author: "Execution truth" },
+  { text: "System banao. System chalao. System scale karo.", author: "QR Repeat Revenue" },
+  { text: "Tere paas time hai. Tere paas plan hai. Tere paas validation hai. Ab ek kaam — karo.", author: "Abhi ka moment" },
+  { text: "Har demo ek ₹24,000/year ka door khol raha hai. 5 demos aaj?", author: "QR Math" },
+];
+let qi = 0;
+function newQuote() {
+  qi = (qi + 1) % quotes.length;
+  const q = quotes[qi];
+  document.getElementById('quote-text').textContent = '"' + q.text + '"';
+  document.querySelector('.q-author').textContent = '— ' + q.author + ' · Click karo naya quote';
+}
+
+// ===== INIT =====
+loadCL();
+renderTracker();
+renderCRM();
+updateStreak();
+updateGoals();
+updateHdr();
+</script>
+</body>
+</html>
